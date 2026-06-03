@@ -9,6 +9,15 @@ import giftCare from './assets/gift-care.jpg';
 import giftShoes from './assets/gift-shoes.jpg';
 import giftBox from './assets/gift-box.jpg';
 import giftFlower from './assets/gift-flower.jpg';
+import giftBoxOverview from './assets/gift-box-overview.jpg';
+import kitTowel from './assets/kit-towel.jpg';
+import kitWipes from './assets/kit-wipes.jpg';
+import kitPad from './assets/kit-pad.jpg';
+import kitCream from './assets/kit-cream.jpg';
+import kitCleanser from './assets/kit-cleanser.jpg';
+import kitChecklist from './assets/kit-checklist.jpg';
+import kitClaimGuide from './assets/kit-claim-guide.jpg';
+import kitRandom from './assets/kit-random.jpg';
 import bunny from './assets/contact-bunny.jpg';
 import reviewShoes from './assets/review-shoes.jpg';
 
@@ -33,6 +42,7 @@ function App() {
       <Hero today={today} month={month} />
       <TrustBand />
       <GiftIntro />
+      <GiftBoxSet />
       <Process />
       <ApplySection onSubmitSuccess={increaseCount} />
       <Reviews />
@@ -158,6 +168,70 @@ function GiftIntro() {
   );
 }
 
+
+function GiftBoxSet() {
+  const kitItems = [
+    { img: kitTowel, title: '아기 손수건', desc: '신생아 피부에 부드러운 필수템' },
+    { img: kitWipes, title: '아기 물티슈', desc: '출산 후 매일 쓰는 실용템' },
+    { img: kitPad, title: '수유패드', desc: '출산 후 바로 필요한 준비물' },
+    { img: kitCream, title: '산모 케어용품', desc: '예비맘을 위한 작은 케어' },
+    { img: kitCleanser, title: '젖병 세정 샘플', desc: '수유용품 준비에 도움' },
+    { img: kitChecklist, title: '출산 체크리스트', desc: '놓치기 쉬운 준비물 정리' },
+    { img: kitClaimGuide, title: '보험금 청구 가이드', desc: '출산 후 청구 준비 팁' },
+    { img: kitRandom, title: '랜덤 추가 선물', desc: '매월 구성에 따라 추가 증정' },
+  ];
+
+  const textItems = ['손수건', '물티슈', '수유패드', '산모케어용품', '젖병세정제', '출산 체크리스트', '보험금 청구 가이드', '랜덤 추가 선물'];
+
+  return (
+    <section className="box-set-section">
+      <div className="box-set-banner">
+        <div className="box-set-copy">
+          <span className="box-mini-label">MamiOn Gift Box</span>
+          <h2>
+            예비맘을 위한<br />
+            <strong>총 10종 구성</strong> 임신축하박스
+          </h2>
+          <p>
+            단순한 사은품이 아니라 출산 준비에 바로 도움이 되는 육아용품과
+            체크리스트, 청구 가이드까지 알차게 담았습니다.
+          </p>
+          <ul>
+            <li>전국 무료 신청</li>
+            <li>매월 한정 수량</li>
+            <li>구성품은 수급 상황에 따라 변경 가능</li>
+          </ul>
+          <button className="box-set-cta" onClick={scrollToApply}>지금 무료 신청하기</button>
+        </div>
+        <div className="box-set-image-wrap">
+          <img src={giftBoxOverview} alt="마미온 임신축하박스 총 10종 구성" />
+        </div>
+      </div>
+
+      <div className="kit-title">
+        <h3>박스 안에 들어가는 <strong>실용 구성품</strong></h3>
+        <p>산모와 아기에게 실제로 필요한 물품 위주로 준비했어요.</p>
+      </div>
+
+      <div className="kit-grid">
+        {kitItems.map((item) => (
+          <article className="kit-card" key={item.title}>
+            <img src={item.img} alt={item.title} />
+            <div>
+              <h4>{item.title}</h4>
+              <p>{item.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="kit-chip-row">
+        {textItems.map((item) => <span key={item}>{item}</span>)}
+      </div>
+    </section>
+  );
+}
+
 function Process() {
   const steps = [
     ['01', '간단 신청', '필수 정보만 입력해요.'],
@@ -244,14 +318,7 @@ function ApplySection({ onSubmitSuccess }) {
             </div>
             <div className="form-row">
               <Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => update('dueDate', e.target.value)} /></Field>
-              <Field label="선물 수령 주소">
-  <input
-    name="region"
-    value={form.region}
-    onChange={(e) => update('region', e.target.value)}
-    placeholder="예) 경기도 파주시 운정동 000-00, 101동 1001호"
-  />
-</Field>
+              <Field label="선물 수령 주소"><input name="region" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="예) 경기도 파주시 운정동 000-00, 101동 1001호" /></Field>
             </div>
             <Field label="현재 임신 주수">
               <div className="chips">{['12주 미만', '12~22주', '23~32주', '33주 이상'].map((v) => <button type="button" onClick={() => update('weeks', v)} className={form.weeks === v ? 'active' : ''} key={v}>{v}</button>)}</div>
