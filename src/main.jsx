@@ -197,9 +197,12 @@ function GiftBoxSet() {
           </ul>
           <button className="box-set-cta" onClick={scrollToApply}>지금 무료 신청하기</button>
         </div>
-        <div className="box-set-image-wrap">
-          <img src={kitRandomGift} alt="마미온 임신축하박스 구성" />
-        </div>
+<div className="box-set-image-wrap">
+  <img
+    src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=1200&auto=format&fit=crop"
+    alt="마미온 임신축하박스 구성"
+  />
+</div>
       </div>
 
       <div className="kit-title">
