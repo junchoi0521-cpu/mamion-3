@@ -666,3 +666,11 @@ form small { display: block; text-align: center; color: #7b7f87; margin-top: 14p
     height: 46px;
   }
 }
+/* 임신주수 자동계산 안내 문구 - src/styles.css 맨 아래에 추가 */
+
+.field-help {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #8b95a1;
+}
