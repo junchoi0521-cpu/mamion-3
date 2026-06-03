@@ -244,7 +244,14 @@ function ApplySection({ onSubmitSuccess }) {
             </div>
             <div className="form-row">
               <Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => update('dueDate', e.target.value)} /></Field>
-              <Field label="거주지 (시/군/구)"><input name="region" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="예) 파주 운정" /></Field>
+              <Field label="선물 수령 주소">
+  <input
+    name="region"
+    value={form.region}
+    onChange={(e) => update('region', e.target.value)}
+    placeholder="예) 경기도 파주시 운정동 000-00, 101동 1001호"
+  />
+</Field>
             </div>
             <Field label="현재 임신 주수">
               <div className="chips">{['12주 미만', '12~22주', '23~32주', '33주 이상'].map((v) => <button type="button" onClick={() => update('weeks', v)} className={form.weeks === v ? 'active' : ''} key={v}>{v}</button>)}</div>
