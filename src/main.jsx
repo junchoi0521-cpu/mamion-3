@@ -307,9 +307,23 @@ function ApplySection({ onSubmitSuccess }) {
   const [done, setDone] = useState(false);
   const [faqOpen, setFaqOpen] = useState(false);
 
-  const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
+const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
 
-  const loadDaumPostcodeScript = () =>
+const formatPhoneNumber = (value) => {
+  const numbers = value.replace(/[^0-9]/g, '');
+
+  if (numbers.length < 4) {
+    return numbers;
+  }
+
+  if (numbers.length < 8) {
+    return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+  }
+
+  return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+};
+
+const loadDaumPostcodeScript = () =>
     new Promise((resolve, reject) => {
       if (window.daum?.Postcode) {
         resolve();
