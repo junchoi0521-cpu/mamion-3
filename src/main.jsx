@@ -32,30 +32,10 @@ const scrollToApply = () =>
   document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxbLCk_krERTnHwCtrb8mcg37TGtYjMkDrnV2rkTTJmiOn5aorxFJns59SYQar_h5ba4w/exec';
-const GA_MEASUREMENT_ID = 'G-S9PMDYZRTS';
 
 function App() {
   const [today, setToday] = useState(23);
   const [month, setMonth] = useState(487);
-
-  useEffect(() => {
-    if (window.gtag) {
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-    document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag() {
-      window.dataLayer.push(arguments);
-    };
-
-    window.gtag('js', new Date());
-    window.gtag('config', GA_MEASUREMENT_ID);
-  }, []);
 
   const fetchApplicationCounts = () => {
     const callbackName = `mamionCountCallback_${Date.now()}`;
@@ -343,49 +323,6 @@ const formatPhoneNumber = (value) => {
   return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
 };
 
-const calculateWeeksFromDueDate = (dueDateValue) => {
-  if (!dueDateValue) {
-    return '';
-  }
-
-  const today = new Date();
-  const dueDate = new Date(`${dueDateValue}T00:00:00`);
-
-  if (Number.isNaN(dueDate.getTime())) {
-    return '';
-  }
-
-  const pregnancyDaysTotal = 280;
-  const diffMs = dueDate.getTime() - today.getTime();
-  const daysUntilDue = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-  const currentPregnancyDays = pregnancyDaysTotal - daysUntilDue;
-
-  if (currentPregnancyDays < 0) {
-    return '12주 미만';
-  }
-
-  const weeks = Math.floor(currentPregnancyDays / 7);
-
-  if (weeks < 12) {
-    return '12주 미만';
-  }
-
-  if (weeks <= 22) {
-    return '12~22주';
-  }
-
-  if (weeks <= 32) {
-    return '23~32주';
-  }
-
-  return '33주 이상';
-};
-
-const handleDueDateChange = (value) => {
-  update('dueDate', value);
-  update('weeks', calculateWeeksFromDueDate(value));
-};
-
 const loadDaumPostcodeScript = () =>
     new Promise((resolve, reject) => {
       if (window.daum?.Postcode) {
@@ -474,16 +411,6 @@ const loadDaumPostcodeScript = () =>
         }),
       });
 
-      if (window.gtag) {
-        window.gtag('event', 'generate_lead', {
-          event_category: 'form',
-          event_label: 'mamion_application',
-          pregnancy_weeks: form.weeks,
-          insurance_status: form.insurance,
-          marketing_agree: form.marketing ? 'yes' : 'no',
-        });
-      }
-
       onSubmitSuccess();
       setDone(true);
       setForm({
@@ -531,7 +458,7 @@ const loadDaumPostcodeScript = () =>
 
             <div className="form-row">
               <Field label="예상 출산일">
-                <input name="dueDate" type="date" value={form.dueDate} onChange={(e) => handleDueDateChange(e.target.value)} />
+                <input name="dueDate" type="date" value={form.dueDate} onChange={(e) => update('dueDate', e.target.value)} />
               </Field>
               <Field label="선물 수령 주소">
                 <div className="address-search-row">
@@ -556,7 +483,6 @@ const loadDaumPostcodeScript = () =>
             </div>
 
             <Field label="현재 임신 주수">
-              <p className="field-help">출산예정일을 선택하면 자동으로 계산돼요. 실제 주수와 다르면 직접 선택할 수 있어요.</p>
               <div className="chips">
                 {['12주 미만', '12~22주', '23~32주', '33주 이상'].map((v) => (
                   <button type="button" onClick={() => update('weeks', v)} className={form.weeks === v ? 'active' : ''} key={v}>{v}</button>
@@ -581,17 +507,66 @@ const loadDaumPostcodeScript = () =>
           </form>
         </div>
 
-        <aside className="contact-area">
-          <h3>궁금한 점이 있으신가요?</h3>
-          <p>언제든지 편하게 문의해주세요.</p>
-          <div className="phone-line"><Phone size={28} /><strong>010-1234-5678</strong></div>
-          <p className="hours">평일 09:00 - 18:00<br />(주말/공휴일 휴무)</p>
-          <div className="kakao-box"><MessageCircle size={22} /><span><strong>카카오톡 문의</strong><br />@마미온 검색</span></div>
-          <img className="bunny-photo" src={bunny} alt="아기용품과 응원 카드" />
+        <aside className="contact-area contact-trust-area">
+          <span className="contact-mini-label">MamiOn Care</span>
+          <h3>신청 후 이렇게 안내드려요</h3>
+          <p className="contact-lead">
+            신청 확인과 선물 안내를 위해 담당자가 순차적으로 연락드립니다.
+            부담되는 가입 권유가 아닌, 신청 내용 확인을 위한 안내입니다.
+          </p>
+
+          <div className="contact-step-list">
+            <div className="contact-step">
+              <b>01</b>
+              <span>
+                <strong>신청 내용 확인</strong>
+                <em>이름, 연락처, 수령 주소를 확인해요.</em>
+              </span>
+            </div>
+            <div className="contact-step">
+              <b>02</b>
+              <span>
+                <strong>축하선물 안내</strong>
+                <em>구성품과 수령 절차를 안내드려요.</em>
+              </span>
+            </div>
+            <div className="contact-step">
+              <b>03</b>
+              <span>
+                <strong>순차 발송 진행</strong>
+                <em>신청 순서에 따라 선물을 준비해요.</em>
+              </span>
+            </div>
+          </div>
+
+          <div className="contact-action-box">
+            <div className="kakao-box contact-kakao">
+              <MessageCircle size={22} />
+              <span><strong>카카오톡 문의</strong><br />@마미온 검색</span>
+            </div>
+
+            <div className="phone-line contact-phone">
+              <Phone size={24} />
+              <span>
+                <small>전화 문의</small>
+                <strong>010-1234-5678</strong>
+              </span>
+            </div>
+          </div>
+
+          <p className="hours contact-hours">
+            평일 09:00 - 18:00<br />
+            주말/공휴일은 순차적으로 답변드립니다.
+          </p>
+
           <button className="faq-toggle" onClick={() => setFaqOpen(!faqOpen)}>
             신청 후 왜 연락이 오나요? <ChevronDown size={16} />
           </button>
-          {faqOpen && <p className="faq-answer">신청 확인 및 축하선물 안내를 위해 순차적으로 연락드립니다.</p>}
+          {faqOpen && (
+            <p className="faq-answer">
+              신청 확인, 선물 수령 안내, 필요 시 간단한 문의 응대를 위해 연락드립니다.
+            </p>
+          )}
         </aside>
       </div>
     </section>
