@@ -264,6 +264,7 @@ function ApplySection({ onSubmitSuccess }) {
     phone: '',
     dueDate: '',
     region: '',
+    detailAddress: '',
     weeks: '',
     insurance: '',
     privacy: false,
@@ -274,6 +275,60 @@ function ApplySection({ onSubmitSuccess }) {
   const [faqOpen, setFaqOpen] = useState(false);
 
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
+
+  const loadDaumPostcodeScript = () =>
+    new Promise((resolve, reject) => {
+      if (window.daum?.Postcode) {
+        resolve();
+        return;
+      }
+
+      const existingScript = document.getElementById('daum-postcode-script');
+      if (existingScript) {
+        existingScript.addEventListener('load', resolve);
+        existingScript.addEventListener('error', reject);
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.id = 'daum-postcode-script';
+      script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+      script.onload = resolve;
+      script.onerror = reject;
+      document.body.appendChild(script);
+    });
+
+  const openAddressSearch = async () => {
+    try {
+      await loadDaumPostcodeScript();
+
+      new window.daum.Postcode({
+        oncomplete: function (data) {
+          const roadAddress = data.roadAddress || data.jibunAddress;
+          const extraAddressParts = [];
+
+          if (data.bname && /[동|로|가]$/g.test(data.bname)) {
+            extraAddressParts.push(data.bname);
+          }
+
+          if (data.buildingName && data.apartment === 'Y') {
+            extraAddressParts.push(data.buildingName);
+          }
+
+          const extraAddress = extraAddressParts.length ? ` (${extraAddressParts.join(', ')})` : '';
+          const fullAddress = `[${data.zonecode}] ${roadAddress}${extraAddress}`;
+
+          update('region', fullAddress);
+
+          setTimeout(() => {
+            document.querySelector('input[name="detailAddress"]')?.focus();
+          }, 50);
+        },
+      }).open();
+    } catch {
+      alert('주소 검색을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  };
 
   async function submit(e) {
     e.preventDefault();
@@ -299,7 +354,7 @@ function ApplySection({ onSubmitSuccess }) {
           name: form.name,
           phone: form.phone,
           dueDate: form.dueDate,
-          region: form.region,
+          region: `${form.region}${form.detailAddress ? ' ' + form.detailAddress : ''}`,
           weeks: form.weeks,
           insurance: form.insurance,
           privacy: form.privacy,
@@ -316,6 +371,7 @@ function ApplySection({ onSubmitSuccess }) {
         phone: '',
         dueDate: '',
         region: '',
+        detailAddress: '',
         weeks: '',
         insurance: '',
         privacy: false,
@@ -352,7 +408,24 @@ function ApplySection({ onSubmitSuccess }) {
                 <input name="dueDate" type="date" value={form.dueDate} onChange={(e) => update('dueDate', e.target.value)} />
               </Field>
               <Field label="선물 수령 주소">
-                <input name="region" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="예) 경기도 파주시 운정동 000-00, 101동 1001호" />
+                <div className="address-search-row">
+                  <input
+                    name="region"
+                    value={form.region}
+                    onChange={(e) => update('region', e.target.value)}
+                    placeholder="주소 검색 버튼을 눌러주세요"
+                    readOnly
+                  />
+                  <button type="button" className="address-search-btn" onClick={openAddressSearch}>
+                    주소 검색
+                  </button>
+                </div>
+                <input
+                  name="detailAddress"
+                  value={form.detailAddress}
+                  onChange={(e) => update('detailAddress', e.target.value)}
+                  placeholder="상세주소를 입력해주세요. 예) 101동 1001호"
+                />
               </Field>
             </div>
 
