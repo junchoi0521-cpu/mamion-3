@@ -432,7 +432,13 @@ function ApplySection({ onSubmitSuccess }) {
                 <input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" />
               </Field>
               <Field label="연락처">
-                <input name="phone" value={form.phone} onChange={(e) => update('phone', e.target.value)} placeholder="010-1234-5678" />
+                <input
+  name="phone"
+  value={form.phone}
+  onChange={(e) => update('phone', formatPhoneNumber(e.target.value))}
+  placeholder="010-1234-5678"
+  maxLength={13}
+/>
               </Field>
             </div>
 
