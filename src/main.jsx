@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   Calendar,
@@ -31,18 +31,51 @@ import kitRandomGift from './assets/kit-random-gift.jpg';
 const scrollToApply = () =>
   document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
 
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxbLCk_krERTnHwCtrb8mcg37TGtYjMkDrnV2rkTTJmiOn5aorxFJns59SYQar_h5ba4w/exec';
+
 function App() {
-  const [today, setToday] = useState(() => Number(localStorage.getItem('mamion_today') || 23));
-  const [month, setMonth] = useState(() => Number(localStorage.getItem('mamion_month') || 487));
+  const [today, setToday] = useState(23);
+  const [month, setMonth] = useState(487);
+
+  const fetchApplicationCounts = () => {
+    const callbackName = `mamionCountCallback_${Date.now()}`;
+
+    window[callbackName] = (data) => {
+      if (typeof data.today === 'number') {
+        setToday(data.today);
+      }
+
+      if (typeof data.month === 'number') {
+        setMonth(data.month);
+      }
+
+      delete window[callbackName];
+      document.getElementById(callbackName)?.remove();
+    };
+
+    const script = document.createElement('script');
+    script.id = callbackName;
+    script.src = `${APPS_SCRIPT_URL}?action=count&callback=${callbackName}`;
+    script.onerror = () => {
+      delete window[callbackName];
+      script.remove();
+    };
+
+    document.body.appendChild(script);
+  };
 
   const increaseCount = () => {
-    const nextToday = today + 1;
-    const nextMonth = month + 1;
-    setToday(nextToday);
-    setMonth(nextMonth);
-    localStorage.setItem('mamion_today', String(nextToday));
-    localStorage.setItem('mamion_month', String(nextMonth));
+    setToday((prev) => prev + 1);
+    setMonth((prev) => prev + 1);
+
+    setTimeout(() => {
+      fetchApplicationCounts();
+    }, 1200);
   };
+
+  useEffect(() => {
+    fetchApplicationCounts();
+  }, []);
 
   return (
     <main className="page">
