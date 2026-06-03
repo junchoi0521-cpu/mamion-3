@@ -22,6 +22,7 @@ import giftBox from './assets/gift-box.jpg';
 import giftFlower from './assets/gift-flower.jpg';
 import bunny from './assets/contact-bunny.jpg';
 import reviewShoes from './assets/review-shoes.jpg';
+import giftBoxOverview from './assets/gift-box-overview.jpg';
 
 import kitHandkerchief from './assets/kit-handkerchief.jpg';
 import kitWipes from './assets/kit-wipes.jpg';
@@ -198,11 +199,11 @@ function GiftBoxSet() {
           <button className="box-set-cta" onClick={scrollToApply}>지금 무료 신청하기</button>
         </div>
 <div className="box-set-image-wrap">
-  <img
-    src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=1200&auto=format&fit=crop"
-    alt="마미온 임신축하박스 구성"
-  />
-</div>
+          <img
+            src={giftBoxOverview}
+            alt="마미온 임신축하박스 8종 구성"
+          />
+        </div>
       </div>
 
       <div className="kit-title">
