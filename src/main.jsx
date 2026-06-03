@@ -323,6 +323,49 @@ const formatPhoneNumber = (value) => {
   return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
 };
 
+const calculateWeeksFromDueDate = (dueDateValue) => {
+  if (!dueDateValue) {
+    return '';
+  }
+
+  const today = new Date();
+  const dueDate = new Date(`${dueDateValue}T00:00:00`);
+
+  if (Number.isNaN(dueDate.getTime())) {
+    return '';
+  }
+
+  const pregnancyDaysTotal = 280;
+  const diffMs = dueDate.getTime() - today.getTime();
+  const daysUntilDue = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+  const currentPregnancyDays = pregnancyDaysTotal - daysUntilDue;
+
+  if (currentPregnancyDays < 0) {
+    return '12주 미만';
+  }
+
+  const weeks = Math.floor(currentPregnancyDays / 7);
+
+  if (weeks < 12) {
+    return '12주 미만';
+  }
+
+  if (weeks <= 22) {
+    return '12~22주';
+  }
+
+  if (weeks <= 32) {
+    return '23~32주';
+  }
+
+  return '33주 이상';
+};
+
+const handleDueDateChange = (value) => {
+  update('dueDate', value);
+  update('weeks', calculateWeeksFromDueDate(value));
+};
+
 const loadDaumPostcodeScript = () =>
     new Promise((resolve, reject) => {
       if (window.daum?.Postcode) {
@@ -458,7 +501,7 @@ const loadDaumPostcodeScript = () =>
 
             <div className="form-row">
               <Field label="예상 출산일">
-                <input name="dueDate" type="date" value={form.dueDate} onChange={(e) => update('dueDate', e.target.value)} />
+                <input name="dueDate" type="date" value={form.dueDate} onChange={(e) => handleDueDateChange(e.target.value)} />
               </Field>
               <Field label="선물 수령 주소">
                 <div className="address-search-row">
@@ -483,6 +526,7 @@ const loadDaumPostcodeScript = () =>
             </div>
 
             <Field label="현재 임신 주수">
+              <p className="field-help">출산예정일을 선택하면 자동으로 계산돼요. 실제 주수와 다르면 직접 선택할 수 있어요.</p>
               <div className="chips">
                 {['12주 미만', '12~22주', '23~32주', '33주 이상'].map((v) => (
                   <button type="button" onClick={() => update('weeks', v)} className={form.weeks === v ? 'active' : ''} key={v}>{v}</button>
