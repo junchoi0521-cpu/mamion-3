@@ -277,34 +277,38 @@ function ApplySection({ onSubmitSuccess }) {
 
   async function submit(e) {
     e.preventDefault();
+
     if (!form.name || !form.phone || !form.dueDate || !form.region || !form.weeks || !form.insurance) {
       alert('필수 항목을 모두 입력해주세요.');
       return;
     }
+
     if (!form.privacy || !form.thirdParty) {
       alert('필수 동의 항목을 체크해주세요.');
       return;
     }
 
-    const body = new URLSearchParams({
-      'form-name': 'mamion-application',
-      name: form.name,
-      phone: form.phone,
-      dueDate: form.dueDate,
-      region: form.region,
-      weeks: form.weeks,
-      insurance: form.insurance,
-      privacy: String(form.privacy),
-      thirdParty: String(form.thirdParty),
-      marketing: String(form.marketing),
-    }).toString();
-
     try {
-      await fetch('/', {
+      await fetch('https://script.google.com/macros/s/AKfycbxbLCk_krERTnHwCtrb8mcg37TGtYjMkDrnV2rkTTJmiOn5aorxFJns59SYQar_h5ba4w/exec', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body,
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          dueDate: form.dueDate,
+          region: form.region,
+          weeks: form.weeks,
+          insurance: form.insurance,
+          privacy: form.privacy,
+          thirdParty: form.thirdParty,
+          marketing: form.marketing,
+          createdAt: new Date().toISOString(),
+        }),
       });
+
       onSubmitSuccess();
       setDone(true);
       setForm({
@@ -323,6 +327,7 @@ function ApplySection({ onSubmitSuccess }) {
     }
   }
 
+
   return (
     <section id="apply" className="apply-section">
       <div className="apply-card">
@@ -332,9 +337,7 @@ function ApplySection({ onSubmitSuccess }) {
           <p>간단한 정보 입력으로 소중한 선물을 받아보세요.</p>
           {done && <div className="success">신청이 완료되었습니다 💝<br />담당자가 순차적으로 안내드릴 예정입니다.</div>}
 
-          <form name="mamion-application" method="POST" data-netlify="true" onSubmit={submit}>
-            <input type="hidden" name="form-name" value="mamion-application" />
-
+          <form onSubmit={submit}>
             <div className="form-row">
               <Field label="이름">
                 <input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" />
