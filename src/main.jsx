@@ -20,6 +20,14 @@ import kitClaimGuide from './assets/kit-claim-guide.jpg';
 import kitRandom from './assets/kit-random.jpg';
 import bunny from './assets/contact-bunny.jpg';
 import reviewShoes from './assets/review-shoes.jpg';
+import kitHandkerchief from './assets/kit-handkerchief.jpg';
+import kitWipes from './assets/kit-wipes.jpg';
+import kitNursingPad from './assets/kit-nursing-pad.jpg';
+import kitMomCare from './assets/kit-mom-care.jpg';
+import kitCleanser from './assets/kit-cleanser.jpg';
+import kitChecklist from './assets/kit-checklist.jpg';
+import kitClaimGuide from './assets/kit-claim-guide.jpg';
+import kitRandomGift from './assets/kit-random-gift.jpg';
 
 const scrollToApply = () => document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
 
@@ -41,6 +49,7 @@ function App() {
       <Header />
       <Hero today={today} month={month} />
       <TrustBand />
+// <PracticalGiftKitSection />
       <GiftIntro />
       <GiftBoxSet />
       <Process />
@@ -182,6 +191,98 @@ function GiftBoxSet() {
   ];
 
   const textItems = ['손수건', '물티슈', '수유패드', '산모케어용품', '젖병세정제', '출산 체크리스트', '보험금 청구 가이드', '랜덤 추가 선물'];
+function PracticalGiftKitSection() {
+  const items = [
+    {
+      no: '01',
+      img: kitHandkerchief,
+      title: '아기 손수건',
+      desc: '부드러운 순면 손수건으로 신생아 피부에 자극 없이 안심',
+      tag: '손수건',
+    },
+    {
+      no: '02',
+      img: kitWipes,
+      title: '아기 물티슈',
+      desc: '출산 후 매일 쓰는 실용템, 순하고 도톰하게 케어',
+      tag: '물티슈',
+    },
+    {
+      no: '03',
+      img: kitNursingPad,
+      title: '수유패드',
+      desc: '흡수력 좋은 수유패드로 산모의 하루를 더 편안하게',
+      tag: '수유패드',
+    },
+    {
+      no: '04',
+      img: kitMomCare,
+      title: '산모 케어용품',
+      desc: '출산 전후 지친 산모를 위한 작은 케어 구성',
+      tag: '산모케어',
+    },
+    {
+      no: '05',
+      img: kitCleanser,
+      title: '젖병 세정 샘플',
+      desc: '젖병과 젖꼭지까지 깨끗하게 준비하는 세정 샘플',
+      tag: '젖병세정',
+    },
+    {
+      no: '06',
+      img: kitChecklist,
+      title: '출산 체크리스트',
+      desc: '놓치기 쉬운 준비물과 할 일을 한눈에 확인',
+      tag: '체크리스트',
+    },
+    {
+      no: '07',
+      img: kitClaimGuide,
+      title: '보험금 청구 가이드',
+      desc: '출산 후 필요한 청구 절차를 쉽게 정리한 안내 자료',
+      tag: '청구가이드',
+    },
+    {
+      no: '08',
+      img: kitRandomGift,
+      title: '랜덤 추가 선물',
+      desc: '매월 구성에 따라 추가 선물이 랜덤으로 함께 발송돼요',
+      tag: '랜덤선물',
+    },
+  ];
+
+  return (
+    <section id="giftkit" className="practical-kit-section">
+      <div className="kit-title">
+        <span>총 8종 실속 구성</span>
+        <h2>박스 안에 들어가는 <strong>실용 구성품</strong></h2>
+        <p>산모와 아기에게 실제로 필요한 물품 위주로 준비했어요.</p>
+      </div>
+
+      <div className="kit-grid">
+        {items.map((item) => (
+          <article className="kit-card" key={item.title}>
+            <div className="kit-photo-wrap">
+              <b>{item.no}</b>
+              <button type="button" aria-label="favorite">♡</button>
+              <img src={item.img} alt={item.title} />
+            </div>
+            <div className="kit-card-body">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="kit-tags">
+        {items.map((item) => <span key={item.tag}>{item.tag}</span>)}
+      </div>
+
+      <p className="kit-note">* 구성품은 협력사 및 수급 상황에 따라 일부 변경될 수 있습니다.</p>
+    </section>
+  );
+}
 
   return (
     <section className="box-set-section">
@@ -407,112 +508,3 @@ function StickyButton() {
 }
 
 createRoot(document.getElementById('root')).render(<App />);
-
-
-// 1) main.jsx 상단 import 영역에 아래 8줄을 추가하세요.
-import kitHandkerchief from './assets/kit-handkerchief.jpg';
-import kitWipes from './assets/kit-wipes.jpg';
-import kitNursingPad from './assets/kit-nursing-pad.jpg';
-import kitMomCare from './assets/kit-mom-care.jpg';
-import kitCleanser from './assets/kit-cleanser.jpg';
-import kitChecklist from './assets/kit-checklist.jpg';
-import kitClaimGuide from './assets/kit-claim-guide.jpg';
-import kitRandomGift from './assets/kit-random-gift.jpg';
-
-// 2) App() return 안에서 Hero/TrustBand 아래, 신청폼 위 원하는 위치에 추가하세요.
-// <PracticalGiftKitSection />
-
-// 3) main.jsx 하단 아무 함수들 사이에 아래 함수를 통째로 붙여넣으세요.
-function PracticalGiftKitSection() {
-  const items = [
-    {
-      no: '01',
-      img: kitHandkerchief,
-      title: '아기 손수건',
-      desc: '부드러운 순면 손수건으로 신생아 피부에 자극 없이 안심',
-      tag: '손수건',
-    },
-    {
-      no: '02',
-      img: kitWipes,
-      title: '아기 물티슈',
-      desc: '출산 후 매일 쓰는 실용템, 순하고 도톰하게 케어',
-      tag: '물티슈',
-    },
-    {
-      no: '03',
-      img: kitNursingPad,
-      title: '수유패드',
-      desc: '흡수력 좋은 수유패드로 산모의 하루를 더 편안하게',
-      tag: '수유패드',
-    },
-    {
-      no: '04',
-      img: kitMomCare,
-      title: '산모 케어용품',
-      desc: '출산 전후 지친 산모를 위한 작은 케어 구성',
-      tag: '산모케어',
-    },
-    {
-      no: '05',
-      img: kitCleanser,
-      title: '젖병 세정 샘플',
-      desc: '젖병과 젖꼭지까지 깨끗하게 준비하는 세정 샘플',
-      tag: '젖병세정',
-    },
-    {
-      no: '06',
-      img: kitChecklist,
-      title: '출산 체크리스트',
-      desc: '놓치기 쉬운 준비물과 할 일을 한눈에 확인',
-      tag: '체크리스트',
-    },
-    {
-      no: '07',
-      img: kitClaimGuide,
-      title: '보험금 청구 가이드',
-      desc: '출산 후 필요한 청구 절차를 쉽게 정리한 안내 자료',
-      tag: '청구가이드',
-    },
-    {
-      no: '08',
-      img: kitRandomGift,
-      title: '랜덤 추가 선물',
-      desc: '매월 구성에 따라 추가 선물이 랜덤으로 함께 발송돼요',
-      tag: '랜덤선물',
-    },
-  ];
-
-  return (
-    <section id="giftkit" className="practical-kit-section">
-      <div className="kit-title">
-        <span>총 8종 실속 구성</span>
-        <h2>박스 안에 들어가는 <strong>실용 구성품</strong></h2>
-        <p>산모와 아기에게 실제로 필요한 물품 위주로 준비했어요.</p>
-      </div>
-
-      <div className="kit-grid">
-        {items.map((item) => (
-          <article className="kit-card" key={item.title}>
-            <div className="kit-photo-wrap">
-              <b>{item.no}</b>
-              <button type="button" aria-label="favorite">♡</button>
-              <img src={item.img} alt={item.title} />
-            </div>
-            <div className="kit-card-body">
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div className="kit-tags">
-        {items.map((item) => <span key={item.tag}>{item.tag}</span>)}
-      </div>
-
-      <p className="kit-note">* 구성품은 협력사 및 수급 상황에 따라 일부 변경될 수 있습니다.</p>
-    </section>
-  );
-}
-
