@@ -32,10 +32,30 @@ const scrollToApply = () =>
   document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxbLCk_krERTnHwCtrb8mcg37TGtYjMkDrnV2rkTTJmiOn5aorxFJns59SYQar_h5ba4w/exec';
+const GA_MEASUREMENT_ID = 'G-S9PMDYZRTS';
 
 function App() {
   const [today, setToday] = useState(23);
   const [month, setMonth] = useState(487);
+
+  useEffect(() => {
+    if (window.gtag) {
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() {
+      window.dataLayer.push(arguments);
+    };
+
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID);
+  }, []);
 
   const fetchApplicationCounts = () => {
     const callbackName = `mamionCountCallback_${Date.now()}`;
@@ -453,6 +473,16 @@ const loadDaumPostcodeScript = () =>
           createdAt: new Date().toISOString(),
         }),
       });
+
+      if (window.gtag) {
+        window.gtag('event', 'generate_lead', {
+          event_category: 'form',
+          event_label: 'mamion_application',
+          pregnancy_weeks: form.weeks,
+          insurance_status: form.insurance,
+          marketing_agree: form.marketing ? 'yes' : 'no',
+        });
+      }
 
       onSubmitSuccess();
       setDone(true);
