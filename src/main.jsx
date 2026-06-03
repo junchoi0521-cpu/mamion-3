@@ -15,11 +15,6 @@ import {
 import './styles.css';
 
 import heroMom from './assets/hero-mom.jpg';
-import giftBaby from './assets/gift-baby.jpg';
-import giftCare from './assets/gift-care.jpg';
-import giftShoes from './assets/gift-shoes.jpg';
-import giftBox from './assets/gift-box.jpg';
-import giftFlower from './assets/gift-flower.jpg';
 import bunny from './assets/contact-bunny.jpg';
 import reviewShoes from './assets/review-shoes.jpg';
 import giftBoxOverview from './assets/gift-box-overview.jpg';
@@ -55,7 +50,6 @@ function App() {
       <Hero today={today} month={month} />
       <TrustBand />
       <GiftBoxSet />
-      <GiftIntro />
       <Process />
       <ApplySection onSubmitSuccess={increaseCount} />
       <Reviews />
@@ -233,35 +227,6 @@ function GiftBoxSet() {
       </div>
 
       <p className="gift-notice kit-note">* 구성품은 협력사 및 수급 상황에 따라 일부 변경될 수 있습니다.</p>
-    </section>
-  );
-}
-
-function GiftIntro() {
-  const gifts = [
-    { img: giftBaby, title: '프리미엄 육아용품', desc: '엄선된 고품질 제품' },
-    { img: giftCare, title: '산모 건강 케어', desc: '엄마의 건강을 생각한 제품' },
-    { img: giftShoes, title: '신생아 필수템', desc: '첫 만남을 위한 필수 용품' },
-    { img: giftBox, title: '정성 가득 선물포장', desc: '마음까지 전하는 포장' },
-    { img: giftFlower, title: '따뜻한 응원 메시지', desc: '축하와 응원의 마음을 담아' },
-  ];
-
-  return (
-    <section id="gift" className="gift-section">
-      <div className="title-center">
-        <h2>마미온의 <strong>임신축하선물</strong></h2>
-        <p>예비맘의 건강과 행복을 위한 선물을 정성껏 준비했어요.</p>
-      </div>
-      <div className="gift-grid">
-        {gifts.map((g) => (
-          <article className="gift-item" key={g.title}>
-            <img src={g.img} alt={g.title} />
-            <h3>{g.title}</h3>
-            <p>{g.desc}</p>
-          </article>
-        ))}
-      </div>
-      <p className="gift-notice">* 구성품은 협력사 및 수급 상황에 따라 일부 변경될 수 있습니다.</p>
     </section>
   );
 }
