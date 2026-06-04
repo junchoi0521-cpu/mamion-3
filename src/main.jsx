@@ -860,7 +860,13 @@ function Footer() {
       <nav>
         <a href="/privacy">개인정보처리방침</a>
         <a href="/terms">이용약관</a>
-        <a href="#apply">문의하기</a>
+        <a
+  href="https://pf.kakao.com/_MKDGX/friend"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  문의하기
+</a>
       </nav>
 
       <div className="sns">
