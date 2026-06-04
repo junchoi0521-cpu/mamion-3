@@ -718,10 +718,16 @@ function Faq() {
 function Footer() {
   return (
     <footer className="footer">
-      <div className="footer-brand">
-        <span className="logo-flower">✤</span>
-        <strong>MamiOn</strong>
-      </div>
+<div className="footer-brand">
+  <img
+    src={logo}
+    alt="마미온"
+    style={{
+      height: "40px",
+      width: "auto"
+    }}
+  />
+</div>
 
       <p>
         마미온은 예비맘과 아기의 건강과 행복을 응원합니다.
