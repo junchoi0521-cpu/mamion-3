@@ -35,8 +35,8 @@ const scrollToApply = () =>
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
 
 function App() {
-  const [today, setToday] = useState(23);
-  const [month, setMonth] = useState(487);
+  const [today, setToday] = useState(0);
+  const [month, setMonth] = useState(0);
 
   const fetchApplicationCounts = () => {
     const callbackName = `mamionCountCallback_${Date.now()}`;
