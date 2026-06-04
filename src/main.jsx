@@ -825,26 +825,118 @@ function Field({ label, children }) {
 
 function Reviews() {
   const reviews = [
-    ['선물도 너무 알차고 포장도 예뻐서 감동받았어요! 마미온 덕분에 행복한 임신 기간을 보내고 있어요.', '김○○ 고객님'],
-    ['신청하고 일주일 만에 받았어요! 안내도 친절하고 선물도 정말 마음에 들어요.', '박○○ 고객님'],
-    ['출산 준비하면서 필요한 정보도 함께 받을 수 있어서 좋았어요. 정말 추천합니다!', '이○○ 고객님'],
+    {
+      name: '김○○ 고객님',
+      text: '첫 임신이라 준비할 게 많아서 막막했는데 신청 과정이 간단해서 좋았어요. 선물 구성도 실용적인 것들이라 출산 준비에 도움이 됐습니다.',
+    },
+    {
+      name: '박○○ 고객님',
+      text: '신청하고 안내 연락도 부담스럽지 않게 와서 편했어요. 물티슈랑 손수건처럼 바로 필요한 구성이라 만족스러웠습니다.',
+    },
+    {
+      name: '이○○ 고객님',
+      text: '출산 준비하면서 이런저런 정보가 필요했는데 선물과 함께 체크할 내용도 알 수 있어서 좋았어요. 주변 지인에게도 알려줬습니다.',
+    },
+    {
+      name: '최○○ 고객님',
+      text: '무료 신청이라 큰 기대는 안 했는데 생각보다 구성이 알차서 놀랐어요. 특히 수유패드랑 손수건은 실제로 꼭 필요한 물품이라 좋았습니다.',
+    },
+    {
+      name: '정○○ 고객님',
+      text: '신청 페이지가 복잡하지 않아서 금방 신청했어요. 안내도 친절했고, 출산 준비 중인 예비맘에게 필요한 느낌이 들었습니다.',
+    },
+    {
+      name: '한○○ 고객님',
+      text: '처음에는 광고인 줄 알고 망설였는데 신청 후 안내가 깔끔해서 좋았어요. 강요하는 느낌 없이 필요한 부분만 확인해줘서 편했습니다.',
+    },
+    {
+      name: '윤○○ 고객님',
+      text: '임신 중이라 작은 혜택도 반가운데 무료 선물이라 더 좋았어요. 포장도 예쁘고 구성도 실용적이라 기분 좋게 받았습니다.',
+    },
+    {
+      name: '강○○ 고객님',
+      text: '출산 예정일 입력하니까 임신 주수도 바로 확인돼서 편했어요. 신청 절차가 짧고 모바일에서도 보기 좋아서 어렵지 않았습니다.',
+    },
+    {
+      name: '송○○ 고객님',
+      text: '신청 후 어떻게 진행되는지 안내가 잘 되어 있어서 안심됐어요. 선물도 예비맘에게 필요한 구성이라 만족했습니다.',
+    },
+    {
+      name: '오○○ 고객님',
+      text: '첫째 때는 이런 혜택을 잘 몰랐는데 둘째 준비하면서 알게 됐어요. 무료로 받을 수 있는 구성치고는 꽤 괜찮았습니다.',
+    },
+    {
+      name: '문○○ 고객님',
+      text: '주소 검색부터 신청까지 한 번에 돼서 편했어요. 신청 후 안내도 빠르게 와서 기다리는 동안 불안하지 않았습니다.',
+    },
+    {
+      name: '서○○ 고객님',
+      text: '출산 준비물 리스트를 하나씩 챙기는 중이었는데 작은 도움이 됐어요. 예비맘이라면 한 번 신청해볼 만하다고 생각합니다.',
+    },
   ];
+
+  const reviewsPerPage = 3;
+  const totalPages = Math.ceil(reviews.length / reviewsPerPage);
+  const [page, setPage] = useState(0);
+
+  const nextPage = () => {
+    setPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const prevPage = () => {
+    setPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  const visibleReviews = reviews.slice(
+    page * reviewsPerPage,
+    page * reviewsPerPage + reviewsPerPage
+  );
 
   return (
     <section id="reviews" className="reviews-section">
       <h2>마미온 고객님들의 따뜻한 후기</h2>
-      <p>실제 고객님들의 소중한 경험을 확인해보세요.</p>
-      <div className="reviews-layout">
-        <div className="review-cards">
-          {reviews.map(([text, name]) => (
-            <article className="review-card" key={name}>
+      <p>예비맘 분들이 남겨주신 따뜻한 이야기를 확인해보세요.</p>
+
+      <div className="reviews-slider">
+        <button
+          type="button"
+          className="review-arrow review-arrow-left"
+          onClick={prevPage}
+          aria-label="이전 후기 보기"
+        >
+          ‹
+        </button>
+
+        <div className="review-cards review-slider-cards">
+          {visibleReviews.map((review) => (
+            <article className="review-card" key={review.name}>
               <div className="stars">★★★★★</div>
-              <p>{text}</p>
-              <strong>- {name}</strong>
+              <p>{review.text}</p>
+              <strong>- {review.name}</strong>
             </article>
           ))}
         </div>
-        <img className="review-image" src={reviewShoes} alt="신생아 신발과 꽃" />
+
+        <button
+          type="button"
+          className="review-arrow review-arrow-right"
+          onClick={nextPage}
+          aria-label="다음 후기 보기"
+        >
+          ›
+        </button>
+      </div>
+
+      <div className="review-dots" aria-label="후기 페이지 선택">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <button
+            type="button"
+            key={index}
+            className={page === index ? 'active' : ''}
+            onClick={() => setPage(index)}
+            aria-label={`${index + 1}번째 후기 페이지 보기`}
+          />
+        ))}
       </div>
     </section>
   );
