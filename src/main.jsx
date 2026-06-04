@@ -496,9 +496,9 @@ const loadDaumPostcodeScript = () =>
         }),
       });
 
-      onSubmitSuccess();
-      setDone(true);
-      setForm({
+onSubmitSuccess();
+window.location.href = '/thanks';
+return;
         name: '',
         phone: '',
         dueDate: '',
@@ -751,7 +751,36 @@ function Footer() {
 function StickyButton() {
   return <button className="sticky" onClick={scrollToApply}>임신축하선물 신청하기</button>;
 }
+function ThanksPage() {
+  return (
+    <main className="page">
+      <Header />
 
+      <section className="thanks-section">
+        <div className="thanks-card">
+          <div className="thanks-icon">🎁</div>
+          <h1>신청이 완료되었습니다!</h1>
+          <p>
+            마미온 임신축하선물 신청이 정상 접수되었습니다.<br />
+            담당자가 신청 내용을 확인 후 순차적으로 연락드릴 예정입니다.
+          </p>
+
+          <div className="thanks-info">
+            <p>📌 보통 1~3일 내 연락드립니다.</p>
+            <p>📌 선물 수령 안내를 위해 카카오톡 또는 전화로 연락드릴 수 있습니다.</p>
+            <p>📌 신청 정보는 선물 발송 및 안내 목적으로만 사용됩니다.</p>
+          </div>
+
+          <button className="thanks-btn" onClick={() => window.location.href = '/'}>
+            홈으로 돌아가기
+          </button>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  );
+}
 function PolicyPage({ type }) {
   return (
     <main className="page">
@@ -767,5 +796,6 @@ const path = window.location.pathname;
 createRoot(document.getElementById('root')).render(
   path === '/privacy' ? <PolicyPage type="privacy" /> :
   path === '/terms' ? <PolicyPage type="terms" /> :
+  path === '/thanks' ? <ThanksPage /> :
   <App />
 );
