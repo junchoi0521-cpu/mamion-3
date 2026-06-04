@@ -34,7 +34,7 @@ const scrollToApply = () =>
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
 const DISPLAY_TODAY_OFFSET = 43;
-const DISPLAY_TOTAL_OFFSET = 4386;
+const DISPLAY_TOTAL_OFFSET = 2000;
 
 function App() {
   const [today, setToday] = useState(DISPLAY_TODAY_OFFSET);
@@ -1195,69 +1195,82 @@ function Faq() {
 
 function Footer() {
   return (
-    <footer className="footer premium-footer">
-      <div className="footer-inner">
-        <div className="footer-brand-area">
-          <img
-            src={logo}
-            alt="마미온"
-            className="footer-logo"
-          />
+    <footer className="footer premium-footer final-footer">
+      <div className="footer-container">
+        <div className="footer-main-card">
+          <div className="footer-brand-block">
+            <img
+              src={logo}
+              alt="마미온"
+              className="footer-logo"
+            />
 
-          <p className="footer-desc">
-            마미온은 예비맘과 아기의 건강과 행복을 응원하는
-            임신축하선물 무료 신청 플랫폼입니다.
-          </p>
+            <h3>예비맘을 위한 임신축하선물 무료 신청</h3>
 
-          <div className="footer-badges">
-            <span>100% 무료 신청</span>
-            <span>전국 예비맘 대상</span>
-            <span>순차 안내</span>
-          </div>
-        </div>
-
-        <div className="footer-info-area">
-          <div className="footer-info-box">
-            <h4>사업자 정보</h4>
-            <dl>
-              <div>
-                <dt>상호</dt>
-                <dd>제이엔파트너스(JN Partners)</dd>
-              </div>
-              <div>
-                <dt>대표</dt>
-                <dd>최준</dd>
-              </div>
-              <div>
-                <dt>이메일</dt>
-                <dd>cj.gasin@gmail.com</dd>
-              </div>
-            </dl>
-            <p className="footer-small">
-              사업자등록번호는 발급 완료 후 추가 표기 예정입니다.
+            <p>
+              마미온은 예비맘과 아기의 건강한 시작을 응원하며,
+              출산 준비에 필요한 선물과 안내를 순차적으로 제공합니다.
             </p>
+
+            <div className="footer-trust-list">
+              <span>✓ 100% 무료 신청</span>
+              <span>✓ 전국 예비맘 대상</span>
+              <span>✓ 신청 후 순차 안내</span>
+            </div>
           </div>
 
-          <div className="footer-link-box">
-            <h4>바로가기</h4>
-            <nav>
-              <a href="/privacy">개인정보처리방침</a>
-              <a href="/terms">이용약관</a>
-              <a
-                href="https://pf.kakao.com/_MKDGX/friend"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                카카오톡 문의
-              </a>
-            </nav>
+          <div className="footer-detail-grid">
+            <section className="footer-panel business-panel">
+              <div className="footer-panel-title">
+                <span>Business</span>
+                <h4>사업자 정보</h4>
+              </div>
+
+              <dl>
+                <div>
+                  <dt>상호</dt>
+                  <dd>제이엔파트너스(JN Partners)</dd>
+                </div>
+                <div>
+                  <dt>대표자</dt>
+                  <dd>최준</dd>
+                </div>
+                <div>
+                  <dt>이메일</dt>
+                  <dd>cj.gasin@gmail.com</dd>
+                </div>
+                <div>
+                  <dt>사업자등록번호</dt>
+                  <dd>발급 완료 후 표기 예정</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section className="footer-panel link-panel">
+              <div className="footer-panel-title">
+                <span>Menu</span>
+                <h4>바로가기</h4>
+              </div>
+
+              <nav>
+                <a href="/privacy">개인정보처리방침</a>
+                <a href="/terms">이용약관</a>
+                <a
+                  href="https://pf.kakao.com/_MKDGX/friend"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  카카오톡 문의
+                </a>
+              </nav>
+            </section>
           </div>
         </div>
-      </div>
 
-      <div className="footer-bottom">
-        <p>© 2026 MamiOn. All Rights Reserved.</p>
-        <p>본 사이트의 선물 구성 및 안내 내용은 운영 상황에 따라 일부 변경될 수 있습니다.</p>
+        <div className="footer-bottom-bar">
+          <p>© 2026 MamiOn. All Rights Reserved.</p>
+          <p>선물 구성 및 안내 내용은 운영 상황에 따라 일부 변경될 수 있습니다.</p>
+        </div>
       </div>
     </footer>
   );
