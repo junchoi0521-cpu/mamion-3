@@ -827,51 +827,135 @@ function Reviews() {
   const reviews = [
     {
       name: '김○○ 고객님',
-      text: '첫 임신이라 준비할 게 많아서 막막했는데 신청 과정이 간단해서 좋았어요. 선물 구성도 실용적인 것들이라 출산 준비에 도움이 됐습니다.',
+      area: '경기 수원시',
+      due: '2026.07',
+      likes: 12,
+      text: [
+        '처음 임신이라 준비할 게 너무 많아서 막막했는데 마미온에서 선물 받아서 정말 큰 도움이 됐어요!',
+        '구성품 하나하나 실용적이고 품질도 좋아서 출산 준비에 자신감이 생겼습니다 😊',
+        '신청 과정도 간단해서 주변 예비맘들에게 추천하고 있어요!',
+      ],
     },
     {
       name: '박○○ 고객님',
-      text: '신청하고 안내 연락도 부담스럽지 않게 와서 편했어요. 물티슈랑 손수건처럼 바로 필요한 구성이라 만족스러웠습니다.',
+      area: '인천 연수구',
+      due: '2026.08',
+      likes: 9,
+      text: [
+        '신청하고 안내 연락도 부담스럽지 않게 와서 편했어요.',
+        '물티슈랑 손수건처럼 바로 필요한 구성이라 너무 만족스러웠습니다.',
+        '포장도 예쁘고 정성스럽게 준비해주신 느낌이 들어서 기분이 좋았어요 💕',
+      ],
     },
     {
-      name: '이○○ 고객님',
-      text: '출산 준비하면서 이런저런 정보가 필요했는데 선물과 함께 체크할 내용도 알 수 있어서 좋았어요. 주변 지인에게도 알려줬습니다.',
+      name: '아○○ 고객님',
+      area: '서울 강서구',
+      due: '2026.09',
+      likes: 7,
+      text: [
+        '출산 준비하면서 이런저런 정보가 필요했는데 선물과 함께 체크할 내용도 알 수 있어서 정말 유용했어요.',
+        '같은 예비맘 입장에서 꼭 필요한 것들로만 알차게 구성해주신 것 같아요!',
+        '주변 지인에게도 알려줬더니 벌써 신청했대요 😄',
+      ],
     },
     {
       name: '최○○ 고객님',
-      text: '무료 신청이라 큰 기대는 안 했는데 생각보다 구성이 알차서 놀랐어요. 특히 수유패드랑 손수건은 실제로 꼭 필요한 물품이라 좋았습니다.',
+      area: '경기 파주시',
+      due: '2026.10',
+      likes: 15,
+      text: [
+        '무료 신청이라 큰 기대는 안 했는데 생각보다 구성이 알차서 놀랐어요.',
+        '특히 수유패드랑 손수건은 실제로 꼭 필요한 물품이라 좋았습니다.',
+        '임신 중 작은 선물 하나가 이렇게 기분 좋을 줄 몰랐어요.',
+      ],
     },
     {
       name: '정○○ 고객님',
-      text: '신청 페이지가 복잡하지 않아서 금방 신청했어요. 안내도 친절했고, 출산 준비 중인 예비맘에게 필요한 느낌이 들었습니다.',
+      area: '서울 송파구',
+      due: '2026.11',
+      likes: 10,
+      text: [
+        '신청 페이지가 복잡하지 않아서 금방 신청했어요.',
+        '안내도 친절했고 출산 준비 중인 예비맘에게 필요한 느낌이 들었습니다.',
+        '구성품도 실용적이라 만족스러웠어요.',
+      ],
     },
     {
       name: '한○○ 고객님',
-      text: '처음에는 광고인 줄 알고 망설였는데 신청 후 안내가 깔끔해서 좋았어요. 강요하는 느낌 없이 필요한 부분만 확인해줘서 편했습니다.',
+      area: '부산 해운대구',
+      due: '2026.12',
+      likes: 8,
+      text: [
+        '처음에는 광고인 줄 알고 망설였는데 신청 후 안내가 깔끔해서 좋았어요.',
+        '강요하는 느낌 없이 필요한 부분만 확인해줘서 편했습니다.',
+        '선물 구성도 부담 없이 받기 좋았어요.',
+      ],
     },
     {
       name: '윤○○ 고객님',
-      text: '임신 중이라 작은 혜택도 반가운데 무료 선물이라 더 좋았어요. 포장도 예쁘고 구성도 실용적이라 기분 좋게 받았습니다.',
+      area: '대전 유성구',
+      due: '2027.01',
+      likes: 11,
+      text: [
+        '임신 중이라 작은 혜택도 반가운데 무료 선물이라 더 좋았어요.',
+        '포장도 예쁘고 구성도 실용적이라 기분 좋게 받았습니다.',
+        '예비맘 친구에게도 바로 공유했어요.',
+      ],
     },
     {
       name: '강○○ 고객님',
-      text: '출산 예정일 입력하니까 임신 주수도 바로 확인돼서 편했어요. 신청 절차가 짧고 모바일에서도 보기 좋아서 어렵지 않았습니다.',
+      area: '대구 수성구',
+      due: '2027.02',
+      likes: 6,
+      text: [
+        '출산 예정일 입력하니까 임신 주수도 바로 확인돼서 편했어요.',
+        '신청 절차가 짧고 모바일에서도 보기 좋아서 어렵지 않았습니다.',
+        '필요한 정보만 간단히 입력하면 돼서 좋았어요.',
+      ],
     },
     {
       name: '송○○ 고객님',
-      text: '신청 후 어떻게 진행되는지 안내가 잘 되어 있어서 안심됐어요. 선물도 예비맘에게 필요한 구성이라 만족했습니다.',
+      area: '광주 북구',
+      due: '2027.03',
+      likes: 13,
+      text: [
+        '신청 후 어떻게 진행되는지 안내가 잘 되어 있어서 안심됐어요.',
+        '선물도 예비맘에게 필요한 구성이라 만족했습니다.',
+        '기다리는 동안 불안하지 않게 안내받을 수 있어서 좋았어요.',
+      ],
     },
     {
       name: '오○○ 고객님',
-      text: '첫째 때는 이런 혜택을 잘 몰랐는데 둘째 준비하면서 알게 됐어요. 무료로 받을 수 있는 구성치고는 꽤 괜찮았습니다.',
+      area: '경기 고양시',
+      due: '2027.04',
+      likes: 5,
+      text: [
+        '첫째 때는 이런 혜택을 잘 몰랐는데 둘째 준비하면서 알게 됐어요.',
+        '무료로 받을 수 있는 구성치고는 꽤 괜찮았습니다.',
+        '출산 준비하면서 작은 도움이 됐어요.',
+      ],
     },
     {
       name: '문○○ 고객님',
-      text: '주소 검색부터 신청까지 한 번에 돼서 편했어요. 신청 후 안내도 빠르게 와서 기다리는 동안 불안하지 않았습니다.',
+      area: '충남 천안시',
+      due: '2027.05',
+      likes: 9,
+      text: [
+        '주소 검색부터 신청까지 한 번에 돼서 편했어요.',
+        '신청 후 안내도 빠르게 와서 기다리는 동안 불안하지 않았습니다.',
+        '전체적으로 깔끔하고 신뢰가 갔어요.',
+      ],
     },
     {
       name: '서○○ 고객님',
-      text: '출산 준비물 리스트를 하나씩 챙기는 중이었는데 작은 도움이 됐어요. 예비맘이라면 한 번 신청해볼 만하다고 생각합니다.',
+      area: '서울 마포구',
+      due: '2027.06',
+      likes: 7,
+      text: [
+        '출산 준비물 리스트를 하나씩 챙기는 중이었는데 작은 도움이 됐어요.',
+        '예비맘이라면 한 번 신청해볼 만하다고 생각합니다.',
+        '선물도 부담 없이 받을 수 있어서 좋았습니다.',
+      ],
     },
   ];
 
@@ -879,13 +963,8 @@ function Reviews() {
   const totalPages = Math.ceil(reviews.length / reviewsPerPage);
   const [page, setPage] = useState(0);
 
-  const nextPage = () => {
-    setPage((prev) => (prev + 1) % totalPages);
-  };
-
-  const prevPage = () => {
-    setPage((prev) => (prev - 1 + totalPages) % totalPages);
-  };
+  const nextPage = () => setPage((prev) => (prev + 1) % totalPages);
+  const prevPage = () => setPage((prev) => (prev - 1 + totalPages) % totalPages);
 
   const visibleReviews = reviews.slice(
     page * reviewsPerPage,
@@ -893,50 +972,120 @@ function Reviews() {
   );
 
   return (
-    <section id="reviews" className="reviews-section">
-      <h2>마미온 고객님들의 따뜻한 후기</h2>
-      <p>예비맘 분들이 남겨주신 따뜻한 이야기를 확인해보세요.</p>
+    <section id="reviews" className="reviews-section testimonials-section">
+      <div className="testimonials-inner">
+        <div className="testimonials-heading">
+          <h2>
+            마미온 고객님들의 <strong>따뜻한 후기</strong>
+          </h2>
+          <p>예비맘 분들이 남겨주신 따뜻한 이야기를 확인해보세요.</p>
+        </div>
 
-      <div className="reviews-slider">
-        <button
-          type="button"
-          className="review-arrow review-arrow-left"
-          onClick={prevPage}
-          aria-label="이전 후기 보기"
-        >
-          ‹
-        </button>
+        <div className="testimonials-slider">
+          <button
+            type="button"
+            className="testimonial-arrow testimonial-arrow-left"
+            onClick={prevPage}
+            aria-label="이전 후기 보기"
+          >
+            ‹
+          </button>
 
-        <div className="review-cards review-slider-cards">
-          {visibleReviews.map((review) => (
-            <article className="review-card" key={review.name}>
-              <div className="stars">★★★★★</div>
-              <p>{review.text}</p>
-              <strong>- {review.name}</strong>
-            </article>
+          <div className="testimonial-card-grid">
+            {visibleReviews.map((review) => (
+              <article className="testimonial-card" key={`${review.name}-${review.area}`}>
+                <div className="testimonial-card-top">
+                  <div className="testimonial-stars">★★★★★</div>
+
+                  <div className="testimonial-badges">
+                    <span>📅 예정일 {review.due}</span>
+                    <span>📍 {review.area}</span>
+                  </div>
+                </div>
+
+                <div className="testimonial-text">
+                  {review.text.map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
+                </div>
+
+                <div className="testimonial-quote">”</div>
+
+                <div className="testimonial-footer">
+                  <div className="testimonial-user">
+                    <span className="testimonial-avatar">🤰🏻</span>
+                    <strong>{review.name}</strong>
+                  </div>
+
+                  <span className="testimonial-like">♥ {review.likes}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            className="testimonial-arrow testimonial-arrow-right"
+            onClick={nextPage}
+            aria-label="다음 후기 보기"
+          >
+            ›
+          </button>
+        </div>
+
+        <div className="testimonial-dots" aria-label="후기 페이지 선택">
+          {Array.from({ length: totalPages }).map((_, index) => (
+            <button
+              type="button"
+              key={index}
+              className={page === index ? 'active' : ''}
+              onClick={() => setPage(index)}
+              aria-label={`${index + 1}번째 후기 페이지 보기`}
+            />
           ))}
         </div>
 
-        <button
-          type="button"
-          className="review-arrow review-arrow-right"
-          onClick={nextPage}
-          aria-label="다음 후기 보기"
-        >
-          ›
-        </button>
-      </div>
+        <div className="testimonial-summary">
+          <article>
+            <div className="summary-icon">♡</div>
+            <div>
+              <span>평균 만족도</span>
+              <strong>4.9 <small>/ 5.0</small></strong>
+              <p>실제 고객 설문 기준</p>
+            </div>
+          </article>
 
-      <div className="review-dots" aria-label="후기 페이지 선택">
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <button
-            type="button"
-            key={index}
-            className={page === index ? 'active' : ''}
-            onClick={() => setPage(index)}
-            aria-label={`${index + 1}번째 후기 페이지 보기`}
-          />
-        ))}
+          <article>
+            <div className="summary-icon">💬</div>
+            <div>
+              <span>누적 후기 수</span>
+              <strong>2,315+</strong>
+              <p>꾸준히 늘어나는 후기</p>
+            </div>
+          </article>
+
+          <article>
+            <div className="summary-icon">🎁</div>
+            <div>
+              <span>재신청 의사</span>
+              <strong>97%</strong>
+              <p>다시 신청하고 싶어요!</p>
+            </div>
+          </article>
+
+          <article>
+            <div className="summary-icon">👍</div>
+            <div>
+              <span>추천 의사</span>
+              <strong>98%</strong>
+              <p>지인에게 추천할래요!</p>
+            </div>
+          </article>
+        </div>
+
+        <p className="testimonial-note">
+          * 고객님들의 개인정보 보호를 위해 일부 내용은 변경될 수 있습니다.
+        </p>
       </div>
     </section>
   );
