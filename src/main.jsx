@@ -290,6 +290,13 @@ const goToSection = (id) => {
 };
 
 function Header() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleMobileMove = (id) => {
+    setMobileOpen(false);
+    goToSection(id);
+  };
+
   return (
     <header className="header">
       <div className="brand">
@@ -321,9 +328,32 @@ function Header() {
         신청하기
       </button>
 
-      <button className="mobile-menu" aria-label="메뉴">
+      <button
+        className="mobile-menu"
+        aria-label={mobileOpen ? '메뉴 닫기' : '메뉴 열기'}
+        type="button"
+        onClick={() => setMobileOpen((prev) => !prev)}
+      >
         <Menu size={22} />
       </button>
+
+      {mobileOpen && (
+        <div className="mobile-nav-panel">
+          <button type="button" onClick={() => handleMobileMove('giftbox')}>선물 소개</button>
+          <button type="button" onClick={() => handleMobileMove('process')}>신청 방법</button>
+          <button type="button" onClick={() => handleMobileMove('reviews')}>고객 후기</button>
+          <button type="button" onClick={() => handleMobileMove('faq')}>FAQ</button>
+          <button type="button" onClick={() => handleMobileMove('apply')}>신청하기</button>
+          <a
+            href="https://pf.kakao.com/_MKDGX/friend"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileOpen(false)}
+          >
+            카카오톡 문의
+          </a>
+        </div>
+      )}
     </header>
   );
 }
