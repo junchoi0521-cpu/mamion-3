@@ -1227,7 +1227,7 @@ function Footer() {
           <span>상호 : 제이엔파트너스(JN Partners)</span>
           <span>대표 : 최준</span>
           <span>이메일 : cj.gasin@gmail.com</span>
-          <span>사업자등록번호 : 발급 완료 후 표기 예정</span>
+          <span>사업자등록번호 : 836-63-00836</span>
         </div>
 
         <div className="clean-footer-bottom">
