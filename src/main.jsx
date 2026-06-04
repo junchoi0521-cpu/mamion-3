@@ -571,6 +571,8 @@ const calculateWeeks = (dueDate) => {
   });
   const [done, setDone] = useState(false);
   const [faqOpen, setFaqOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [submitMessageType, setSubmitMessageType] = useState('');
 
 const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
 
@@ -642,45 +644,86 @@ const loadDaumPostcodeScript = () =>
     }
   };
 
+  const submitByJsonp = (payload) =>
+    new Promise((resolve, reject) => {
+      const callbackName = `mamionSubmitCallback_${Date.now()}`;
+
+      window[callbackName] = (result) => {
+        resolve(result);
+        delete window[callbackName];
+        document.getElementById(callbackName)?.remove();
+      };
+
+      const script = document.createElement('script');
+      script.id = callbackName;
+
+      const params = new URLSearchParams({
+        action: 'submit',
+        callback: callbackName,
+        data: JSON.stringify(payload),
+      });
+
+      script.src = `${APPS_SCRIPT_URL}?${params.toString()}`;
+      script.onerror = () => {
+        delete window[callbackName];
+        script.remove();
+        reject(new Error('submit failed'));
+      };
+
+      document.body.appendChild(script);
+    });
+
   async function submit(e) {
     e.preventDefault();
 
+    setSubmitMessage('');
+    setSubmitMessageType('');
+
     if (!form.name || !form.phone || !form.dueDate || !form.region || !form.weeks || !form.insurance) {
-      alert('필수 항목을 모두 입력해주세요.');
+      setSubmitMessage('필수 항목을 모두 입력해주세요.');
+      setSubmitMessageType('error');
       return;
     }
 
     if (!form.privacy || !form.thirdParty) {
-      alert('필수 동의 항목을 체크해주세요.');
+      setSubmitMessage('필수 동의 항목을 체크해주세요.');
+      setSubmitMessageType('error');
       return;
     }
 
-    try {
-      await fetch('https://script.google.com/macros/s/AKfycbxbLCk_krERTnHwCtrb8mcg37TGtYjMkDrnV2rkTTJmiOn5aorxFJns59SYQar_h5ba4w/exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify({
-          name: form.name,
-          phone: form.phone,
-          dueDate: form.dueDate,
-          region: `${form.region}${form.detailAddress ? ' ' + form.detailAddress : ''}`,
-          weeks: form.weeks,
-          insurance: form.insurance,
-          privacy: form.privacy,
-          thirdParty: form.thirdParty,
-          marketing: form.marketing,
-          createdAt: new Date().toISOString(),
-        }),
-      });
+    const payload = {
+      name: form.name,
+      phone: form.phone,
+      dueDate: form.dueDate,
+      region: `${form.region}${form.detailAddress ? ' ' + form.detailAddress : ''}`,
+      weeks: form.weeks,
+      insurance: form.insurance,
+      privacy: form.privacy,
+      thirdParty: form.thirdParty,
+      marketing: form.marketing,
+      createdAt: new Date().toISOString(),
+    };
 
-onSubmitSuccess();
-window.location.href = '/thanks';
-return;
+    try {
+      const result = await submitByJsonp(payload);
+
+      if (result?.result === 'duplicate') {
+        setSubmitMessage(result.message || '이미 이번 달 신청이 완료되었습니다. 다음 달부터 다시 신청 가능합니다.');
+        setSubmitMessageType('duplicate');
+        return;
+      }
+
+      if (result?.result === 'success') {
+        onSubmitSuccess();
+        window.location.href = '/thanks';
+        return;
+      }
+
+      setSubmitMessage('신청 처리 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      setSubmitMessageType('error');
     } catch {
-      alert('신청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      setSubmitMessage('신청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      setSubmitMessageType('error');
     }
   }
 
@@ -692,6 +735,11 @@ return;
 <span className="form-badge">🎁 100% 무료 · 신청 30초</span>
           <h2>임신축하선물 신청하기</h2>
           <p>간단한 정보 입력으로 소중한 선물을 받아보세요.</p>
+          {submitMessage && (
+            <div className={`submit-message ${submitMessageType}`}>
+              {submitMessage}
+            </div>
+          )}
           {done && <div className="success">신청이 완료되었습니다 💝<br />담당자가 순차적으로 안내드릴 예정입니다.</div>}
 
           <form onSubmit={submit}>
