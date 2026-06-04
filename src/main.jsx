@@ -27,6 +27,7 @@ import kitCleanser from './assets/kit-cleanser.jpg';
 import kitChecklist from './assets/kit-checklist.jpg';
 import kitClaimGuide from './assets/kit-claim-guide.jpg';
 import kitRandomGift from './assets/kit-random-gift.jpg';
+import logo from "./assets/logo.png";
 
 const scrollToApply = () =>
   document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
@@ -157,10 +158,13 @@ function PolicySection({ initialType = 'all' }) {
 function Header() {
   return (
     <header className="header">
-      <div className="brand">
-        <span className="logo-flower">✤</span>
-        <span>MamiOn</span>
-      </div>
+<div className="brand">
+  <img
+    src={logo}
+    alt="마미온"
+    className="header-logo"
+  />
+</div>
       <nav className="nav">
         <a href="#giftbox">선물 소개</a>
         <a href="#process">신청 방법</a>
