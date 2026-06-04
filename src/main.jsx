@@ -281,52 +281,47 @@ function PolicySection({ initialType = 'all' }) {
   );
 }
 
-function Header() {
-  return (
-    <header className="header">
-<div className="brand">
-  <img
-    src={logo}
-    alt="마미온"
-    className="header-logo"
-  />
-</div>
-<nav className="nav">
-  <button onClick={() => goToSection("giftbox")}>선물 소개</button>
-
-  <button onClick={() => goToSection("process")}>신청 방법</button>
-
-  <button onClick={() => goToSection("reviews")}>고객 후기</button>
-
-  <button onClick={() => goToSection("faq")}>FAQ</button>
-
-  <a href="/privacy">개인정보처리방침</a>
-</nav>
-      <button
-  className="header-cta"
-  onClick={() => {
-    if (window.location.pathname === '/') {
-      scrollToApply();
-    } else {
-      window.location.href = '/#apply';
-    }
-  }}
->
-  신청하기
-</button>
-      <button className="mobile-menu" aria-label="메뉴"><Menu size={22} /></button>
-    </header>
-  );
-}
 const goToSection = (id) => {
-  if (window.location.pathname === "/") {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-    });
+  if (window.location.pathname === '/') {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   } else {
     window.location.href = `/#${id}`;
   }
 };
+
+function Header() {
+  return (
+    <header className="header">
+      <div className="brand">
+        <img
+          src={logo}
+          alt="마미온"
+          className="header-logo"
+        />
+      </div>
+
+      <nav className="nav">
+        <button type="button" onClick={() => goToSection('giftbox')}>선물 소개</button>
+        <button type="button" onClick={() => goToSection('process')}>신청 방법</button>
+        <button type="button" onClick={() => goToSection('reviews')}>고객 후기</button>
+        <button type="button" onClick={() => goToSection('faq')}>FAQ</button>
+        <a href="/privacy">개인정보처리방침</a>
+      </nav>
+
+      <button
+        className="header-cta"
+        onClick={() => goToSection('apply')}
+      >
+        신청하기
+      </button>
+
+      <button className="mobile-menu" aria-label="메뉴">
+        <Menu size={22} />
+      </button>
+    </header>
+  );
+}
+
 function Hero({ today, month }) {
   return (
     <section className="hero-shell">
