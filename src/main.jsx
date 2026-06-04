@@ -869,12 +869,21 @@ const loadDaumPostcodeScript = () =>
     </span>
   </a>
 
-  <div className="phone-line contact-phone">
-    <Phone size={24} />
-    <span>
-      <small>전화 문의</small>
-      <strong>010-1234-5678</strong>
-    </span>
+  <div className="benefit-box contact-benefits">
+    <div className="benefit-title">
+      <Gift size={22} />
+      <span>
+        <strong>신청자 혜택</strong>
+        <small>신청 후 순차 안내</small>
+      </span>
+    </div>
+
+    <ul>
+      <li>임신축하선물 무료 제공</li>
+      <li>출산 준비 체크리스트 안내</li>
+      <li>지역 담당자 배정</li>
+      <li>전국 예비맘 신청 가능</li>
+    </ul>
   </div>
 </div>
 
