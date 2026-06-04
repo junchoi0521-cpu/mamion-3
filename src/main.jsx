@@ -354,6 +354,25 @@ function Process() {
 }
 
 function ApplySection({ onSubmitSuccess }) {
+  const calculateWeeks = (dueDate) => {
+  if (!dueDate) return '';
+
+  const today = new Date();
+  const due = new Date(dueDate);
+
+  const diffDays = Math.floor(
+    (due.getTime() - today.getTime()) /
+    (1000 * 60 * 60 * 24)
+  );
+
+  const currentWeek = Math.round((280 - diffDays) / 7);
+
+  if (currentWeek < 12) return '12주 미만';
+  if (currentWeek <= 22) return '12~22주';
+  if (currentWeek <= 32) return '23~32주';
+
+  return '33주 이상';
+};
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -520,7 +539,20 @@ const loadDaumPostcodeScript = () =>
 
             <div className="form-row">
               <Field label="예상 출산일">
-                <input name="dueDate" type="date" value={form.dueDate} onChange={(e) => update('dueDate', e.target.value)} />
+<input
+  name="dueDate"
+  type="date"
+  value={form.dueDate}
+  onChange={(e) => {
+    const value = e.target.value;
+
+    setForm((prev) => ({
+      ...prev,
+      dueDate: value,
+      weeks: calculateWeeks(value),
+    }));
+  }}
+/>
               </Field>
               <Field label="선물 수령 주소">
                 <div className="address-search-row">
