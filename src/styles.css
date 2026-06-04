@@ -1745,7 +1745,7 @@ form small {
 
 .testimonial-card {
   position: relative;
-  min-height: 420px;
+  min-height: 520px;
   padding: 40px 36px 34px;
   border: 1px solid rgba(255, 121, 166, 0.34);
   border-radius: 28px;
@@ -1809,7 +1809,7 @@ form small {
 }
 
 .testimonial-text {
-  margin-top: 28px;
+  margin-top: 64px;
   display: grid;
   gap: 22px;
 }
@@ -2162,3 +2162,113 @@ form small {
   }
 }
 
+
+/* ==============================
+   Testimonials Layout Fix
+   - 후기 본문과 고객명 겹침 방지
+   ============================== */
+
+.testimonial-card {
+  min-height: 560px;
+  padding: 40px 36px 118px;
+}
+
+.testimonial-text {
+  margin-top: 34px;
+  padding-bottom: 18px;
+  display: grid;
+  gap: 18px;
+}
+
+.testimonial-text p {
+  font-size: 18px;
+  line-height: 1.78;
+  font-weight: 700;
+}
+
+.testimonial-quote {
+  right: 36px;
+  bottom: 104px;
+  font-size: 82px;
+}
+
+.testimonial-footer {
+  left: 36px;
+  right: 36px;
+  bottom: 34px;
+  min-height: 52px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 205, 222, 0.65);
+  background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,0.94) 34%, rgba(255,255,255,0.98));
+}
+
+.testimonial-user {
+  min-width: 0;
+}
+
+.testimonial-user strong {
+  white-space: nowrap;
+}
+
+.testimonial-like {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 1180px) {
+  .testimonial-card {
+    min-height: 540px;
+    padding: 34px 28px 112px;
+  }
+
+  .testimonial-text {
+    margin-top: 30px;
+    gap: 16px;
+  }
+
+  .testimonial-text p {
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .testimonial-footer {
+    left: 28px;
+    right: 28px;
+    bottom: 30px;
+  }
+
+  .testimonial-quote {
+    right: 28px;
+    bottom: 96px;
+  }
+}
+
+@media (max-width: 760px) {
+  .testimonial-card {
+    min-height: auto;
+    padding: 28px 22px 104px;
+  }
+
+  .testimonial-text {
+    margin-top: 30px;
+    gap: 14px;
+  }
+
+  .testimonial-text p {
+    font-size: 15px;
+    line-height: 1.76;
+  }
+
+  .testimonial-footer {
+    left: 22px;
+    right: 22px;
+    bottom: 24px;
+    min-height: 48px;
+    padding-top: 14px;
+  }
+
+  .testimonial-quote {
+    right: 22px;
+    bottom: 86px;
+    font-size: 70px;
+  }
+}
