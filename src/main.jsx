@@ -721,8 +721,20 @@ const loadDaumPostcodeScript = () =>
       }
 
       if (result?.result === 'success') {
+        if (window.gtag) {
+          window.gtag('event', 'apply_complete', {
+            event_category: 'lead',
+            event_label: 'mamion_apply_form',
+            value: 1,
+          });
+        }
+
         onSubmitSuccess();
-        window.location.href = '/thanks';
+
+        setTimeout(() => {
+          window.location.href = '/thanks';
+        }, 300);
+
         return;
       }
 
