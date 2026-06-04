@@ -825,9 +825,6 @@ function Field({ label, children }) {
 
 function Reviews() {
   const reviews = [
-    ['선물도 너무 알차고 포장도 예뻐서 감동받았어요! 마미온 덕분에 행복한 임신 기간을 보내고 있어요.', '김○○ 고객님'],
-    ['신청하고 일주일 만에 받았어요! 안내도 친절하고 선물도 정말 마음에 들어요.', '박○○ 고객님'],
-    ['출산 준비하면서 필요한 정보도 함께 받을 수 있어서 좋았어요. 정말 추천합니다!', '이○○ 고객님'],
     {
       name: '김○○ 고객님',
       text: '첫 임신이라 준비할 게 많아서 막막했는데 신청 과정이 간단해서 좋았어요. 선물 구성도 실용적인 것들이라 출산 준비에 도움이 됐습니다.',
@@ -898,11 +895,6 @@ function Reviews() {
   return (
     <section id="reviews" className="reviews-section">
       <h2>마미온 고객님들의 따뜻한 후기</h2>
-      <p>실제 고객님들의 소중한 경험을 확인해보세요.</p>
-      <div className="reviews-layout">
-        <div className="review-cards">
-          {reviews.map(([text, name]) => (
-            <article className="review-card" key={name}>
       <p>예비맘 분들이 남겨주신 따뜻한 이야기를 확인해보세요.</p>
 
       <div className="reviews-slider">
@@ -919,14 +911,11 @@ function Reviews() {
           {visibleReviews.map((review) => (
             <article className="review-card" key={review.name}>
               <div className="stars">★★★★★</div>
-              <p>{text}</p>
-              <strong>- {name}</strong>
               <p>{review.text}</p>
               <strong>- {review.name}</strong>
             </article>
           ))}
         </div>
-        <img className="review-image" src={reviewShoes} alt="신생아 신발과 꽃" />
 
         <button
           type="button"
