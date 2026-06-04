@@ -1063,4 +1063,5 @@ form small { display: block; text-align: center; color: #7b7f87; margin-top: 14p
   height:110px;
   width:auto;
   display:block;
+  transform: translateY(10px);
 }
