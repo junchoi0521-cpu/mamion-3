@@ -281,10 +281,6 @@ function PolicySection({ initialType = 'all' }) {
   );
 }
 
-      </div>
-    </section>
-  );
-}
 function Header() {
   return (
     <header className="header">
