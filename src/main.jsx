@@ -33,6 +33,7 @@ const scrollToApply = () =>
   document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
+const DISPLAY_TOTAL_OFFSET = 2000;
 
 function App() {
   const [today, setToday] = useState(0);
@@ -46,8 +47,8 @@ function App() {
         setToday(data.today);
       }
 
-      if (typeof data.month === 'number') {
-        setMonth(data.month);
+      if (typeof data.total === 'number') {
+        setMonth(DISPLAY_TOTAL_OFFSET + data.total);
       }
 
       delete window[callbackName];
@@ -384,8 +385,8 @@ function Hero({ today, month }) {
           <p className="hero-subnote">배송비 무료 · 선착순 마감 · 매월 한정 수량</p>
 
           <div className="stats-row">
-            <StatCard icon={<Calendar size={23} />} label="오늘 신청" value={today} />
-            <StatCard icon={<Gift size={23} />} label="이번 달 신청" value={month} />
+            <StatCard icon={<Calendar size={23} />} label="오늘 신청" value={today} desc="실시간 집계 중" />
+            <StatCard icon={<Gift size={23} />} label="누적 신청" value={month} desc="누적 신청 기준" />
           </div>
           <p className="micro-note">* 신청 수는 매일 자정 기준으로 새롭게 집계됩니다</p>
         </div>
@@ -398,12 +399,12 @@ function Hero({ today, month }) {
   );
 }
 
-function StatCard({ icon, label, value }) {
+function StatCard({ icon, label, value, desc = '실시간 집계 중' }) {
   return (
     <div className="stat-card">
       <div className="stat-top">{icon}<span>{label}</span></div>
       <strong>{value}<small>명</small></strong>
-      <p>실시간 집계 중</p>
+      <p>{desc}</p>
     </div>
   );
 }
