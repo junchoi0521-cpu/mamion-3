@@ -32,7 +32,7 @@ import logo from "./assets/logo.png";
 const scrollToApply = () =>
   document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvsCINoyjxd4fgTIxS--_1BdtqRGaieTa3Y0MNOMGvyr1d-1dAzIGl66mrdSm4Fbdj6A/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
 
 function App() {
   const [today, setToday] = useState(23);
