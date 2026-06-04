@@ -283,7 +283,7 @@ function PolicySection({ initialType = 'all' }) {
 
 const goToSection = (id) => {
   if (window.location.pathname === '/') {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else {
     window.location.href = `/#${id}`;
   }
@@ -305,7 +305,13 @@ function Header() {
         <button type="button" onClick={() => goToSection('process')}>신청 방법</button>
         <button type="button" onClick={() => goToSection('reviews')}>고객 후기</button>
         <button type="button" onClick={() => goToSection('faq')}>FAQ</button>
-        <a href="/privacy">개인정보처리방침</a>
+        <a
+          href="https://pf.kakao.com/_MKDGX/friend"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          카카오톡 문의
+        </a>
       </nav>
 
       <button
