@@ -580,13 +580,15 @@ const loadDaumPostcodeScript = () =>
               </Field>
             </div>
 
-            <Field label="현재 임신 주수">
-              <div className="chips">
-                {['12주 미만', '12~22주', '23~32주', '33주 이상'].map((v) => (
-                  <button type="button" onClick={() => update('weeks', v)} className={form.weeks === v ? 'active' : ''} key={v}>{v}</button>
-                ))}
-              </div>
-            </Field>
+<Field label="현재 임신 주수">
+  <div className="week-auto-box">
+    {form.weeks ? (
+      <strong>🤰 {form.weeks}</strong>
+    ) : (
+      <span>출산예정일을 선택하면 자동으로 계산됩니다.</span>
+    )}
+  </div>
+</Field>
 
             <Field label="현재 태아보험 준비 상태">
               <div className="chips insurance">
@@ -598,16 +600,18 @@ const loadDaumPostcodeScript = () =>
 
             <label className="agree-line"><input type="checkbox" checked={form.privacy} onChange={(e) => update('privacy', e.target.checked)} /> [필수] 개인정보 수집 및 이용 동의</label>
             <label className="agree-line"><input type="checkbox" checked={form.thirdParty} onChange={(e) => update('thirdParty', e.target.checked)} /> [필수] 개인정보 제3자 제공 동의</label>
-            <label className="agree-line"><input type="checkbox" checked={form.marketing} onChange={(e) => update('marketing', e.target.checked)} /> [선택] 광고성 정보 수신 동의</label>
+<label className="agree-line"><input type="checkbox" checked={form.marketing} onChange={(e) => update('marketing', e.target.checked)} /> [선택] 광고성 정보 수신 동의</label>
 
-            <button className="submit-btn" type="submit"><Gift size={18} /> 임신축하선물 신청하기</button>
+<p className="deadline-note">🎁 이번 달 신청 마감 전 선착순 접수 중입니다.</p>
+
+<button className="submit-btn" type="submit"><Gift size={18} /> 임신축하선물 신청하기</button>
             <small>* 신청 정보는 선물 발송 및 안내 목적으로만 사용됩니다.</small>
           </form>
         </div>
 
         <aside className="contact-area contact-trust-area">
           <span className="contact-mini-label">MamiOn Care</span>
-          <h3>신청 후 이렇게 안내드려요</h3>
+<h3>신청 후 이렇게 진행돼요</h3>
           <p className="contact-lead">
             신청 확인과 선물 안내를 위해 담당자가 순차적으로 연락드립니다.
             부담되는 가입 권유가 아닌, 신청 내용 확인을 위한 안내입니다.
