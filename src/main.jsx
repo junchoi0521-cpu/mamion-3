@@ -826,7 +826,7 @@ function Field({ label, children }) {
 function Reviews() {
   const reviews = [
     {
-      name: '김○○ 고객님',
+      name: '김○○ 산모님',
       area: '경기 수원시',
       due: '2026.07',
       likes: 12,
@@ -837,7 +837,7 @@ function Reviews() {
       ],
     },
     {
-      name: '박○○ 고객님',
+      name: '박○○ 산모님',
       area: '인천 연수구',
       due: '2026.03',
       likes: 9,
@@ -848,7 +848,7 @@ function Reviews() {
       ],
     },
     {
-      name: '아○○ 고객님',
+      name: '아○○ 산모님',
       area: '서울 강서구',
       due: '2026.09',
       likes: 7,
@@ -859,7 +859,7 @@ function Reviews() {
       ],
     },
     {
-      name: '최○○ 고객님',
+      name: '최○○ 산모님',
       area: '경기 파주시',
       due: '2026.08',
       likes: 15,
@@ -870,7 +870,7 @@ function Reviews() {
       ],
     },
     {
-      name: '정○○ 고객님',
+      name: '정○○ 산모님',
       area: '서울 송파구',
       due: '2026.11',
       likes: 10,
@@ -881,7 +881,7 @@ function Reviews() {
       ],
     },
     {
-      name: '한○○ 고객님',
+      name: '한○○ 산모님',
       area: '부산 해운대구',
       due: '2026.12',
       likes: 8,
@@ -892,7 +892,7 @@ function Reviews() {
       ],
     },
     {
-      name: '윤○○ 고객님',
+      name: '윤○○ 산모님',
       area: '대전 유성구',
       due: '2026.11',
       likes: 11,
@@ -903,7 +903,7 @@ function Reviews() {
       ],
     },
     {
-      name: '강○○ 고객님',
+      name: '강○○ 산모님',
       area: '대구 수성구',
       due: '2026.12',
       likes: 6,
@@ -914,7 +914,7 @@ function Reviews() {
       ],
     },
     {
-      name: '송○○ 고객님',
+      name: '송○○ 산모님',
       area: '광주 북구',
       due: '2026.05',
       likes: 13,
@@ -925,7 +925,7 @@ function Reviews() {
       ],
     },
     {
-      name: '오○○ 고객님',
+      name: '오○○ 산모님',
       area: '경기 고양시',
       due: '2026.06',
       likes: 5,
@@ -936,7 +936,7 @@ function Reviews() {
       ],
     },
     {
-      name: '문○○ 고객님',
+      name: '문○○ 산모님',
       area: '충남 천안시',
       due: '2026.01',
       likes: 9,
@@ -947,7 +947,7 @@ function Reviews() {
       ],
     },
     {
-      name: '서○○ 고객님',
+      name: '서○○ 산모님',
       area: '서울 마포구',
       due: '2026.02',
       likes: 7,
