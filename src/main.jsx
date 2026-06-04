@@ -358,24 +358,24 @@ function Process() {
 }
 
 function ApplySection({ onSubmitSuccess }) {
-  const calculateWeeks = (dueDate) => {
+const calculateWeeks = (dueDate) => {
   if (!dueDate) return '';
 
   const today = new Date();
   const due = new Date(dueDate);
 
   const diffDays = Math.floor(
-    (due.getTime() - today.getTime()) /
-    (1000 * 60 * 60 * 24)
+    (due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
   );
 
-  const currentWeek = Math.round((280 - diffDays) / 7);
+  const pregnancyDays = 280 - diffDays;
 
-  if (currentWeek < 12) return '12주 미만';
-  if (currentWeek <= 22) return '12~22주';
-  if (currentWeek <= 32) return '23~32주';
+  if (pregnancyDays < 0) return '0주 0일';
 
-  return '33주 이상';
+  const weeks = Math.floor(pregnancyDays / 7);
+  const days = pregnancyDays % 7;
+
+  return `${weeks}주 ${days}일`;
 };
   const [form, setForm] = useState({
     name: '',
@@ -542,21 +542,28 @@ const loadDaumPostcodeScript = () =>
             </div>
 
             <div className="form-row">
-              <Field label="예상 출산일">
-<input
-  name="dueDate"
-  type="date"
-  value={form.dueDate}
-  onChange={(e) => {
-    const value = e.target.value;
+<Field label="출산 예정일">
+  <input
+    name="dueDate"
+    type="date"
+    value={form.dueDate}
+    onChange={(e) => {
+      const value = e.target.value;
 
-    setForm((prev) => ({
-      ...prev,
-      dueDate: value,
-      weeks: calculateWeeks(value),
-    }));
-  }}
-/>
+      setForm((prev) => ({
+        ...prev,
+        dueDate: value,
+        weeks: calculateWeeks(value),
+      }));
+    }}
+  />
+
+  {form.weeks && (
+    <div className="week-mini-text">
+      현재 임신 주수 <strong>{form.weeks}</strong>
+    </div>
+  )}
+</Field>
               </Field>
               <Field label="선물 수령 주소">
                 <div className="address-search-row">
@@ -579,16 +586,6 @@ const loadDaumPostcodeScript = () =>
                 />
               </Field>
             </div>
-
-<Field label="현재 임신 주수">
-  <div className="week-auto-box">
-    {form.weeks ? (
-      <strong>🤰 {form.weeks}</strong>
-    ) : (
-      <span>출산예정일을 선택하면 자동으로 계산됩니다.</span>
-    )}
-  </div>
-</Field>
 
             <Field label="현재 태아보험 준비 상태">
               <div className="chips insurance">
