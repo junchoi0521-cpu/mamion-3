@@ -87,17 +87,17 @@ function App() {
       <ApplySection onSubmitSuccess={increaseCount} />
 <Reviews />
 <Faq />
-<PolicySection />
 <Footer />
 <StickyButton />
     </main>
   );
 }
-function PolicySection() {
+function PolicySection({ initialType = 'all' }) {
   return (
     <section className="policy-section">
       <div className="policy-wrap">
 
+        {(initialType === 'all' || initialType === 'privacy') && (
         <div id="privacy">
           <h2>개인정보처리방침</h2>
 
@@ -130,8 +130,10 @@ function PolicySection() {
             이메일 : cj.gasin@gmail.com
           </p>
         </div>
+        )}
 
-        <div id="terms" style={{ marginTop: '60px' }}>
+        {(initialType === 'all' || initialType === 'terms') && (
+        <div id="terms" style={{ marginTop: initialType === 'terms' ? 0 : '60px' }}>
           <h2>이용약관</h2>
 
           <p>
@@ -146,6 +148,7 @@ function PolicySection() {
             <li>서비스 운영 정책에 따라 신청이 제한될 수 있습니다.</li>
           </ul>
         </div>
+        )}
 
       </div>
     </section>
@@ -163,7 +166,7 @@ function Header() {
         <a href="#process">신청 방법</a>
         <a href="#reviews">고객 후기</a>
         <a href="#faq">FAQ</a>
-<a href="#privacy">개인정보처리방침</a>
+<a href="/privacy">개인정보처리방침</a>
       </nav>
       <button className="header-cta" onClick={scrollToApply}>신청하기</button>
       <button className="mobile-menu" aria-label="메뉴"><Menu size={22} /></button>
@@ -689,8 +692,8 @@ function Footer() {
       </p>
 
       <nav>
-        <a href="#privacy">개인정보처리방침</a>
-        <a href="#terms">이용약관</a>
+        <a href="/privacy">개인정보처리방침</a>
+        <a href="/terms">이용약관</a>
         <a href="#apply">문의하기</a>
       </nav>
 
@@ -707,4 +710,20 @@ function StickyButton() {
   return <button className="sticky" onClick={scrollToApply}>임신축하선물 신청하기</button>;
 }
 
-createRoot(document.getElementById('root')).render(<App />);
+function PolicyPage({ type }) {
+  return (
+    <main className="page">
+      <Header />
+      <PolicySection initialType={type} />
+      <Footer />
+    </main>
+  );
+}
+
+const path = window.location.pathname;
+
+createRoot(document.getElementById('root')).render(
+  path === '/privacy' ? <PolicyPage type="privacy" /> :
+  path === '/terms' ? <PolicyPage type="terms" /> :
+  <App />
+);
