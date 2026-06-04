@@ -1059,3 +1059,8 @@ form small { display: block; text-align: center; color: #7b7f87; margin-top: 14p
   margin-bottom: 10px;
   font-size: 18px;
 }
+.header-logo{
+  height:50px;
+  width:auto;
+  display:block;
+}
