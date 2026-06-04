@@ -564,7 +564,6 @@ const loadDaumPostcodeScript = () =>
     </div>
   )}
 </Field>
-              </Field>
               <Field label="선물 수령 주소">
                 <div className="address-search-row">
                   <input
