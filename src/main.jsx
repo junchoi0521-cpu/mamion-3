@@ -620,10 +620,73 @@ function Faq() {
 
 function Footer() {
   return (
+<PolicySection />
+    function PolicySection() {
+  return (
+    <section className="policy-section">
+      <div className="policy-wrap">
+
+        <div id="privacy">
+          <h2>개인정보처리방침</h2>
+
+          <p>
+            마미온은 개인정보보호법에 따라 이용자의 개인정보를 보호하고
+            관련 고충을 신속하게 처리하기 위하여 다음과 같이
+            개인정보처리방침을 공개합니다.
+          </p>
+
+          <h3>1. 수집 항목</h3>
+          <p>
+            이름, 연락처, 출산예정일, 주소, 임신주수
+          </p>
+
+          <h3>2. 이용 목적</h3>
+          <p>
+            임신축하선물 신청 접수, 신청 확인,
+            배송 및 고객 안내를 위해 사용됩니다.
+          </p>
+
+          <h3>3. 보유 기간</h3>
+          <p>
+            목적 달성 후 즉시 파기하며,
+            관련 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관합니다.
+          </p>
+
+          <h3>4. 개인정보 보호책임자</h3>
+          <p>
+            최준<br />
+            이메일 : cj.gasin@gmail.com
+          </p>
+        </div>
+
+        <div id="terms" style={{marginTop:'60px'}}>
+          <h2>이용약관</h2>
+
+          <p>
+            마미온에서 제공하는 임신축하선물 신청 서비스 이용과 관련한
+            기본 약관입니다.
+          </p>
+
+          <ul>
+            <li>허위 정보 입력 시 신청이 취소될 수 있습니다.</li>
+            <li>선물 구성은 재고 상황에 따라 변경될 수 있습니다.</li>
+            <li>신청 완료 후 담당자가 확인 연락을 드릴 수 있습니다.</li>
+            <li>서비스 운영 정책에 따라 신청이 제한될 수 있습니다.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  );
+}
     <footer className="footer">
       <div className="footer-brand"><span className="logo-flower">✤</span><strong>MamiOn</strong></div>
       <p>마미온은 예비맘과 아기의 건강과 행복을 응원합니다.</p>
-      <nav><a>개인정보처리방침</a><a>이용약관</a><a>문의하기</a></nav>
+      <nav>
+  <a href="#privacy">개인정보처리방침</a>
+  <a href="#terms">이용약관</a>
+  <a href="#apply">문의하기</a>
+</nav>
       <div className="sns"><span>◎</span><MessageCircle size={16} /><Mail size={16} /></div>
     </footer>
   );
