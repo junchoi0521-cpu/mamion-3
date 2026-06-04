@@ -292,10 +292,14 @@ function Header() {
   />
 </div>
 <nav className="nav">
-  <a href="/#giftbox">선물 소개</a>
-  <a href="/#process">신청 방법</a>
-  <a href="/#reviews">고객 후기</a>
-  <a href="/#faq">FAQ</a>
+  <button onClick={() => goToSection("giftbox")}>선물 소개</button>
+
+  <button onClick={() => goToSection("process")}>신청 방법</button>
+
+  <button onClick={() => goToSection("reviews")}>고객 후기</button>
+
+  <button onClick={() => goToSection("faq")}>FAQ</button>
+
   <a href="/privacy">개인정보처리방침</a>
 </nav>
       <button
@@ -314,7 +318,15 @@ function Header() {
     </header>
   );
 }
-
+const goToSection = (id) => {
+  if (window.location.pathname === "/") {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+    });
+  } else {
+    window.location.href = `/#${id}`;
+  }
+};
 function Hero({ today, month }) {
   return (
     <section className="hero-shell">
