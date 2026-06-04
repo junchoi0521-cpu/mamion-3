@@ -3524,3 +3524,69 @@ form small {
   }
 }
 
+
+/* ==============================
+   Duplicate Message Highlight Final
+   ============================== */
+
+.submit-message {
+  margin: 20px 0 24px;
+  padding: 20px 22px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.65;
+  text-align: left;
+  word-break: keep-all;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 16px 38px rgba(247, 64, 120, 0.12);
+}
+
+.submit-message::before {
+  content: "!";
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ff3f7f;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.submit-message.duplicate {
+  border: 1px solid #ff9fbd;
+  background:
+    radial-gradient(circle at 94% 12%, rgba(255, 214, 228, 0.88), transparent 32%),
+    linear-gradient(135deg, #fff1f6 0%, #ffffff 100%);
+  color: #e82c66;
+}
+
+.submit-message.error {
+  border: 1px solid #ff9fbd;
+  background:
+    radial-gradient(circle at 94% 12%, rgba(255, 214, 228, 0.88), transparent 32%),
+    linear-gradient(135deg, #fff7fa 0%, #ffffff 100%);
+  color: #d92f5f;
+}
+
+@media (max-width: 760px) {
+  .submit-message {
+    padding: 17px 16px;
+    font-size: 14px;
+    align-items: flex-start;
+  }
+
+  .submit-message::before {
+    flex-basis: 30px;
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+  }
+}
+
