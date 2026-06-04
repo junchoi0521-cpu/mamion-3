@@ -520,7 +520,7 @@ const loadDaumPostcodeScript = () =>
     <section id="apply" className="apply-section">
       <div className="apply-card">
         <div className="form-area">
-          <span className="form-badge">신청까지 30초</span>
+<span className="form-badge">🎁 100% 무료 · 신청 30초</span>
           <h2>임신축하선물 신청하기</h2>
           <p>간단한 정보 입력으로 소중한 선물을 받아보세요.</p>
           {done && <div className="success">신청이 완료되었습니다 💝<br />담당자가 순차적으로 안내드릴 예정입니다.</div>}
