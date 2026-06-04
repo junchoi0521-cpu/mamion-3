@@ -1059,19 +1059,3 @@ form small { display: block; text-align: center; color: #7b7f87; margin-top: 14p
   margin-bottom: 10px;
   font-size: 18px;
 }
-
-/* main.jsx 수정사항 */
-
-1. App 안에
-<Reviews />
-<Faq />
-<PolicySection />
-<Footer />
-<StickyButton />
-
-2. Header
-<a href="#privacy">개인정보처리방침</a>
-
-3. Footer 위에 PolicySection 함수 추가
-
-4. Footer 함수는 기존 유지
