@@ -366,6 +366,7 @@ function Hero({ today, month }) {
       <div className="hero-card">
         <div className="hero-copy">
           <div className="hero-badge">100% 무료 신청 · 전국 예비맘 대상</div>
+          <div className="hero-alert">🔥 이번 달 선착순 신청 진행 중</div>
 
           <h1 className="hero-title">
             <span className="gift-emoji">🎁</span>
@@ -386,10 +387,14 @@ function Hero({ today, month }) {
           <p className="hero-subnote">배송비 무료 · 선착순 마감 · 매월 한정 수량</p>
 
           <div className="stats-row">
-            <StatCard icon={<Calendar size={23} />} label="오늘 신청" value={today} desc="실시간 집계 중" />
-            <StatCard icon={<Gift size={23} />} label="누적 신청" value={month} desc="누적 신청 기준" />
+            <StatCard icon={<Gift size={23} />} label="누적 신청" value={month} desc="전국 예비맘 신청 기준" />
+            <div className="stat-card special">
+              <div className="stat-top">🔥 <span>이번 달 접수</span></div>
+              <strong>진행중</strong>
+              <p>매월 한정 수량 순차 발송</p>
+            </div>
           </div>
-          <p className="micro-note">* 신청 수는 매일 자정 기준으로 새롭게 집계됩니다</p>
+          <p className="micro-note">전국 예비맘 대상 · 매월 한정 수량 순차 발송</p>
         </div>
 
         <div className="hero-visual">
@@ -737,6 +742,7 @@ const loadDaumPostcodeScript = () =>
 <span className="form-badge">🎁 100% 무료 · 신청 30초</span>
           <h2>임신축하선물 신청하기</h2>
           <p>간단한 정보 입력으로 소중한 선물을 받아보세요.</p>
+          <div className="apply-urgency">⏰ 이번 달 마감 전 선착순 접수 중</div>
           {submitMessage && (
             <div className={`submit-message ${submitMessageType}`}>
               {submitMessage}
@@ -819,7 +825,7 @@ const loadDaumPostcodeScript = () =>
 
 <p className="deadline-note">🎁 이번 달 신청 마감 전 선착순 접수 중입니다.</p>
 
-<button className="submit-btn" type="submit"><Gift size={18} /> 임신축하선물 신청하기</button>
+<button className="submit-btn" type="submit"><Gift size={18} /> 무료 신청하기</button>
             <small>* 신청 정보는 선물 발송 및 안내 목적으로만 사용됩니다.</small>
           </form>
         </div>
@@ -1065,9 +1071,9 @@ function Reviews() {
       <div className="testimonials-inner">
         <div className="testimonials-heading">
           <h2>
-            마미온 고객님들의 <strong>따뜻한 후기</strong>
+            실제 신청 후 수령하신 <strong>예비맘 후기</strong>
           </h2>
-          <p>예비맘 분들이 남겨주신 따뜻한 이야기를 확인해보세요.</p>
+          <p>전국 예비맘들이 직접 남겨주신 후기를 확인해보세요.</p>
         </div>
 
         <div className="testimonials-slider">
@@ -1184,6 +1190,7 @@ function Faq() {
   return (
     <section id="faq" className="faq-section">
       <h2>자주 묻는 질문</h2>
+      <p className="faq-desc">현재 전국 예비맘 대상 신청 접수 중입니다. 매월 준비된 수량에 따라 순차 안내됩니다.</p>
       <div className="faq-grid">
         <article><strong>정말 무료인가요?</strong><p>네. 신청 대상에 해당하는 예비맘께 무료로 안내드립니다.</p></article>
         <article><strong>배송비도 무료인가요?</strong><p>네. 별도 배송비 없이 신청 가능합니다.</p></article>
@@ -1240,7 +1247,7 @@ function Footer() {
 }
 
 function StickyButton() {
-  return <button className="sticky" onClick={scrollToApply}>임신축하선물 신청하기</button>;
+  return <button className="sticky" onClick={scrollToApply}>무료 신청하기</button>;
 }
 function ThanksPage() {
   return (
