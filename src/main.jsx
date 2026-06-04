@@ -626,11 +626,15 @@ return;
             </div>
           </div>
 
-          <div className="contact-action-box">
-            <div className="kakao-box contact-kakao">
-              <MessageCircle size={22} />
-              <span><strong>카카오톡 문의</strong><br />@마미온 검색</span>
-            </div>
+<a
+  href="https://pf.kakao.com/_MKDGX/friend"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="contact-box"
+>
+  <div>카카오톡 문의</div>
+  <div>@마미온 검색</div>
+</a>
 
             <div className="phone-line contact-phone">
               <Phone size={24} />
