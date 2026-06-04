@@ -105,6 +105,7 @@ function Header() {
         <a href="#process">신청 방법</a>
         <a href="#reviews">고객 후기</a>
         <a href="#faq">FAQ</a>
+        <a href="/privacy">개인정보처리방침</a>
       </nav>
       <button className="header-cta" onClick={scrollToApply}>신청하기</button>
       <button className="mobile-menu" aria-label="메뉴"><Menu size={22} /></button>
