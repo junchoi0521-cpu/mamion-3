@@ -1016,3 +1016,22 @@ form small { display: block; text-align: center; color: #7b7f87; margin-top: 14p
     padding: 14px;
   }
 }
+.policy-section{
+  padding:80px 20px;
+  background:#fff;
+}
+
+.policy-wrap{
+  max-width:1000px;
+  margin:0 auto;
+  line-height:1.8;
+}
+
+.policy-wrap h2{
+  margin-bottom:20px;
+}
+
+.policy-wrap h3{
+  margin-top:25px;
+  margin-bottom:10px;
+}
