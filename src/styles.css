@@ -3590,3 +3590,107 @@ form small {
   }
 }
 
+
+/* ==============================
+   HappyMom Conversion Elements Final
+   - 긴급성/희소성/사회적 증거 강화
+   ============================== */
+
+.hero-alert {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  border: 1px solid #ffc9d9;
+  background:
+    radial-gradient(circle at 92% 0%, rgba(255, 216, 230, 0.8), transparent 36%),
+    #fff4f8;
+  color: #f74078;
+  font-size: 16px;
+  font-weight: 900;
+  box-shadow: 0 14px 34px rgba(247, 64, 120, 0.12);
+}
+
+.stat-card.special {
+  background:
+    radial-gradient(circle at 90% 10%, rgba(255, 219, 232, 0.9), transparent 38%),
+    linear-gradient(180deg, #ffffff 0%, #fff3f8 100%);
+}
+
+.stat-card.special strong {
+  font-size: 48px;
+  letter-spacing: -0.05em;
+  color: #f74078;
+}
+
+.apply-urgency {
+  margin: 16px 0 20px;
+  padding: 16px 18px;
+  border: 1px solid #ffc7d9;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 96% 0%, rgba(255, 216, 230, 0.85), transparent 38%),
+    linear-gradient(135deg, #fff3f7 0%, #ffffff 100%);
+  color: #f74078;
+  font-size: 15px;
+  font-weight: 900;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(247, 64, 120, 0.08);
+}
+
+.faq-desc {
+  margin: 14px auto 30px;
+  color: #6f737b;
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 600;
+  word-break: keep-all;
+}
+
+.submit-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn::after {
+  content: "30초면 신청 완료";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+@media (max-width: 1100px) {
+  .hero-alert {
+    margin-top: 14px;
+    padding: 10px 17px;
+    font-size: 13px;
+  }
+
+  .stat-card.special strong {
+    font-size: 31px;
+  }
+
+  .apply-urgency {
+    font-size: 14px;
+    padding: 14px;
+  }
+
+  .faq-desc {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .submit-btn::after {
+    display: none;
+  }
+}
+
