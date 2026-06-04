@@ -34,7 +34,7 @@ const scrollToApply = () =>
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
 const DISPLAY_TODAY_OFFSET = 43;
-const DISPLAY_TOTAL_OFFSET = 2000;
+const DISPLAY_TOTAL_OFFSET = 4386;
 
 function App() {
   const [today, setToday] = useState(DISPLAY_TODAY_OFFSET);
