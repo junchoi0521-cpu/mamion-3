@@ -626,24 +626,29 @@ return;
             </div>
           </div>
 
-<a
-  href="https://pf.kakao.com/_MKDGX/friend"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="contact-box"
->
-  <div>카카오톡 문의</div>
-  <div>@마미온 검색</div>
-</a>
+<div className="contact-action-box">
+  <a
+    href="https://pf.kakao.com/_MKDGX/friend"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="kakao-box contact-kakao"
+  >
+    <MessageCircle size={22} />
+    <span>
+      <strong>카카오톡 문의</strong>
+      <br />
+      클릭 시 바로 상담 가능
+    </span>
+  </a>
 
-            <div className="phone-line contact-phone">
-              <Phone size={24} />
-              <span>
-                <small>전화 문의</small>
-                <strong>010-1234-5678</strong>
-              </span>
-            </div>
-          </div>
+  <div className="phone-line contact-phone">
+    <Phone size={24} />
+    <span>
+      <small>전화 문의</small>
+      <strong>010-1234-5678</strong>
+    </span>
+  </div>
+</div>
 
           <p className="hours contact-hours">
             평일 09:00 - 18:00<br />
