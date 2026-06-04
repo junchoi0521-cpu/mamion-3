@@ -291,14 +291,25 @@ function Header() {
     className="header-logo"
   />
 </div>
-      <nav className="nav">
-        <a href="#giftbox">선물 소개</a>
-        <a href="#process">신청 방법</a>
-        <a href="#reviews">고객 후기</a>
-        <a href="#faq">FAQ</a>
-<a href="/privacy">개인정보처리방침</a>
-      </nav>
-      <button className="header-cta" onClick={scrollToApply}>신청하기</button>
+<nav className="nav">
+  <a href="/#giftbox">선물 소개</a>
+  <a href="/#process">신청 방법</a>
+  <a href="/#reviews">고객 후기</a>
+  <a href="/#faq">FAQ</a>
+  <a href="/privacy">개인정보처리방침</a>
+</nav>
+      <button
+  className="header-cta"
+  onClick={() => {
+    if (window.location.pathname === '/') {
+      scrollToApply();
+    } else {
+      window.location.href = '/#apply';
+    }
+  }}
+>
+  신청하기
+</button>
       <button className="mobile-menu" aria-label="메뉴"><Menu size={22} /></button>
     </header>
   );
