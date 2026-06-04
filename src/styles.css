@@ -1035,3 +1035,43 @@ form small { display: block; text-align: center; color: #7b7f87; margin-top: 14p
   margin-top:25px;
   margin-bottom:10px;
 }
+/* styles.css 맨 아래 추가 */
+
+.policy-section {
+  padding: 80px 20px;
+  background: #fff;
+}
+
+.policy-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: #333;
+}
+
+.policy-wrap h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.policy-wrap h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* main.jsx 수정사항 */
+
+1. App 안에
+<Reviews />
+<Faq />
+<PolicySection />
+<Footer />
+<StickyButton />
+
+2. Header
+<a href="#privacy">개인정보처리방침</a>
+
+3. Footer 위에 PolicySection 함수 추가
+
+4. Footer 함수는 기존 유지
