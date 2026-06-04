@@ -1180,3 +1180,16 @@ form small { display: block; text-align: center; color: #7b7f87; margin-top: 14p
   cursor: pointer;
   box-shadow: 0 18px 42px rgba(247,64,120,.22);
 }
+
+.nav button {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.nav button:hover {
+  color: #e85d8f;
+}
