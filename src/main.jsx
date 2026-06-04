@@ -33,18 +33,19 @@ const scrollToApply = () =>
   document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
+const DISPLAY_TODAY_OFFSET = 43;
 const DISPLAY_TOTAL_OFFSET = 2000;
 
 function App() {
-  const [today, setToday] = useState(0);
-  const [month, setMonth] = useState(0);
+  const [today, setToday] = useState(DISPLAY_TODAY_OFFSET);
+  const [month, setMonth] = useState(DISPLAY_TOTAL_OFFSET);
 
   const fetchApplicationCounts = () => {
     const callbackName = `mamionCountCallback_${Date.now()}`;
 
     window[callbackName] = (data) => {
       if (typeof data.today === 'number') {
-        setToday(data.today);
+        setToday(DISPLAY_TODAY_OFFSET + data.today);
       }
 
       if (typeof data.total === 'number') {
