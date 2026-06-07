@@ -541,3 +541,18 @@ form small{display:block;text-align:center;color:#7b7f87;margin-top:12px}
     height:56px;
   }
 }
+
+/* ===== HERO BUTTON CUT FIX ===== */
+@media (min-width:1101px){
+  .hero-card{
+    height:680px;
+  }
+
+  .hero-content{
+    padding-top:54px;
+  }
+
+  .primary-cta.hero-cta{
+    margin-top:22px;
+  }
+}
