@@ -98,49 +98,53 @@ function Header() {
 
   return (
     <header className="site-header">
-      <button className="logo-button" type="button" onClick={() => goToSection('top')} aria-label="마미온 홈">
-        <img src={logo} alt="마미온" />
-      </button>
-      <nav className="desktop-nav">
-        <button type="button" onClick={() => goToSection('giftbox')}>선물 소개</button>
-        <button type="button" onClick={() => goToSection('apply')}>신청 방법</button>
-        <button type="button" onClick={() => goToSection('reviews')}>고객 후기</button>
-        <button type="button" onClick={() => goToSection('faq')}>FAQ</button>
-      </nav>
-      <button className="header-apply" type="button" onClick={scrollToApply}><Gift size={18} /> 임신축하선물 신청하기</button>
-      <button className="mobile-menu" type="button" onClick={() => setMobileOpen((prev) => !prev)} aria-label="메뉴 열기"><Menu size={24} /></button>
-      {mobileOpen && (
-        <div className="mobile-nav-panel">
-          <button type="button" onClick={() => move('giftbox')}>선물 소개</button>
-          <button type="button" onClick={() => move('apply')}>신청 방법</button>
-          <button type="button" onClick={() => move('reviews')}>고객 후기</button>
-          <button type="button" onClick={() => move('faq')}>FAQ</button>
-        </div>
-      )}
+      <div className="site-header-inner">
+        <button className="logo-button" type="button" onClick={() => goToSection('top')} aria-label="마미온 홈">
+          <img src={logo} alt="마미온" />
+        </button>
+        <nav className="desktop-nav">
+          <button type="button" onClick={() => goToSection('giftbox')}>선물 소개</button>
+          <button type="button" onClick={() => goToSection('apply')}>신청 방법</button>
+          <button type="button" onClick={() => goToSection('reviews')}>고객 후기</button>
+          <button type="button" onClick={() => goToSection('faq')}>FAQ</button>
+        </nav>
+        <button className="header-apply" type="button" onClick={scrollToApply}><Gift size={18} /> 임신축하선물 신청하기</button>
+        <button className="mobile-menu" type="button" onClick={() => setMobileOpen((prev) => !prev)} aria-label="메뉴 열기"><Menu size={24} /></button>
+        {mobileOpen && (
+          <div className="mobile-nav-panel">
+            <button type="button" onClick={() => move('giftbox')}>선물 소개</button>
+            <button type="button" onClick={() => move('apply')}>신청 방법</button>
+            <button type="button" onClick={() => move('reviews')}>고객 후기</button>
+            <button type="button" onClick={() => move('faq')}>FAQ</button>
+          </div>
+        )}
+      </div>
     </header>
   );
 }
 
 function Hero() {
   return (
-    <section id="top" className="hero-section">
-      <div className="hero-visual">
-        <img src={heroMom} alt="임신축하선물을 받는 예비맘" />
-      </div>
-      <div className="hero-overlay" />
-      <div className="hero-content">
-        <div className="hero-ribbon">예비맘을 위한 특별한 선물</div>
-        <h1>
-          <span>마미온 임신축하선물</span>
-          <span>20여 종 육아·산모용품</span>
-          <strong>랜덤 증정</strong>
-        </h1>
-        <p>예비맘이라면 누구나 신청 가능해요.<br />매월 준비된 다양한 구성품을 <b>무료로</b> 받아보세요.</p>
-        <div className="hero-benefits">
-          <article><Truck size={34} /><b>배송비 포함</b><span>전액 무료</span></article>
-          <article><ShieldCheck size={34} /><b>신청 30초</b><span>간편 신청</span></article>
+    <section id="top" className="hero-shell">
+      <div className="hero-card">
+        <div className="hero-visual">
+          <img src={heroMom} alt="임신축하선물을 받는 예비맘" />
         </div>
-        <button type="button" className="primary-cta hero-cta" onClick={scrollToApply}>임신축하선물 무료 신청하기 <span>›</span></button>
+        <div className="hero-overlay" />
+        <div className="hero-content">
+          <div className="hero-ribbon">예비맘을 위한 특별한 선물</div>
+          <h1>
+            <span>마미온 임신축하선물</span>
+            <span>20여 종 육아·산모용품</span>
+            <strong>랜덤 증정</strong>
+          </h1>
+          <p>예비맘이라면 누구나 신청 가능해요.<br />매월 준비된 다양한 구성품을 <b>무료로</b> 받아보세요.</p>
+          <div className="hero-benefits">
+            <article><Truck size={34} /><b>배송비 포함</b><span>전액 무료</span></article>
+            <article><ShieldCheck size={34} /><b>신청 30초</b><span>간편 신청</span></article>
+          </div>
+          <button type="button" className="primary-cta hero-cta" onClick={scrollToApply}>임신축하선물 무료 신청하기 <span>›</span></button>
+        </div>
       </div>
     </section>
   );
@@ -148,7 +152,7 @@ function Hero() {
 
 function GiftIntro() {
   return (
-    <section id="giftbox" className="gift-intro-section">
+    <section id="giftbox" className="gift-intro-section section-wrap">
       <div className="gift-intro-card">
         <div className="gift-photo-large"><img src={giftBoxOverview} alt="마미온 임신축하선물 박스" /></div>
         <div className="gift-copy-area">
@@ -180,7 +184,7 @@ function KitPreview() {
   ];
 
   return (
-    <section className="kit-section">
+    <section className="kit-section section-wrap">
       <div className="kit-heading">
         <div>
           <h2>구성품 예시 <Heart size={28} /></h2>
@@ -213,7 +217,7 @@ function WhyRandom() {
   ];
   return (
     <section className="why-section">
-      <div className="why-grid-wrap">
+      <div className="why-grid-wrap section-wrap">
         <div className="why-left">
           <h2>왜 마미온은 랜덤 증정으로 운영하나요?</h2>
           <div className="why-grid">
@@ -303,7 +307,7 @@ function ApplySection({ onSubmitSuccess }) {
   }
 
   return (
-    <section id="apply" className="apply-section">
+    <section id="apply" className="apply-section section-wrap">
       <div className="apply-card">
         <div className="form-area">
           <div className="apply-title-row"><h2>임신축하선물 신청하기 <Heart size={26} /></h2><span>신청 30초 완료 ✨</span></div>
@@ -343,7 +347,7 @@ function Reviews() {
     ['이○○ 고객님', '첫 아이라 준비할 게 많았는데 좋은 선물을 받았어요. 정말 추천합니다!'],
   ];
   return (
-    <section id="reviews" className="reviews-section">
+    <section id="reviews" className="reviews-section section-wrap">
       <div className="review-title"><h2>마미온 고객님들의<br /><strong>따뜻한 후기</strong></h2></div>
       <div className="review-wrap">
         <div className="review-cards">{reviews.map(([name, text]) => <article key={name}><div className="stars">★★★★★</div><p>{text}</p><b>- {name}</b></article>)}</div>
@@ -354,7 +358,7 @@ function Reviews() {
 }
 
 function Faq() {
-  return <section id="faq" className="faq-section"><div className="section-title"><h2>자주 묻는 질문</h2><p>현재 전국 예비맘 대상 신청 접수 중입니다.</p></div><div className="faq-grid"><article><strong>정말 무료인가요?</strong><p>네. 신청 대상에 해당하는 예비맘께 무료로 안내드립니다.</p></article><article><strong>배송비도 무료인가요?</strong><p>네. 별도 배송비 없이 신청 가능합니다.</p></article><article><strong>신청 후 왜 연락이 오나요?</strong><p>신청 확인 및 축하선물 안내를 위해 순차적으로 연락드립니다.</p></article></div></section>;
+  return <section id="faq" className="faq-section section-wrap"><div className="section-title"><h2>자주 묻는 질문</h2><p>현재 전국 예비맘 대상 신청 접수 중입니다.</p></div><div className="faq-grid"><article><strong>정말 무료인가요?</strong><p>네. 신청 대상에 해당하는 예비맘께 무료로 안내드립니다.</p></article><article><strong>배송비도 무료인가요?</strong><p>네. 별도 배송비 없이 신청 가능합니다.</p></article><article><strong>신청 후 왜 연락이 오나요?</strong><p>신청 확인 및 축하선물 안내를 위해 순차적으로 연락드립니다.</p></article></div></section>;
 }
 
 function PolicySection({ initialType = 'all' }) {
