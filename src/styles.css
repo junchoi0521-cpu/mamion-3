@@ -96,6 +96,7 @@ a{text-decoration:none;color:inherit}
   height:100%;
   object-fit:cover;
   object
+  }
 .hero-overlay{
   position:absolute;
   inset:0;
