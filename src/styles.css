@@ -654,20 +654,7 @@ a {
 }
 
 .kit-photo-wrap button {
-     display: none;
-   }
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 2;
-  width: 34px;
-  height: 34px;
-  border: 1px solid #ffd0dc;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--pink);
-  font-size: 24px;
-  line-height: 1;
+  display: none !important;
 }
 
 .kit-card-body {
@@ -3842,5 +3829,28 @@ form small {
 
   .kit-arrow-right {
     right: -10px;
+  }
+}
+
+/* ==============================
+   Gift carousel final override
+   ============================== */
+.kit-photo-wrap button {
+  display: none !important;
+}
+
+.kit-carousel {
+  position: relative;
+}
+
+.kit-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1100px) {
+  .kit-carousel {
+    padding: 0 8px;
   }
 }
