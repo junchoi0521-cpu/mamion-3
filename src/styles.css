@@ -4266,3 +4266,629 @@ form small {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ==============================
+   MamiOn V5 Landing Polish
+   - AI 시안에 가깝게 전체 밀도/카드/히어로/폼 재정리
+   ============================== */
+
+:root {
+  --v5-pink: #f73378;
+  --v5-pink-2: #ff6b9b;
+  --v5-ink: #151720;
+  --v5-cream: #fff8fb;
+  --v5-soft: #fff0f6;
+  --v5-border: #ffd5e2;
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(255, 221, 233, 0.7), transparent 28%),
+    radial-gradient(circle at 94% 2%, rgba(255, 231, 238, 0.8), transparent 26%),
+    linear-gradient(180deg, #fff 0%, #fff7fa 42%, #fff1f6 100%);
+}
+
+.page {
+  padding-bottom: 0;
+}
+
+/* Header */
+.header {
+  max-width: 1480px;
+  height: 78px;
+  border-radius: 0 0 24px 24px;
+  padding: 0 34px;
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 16px 45px rgba(247,64,120,.06);
+}
+
+.header-logo {
+  height: 70px;
+  transform: translateY(6px);
+}
+
+.nav {
+  gap: 38px;
+  font-size: 15px;
+}
+
+.header-cta {
+  padding: 15px 28px;
+  border-radius: 14px;
+  font-size: 15px;
+}
+
+/* Hero */
+.hero-shell.hero-v4-shell {
+  padding: 28px 28px 58px;
+  background: transparent;
+}
+
+.hero-card.hero-v4-card {
+  width: min(100%, 1550px);
+  min-height: 720px;
+  grid-template-columns: 52% 48%;
+  border-radius: 34px;
+  box-shadow: 0 34px 90px rgba(247,64,120,.16);
+  background: #fff;
+}
+
+.hero-card.hero-v4-card::before {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,1) 0%,
+    rgba(255,255,255,.98) 40%,
+    rgba(255,255,255,.64) 55%,
+    rgba(255,255,255,.08) 78%);
+}
+
+.hero-v4-copy {
+  align-items: flex-start;
+  text-align: left;
+  padding: 92px 40px 68px 92px;
+}
+
+.hero-v4-badge,
+.hero-v4-alert {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid #ffc7d8;
+  background: rgba(255,255,255,.92);
+  color: var(--v5-pink);
+  font-weight: 900;
+  box-shadow: 0 16px 42px rgba(247,64,120,.12);
+}
+
+.hero-v4-badge {
+  padding: 14px 28px;
+  font-size: 17px;
+}
+
+.hero-v4-alert {
+  margin-top: 16px;
+  padding: 12px 24px;
+  font-size: 15px;
+}
+
+.hero-v4-title {
+  margin-top: 50px;
+  letter-spacing: -.065em;
+  text-align: left;
+}
+
+.hero-v4-title .title-line.black {
+  font-size: clamp(42px, 3.8vw, 68px);
+  line-height: 1.08;
+}
+
+.hero-v4-title .hero-sub-title {
+  margin-top: 12px;
+}
+
+.hero-v4-title .title-line.pink {
+  margin-top: 16px;
+  font-size: clamp(58px, 5.2vw, 92px);
+  line-height: .98;
+}
+
+.hero-v4-desc {
+  margin-top: 30px;
+  font-size: 22px;
+  line-height: 1.7;
+  text-align: left;
+  color: #23262f;
+}
+
+.hero-benefit-row.hero-benefit-row-v5 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  width: min(100%, 560px);
+  margin-top: 34px;
+}
+
+.hero-benefit-row-v5 article {
+  min-height: 120px;
+  padding: 22px 18px;
+  border: 1px solid #ffd5e2;
+  border-radius: 22px;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 20px 50px rgba(247,64,120,.1);
+}
+
+.hero-benefit-row-v5 svg {
+  color: var(--v5-pink);
+  margin-bottom: 12px;
+}
+
+.hero-benefit-row-v5 strong {
+  display: block;
+  color: var(--v5-ink);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.hero-benefit-row-v5 span {
+  display: block;
+  margin-top: 5px;
+  color: var(--v5-pink);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.hero-v4-cta {
+  width: min(100%, 560px);
+  height: 74px;
+  margin-top: 28px;
+  border-radius: 18px;
+  font-size: 24px;
+}
+
+.hero-subnote {
+  color: #6d717c;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.hero-v4-visual {
+  width: 55%;
+}
+
+.hero-v4-visual img {
+  object-position: center right;
+  filter: saturate(1.03) contrast(1.02);
+}
+
+/* Trust band: AI 시안의 상단 작은 혜택 카드 */
+.trust-band.trust-band-v4 {
+  width: min(100%, 1300px);
+  margin: -16px auto 0;
+  padding: 0 24px 44px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.trust-band-v4 article {
+  min-height: 142px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.94);
+  border: 1px solid #ffd8e5;
+  box-shadow: 0 22px 60px rgba(247,64,120,.09);
+}
+
+.trust-band-v4 svg {
+  color: var(--v5-pink);
+  width: 30px;
+  height: 30px;
+}
+
+.trust-band-v4 strong {
+  font-size: 20px;
+}
+
+/* Gift box feature */
+.giftbox-v4 {
+  max-width: none;
+  padding: 76px 24px;
+  background:
+    radial-gradient(circle at 8% 20%, rgba(255,221,233,.8), transparent 24%),
+    linear-gradient(180deg, #fff8fb 0%, #fff 46%, #fff8fb 100%);
+}
+
+.box-set-banner-v4 {
+  width: min(100%, 1320px);
+  grid-template-columns: 1.1fr .95fr;
+  gap: 48px;
+  padding: 48px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 94% 8%, rgba(255,105,160,.18), transparent 30%),
+    linear-gradient(135deg, #fff 0%, #fff8fb 58%, #ffe5ef 100%);
+}
+
+.box-set-image-v4 {
+  border-radius: 24px;
+  box-shadow: 0 26px 62px rgba(89,35,58,.14);
+}
+
+.box-set-image-v4 img {
+  aspect-ratio: 1.42 / 1;
+}
+
+.box-copy-v4 {
+  max-width: none;
+}
+
+.box-copy-v4 .box-mini-label {
+  margin-bottom: 22px;
+}
+
+.box-copy-v4 h2 {
+  margin-bottom: 24px;
+  font-size: clamp(42px, 4vw, 66px);
+  line-height: 1.05;
+}
+
+.box-copy-v4 p {
+  font-size: 18px;
+  line-height: 1.78;
+}
+
+.gift-benefit-list-v5 {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 22px !important;
+  row-gap: 16px !important;
+  margin-top: 26px !important;
+}
+
+.gift-benefit-list-v5 li {
+  font-size: 16px !important;
+  line-height: 1.45;
+}
+
+.box-set-cta {
+  height: 66px;
+  border-radius: 16px;
+  font-size: 20px;
+}
+
+/* Kit cards */
+.kit-title-v4 {
+  margin-top: 72px;
+  margin-bottom: 34px;
+}
+
+.kit-title-v4 h3 {
+  font-size: clamp(34px, 3.2vw, 48px);
+}
+
+.kit-title-v4 p {
+  font-size: 16px;
+}
+
+.kit-grid-v4 {
+  width: min(100%, 1280px);
+  margin: 0 auto;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+}
+
+.kit-card-v4 {
+  border-radius: 22px;
+  box-shadow: 0 18px 50px rgba(247,64,120,.1);
+}
+
+.kit-card-v4 .kit-photo-wrap {
+  height: 214px;
+}
+
+.kit-card-v4 .kit-card-body {
+  min-height: 150px;
+  padding: 24px 18px 26px;
+}
+
+.kit-card-v4 .kit-card-body h4 {
+  font-size: 22px;
+}
+
+.kit-card-v4 .kit-card-body p {
+  font-size: 14px;
+  word-break: keep-all;
+}
+
+/* 사용자가 업로드한 원본 카드 이미지 속 하트가 포함되어 있어, 코드상 하트는 제거 상태 유지 */
+.kit-photo-wrap button {
+  display: none !important;
+}
+
+.kit-tags {
+  width: min(100%, 1120px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Random benefit section */
+.random-benefit-section {
+  padding: 92px 24px 72px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,221,233,.65), transparent 28%),
+    linear-gradient(180deg, #fff8fb, #fff1f6);
+}
+
+.random-benefit-wrap {
+  width: min(100%, 1320px);
+  margin: 0 auto;
+}
+
+.random-benefit-heading {
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.random-benefit-heading span {
+  display: inline-flex;
+  padding: 9px 18px;
+  border: 1px solid #ffc8d9;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--v5-pink);
+  font-weight: 900;
+}
+
+.random-benefit-heading h2 {
+  margin: 22px 0 0;
+  color: var(--v5-ink);
+  font-size: clamp(32px, 3.6vw, 48px);
+  letter-spacing: -.055em;
+}
+
+.random-benefit-heading strong {
+  color: var(--v5-pink);
+}
+
+.random-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.random-benefit-grid article {
+  min-height: 210px;
+  padding: 34px 28px;
+  border: 1px solid #ffd8e5;
+  border-radius: 26px;
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 24px 60px rgba(247,64,120,.08);
+  text-align: center;
+}
+
+.random-benefit-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  background: #fff0f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.random-benefit-grid h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.random-benefit-grid p {
+  margin: 0;
+  color: #656b76;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.random-summary-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 34px;
+  border: 1px solid #ffd8e5;
+  border-radius: 24px;
+  background: rgba(255,255,255,.9);
+  overflow: hidden;
+  box-shadow: 0 22px 60px rgba(247,64,120,.07);
+}
+
+.random-summary-row article {
+  min-height: 120px;
+  padding: 24px 14px;
+  text-align: center;
+  border-right: 1px solid #ffe1ea;
+}
+
+.random-summary-row article:last-child {
+  border-right: 0;
+}
+
+.random-summary-row strong {
+  display: block;
+  color: var(--v5-pink);
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.random-summary-row span {
+  display: block;
+  margin-top: 6px;
+  color: #151720;
+  font-weight: 900;
+}
+
+/* Process */
+.process-section {
+  max-width: none;
+  padding: 76px 24px 50px;
+  background: linear-gradient(180deg, #fff1f6, #fff8fb);
+}
+
+.process-section .title-center h2 {
+  font-size: clamp(30px, 3.4vw, 44px);
+}
+
+.process-grid {
+  width: min(100%, 1260px);
+  margin: 36px auto 0;
+  gap: 22px;
+}
+
+.process-grid article {
+  min-height: 154px;
+  border-radius: 24px;
+}
+
+/* Apply section: AI 시안처럼 더 컴팩트하고 고급스럽게 */
+.apply-section {
+  max-width: none;
+  padding: 72px 24px 86px;
+  background: #fff8fb;
+}
+
+.apply-card {
+  width: min(100%, 1320px);
+  margin: 0 auto;
+  grid-template-columns: 1.35fr .9fr;
+  padding: 34px;
+  border-radius: 28px;
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 28px 80px rgba(247,64,120,.13);
+}
+
+.form-area h2 {
+  font-size: 34px;
+}
+
+.contact-area.contact-trust-area {
+  border-radius: 26px;
+}
+
+.submit-btn {
+  height: 68px;
+  border-radius: 16px;
+  font-size: 21px;
+}
+
+/* Reviews */
+.reviews-section.testimonials-section {
+  padding-top: 84px;
+  background: linear-gradient(180deg, #fff8fb 0%, #fff1f6 100%);
+}
+
+/* Mobile */
+@media (max-width: 1100px) {
+  .header {
+    height: 66px;
+  }
+
+  .header-logo {
+    height: 58px;
+  }
+
+  .hero-shell.hero-v4-shell {
+    padding: 0;
+  }
+
+  .hero-card.hero-v4-card {
+    width: 100%;
+    border-radius: 0;
+    min-height: auto;
+    display: block;
+  }
+
+  .hero-v4-copy {
+    padding: 34px 22px 44px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-v4-title,
+  .hero-v4-desc {
+    text-align: center;
+  }
+
+  .hero-benefit-row.hero-benefit-row-v5 {
+    grid-template-columns: 1fr;
+    width: min(100%, 360px);
+  }
+
+  .hero-benefit-row-v5 article {
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .trust-band.trust-band-v4,
+  .random-benefit-grid,
+  .random-summary-row,
+  .gift-benefit-list-v5,
+  .box-set-banner-v4,
+  .apply-card {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-band.trust-band-v4 {
+    margin-top: 0;
+  }
+
+  .box-set-banner-v4 {
+    padding: 26px 18px;
+  }
+
+  .box-set-image-v4 {
+    order: -1;
+  }
+
+  .kit-grid-v4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .kit-card-v4 .kit-photo-wrap {
+    height: 150px;
+  }
+
+  .kit-card-v4 .kit-card-body {
+    min-height: 132px;
+    padding: 18px 12px;
+  }
+
+  .random-summary-row article {
+    border-right: 0;
+    border-bottom: 1px solid #ffe1ea;
+  }
+
+  .random-summary-row article:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-v4-title .title-line.black {
+    font-size: 34px;
+  }
+
+  .hero-v4-title .title-line.pink {
+    font-size: 54px;
+  }
+
+  .hero-v4-desc {
+    font-size: 17px;
+  }
+
+  .hero-v4-cta {
+    height: 62px;
+    font-size: 17px;
+  }
+
+  .kit-grid-v4 {
+    grid-template-columns: 1fr;
+  }
+}
