@@ -4,15 +4,15 @@ import {
   Gift,
   Truck,
   ShieldCheck,
-  Check,
   Menu,
   MessageCircle,
   Phone,
   CalendarCheck,
   Heart,
   Star,
-  Users,
   ChevronDown,
+  Box,
+  Smile,
 } from 'lucide-react';
 import './styles.css';
 
@@ -77,7 +77,8 @@ function App() {
     <main className="page">
       <Header />
       <Hero today={today} total={total} />
-      <GiftBoxSet />
+      <GiftIntro />
+      <KitPreview />
       <WhyRandom />
       <ApplySection onSubmitSuccess={increaseCount} />
       <Reviews />
@@ -150,7 +151,28 @@ function Hero({ today, total }) {
   );
 }
 
-function GiftBoxSet() {
+function GiftIntro() {
+  return (
+    <section id="giftbox" className="gift-intro-section">
+      <div className="gift-intro-card">
+        <div className="gift-photo-large"><img src={giftBoxOverview} alt="마미온 임신축하선물 박스" /></div>
+        <div className="gift-copy-area">
+          <span className="section-badge"><Gift size={16} /> 마미온 임신축하선물</span>
+          <h2>20여 종 구성품<br /><strong>랜덤 증정</strong></h2>
+          <p>실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 매월 구성은 달라질 수 있으며 준비된 구성품 중 랜덤으로 증정됩니다.</p>
+        </div>
+        <div className="gift-feature-grid">
+          <article><Gift size={42} /><b>20여 종 구성품</b><span>랜덤 증정</span></article>
+          <article><Box size={42} /><b>매월 달라지는</b><span>다양한 구성</span></article>
+          <article><Heart size={42} /><b>실용적인</b><span>육아·산모용품</span></article>
+          <article><Truck size={42} /><b>안전하고 빠른</b><span>무료 배송</span></article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function KitPreview() {
   const kitItems = [
     { img: kitHandkerchief, title: '아기 손수건', desc: '부드러운 순면 손수건' },
     { img: kitWipes, title: '아기 물티슈', desc: '매일 쓰는 실용 육아용품' },
@@ -163,22 +185,7 @@ function GiftBoxSet() {
   ];
 
   return (
-    <section id="giftbox" className="gift-section">
-      <div className="gift-summary-card">
-        <div className="gift-photo-large"><img src={giftBoxOverview} alt="마미온 임신축하선물 박스" /></div>
-        <div className="gift-summary-copy">
-          <span className="section-badge"><Gift size={16} /> 마미온 임신축하선물</span>
-          <h2>20여 종 구성품<br /><strong>랜덤 증정</strong></h2>
-          <p>실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 매월 준비된 구성 중 랜덤으로 증정됩니다.</p>
-          <div className="gift-feature-grid">
-            <article><Gift size={34} /><b>20여 종 구성품</b><span>랜덤 증정</span></article>
-            <article><CalendarCheck size={34} /><b>매월 달라지는</b><span>다양한 구성</span></article>
-            <article><Heart size={34} /><b>실용적인</b><span>육아·산모용품</span></article>
-            <article><Truck size={34} /><b>배송비 포함</b><span>전액 무료</span></article>
-          </div>
-        </div>
-      </div>
-
+    <section className="kit-section">
       <div className="kit-heading">
         <div>
           <h2>구성품 예시 <Heart size={28} /></h2>
@@ -205,20 +212,21 @@ function GiftBoxSet() {
 
 function WhyRandom() {
   const cards = [
-    [<Gift size={42} />, '더 다양한 구성품 제공', '정해진 한 가지 구성이 아니라 준비된 구성품 중 상황에 맞게 안내해드려요.'],
-    [<CalendarCheck size={42} />, '매월 새로운 구성', '월별 재고와 협력사 구성에 따라 매번 다른 선물을 기대할 수 있어요.'],
-    [<Gift size={42} />, '추가 선물의 기회', '일부 신청자에게는 시크릿 선물이 함께 제공될 수 있어요.'],
+    [<Box size={42} />, '더 다양한 구성품 제공', '20여 종의 폭넓은 구성품을 더 많은 예비맘에게 전해드려요.'],
+    [<CalendarCheck size={42} />, '매월 새로운 구성', '매월 새로운 구성으로 더 설레는 선물을 보내드려요.'],
+    [<Gift size={42} />, '추가 선물의 기회', '매월 일부 신청자에게 특별 선물이 함께 갈 수 있어요.'],
   ];
   return (
     <section className="why-section">
-      <div className="why-left">
-        <span className="section-badge">왜 랜덤 증정으로 운영하나요?</span>
-        <h2>더 많은 예비맘에게 <strong>다양한 혜택</strong>을 드리기 위해서예요.</h2>
-        <div className="why-grid">
-          {cards.map(([icon, title, desc]) => <article key={title}><i>{icon}</i><h3>{title}</h3><p>{desc}</p></article>)}
+      <div className="why-grid-wrap">
+        <div className="why-left">
+          <h2>왜 마미온은 랜덤 증정으로 운영하나요?</h2>
+          <div className="why-grid">
+            {cards.map(([icon, title, desc]) => <article key={title}><i>{icon}</i><h3>{title}</h3><p>{desc}</p></article>)}
+          </div>
         </div>
+        <StatsStrip />
       </div>
-      <StatsStrip />
     </section>
   );
 }
@@ -226,7 +234,7 @@ function WhyRandom() {
 function StatsStrip() {
   const stats = [
     [<Star size={34} />, '4.9', '평균 만족도'],
-    [<MessageCircle size={34} />, '2,300+', '누적 후기'],
+    [<Smile size={34} />, '2,300+', '누적 후기'],
     [<Heart size={34} />, '98%', '추천 의사'],
   ];
   return <div className="stats-strip">{stats.map(([icon, num, label]) => <article key={label}>{icon}<strong>{num}</strong><span>{label}</span></article>)}</div>;
