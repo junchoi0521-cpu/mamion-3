@@ -86,6 +86,7 @@ function App() {
       <Hero today={today} month={month} />
       <TrustBand />
       <GiftBoxSet />
+      <RandomBenefitSection />
       <Process />
       <ApplySection onSubmitSuccess={increaseCount} />
 <Reviews />
@@ -362,42 +363,43 @@ function Header() {
 
 function Hero({ today, month }) {
   return (
-    <section className="hero-shell">
-      <div className="hero-card">
-        <div className="hero-copy">
-          <div className="hero-badge">100% 무료 신청 · 전국 예비맘 대상</div>
-          <div className="hero-alert">🔥 이번 달 선착순 신청 진행 중</div>
+    <section className="hero-shell hero-v4-shell">
+      <div className="hero-card hero-v4-card">
+        <div className="hero-copy hero-v4-copy">
+          <div className="hero-badge hero-v4-badge">🎁 예비맘을 위한 특별한 선물</div>
+          <div className="hero-alert hero-v4-alert">🔥 이번 달 선착순 신청 진행 중</div>
 
-          <h1 className="hero-title">
-            <span className="gift-emoji">🎁</span>
-            <span className="title-line black">
-              마미온 임신축하선물<span className="heart-mark">♡</span>
-            </span>
-            <span className="title-line pink">무료신청</span>
+          <h1 className="hero-title hero-v4-title">
+            <span className="title-line black">마미온 임신축하선물</span>
+            <span className="title-line black hero-sub-title">20여 종 육아·산모용품</span>
+            <span className="title-line pink">랜덤 증정</span>
           </h1>
 
-          <p className="hero-desc">
+          <p className="hero-desc hero-v4-desc">
             예비맘이라면 누구나 신청 가능해요.<br />
-            출산 준비에 필요한 축하선물과 혜택을 무료로 받아보세요.
+            매월 준비된 다양한 구성품을 무료로 받아보세요.
           </p>
 
-          <button onClick={scrollToApply} className="hero-cta">
-            무료 신청하기 <span>›</span>
+          <div className="hero-benefit-row">
+            <article>
+              <Truck size={30} />
+              <strong>배송비 포함</strong>
+              <span>전액 무료</span>
+            </article>
+            <article>
+              <ShieldCheck size={30} />
+              <strong>신청 30초</strong>
+              <span>간편 완료</span>
+            </article>
+          </div>
+
+          <button onClick={scrollToApply} className="hero-cta hero-v4-cta">
+            임신축하선물 무료 신청하기 <span>›</span>
           </button>
           <p className="hero-subnote">배송비 무료 · 선착순 마감 · 매월 한정 수량</p>
-
-          <div className="stats-row">
-            <StatCard icon={<Gift size={23} />} label="누적 신청" value={month} desc="전국 예비맘 신청 기준" />
-            <div className="stat-card special">
-              <div className="stat-top">🔥 <span>이번 달 접수</span></div>
-              <strong>진행중</strong>
-              <p>매월 한정 수량 순차 발송</p>
-            </div>
-          </div>
-          <p className="micro-note">전국 예비맘 대상 · 매월 한정 수량 순차 발송</p>
         </div>
 
-        <div className="hero-visual">
+        <div className="hero-visual hero-v4-visual">
           <img src={heroMom} alt="임산부와 임신축하선물" />
         </div>
       </div>
@@ -417,13 +419,13 @@ function StatCard({ icon, label, value, desc = '실시간 집계 중' }) {
 
 function TrustBand() {
   const items = [
-    { icon: <ShieldCheck size={22} />, title: '100% 무료 신청', desc: '예비맘 대상 무료 안내' },
-    { icon: <Truck size={22} />, title: '배송비 무료', desc: '별도 비용 없이 신청' },
-    { icon: <Check size={22} />, title: '간단 신청', desc: '30초면 신청 완료' },
+    { icon: <ShieldCheck size={26} />, title: '100% 무료 신청', desc: '선물부터 배송비까지 부담 없이' },
+    { icon: <Gift size={26} />, title: '구성품 랜덤 증정', desc: '매월 준비된 구성 중 랜덤 안내' },
+    { icon: <Check size={26} />, title: '간단 신청', desc: '필수 정보만 입력하면 접수 완료' },
   ];
 
   return (
-    <section className="trust-band">
+    <section className="trust-band trust-band-v4">
       {items.map((it) => (
         <article key={it.title}>
           <div>{it.icon}</div>
@@ -437,14 +439,14 @@ function TrustBand() {
 
 function GiftBoxSet() {
   const kitItems = [
-    { img: kitHandkerchief, title: '아기 손수건', desc: '신생아 피부에 부드러운 순면 필수템' },
-    { img: kitWipes, title: '아기 물티슈', desc: '출산 후 매일 쓰는 실용 육아용품' },
+    { img: kitHandkerchief, title: '아기 손수건', desc: '부드러운 순면 손수건으로 신생아 피부에도 안심' },
+    { img: kitWipes, title: '아기 물티슈', desc: '매일 쓰는 실용 육아용품' },
     { img: kitNursingPad, title: '수유패드', desc: '출산 후 바로 필요한 산모 준비물' },
-    { img: kitMomCare, title: '산모 케어용품', desc: '예비맘의 몸과 마음을 위한 작은 케어' },
-    { img: kitCleanser, title: '젖병 세정 샘플', desc: '수유용품 준비에 도움 되는 세정용품' },
+    { img: kitMomCare, title: '산모 케어용품', desc: '출산 후 지친 산모를 위한 케어 제품' },
+    { img: kitCleanser, title: '젖병 세정 샘플', desc: '수유용품 세정 준비에 도움 되는 세정용품' },
     { img: kitChecklist, title: '출산 체크리스트', desc: '놓치기 쉬운 준비물을 한눈에 정리' },
     { img: kitClaimGuide, title: '보험금 청구 가이드', desc: '출산 후 청구 준비에 도움 되는 안내 자료' },
-    { img: kitRandomGift, title: '랜덤 추가 선물', desc: '매월 구성에 따라 함께 제공되는 특별 선물' },
+    { img: kitRandomGift, title: '시크릿 선물', desc: '매월 구성에 따라 함께 제공되는 특별 선물' },
   ];
 
   const textItems = [
@@ -452,48 +454,50 @@ function GiftBoxSet() {
     '물티슈',
     '수유패드',
     '산모케어',
-    '젖병세정',
-    '체크리스트',
-    '청구가이드',
-    '랜덤선물',
+    '젖병세정제',
+    '출산 체크리스트',
+    '보험금 청구 가이드',
+    '시크릿 선물',
   ];
 
   return (
-    <section id="giftbox" className="box-set-section practical-kit-section">
-      <div className="box-set-banner">
-        <div className="box-set-copy">
-          <span className="box-mini-label">MamiOn Gift Box</span>
+    <section id="giftbox" className="box-set-section practical-kit-section giftbox-v4">
+      <div className="box-set-banner box-set-banner-v4">
+        <div className="box-set-image-wrap box-set-image-v4">
+          <img src={giftBoxOverview} alt="마미온 임신축하박스 구성" />
+        </div>
+
+        <div className="box-set-copy box-copy-v4">
+          <span className="box-mini-label">🎁 마미온 임신축하선물</span>
           <h2>
-            예비맘을 위한<br />
-            <strong>랜덤 5종 구성</strong>
+            20여 종 구성품<br />
+            <strong>랜덤 증정</strong>
           </h2>
           <p>
-            출산 준비에 바로 도움이 되는 육아·산모용품 중
-            매월 구성에 따라 랜덤 5종을 선물로 보내드립니다.
+            실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요.<br />
+            매월 준비된 구성 중 랜덤으로 증정됩니다.
           </p>
           <ul>
-            <li>전국 무료 신청</li>
-            <li>매월 한정 수량</li>
+            <li>20여 종 구성품 랜덤 증정</li>
+            <li>매월 달라지는 다양한 구성</li>
+            <li>배송비 포함 전액 무료</li>
             <li>구성품은 수급 상황에 따라 변경 가능</li>
           </ul>
           <button className="box-set-cta" onClick={scrollToApply}>지금 무료 신청하기</button>
         </div>
-        <div className="box-set-image-wrap">
-          <img src={giftBoxOverview} alt="마미온 임신축하박스 구성" />
-        </div>
       </div>
 
-      <div className="kit-title">
-        <span>선물 구성 미리보기</span>
+      <div className="kit-title kit-title-v4">
+        <span>구성품 예시</span>
         <h3>
-          20여 종 중 <strong>랜덤 5종 증정</strong>
+          실제 발송 가능한 <strong>선물 예시</strong>
         </h3>
-        <p>아래 구성품은 실제 발송 가능한 선물 예시입니다.</p>
+        <p>아래 이미지는 구성품 예시이며, 실제 발송 구성은 매월 달라질 수 있어요.</p>
       </div>
 
-      <div className="kit-grid">
+      <div className="kit-grid kit-grid-v4">
         {kitItems.map((item, index) => (
-          <article className="kit-card" key={item.title}>
+          <article className="kit-card kit-card-v4" key={item.title}>
             <div className="kit-photo-wrap">
               <b>{String(index + 1).padStart(2, '0')}</b>
               <img src={item.img} alt={item.title} />
@@ -511,8 +515,54 @@ function GiftBoxSet() {
       </div>
 
       <p className="gift-notice kit-note">
-        * 구성품 이미지는 예시이며, 실제 발송 구성은 재고 및 협력사 수급 상황에 따라 일부 변경될 수 있습니다.
+        * 구성품 이미지는 예시이며, 실제 발송 구성은 재고 및 운영 상황에 따라 일부 변경될 수 있습니다.
       </p>
+    </section>
+  );
+}
+
+function RandomBenefitSection() {
+  const reasons = [
+    {
+      icon: '🎁',
+      title: '더 다양한 구성품 제공',
+      desc: '정해진 한 가지 구성이 아니라 준비된 구성품 중 상황에 맞게 안내해드려요.',
+    },
+    {
+      icon: '📅',
+      title: '매월 새로운 구성',
+      desc: '월별 재고와 협력사 구성에 따라 매번 다른 선물을 기대할 수 있어요.',
+    },
+    {
+      icon: '💝',
+      title: '추가 선물의 기회',
+      desc: '일부 신청자에게는 시크릿 선물이 함께 제공될 수 있어요.',
+    },
+  ];
+
+  return (
+    <section className="random-benefit-section">
+      <div className="random-benefit-wrap">
+        <div className="random-benefit-heading">
+          <span>왜 랜덤 증정으로 운영하나요?</span>
+          <h2>더 많은 예비맘에게 <strong>다양한 혜택</strong>을 드리기 위해서예요.</h2>
+        </div>
+        <div className="random-benefit-grid">
+          {reasons.map((item) => (
+            <article key={item.title}>
+              <div className="random-benefit-icon">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </article>
+          ))}
+        </div>
+        <div className="random-summary-row">
+          <article><strong>4.9</strong><span>평균 만족도</span></article>
+          <article><strong>2,300+</strong><span>누적 후기</span></article>
+          <article><strong>98%</strong><span>추천 의사</span></article>
+          <article><strong>10만+</strong><span>신청자 수</span></article>
+        </div>
+      </div>
     </section>
   );
 }
