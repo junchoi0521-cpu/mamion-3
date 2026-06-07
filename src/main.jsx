@@ -380,11 +380,16 @@ function Hero({ today, month }) {
             매월 준비된 다양한 구성품을 무료로 받아보세요.
           </p>
 
-          <div className="hero-benefit-row">
+          <div className="hero-benefit-row hero-benefit-row-v5">
             <article>
               <Truck size={30} />
               <strong>배송비 포함</strong>
               <span>전액 무료</span>
+            </article>
+            <article>
+              <Gift size={30} />
+              <strong>구성품</strong>
+              <span>랜덤 증정</span>
             </article>
             <article>
               <ShieldCheck size={30} />
@@ -477,7 +482,7 @@ function GiftBoxSet() {
             실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요.<br />
             매월 준비된 구성 중 랜덤으로 증정됩니다.
           </p>
-          <ul>
+          <ul className="gift-benefit-list-v5">
             <li>20여 종 구성품 랜덤 증정</li>
             <li>매월 달라지는 다양한 구성</li>
             <li>배송비 포함 전액 무료</li>
