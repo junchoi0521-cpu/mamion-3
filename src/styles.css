@@ -340,3 +340,162 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     );
   }
 }
+
+/* ===== MamiOn Hero Final Force Patch ===== */
+@media (min-width: 1101px) {
+  .hero-section {
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .hero-panel {
+    position: relative !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 520px !important;
+    height: 520px !important;
+    margin: 0 !important;
+    display: block !important;
+    overflow: hidden !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+
+  .hero-panel::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 2 !important;
+    background: linear-gradient(
+      90deg,
+      #fff 0%,
+      #fff 33%,
+      rgba(255,255,255,.88) 43%,
+      rgba(255,255,255,.28) 56%,
+      rgba(255,255,255,0) 72%
+    ) !important;
+    pointer-events: none !important;
+  }
+
+  .hero-panel::after {
+    display: none !important;
+  }
+
+  .hero-content {
+    position: relative !important;
+    z-index: 5 !important;
+    width: 560px !important;
+    height: 520px !important;
+    padding: 54px 0 0 58px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  .hero-ribbon {
+    padding: 11px 28px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: #f74078 !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    font-weight: 900 !important;
+    box-shadow: 0 14px 32px rgba(247,64,120,.22) !important;
+  }
+
+  .hero-content h1 {
+    margin: 24px 0 0 !important;
+    font-size: 50px !important;
+    line-height: 1.13 !important;
+    letter-spacing: -0.075em !important;
+    color: #3a221e !important;
+    font-weight: 900 !important;
+  }
+
+  .hero-content h1 span {
+    display: block !important;
+    white-space: nowrap !important;
+  }
+
+  .hero-content h1 strong {
+    display: block !important;
+    margin-top: 4px !important;
+    font-size: 76px !important;
+    line-height: .98 !important;
+    letter-spacing: -0.09em !important;
+    color: #f74078 !important;
+  }
+
+  .hero-content h1 strong::after {
+    content: "♡" !important;
+    position: absolute !important;
+    right: -78px !important;
+    top: -14px !important;
+    font-size: 60px !important;
+    color: #f74078 !important;
+    font-weight: 700 !important;
+  }
+
+  .hero-content p {
+    margin-top: 18px !important;
+    font-size: 18px !important;
+    line-height: 1.62 !important;
+    color: #171821 !important;
+    font-weight: 700 !important;
+  }
+
+  .hero-benefits {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+    width: 400px !important;
+    max-width: 400px !important;
+    margin-top: 24px !important;
+  }
+
+  .hero-benefits article {
+    min-height: 90px !important;
+    padding: 14px 16px !important;
+    border-radius: 18px !important;
+    background: #fff !important;
+    border: 1px solid #ffd5e3 !important;
+    box-shadow: 0 14px 34px rgba(247,64,120,.12) !important;
+  }
+
+  .primary-cta.hero-cta {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 56px !important;
+    margin-top: 22px !important;
+    padding: 0 32px !important;
+    border-radius: 14px !important;
+    font-size: 18px !important;
+  }
+
+  .hero-counts {
+    display: none !important;
+  }
+
+  .hero-image {
+    position: absolute !important;
+    z-index: 1 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 34% !important;
+    height: 520px !important;
+    min-height: 520px !important;
+    overflow: hidden !important;
+  }
+
+  .hero-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center right !important;
+    transform: scale(1.01) !important;
+  }
+}
