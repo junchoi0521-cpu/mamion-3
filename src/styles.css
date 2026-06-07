@@ -95,11 +95,7 @@ a{text-decoration:none;color:inherit}
   width:100%;
   height:100%;
   object-fit:cover;
-.hero-visual img{
-  object-position:center center;
-  transform:scale(0.92);
-  transform-origin:center center;
-}
+  object
 .hero-overlay{
   position:absolute;
   inset:0;
