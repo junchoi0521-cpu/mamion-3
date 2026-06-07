@@ -654,6 +654,8 @@ a {
 }
 
 .kit-photo-wrap button {
+     display: none;
+   }
   position: absolute;
   top: 14px;
   right: 14px;
