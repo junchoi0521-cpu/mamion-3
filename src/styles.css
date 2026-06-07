@@ -621,3 +621,36 @@ form small{display:block;text-align:center;color:#7b7f87;margin-top:12px}
     );
   }
 }
+/* ===== FONT & LETTER SPACING POLISH ===== */
+@media (min-width:1101px){
+  body{
+    font-family:'Pretendard','Noto Sans KR',system-ui,sans-serif;
+  }
+
+  .hero-content h1{
+    font-size:56px;
+    line-height:1.18;
+    letter-spacing:-0.055em;
+    font-weight:900;
+  }
+
+  .hero-content h1 strong{
+    font-size:88px;
+    line-height:1;
+    letter-spacing:-0.065em;
+    font-weight:900;
+  }
+
+  .hero-content p{
+    letter-spacing:-0.025em;
+    font-weight:700;
+  }
+
+  .desktop-nav{
+    letter-spacing:-0.03em;
+  }
+
+  .hero-ribbon{
+    letter-spacing:-0.025em;
+  }
+}
