@@ -13,6 +13,8 @@ import {
   Star,
   Users,
   ChevronDown,
+  PackageHeart,
+  Sparkles,
 } from 'lucide-react';
 import './styles.css';
 
@@ -33,15 +35,12 @@ import logo from './assets/logo.png';
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
 const DISPLAY_TODAY_OFFSET = 43;
 const DISPLAY_TOTAL_OFFSET = 3875;
+const KAKAO_URL = 'https://pf.kakao.com/_MKDGX/friend';
 
 const scrollToApply = () => document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
-
 const goToSection = (id) => {
-  if (window.location.pathname === '/') {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    window.location.href = `/#${id}`;
-  }
+  if (window.location.pathname === '/') document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  else window.location.href = `/#${id}`;
 };
 
 function App() {
@@ -82,7 +81,6 @@ function App() {
       <Hero today={today} total={total} />
       <GiftBoxSet />
       <WhyRandom />
-      <Process />
       <ApplySection onSubmitSuccess={increaseCount} />
       <Reviews />
       <Faq />
@@ -106,22 +104,18 @@ function Header() {
       </button>
       <nav className="desktop-nav">
         <button type="button" onClick={() => goToSection('giftbox')}>선물 소개</button>
-        <button type="button" onClick={() => goToSection('process')}>신청 방법</button>
+        <button type="button" onClick={() => goToSection('apply')}>신청 방법</button>
         <button type="button" onClick={() => goToSection('reviews')}>고객 후기</button>
         <button type="button" onClick={() => goToSection('faq')}>FAQ</button>
-        <a href="https://pf.kakao.com/_MKDGX/friend" target="_blank" rel="noopener noreferrer">카카오톡 문의</a>
       </nav>
-      <button className="header-apply" type="button" onClick={scrollToApply}>임신축하선물 신청하기</button>
-      <button className="mobile-menu" type="button" onClick={() => setMobileOpen((prev) => !prev)} aria-label="메뉴 열기">
-        <Menu size={24} />
-      </button>
+      <button className="header-apply" type="button" onClick={scrollToApply}><Gift size={18} /> 임신축하선물 신청하기</button>
+      <button className="mobile-menu" type="button" onClick={() => setMobileOpen((prev) => !prev)} aria-label="메뉴 열기"><Menu size={24} /></button>
       {mobileOpen && (
         <div className="mobile-nav-panel">
           <button type="button" onClick={() => move('giftbox')}>선물 소개</button>
-          <button type="button" onClick={() => move('process')}>신청 방법</button>
+          <button type="button" onClick={() => move('apply')}>신청 방법</button>
           <button type="button" onClick={() => move('reviews')}>고객 후기</button>
           <button type="button" onClick={() => move('faq')}>FAQ</button>
-          <button type="button" onClick={() => move('apply')}>신청하기</button>
         </div>
       )}
     </header>
@@ -133,33 +127,25 @@ function Hero({ today, total }) {
     <section id="top" className="hero-section">
       <div className="hero-panel">
         <div className="hero-content">
-          <div className="hero-kicker"><Gift size={22} /> 마미온 임신축하선물</div>
+          <div className="hero-ribbon">예비맘을 위한 특별한 선물</div>
           <h1>
+            <span>마미온 임신축하선물</span>
             <span>20여 종 육아·산모용품</span>
             <strong>랜덤 증정</strong>
           </h1>
-          <p>
-            예비맘이라면 누구나 신청 가능해요.<br />
-            매월 준비된 다양한 구성품을 <b>무료로</b> 받아보세요.
-          </p>
+          <p>예비맘이라면 누구나 신청 가능해요.<br />매월 준비된 다양한 구성품을 <b>무료로</b> 받아보세요.</p>
           <div className="hero-benefits">
-            <article><Truck size={30} /><b>배송비 포함</b><span>전액 무료</span></article>
-            <article><Gift size={30} /><b>구성품</b><span>랜덤 증정</span></article>
-            <article><CalendarCheck size={30} /><b>신청 30초</b><span>간편 완료</span></article>
+            <article><Truck size={34} /><b>배송비 포함</b><span>전액 무료</span></article>
+            <article><ShieldCheck size={34} /><b>신청 30초</b><span>간편 신청</span></article>
           </div>
-          <button type="button" className="primary-cta" onClick={scrollToApply}>임신축하선물 무료 신청하기 <span>›</span></button>
+          <button type="button" className="primary-cta hero-cta" onClick={scrollToApply}>임신축하선물 무료 신청하기 <span>›</span></button>
           <div className="hero-counts">
             <div><span>오늘 신청</span><strong>{today}<em>명</em></strong></div>
             <div><span>누적 신청</span><strong>{total}<em>명</em></strong></div>
           </div>
-          <small>배송비 무료 · 선착순 마감 · 매월 한정 수량</small>
         </div>
         <div className="hero-image">
           <img src={heroMom} alt="임신축하선물을 받는 예비맘" />
-          <div className="hero-floating-card">
-            <Gift size={22} />
-            <span>매월 준비된 구성품 중 랜덤 안내</span>
-          </div>
         </div>
       </div>
     </section>
@@ -168,40 +154,39 @@ function Hero({ today, total }) {
 
 function GiftBoxSet() {
   const kitItems = [
-    { img: kitHandkerchief, title: '아기 손수건', desc: '부드러운 순면 손수건으로 신생아 피부에도 안심' },
+    { img: kitHandkerchief, title: '아기 손수건', desc: '부드러운 순면 손수건' },
     { img: kitWipes, title: '아기 물티슈', desc: '매일 쓰는 실용 육아용품' },
-    { img: kitNursingPad, title: '수유패드', desc: '출산 후 바로 필요한 산모 준비물' },
-    { img: kitMomCare, title: '산모 케어용품', desc: '출산 후 지친 산모를 위한 케어 제품' },
-    { img: kitCleanser, title: '젖병 세정 샘플', desc: '수유용품 세정 준비에 도움 되는 세정용품' },
-    { img: kitChecklist, title: '출산 체크리스트', desc: '놓치기 쉬운 준비물을 한눈에 정리' },
-    { img: kitClaimGuide, title: '보험금 청구 가이드', desc: '출산 후 청구 준비에 도움 되는 안내 자료' },
-    { img: kitRandomGift, title: '시크릿 선물', desc: '매월 구성에 따라 함께 제공되는 특별 선물' },
+    { img: kitNursingPad, title: '수유패드', desc: '출산 후 필요한 산모 준비물' },
+    { img: kitMomCare, title: '산모 케어용품', desc: '산모를 위한 맞춤 케어' },
+    { img: kitCleanser, title: '젖병 세정 샘플', desc: '수유용품 세정 준비' },
+    { img: kitChecklist, title: '출산 체크리스트', desc: '준비물을 한눈에 정리' },
+    { img: kitClaimGuide, title: '보험금 청구 가이드', desc: '출산 후 청구 준비 안내' },
+    { img: kitRandomGift, title: '시크릿 선물', desc: '매월 달라지는 특별 선물' },
   ];
 
   return (
     <section id="giftbox" className="gift-section">
       <div className="gift-summary-card">
-        <div className="gift-photo-large">
-          <img src={giftBoxOverview} alt="마미온 임신축하선물 박스" />
-        </div>
+        <div className="gift-photo-large"><img src={giftBoxOverview} alt="마미온 임신축하선물 박스" /></div>
         <div className="gift-summary-copy">
           <span className="section-badge"><Gift size={16} /> 마미온 임신축하선물</span>
           <h2>20여 종 구성품<br /><strong>랜덤 증정</strong></h2>
           <p>실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 매월 준비된 구성 중 랜덤으로 증정됩니다.</p>
           <div className="gift-feature-grid">
-            <article><Gift size={30} /><b>20여 종 구성품</b><span>랜덤 증정</span></article>
-            <article><CalendarCheck size={30} /><b>매월 달라지는</b><span>다양한 구성</span></article>
-            <article><Heart size={30} /><b>실용적인</b><span>육아·산모용품</span></article>
-            <article><Truck size={30} /><b>안전하고 빠른</b><span>무료 배송</span></article>
+            <article><PackageHeart size={34} /><b>20여 종 구성품</b><span>랜덤 증정</span></article>
+            <article><CalendarCheck size={34} /><b>매월 달라지는</b><span>다양한 구성</span></article>
+            <article><Heart size={34} /><b>실용적인</b><span>육아·산모용품</span></article>
+            <article><Truck size={34} /><b>배송비 포함</b><span>전액 무료</span></article>
           </div>
-          <button type="button" className="primary-cta compact" onClick={scrollToApply}>지금 무료 신청하기</button>
         </div>
       </div>
 
       <div className="kit-heading">
-        <span className="section-badge">구성품 예시</span>
-        <h2>실제 발송 가능한 <strong>선물 예시</strong></h2>
-        <p>아래 이미지는 구성품 예시이며, 실제 발송 구성은 매월 달라질 수 있어요.</p>
+        <div>
+          <h2>구성품 예시 <Heart size={28} /></h2>
+          <p>실제 발송되는 구성품 예시입니다.</p>
+        </div>
+        <span>매월 구성은 달라질 수 있어요!</span>
       </div>
       <div className="kit-grid">
         {kitItems.map((item, index) => (
@@ -211,15 +196,9 @@ function GiftBoxSet() {
               {item.title === '시크릿 선물' && <em>NEW</em>}
               <img src={item.img} alt={item.title} />
             </div>
-            <div className="kit-body">
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
-            </div>
+            <div className="kit-body"><h3>{item.title}</h3><p>{item.desc}</p></div>
           </article>
         ))}
-      </div>
-      <div className="kit-tags">
-        {['손수건', '물티슈', '수유패드', '산모케어', '젖병세정제', '출산 체크리스트', '청구 가이드', '시크릿 선물'].map((tag) => <span key={tag}>{tag}</span>)}
       </div>
       <p className="kit-note">* 구성품 이미지는 예시이며, 실제 발송 구성은 재고 및 운영 상황에 따라 일부 변경될 수 있습니다.</p>
     </section>
@@ -228,18 +207,18 @@ function GiftBoxSet() {
 
 function WhyRandom() {
   const cards = [
-    ['🎁', '더 다양한 구성품 제공', '정해진 한 가지 구성이 아니라 준비된 구성품 중 상황에 맞게 안내해드려요.'],
-    ['📅', '매월 새로운 구성', '월별 재고와 협력사 구성에 따라 매번 다른 선물을 기대할 수 있어요.'],
-    ['💝', '추가 선물의 기회', '일부 신청자에게는 시크릿 선물이 함께 제공될 수 있어요.'],
+    [<PackageHeart size={42} />, '더 다양한 구성품 제공', '정해진 한 가지 구성이 아니라 준비된 구성품 중 상황에 맞게 안내해드려요.'],
+    [<CalendarCheck size={42} />, '매월 새로운 구성', '월별 재고와 협력사 구성에 따라 매번 다른 선물을 기대할 수 있어요.'],
+    [<Gift size={42} />, '추가 선물의 기회', '일부 신청자에게는 시크릿 선물이 함께 제공될 수 있어요.'],
   ];
   return (
     <section className="why-section">
-      <div className="section-title">
+      <div className="why-left">
         <span className="section-badge">왜 랜덤 증정으로 운영하나요?</span>
         <h2>더 많은 예비맘에게 <strong>다양한 혜택</strong>을 드리기 위해서예요.</h2>
-      </div>
-      <div className="why-grid">
-        {cards.map(([icon, title, desc]) => <article key={title}><i>{icon}</i><h3>{title}</h3><p>{desc}</p></article>)}
+        <div className="why-grid">
+          {cards.map(([icon, title, desc]) => <article key={title}><i>{icon}</i><h3>{title}</h3><p>{desc}</p></article>)}
+        </div>
       </div>
       <StatsStrip />
     </section>
@@ -248,27 +227,11 @@ function WhyRandom() {
 
 function StatsStrip() {
   const stats = [
-    [<Star size={28} />, '4.9', '평균 만족도'],
-    [<MessageCircle size={28} />, '2,300+', '누적 후기'],
-    [<Heart size={28} />, '98%', '추천 의사'],
-    [<Users size={28} />, '10만+', '신청자 수'],
+    [<Star size={34} />, '4.9', '평균 만족도'],
+    [<MessageCircle size={34} />, '2,300+', '누적 후기'],
+    [<Heart size={34} />, '98%', '추천 의사'],
   ];
   return <div className="stats-strip">{stats.map(([icon, num, label]) => <article key={label}>{icon}<strong>{num}</strong><span>{label}</span></article>)}</div>;
-}
-
-function Process() {
-  const steps = [
-    ['01', '간단 신청', '필수 정보만 입력해요.'],
-    ['02', '담당자 확인', '신청 내용을 순차 확인해요.'],
-    ['03', '축하선물 안내', '수령 및 혜택 안내를 드려요.'],
-    ['04', '순차 발송', '신청 순서대로 진행돼요.'],
-  ];
-  return (
-    <section id="process" className="process-section">
-      <div className="section-title"><h2>신청은 <strong>간단하게</strong></h2><p>복잡한 절차 없이 빠르게 신청할 수 있어요.</p></div>
-      <div className="process-grid">{steps.map(([num, title, desc]) => <article key={num}><b>{num}</b><h3>{title}</h3><p>{desc}</p></article>)}</div>
-    </section>
-  );
 }
 
 function ApplySection({ onSubmitSuccess }) {
@@ -285,22 +248,16 @@ function ApplySection({ onSubmitSuccess }) {
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitMessageType, setSubmitMessageType] = useState('');
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
-
   const formatPhoneNumber = (value) => {
     const numbers = value.replace(/[^0-9]/g, '');
     if (numbers.length < 4) return numbers;
     if (numbers.length < 8) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
     return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
   };
-
   const loadDaumPostcodeScript = () => new Promise((resolve, reject) => {
     if (window.daum?.Postcode) return resolve();
     const existingScript = document.getElementById('daum-postcode-script');
-    if (existingScript) {
-      existingScript.addEventListener('load', resolve);
-      existingScript.addEventListener('error', reject);
-      return;
-    }
+    if (existingScript) { existingScript.addEventListener('load', resolve); existingScript.addEventListener('error', reject); return; }
     const script = document.createElement('script');
     script.id = 'daum-postcode-script';
     script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
@@ -308,88 +265,48 @@ function ApplySection({ onSubmitSuccess }) {
     script.onerror = reject;
     document.body.appendChild(script);
   });
-
   const openAddressSearch = async () => {
     try {
       await loadDaumPostcodeScript();
-      new window.daum.Postcode({
-        oncomplete(data) {
-          const roadAddress = data.roadAddress || data.jibunAddress;
-          const extra = [];
-          if (data.bname && /[동|로|가]$/g.test(data.bname)) extra.push(data.bname);
-          if (data.buildingName && data.apartment === 'Y') extra.push(data.buildingName);
-          update('region', `[${data.zonecode}] ${roadAddress}${extra.length ? ` (${extra.join(', ')})` : ''}`);
-          setTimeout(() => document.querySelector('input[name="detailAddress"]')?.focus(), 50);
-        },
-      }).open();
-    } catch {
-      alert('주소 검색을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
-    }
+      new window.daum.Postcode({ oncomplete(data) {
+        const roadAddress = data.roadAddress || data.jibunAddress;
+        const extra = [];
+        if (data.bname && /[동|로|가]$/g.test(data.bname)) extra.push(data.bname);
+        if (data.buildingName && data.apartment === 'Y') extra.push(data.buildingName);
+        update('region', `[${data.zonecode}] ${roadAddress}${extra.length ? ` (${extra.join(', ')})` : ''}`);
+        setTimeout(() => document.querySelector('input[name="detailAddress"]')?.focus(), 50);
+      }}).open();
+    } catch { alert('주소 검색을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.'); }
   };
-
   const submitByJsonp = (payload) => new Promise((resolve, reject) => {
     const callbackName = `mamionSubmitCallback_${Date.now()}`;
-    window[callbackName] = (result) => {
-      resolve(result);
-      delete window[callbackName];
-      document.getElementById(callbackName)?.remove();
-    };
+    window[callbackName] = (result) => { resolve(result); delete window[callbackName]; document.getElementById(callbackName)?.remove(); };
     const script = document.createElement('script');
     script.id = callbackName;
-    const params = new URLSearchParams({ action: 'submit', callback: callbackName, data: JSON.stringify(payload) });
-    script.src = `${APPS_SCRIPT_URL}?${params.toString()}`;
-    script.onerror = () => {
-      delete window[callbackName];
-      script.remove();
-      reject(new Error('submit failed'));
-    };
+    script.src = `${APPS_SCRIPT_URL}?${new URLSearchParams({ action: 'submit', callback: callbackName, data: JSON.stringify(payload) }).toString()}`;
+    script.onerror = () => { delete window[callbackName]; script.remove(); reject(new Error('submit failed')); };
     document.body.appendChild(script);
   });
-
   async function submit(e) {
     e.preventDefault();
-    setSubmitMessage('');
-    setSubmitMessageType('');
-    if (!form.name || !form.phone || !form.dueDate || !form.region || !form.weeks || !form.insurance) {
-      setSubmitMessage('필수 항목을 모두 입력해주세요.');
-      setSubmitMessageType('error');
-      return;
-    }
-    if (!form.privacy || !form.thirdParty) {
-      setSubmitMessage('필수 동의 항목을 체크해주세요.');
-      setSubmitMessageType('error');
-      return;
-    }
+    setSubmitMessage(''); setSubmitMessageType('');
+    if (!form.name || !form.phone || !form.dueDate || !form.region || !form.weeks || !form.insurance) { setSubmitMessage('필수 항목을 모두 입력해주세요.'); setSubmitMessageType('error'); return; }
+    if (!form.privacy || !form.thirdParty) { setSubmitMessage('필수 동의 항목을 체크해주세요.'); setSubmitMessageType('error'); return; }
     const payload = { ...form, region: `${form.region}${form.detailAddress ? ` ${form.detailAddress}` : ''}`, createdAt: new Date().toISOString() };
     try {
       const result = await submitByJsonp(payload);
-      if (result?.result === 'duplicate') {
-        setSubmitMessage(result.message || '이미 이번 달 신청이 완료되었습니다. 다음 달부터 다시 신청 가능합니다.');
-        setSubmitMessageType('duplicate');
-        return;
-      }
-      if (result?.result === 'success') {
-        if (window.gtag) window.gtag('event', 'apply_complete', { event_category: 'lead', event_label: 'mamion_apply_form', value: 1 });
-        onSubmitSuccess();
-        setTimeout(() => { window.location.href = '/thanks'; }, 300);
-        return;
-      }
-      setSubmitMessage('신청 처리 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
-      setSubmitMessageType('error');
-    } catch {
-      setSubmitMessage('신청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-      setSubmitMessageType('error');
-    }
+      if (result?.result === 'duplicate') { setSubmitMessage(result.message || '이미 이번 달 신청이 완료되었습니다. 다음 달부터 다시 신청 가능합니다.'); setSubmitMessageType('duplicate'); return; }
+      if (result?.result === 'success') { if (window.gtag) window.gtag('event', 'apply_complete', { event_category: 'lead', event_label: 'mamion_apply_form', value: 1 }); onSubmitSuccess(); setTimeout(() => { window.location.href = '/thanks'; }, 300); return; }
+      setSubmitMessage('신청 처리 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.'); setSubmitMessageType('error');
+    } catch { setSubmitMessage('신청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'); setSubmitMessageType('error'); }
   }
 
   return (
     <section id="apply" className="apply-section">
       <div className="apply-card">
         <div className="form-area">
-          <span className="section-badge"><Gift size={16} /> 신청 30초 완료</span>
-          <h2>임신축하선물 신청하기</h2>
+          <div className="apply-title-row"><h2>임신축하선물 신청하기 <Heart size={26} /></h2><span>신청 30초 완료 ✨</span></div>
           <p>간단한 정보 입력으로 소중한 선물을 받아보세요.</p>
-          <div className="apply-urgency">✨ 이번 달 마감 전 선착순 접수 중</div>
           {submitMessage && <div className={`submit-message ${submitMessageType}`}>{submitMessage}</div>}
           <form onSubmit={submit}>
             <div className="form-row"><Field label="이름"><input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" /></Field><Field label="연락처"><input name="phone" value={form.phone} onChange={(e) => update('phone', formatPhoneNumber(e.target.value))} placeholder="010-1234-5678" maxLength={13} /></Field></div>
@@ -406,7 +323,7 @@ function ApplySection({ onSubmitSuccess }) {
           <h3>궁금한 점이 있으신가요?</h3>
           <p>언제든지 편하게 문의해주세요.</p>
           <a className="phone-card" href="tel:010-1234-5678"><Phone size={28} /><span><b>010-1234-5678</b><small>평일 09:00 - 18:00</small></span></a>
-          <a className="kakao-card" href="https://pf.kakao.com/_MKDGX/friend" target="_blank" rel="noopener noreferrer"><MessageCircle size={24} /><span><b>카카오톡 문의</b><small>@마미온 검색</small></span></a>
+          <a className="kakao-card" href={KAKAO_URL} target="_blank" rel="noopener noreferrer"><MessageCircle size={24} /><span><b>카카오톡 문의</b><small>@마미온 검색</small></span></a>
           <img src={bunny} alt="마미온 문의 안내" />
           <button className="faq-toggle" type="button" onClick={() => setFaqOpen(!faqOpen)}>신청 후 왜 연락이 오나요? <ChevronDown size={16} /></button>
           {faqOpen && <p className="faq-answer">신청 확인, 선물 수령 안내, 필요 시 간단한 문의 응대를 위해 연락드립니다.</p>}
@@ -426,7 +343,7 @@ function Reviews() {
   ];
   return (
     <section id="reviews" className="reviews-section">
-      <div className="section-title"><h2>마미온 고객님들의 <strong>따뜻한 후기</strong></h2><p>실제 고객님들의 소중한 경험을 확인해보세요.</p></div>
+      <div className="review-title"><h2>마미온 고객님들의<br /><strong>따뜻한 후기</strong></h2></div>
       <div className="review-wrap">
         <div className="review-cards">{reviews.map(([name, text]) => <article key={name}><div className="stars">★★★★★</div><p>{text}</p><b>- {name}</b></article>)}</div>
         <img src={reviewShoes} alt="후기 이미지" />
@@ -445,7 +362,7 @@ function PolicySection({ initialType = 'all' }) {
 
 function ThanksPage() { return <main className="page"><Header /><section className="thanks-section"><div className="thanks-card"><div>🎁</div><h1>신청이 완료되었습니다!</h1><p>마미온 임신축하선물 신청이 정상 접수되었습니다.<br />담당자가 신청 내용을 확인 후 순차적으로 연락드릴 예정입니다.</p><button onClick={() => window.location.href = '/'}>홈으로 돌아가기</button></div></section><Footer /></main>; }
 function PolicyPage({ type }) { return <main className="page"><Header /><PolicySection initialType={type} /><Footer /></main>; }
-function Footer() { return <footer className="footer"><div><img src={logo} alt="마미온" /><p>예비맘과 아기의 건강한 시작을 응원하는 임신축하선물 무료 신청 플랫폼</p></div><nav><a href="/privacy">개인정보처리방침</a><a href="/terms">이용약관</a><a href="https://pf.kakao.com/_MKDGX/friend" target="_blank" rel="noopener noreferrer">문의하기</a></nav><small>© 2026 MamiOn. All Rights Reserved.</small></footer>; }
+function Footer() { return <footer className="footer"><div><img src={logo} alt="마미온" /><p>예비맘과 아기의 건강한 시작을 응원하는 임신축하선물 무료 신청 플랫폼</p></div><nav><a href="/privacy">개인정보처리방침</a><a href="/terms">이용약관</a><a href={KAKAO_URL} target="_blank" rel="noopener noreferrer">문의하기</a></nav><small>© 2026 MamiOn. All Rights Reserved.</small></footer>; }
 function StickyButton() { return <button className="sticky" type="button" onClick={scrollToApply}>임신축하선물 무료 신청하기</button>; }
 
 const path = window.location.pathname;
