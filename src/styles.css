@@ -242,3 +242,32 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     transform: scale(1);
   }
 }
+
+@media (min-width: 1101px) {
+  .hero-panel {
+    width: min(1680px, calc(100% - 24px));
+    min-height: 560px;
+    grid-template-columns: 38% 62%;
+  }
+
+  .hero-content {
+    padding: 28px 10px 30px 6px;
+  }
+
+  .hero-content h1 {
+    font-size: 61px;
+  }
+
+  .hero-content h1 strong {
+    font-size: 96px;
+  }
+
+  .hero-image {
+    min-height: 560px;
+  }
+
+  .hero-image img {
+    object-position: center right;
+    transform: scale(1.08);
+  }
+}
