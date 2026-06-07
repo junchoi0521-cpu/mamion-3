@@ -532,7 +532,6 @@ function GiftBoxSet() {
             <article className="kit-card" key={`${item.title}-${page}`}>
               <div className="kit-photo-wrap">
                 <b>{String(page * pageSize + index + 1).padStart(2, '0')}</b>
-                <button type="button" aria-label="favorite">♡</button>
                 <img src={item.img} alt={item.title} />
               </div>
               <div className="kit-card-body">
