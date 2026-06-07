@@ -556,3 +556,65 @@ form small{display:block;text-align:center;color:#7b7f87;margin-top:12px}
     margin-top:22px;
   }
 }
+
+
+/* ===== HERO 95 SCORE PATCH ===== */
+@media (min-width:1101px){
+  .hero-shell{
+    padding:18px 0 10px;
+  }
+
+  .hero-card{
+    height:570px;
+  }
+
+  .hero-content{
+    width:670px;
+    padding:48px 0 0 58px;
+  }
+
+  .hero-content h1{
+    font-size:52px;
+    line-height:1.12;
+    margin-top:24px;
+  }
+
+  .hero-content h1 strong{
+    font-size:82px;
+  }
+
+  .hero-content p{
+    margin-top:18px;
+    font-size:17px;
+  }
+
+  .hero-benefits{
+    width:400px;
+    margin-top:24px;
+    gap:18px;
+  }
+
+  .hero-benefits article{
+    min-height:88px;
+  }
+
+  .primary-cta.hero-cta{
+    height:52px;
+    margin-top:18px;
+    font-size:16px;
+  }
+
+  .hero-visual{
+    inset:0 0 0 45%;
+  }
+
+  .hero-visual img{
+    object-position:center center;
+    transform:scale(0.86);
+    transform-origin:center center;
+  }
+
+  .gift-intro-section{
+    padding-top:0;
+  }
+}
