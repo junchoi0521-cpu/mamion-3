@@ -27,6 +27,22 @@ import kitCleanser from './assets/kit-cleanser.jpg';
 import kitChecklist from './assets/kit-checklist.jpg';
 import kitClaimGuide from './assets/kit-claim-guide.jpg';
 import kitRandomGift from './assets/kit-random-gift.jpg';
+import kitDiaper from './assets/kit-diaper.jpg';
+import kitToy from './assets/kit-toy.jpg';
+import kitBib from './assets/kit-bib.jpg';
+import kitClothes from './assets/kit-clothes.jpg';
+import kitSocks from './assets/kit-socks.jpg';
+import kitHat from './assets/kit-hat.jpg';
+import kitFabricSoftener from './assets/kit-fabric-softener.jpg';
+import kitToothbrush from './assets/kit-toothbrush.jpg';
+import kitNailcare from './assets/kit-nailcare.jpg';
+import kitThermometer from './assets/kit-thermometer.jpg';
+import kitMultiVitamin from './assets/kit-multi-vitamin.jpg';
+import kitIron from './assets/kit-iron.jpg';
+import kitMomSupplement from './assets/kit-mom-supplement.jpg';
+import kitWristSupport from './assets/kit-wrist-support.jpg';
+import kitMoisturizer from './assets/kit-moisturizer.jpg';
+import kitEmergencyKit from './assets/kit-emergency-kit.jpg';
 import logo from "./assets/logo.png";
 
 const scrollToApply = () =>
@@ -437,30 +453,30 @@ function TrustBand() {
 
 function GiftBoxSet() {
   const kitItems = [
-    { img: kitHandkerchief, title: '아기 손수건', desc: 'soft folded cotton baby handkerchiefs' },
-    { img: kitWipes, title: '아기 물티슈', desc: 'soft baby wet wipes pack' },
-    { img: kitNursingPad, title: '수유패드', desc: 'round nursing pads and box' },
-    { img: kitMomCare, title: '산모 케어용품', desc: 'pink postpartum care set' },
-    { img: kitCleanser, title: '젖병 세정 샘플', desc: 'baby bottle cleanser pump and refill' },
-    { img: kitChecklist, title: '출산 체크리스트', desc: 'birth preparation checklist clipboard' },
-    { img: kitClaimGuide, title: '보험금 청구 가이드', desc: 'insurance claim guide booklet' },
-    { img: kitRandomGift, title: '랜덤 추가 선물', desc: 'surprise gift box with baby items' },
-    { img: kitDiaper, title: '기저귀 샘플', desc: 'diaper sample pack' },
-    { img: kitToy, title: '아기 장난감', desc: 'cute baby rattle toy' },
-    { img: kitBib, title: '턱받이/스카프빕', desc: 'baby bib scarf' },
-    { img: kitClothes, title: '아기 의류', desc: 'baby onesie clothes' },
-    { img: kitSocks, title: '아기 양말', desc: 'small baby socks' },
-    { img: kitHat, title: '아기 모자', desc: 'soft baby cap' },
-    { img: kitFabricSoftener, title: '섬유유연제', desc: 'gentle baby fabric softener' },
-    { img: kitToothbrush, title: '아기 치약/칫솔', desc: 'baby toothbrush and toothpaste' },
-    { img: kitNailcare, title: '손톱깎이 세트', desc: 'baby nail care set' },
-    { img: kitThermometer, title: '체온계', desc: 'digital thermometer' },
-    { img: kitMultiVitamin, title: '멀티 비타민', desc: 'mom multivitamin bottle' },
-    { img: kitIron, title: '철분제', desc: 'iron supplement bottle' },
-    { img: kitMomSupplement, title: '산모 영양제', desc: 'mom supplement bottle' },
-    { img: kitWristSupport, title: '손목 보호대', desc: 'wrist support band' },
-    { img: kitMoisturizer, title: '보습 크림', desc: 'moisturizing cream jar' },
-    { img: kitEmergencyKit, title: '응급 키트', desc: 'small baby emergency kit' },
+    { img: kitHandkerchief, title: '아기 손수건', desc: '신생아 피부에 부드러운 순면 필수템' },
+    { img: kitWipes, title: '아기 물티슈', desc: '출산 후 매일 쓰는 실용 육아용품' },
+    { img: kitNursingPad, title: '수유패드', desc: '출산 후 바로 필요한 산모 준비물' },
+    { img: kitMomCare, title: '산모 케어용품', desc: '예비맘의 몸과 마음을 위한 작은 케어' },
+    { img: kitCleanser, title: '젖병 세정 샘플', desc: '수유용품 준비에 도움 되는 세정용품' },
+    { img: kitChecklist, title: '출산 체크리스트', desc: '놓치기 쉬운 준비물을 한눈에 정리' },
+    { img: kitClaimGuide, title: '보험금 청구 가이드', desc: '출산 후 청구 준비에 도움 되는 안내 자료' },
+    { img: kitRandomGift, title: '랜덤 추가 선물', desc: '매월 구성에 따라 함께 제공되는 특별 선물' },
+    { img: kitDiaper, title: '기저귀 샘플', desc: '출산 준비에 도움 되는 실용 샘플' },
+    { img: kitToy, title: '아기 장난감', desc: '아기가 좋아하는 귀여운 놀이용품' },
+    { img: kitBib, title: '턱받이/스카프빕', desc: '수유와 외출 시 활용하기 좋은 용품' },
+    { img: kitClothes, title: '아기 의류', desc: '계절에 따라 필요한 아기 의류' },
+    { img: kitSocks, title: '아기 양말', desc: '신생아에게 필요한 기본 준비물' },
+    { img: kitHat, title: '아기 모자', desc: '체온 보호에 도움 되는 아기 용품' },
+    { img: kitFabricSoftener, title: '섬유유연제', desc: '아기 옷 세탁 준비에 도움 되는 용품' },
+    { img: kitToothbrush, title: '아기 치약/칫솔', desc: '성장 단계에 맞춰 필요한 위생용품' },
+    { img: kitNailcare, title: '손톱깎이 세트', desc: '아기 손톱 관리에 필요한 구성품' },
+    { img: kitThermometer, title: '체온계', desc: '아이 컨디션 확인에 도움 되는 준비물' },
+    { img: kitMultiVitamin, title: '멀티 비타민', desc: '산모 컨디션 관리에 도움 되는 샘플' },
+    { img: kitIron, title: '철분제', desc: '산모 건강 관리에 도움 되는 샘플' },
+    { img: kitMomSupplement, title: '산모 영양제', desc: '예비맘을 위한 건강 관리 용품' },
+    { img: kitWristSupport, title: '손목 보호대', desc: '출산 후 손목 부담 완화에 도움' },
+    { img: kitMoisturizer, title: '보습 크림', desc: '건조한 피부 케어에 도움 되는 용품' },
+    { img: kitEmergencyKit, title: '응급 키트', desc: '비상 상황에 대비하는 실용 구성품' },
   ];
 
   const [page, setPage] = useState(0);
@@ -571,7 +587,6 @@ function GiftBoxSet() {
     </section>
   );
 }
-
 
 function Process() {
   const steps = [
