@@ -13,8 +13,6 @@ import {
   Star,
   Users,
   ChevronDown,
-  PackageHeart,
-  Sparkles,
 } from 'lucide-react';
 import './styles.css';
 
@@ -173,7 +171,7 @@ function GiftBoxSet() {
           <h2>20여 종 구성품<br /><strong>랜덤 증정</strong></h2>
           <p>실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 매월 준비된 구성 중 랜덤으로 증정됩니다.</p>
           <div className="gift-feature-grid">
-            <article><PackageHeart size={34} /><b>20여 종 구성품</b><span>랜덤 증정</span></article>
+            <article><Gift size={34} /><b>20여 종 구성품</b><span>랜덤 증정</span></article>
             <article><CalendarCheck size={34} /><b>매월 달라지는</b><span>다양한 구성</span></article>
             <article><Heart size={34} /><b>실용적인</b><span>육아·산모용품</span></article>
             <article><Truck size={34} /><b>배송비 포함</b><span>전액 무료</span></article>
@@ -207,7 +205,7 @@ function GiftBoxSet() {
 
 function WhyRandom() {
   const cards = [
-    [<PackageHeart size={42} />, '더 다양한 구성품 제공', '정해진 한 가지 구성이 아니라 준비된 구성품 중 상황에 맞게 안내해드려요.'],
+    [<Gift size={42} />, '더 다양한 구성품 제공', '정해진 한 가지 구성이 아니라 준비된 구성품 중 상황에 맞게 안내해드려요.'],
     [<CalendarCheck size={42} />, '매월 새로운 구성', '월별 재고와 협력사 구성에 따라 매번 다른 선물을 기대할 수 있어요.'],
     [<Gift size={42} />, '추가 선물의 기회', '일부 신청자에게는 시크릿 선물이 함께 제공될 수 있어요.'],
   ];
