@@ -445,18 +445,41 @@ function GiftBoxSet() {
     { img: kitChecklist, title: '출산 체크리스트', desc: '놓치기 쉬운 준비물을 한눈에 정리' },
     { img: kitClaimGuide, title: '보험금 청구 가이드', desc: '출산 후 청구 준비에 도움 되는 안내 자료' },
     { img: kitRandomGift, title: '랜덤 추가 선물', desc: '매월 구성에 따라 함께 제공되는 특별 선물' },
+
+    { img: kitWipes, title: '기저귀 샘플', desc: '출산 준비에 도움 되는 실용 샘플' },
+    { img: kitRandomGift, title: '아기 장난감', desc: '아기와 함께 쓰기 좋은 작은 선물' },
+    { img: kitHandkerchief, title: '턱받이/스카프빕', desc: '외출과 수유 시 활용하기 좋아요' },
+    { img: kitRandomGift, title: '아기 의류', desc: '계절에 따라 달라지는 아기 용품' },
+    { img: kitRandomGift, title: '아기 양말', desc: '신생아에게 필요한 기본 준비물' },
+    { img: kitRandomGift, title: '아기 모자', desc: '체온 보호에 도움 되는 아기 용품' },
+    { img: kitCleanser, title: '섬유유연제', desc: '아기 옷 세탁 준비에 도움 되는 용품' },
+    { img: kitRandomGift, title: '아기 치약/칫솔', desc: '성장 단계에 맞춰 필요한 위생용품' },
+
+    { img: kitRandomGift, title: '손톱깎이 세트', desc: '아기 손톱 관리에 필요한 구성품' },
+    { img: kitRandomGift, title: '체온계', desc: '아이 컨디션 확인에 도움 되는 준비물' },
+    { img: kitMomCare, title: '멀티 비타민', desc: '산모 컨디션 관리에 도움 되는 샘플' },
+    { img: kitMomCare, title: '철분제', desc: '산모 건강 관리에 도움 되는 샘플' },
+    { img: kitMomCare, title: '산모 영양제', desc: '예비맘을 위한 건강 관리 용품' },
+    { img: kitMomCare, title: '손목 보호대', desc: '출산 후 손목 부담 완화에 도움' },
+    { img: kitMomCare, title: '보습 크림', desc: '건조한 피부 케어에 도움 되는 용품' },
+    { img: kitRandomGift, title: '응급 키트', desc: '비상 상황에 대비하는 실용 구성품' },
   ];
 
-  const textItems = [
-    '손수건',
-    '물티슈',
-    '수유패드',
-    '산모케어',
-    '젖병세정',
-    '체크리스트',
-    '청구가이드',
-    '랜덤선물',
-  ];
+  const [page, setPage] = useState(0);
+  const pageSize = 8;
+  const totalPages = Math.ceil(kitItems.length / pageSize);
+
+  const currentItems = kitItems.slice(page * pageSize, page * pageSize + pageSize);
+
+  const movePrev = () => {
+    setPage((prev) => (prev === 0 ? totalPages - 1 : prev - 1));
+  };
+
+  const moveNext = () => {
+    setPage((prev) => (prev === totalPages - 1 ? 0 : prev + 1));
+  };
+
+  const textItems = currentItems.map((item) => item.title);
 
   return (
     <section id="giftbox" className="box-set-section practical-kit-section">
@@ -465,46 +488,80 @@ function GiftBoxSet() {
           <span className="box-mini-label">MamiOn Gift Box</span>
           <h2>
             예비맘을 위한<br />
-            <strong>총 8종 실속 구성</strong>
+            <strong>랜덤 5종 구성</strong>
           </h2>
           <p>
-            단순한 사은품이 아니라 출산 준비에 바로 도움이 되는 육아용품과
-            체크리스트, 청구 가이드까지 알차게 담았습니다.
+            출산 준비에 바로 도움이 되는 육아·산모용품 중
+            매월 구성에 따라 랜덤 5종을 선물로 보내드립니다.
           </p>
           <ul>
             <li>전국 무료 신청</li>
             <li>매월 한정 수량</li>
             <li>구성품은 수급 상황에 따라 변경 가능</li>
           </ul>
-          <button className="box-set-cta" onClick={scrollToApply}>지금 무료 신청하기</button>
+          <button className="box-set-cta" onClick={scrollToApply}>
+            지금 무료 신청하기
+          </button>
         </div>
-<div className="box-set-image-wrap">
-          <img
-            src={giftBoxOverview}
-            alt="마미온 임신축하박스 8종 구성"
-          />
+
+        <div className="box-set-image-wrap">
+          <img src={giftBoxOverview} alt="마미온 임신축하박스 구성" />
         </div>
       </div>
 
       <div className="kit-title">
-        <span>총 8종 실속 구성</span>
-        <h3>박스 안에 들어가는 <strong>실용 구성품</strong></h3>
+        <span>선물 구성 미리보기</span>
+        <h3>
+          200여 종 중 <strong>랜덤 5종 증정</strong>
+        </h3>
         <p>산모와 아기에게 실제로 필요한 물품 위주로 준비했어요.</p>
       </div>
 
-      <div className="kit-grid">
-        {kitItems.map((item, index) => (
-          <article className="kit-card" key={item.title}>
-            <div className="kit-photo-wrap">
-              <b>{String(index + 1).padStart(2, '0')}</b>
-              <button type="button" aria-label="favorite">♡</button>
-              <img src={item.img} alt={item.title} />
-            </div>
-            <div className="kit-card-body">
-              <h4>{item.title}</h4>
-              <p>{item.desc}</p>
-            </div>
-          </article>
+      <div className="kit-carousel">
+        <button
+          type="button"
+          className="kit-arrow kit-arrow-left"
+          onClick={movePrev}
+          aria-label="이전 구성품 보기"
+        >
+          ‹
+        </button>
+
+        <div className="kit-grid">
+          {currentItems.map((item, index) => (
+            <article className="kit-card" key={`${item.title}-${page}`}>
+              <div className="kit-photo-wrap">
+                <b>{String(page * pageSize + index + 1).padStart(2, '0')}</b>
+                <button type="button" aria-label="favorite">♡</button>
+                <img src={item.img} alt={item.title} />
+              </div>
+              <div className="kit-card-body">
+                <h4>{item.title}</h4>
+                <p>{item.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          className="kit-arrow kit-arrow-right"
+          onClick={moveNext}
+          aria-label="다음 구성품 보기"
+        >
+          ›
+        </button>
+      </div>
+
+      <div className="kit-dots">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            className={page === index ? 'active' : ''}
+            onClick={() => setPage(index)}
+            aria-label={`${index + 1}번째 구성품 보기`}
+          />
         ))}
       </div>
 
@@ -512,7 +569,9 @@ function GiftBoxSet() {
         {textItems.map((item) => <span key={item}>{item}</span>)}
       </div>
 
-      <p className="gift-notice kit-note">* 구성품은 협력사 및 수급 상황에 따라 일부 변경될 수 있습니다.</p>
+      <p className="gift-notice kit-note">
+        * 구성품 이미지는 예시이며, 실제 발송 구성은 협력사 및 수급 상황에 따라 일부 변경될 수 있습니다.
+      </p>
     </section>
   );
 }
