@@ -27,22 +27,23 @@ import kitCleanser from './assets/kit-cleanser.jpg';
 import kitChecklist from './assets/kit-checklist.jpg';
 import kitClaimGuide from './assets/kit-claim-guide.jpg';
 import kitRandomGift from './assets/kit-random-gift.jpg';
+import kitAntiRefluxCushion from './assets/kit-anti-reflux-cushion.jpg';
+import kitNursingCushion from './assets/kit-nursing-cushion.jpg';
+import kitBabyPlaygym from './assets/kit-baby-playgym.jpg';
+import kitBabyBlanket from './assets/kit-baby-blanket.jpg';
+import kitBathSet from './assets/kit-bath-set.jpg';
+import kitDetergent from './assets/kit-detergent.jpg';
+import kitContainers from './assets/kit-containers.jpg';
 import kitDiaper from './assets/kit-diaper.jpg';
-import kitToy from './assets/kit-toy.jpg';
-import kitBib from './assets/kit-bib.jpg';
-import kitClothes from './assets/kit-clothes.jpg';
 import kitSocks from './assets/kit-socks.jpg';
-import kitHat from './assets/kit-hat.jpg';
-import kitFabricSoftener from './assets/kit-fabric-softener.jpg';
-import kitToothbrush from './assets/kit-toothbrush.jpg';
+import kitBib from './assets/kit-bib.jpg';
 import kitNailcare from './assets/kit-nailcare.jpg';
+import kitToothbrush from './assets/kit-toothbrush.jpg';
 import kitThermometer from './assets/kit-thermometer.jpg';
 import kitMultiVitamin from './assets/kit-multi-vitamin.jpg';
 import kitIron from './assets/kit-iron.jpg';
-import kitMomSupplement from './assets/kit-mom-supplement.jpg';
 import kitWristSupport from './assets/kit-wrist-support.jpg';
 import kitMoisturizer from './assets/kit-moisturizer.jpg';
-import kitEmergencyKit from './assets/kit-emergency-kit.jpg';
 import logo from "./assets/logo.png";
 
 const scrollToApply = () =>
@@ -453,30 +454,30 @@ function TrustBand() {
 
 function GiftBoxSet() {
   const kitItems = [
-    { img: kitHandkerchief, title: '아기 손수건', desc: '신생아 피부에 부드러운 순면 필수템' },
-    { img: kitWipes, title: '아기 물티슈', desc: '출산 후 매일 쓰는 실용 육아용품' },
-    { img: kitNursingPad, title: '수유패드', desc: '출산 후 바로 필요한 산모 준비물' },
+    { img: kitAntiRefluxCushion, title: '역류방지쿠션', desc: '수유 후 아기 자세 안정에 도움 되는 인기 육아용품' },
+    { img: kitNursingCushion, title: '수유쿠션', desc: '수유 자세를 편하게 잡아주는 실용 육아용품' },
+    { img: kitBabyPlaygym, title: '아기 체육관', desc: '아기 감각 발달과 놀이에 도움 되는 선물' },
+    { img: kitBabyBlanket, title: '낮잠이불/방수요', desc: '잠자리와 외출 준비에 활용도 높은 구성품' },
+    { img: kitBathSet, title: '아기 목욕용품', desc: '목욕 준비에 필요한 워시·로션 구성' },
+    { img: kitCleanser, title: '젖병 세정 세트', desc: '수유용품 세정 준비에 도움 되는 세정용품' },
+    { img: kitDetergent, title: '유아 세제', desc: '아기 옷 세탁에 필요한 순한 세탁용품' },
     { img: kitMomCare, title: '산모 케어용품', desc: '예비맘의 몸과 마음을 위한 작은 케어' },
-    { img: kitCleanser, title: '젖병 세정 샘플', desc: '수유용품 준비에 도움 되는 세정용품' },
-    { img: kitChecklist, title: '출산 체크리스트', desc: '놓치기 쉬운 준비물을 한눈에 정리' },
-    { img: kitClaimGuide, title: '보험금 청구 가이드', desc: '출산 후 청구 준비에 도움 되는 안내 자료' },
-    { img: kitRandomGift, title: '랜덤 추가 선물', desc: '매월 구성에 따라 함께 제공되는 특별 선물' },
+    { img: kitContainers, title: '이유식 용기', desc: '이유식 보관과 외출 준비에 유용한 용기' },
+    { img: kitNursingPad, title: '수유패드', desc: '출산 후 바로 필요한 산모 준비물' },
+    { img: kitWipes, title: '아기 물티슈', desc: '출산 후 매일 쓰는 실용 육아용품' },
+    { img: kitHandkerchief, title: '아기 손수건', desc: '신생아 피부에 부드러운 순면 필수템' },
     { img: kitDiaper, title: '기저귀 샘플', desc: '출산 준비에 도움 되는 실용 샘플' },
-    { img: kitToy, title: '아기 장난감', desc: '아기가 좋아하는 귀여운 놀이용품' },
-    { img: kitBib, title: '턱받이/스카프빕', desc: '수유와 외출 시 활용하기 좋은 용품' },
-    { img: kitClothes, title: '아기 의류', desc: '계절에 따라 필요한 아기 의류' },
     { img: kitSocks, title: '아기 양말', desc: '신생아에게 필요한 기본 준비물' },
-    { img: kitHat, title: '아기 모자', desc: '체온 보호에 도움 되는 아기 용품' },
-    { img: kitFabricSoftener, title: '섬유유연제', desc: '아기 옷 세탁 준비에 도움 되는 용품' },
-    { img: kitToothbrush, title: '아기 치약/칫솔', desc: '성장 단계에 맞춰 필요한 위생용품' },
+    { img: kitBib, title: '턱받이/스카프빕', desc: '수유와 외출 시 활용하기 좋은 용품' },
     { img: kitNailcare, title: '손톱깎이 세트', desc: '아기 손톱 관리에 필요한 구성품' },
+    { img: kitToothbrush, title: '아기 치약/칫솔', desc: '성장 단계에 맞춰 필요한 위생용품' },
     { img: kitThermometer, title: '체온계', desc: '아이 컨디션 확인에 도움 되는 준비물' },
     { img: kitMultiVitamin, title: '멀티 비타민', desc: '산모 컨디션 관리에 도움 되는 샘플' },
-    { img: kitIron, title: '철분제', desc: '산모 건강 관리에 도움 되는 샘플' },
-    { img: kitMomSupplement, title: '산모 영양제', desc: '예비맘을 위한 건강 관리 용품' },
-    { img: kitWristSupport, title: '손목 보호대', desc: '출산 후 손목 부담 완화에 도움' },
+    { img: kitIron, title: '철분제', desc: '예비맘 건강 관리에 도움 되는 샘플' },
+    { img: kitWristSupport, title: '손목 보호대', desc: '출산 후 손목 부담 완화에 도움 되는 용품' },
     { img: kitMoisturizer, title: '보습 크림', desc: '건조한 피부 케어에 도움 되는 용품' },
-    { img: kitEmergencyKit, title: '응급 키트', desc: '비상 상황에 대비하는 실용 구성품' },
+    { img: kitChecklist, title: '출산 체크리스트', desc: '놓치기 쉬운 준비물을 한눈에 정리' },
+    { img: kitClaimGuide, title: '보험금 청구 가이드', desc: '출산 후 청구 준비에 도움 되는 안내 자료' },
   ];
 
   const [page, setPage] = useState(0);
@@ -484,14 +485,8 @@ function GiftBoxSet() {
   const totalPages = Math.ceil(kitItems.length / pageSize);
   const currentItems = kitItems.slice(page * pageSize, page * pageSize + pageSize);
 
-  const movePrev = () => {
-    setPage((prev) => (prev === 0 ? totalPages - 1 : prev - 1));
-  };
-
-  const moveNext = () => {
-    setPage((prev) => (prev === totalPages - 1 ? 0 : prev + 1));
-  };
-
+  const movePrev = () => setPage((prev) => (prev === 0 ? totalPages - 1 : prev - 1));
+  const moveNext = () => setPage((prev) => (prev === totalPages - 1 ? 0 : prev + 1));
   const textItems = currentItems.map((item) => item.title);
 
   return (
@@ -512,11 +507,8 @@ function GiftBoxSet() {
             <li>매월 한정 수량</li>
             <li>구성품은 수급 상황에 따라 변경 가능</li>
           </ul>
-          <button className="box-set-cta" onClick={scrollToApply}>
-            지금 무료 신청하기
-          </button>
+          <button className="box-set-cta" onClick={scrollToApply}>지금 무료 신청하기</button>
         </div>
-
         <div className="box-set-image-wrap">
           <img src={giftBoxOverview} alt="마미온 임신축하박스 구성" />
         </div>
@@ -525,21 +517,13 @@ function GiftBoxSet() {
       <div className="kit-title">
         <span>선물 구성 미리보기</span>
         <h3>
-          200여 종 중 <strong>랜덤 5종 증정</strong>
+          20여 종 중 <strong>랜덤 5종 증정</strong>
         </h3>
         <p>좌우 버튼을 눌러 다양한 구성품을 확인해보세요.</p>
       </div>
 
       <div className="kit-carousel">
-        <button
-          type="button"
-          className="kit-arrow kit-arrow-left"
-          onClick={movePrev}
-          aria-label="이전 구성품 보기"
-        >
-          ‹
-        </button>
-
+        <button type="button" className="kit-arrow kit-arrow-left" onClick={movePrev} aria-label="이전 구성품 보기">‹</button>
         <div className="kit-grid">
           {currentItems.map((item, index) => (
             <article className="kit-card" key={`${item.title}-${page}`}>
@@ -554,15 +538,7 @@ function GiftBoxSet() {
             </article>
           ))}
         </div>
-
-        <button
-          type="button"
-          className="kit-arrow kit-arrow-right"
-          onClick={moveNext}
-          aria-label="다음 구성품 보기"
-        >
-          ›
-        </button>
+        <button type="button" className="kit-arrow kit-arrow-right" onClick={moveNext} aria-label="다음 구성품 보기">›</button>
       </div>
 
       <div className="kit-dots">
@@ -582,11 +558,12 @@ function GiftBoxSet() {
       </div>
 
       <p className="gift-notice kit-note">
-        * 구성품 이미지는 예시이며, 실제 발송 구성은 협력사 및 수급 상황에 따라 일부 변경될 수 있습니다.
+        * 구성품 이미지는 예시이며, 실제 발송 구성은 재고 및 협력사 수급 상황에 따라 일부 변경될 수 있습니다.
       </p>
     </section>
   );
 }
+
 
 function Process() {
   const steps = [
