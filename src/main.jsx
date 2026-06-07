@@ -365,5 +365,3 @@ function StickyButton() { return <button className="sticky" type="button" onClic
 
 const path = window.location.pathname;
 createRoot(document.getElementById('root')).render(path === '/privacy' ? <PolicyPage type="privacy" /> : path === '/terms' ? <PolicyPage type="terms" /> : path === '/thanks' ? <ThanksPage /> : <App />);
-
-// redeploy trigger
