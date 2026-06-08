@@ -620,3 +620,245 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
   .review-side-card{grid-template-columns:1fr;padding:0}
   .review-side-card img{height:220px}
 }
+
+
+/* ===== V7 SIAN FINAL TOUCH: APPLY / CTA / REVIEW POLISH ===== */
+@media (min-width:1101px){
+  .conversion-cta{
+    padding:20px 0 26px;
+  }
+  .conversion-card{
+    min-height:184px;
+    padding:42px 54px;
+    border-radius:28px;
+    background:
+      radial-gradient(circle at 88% 18%, rgba(255,120,167,.24), transparent 31%),
+      linear-gradient(135deg,#fff 0%,#fff7fb 48%,#ffe8f0 100%);
+    box-shadow:0 26px 66px rgba(247,64,120,.115);
+  }
+  .conversion-card span{
+    padding:9px 17px;
+    font-size:15px;
+  }
+  .conversion-card h2{
+    margin:16px 0 9px;
+    font-size:38px;
+    line-height:1.24;
+    letter-spacing:-.065em;
+  }
+  .conversion-card p{
+    font-size:17px;
+  }
+  .conversion-card button{
+    height:68px;
+    padding:0 42px;
+    border-radius:18px;
+    font-size:19px;
+  }
+
+  .apply-section{
+    padding:30px 0 44px;
+  }
+  .sian-apply-card{
+    position:relative;
+    grid-template-columns:1.1fr .9fr;
+    gap:24px;
+    padding:34px;
+    border-radius:30px;
+    background:
+      radial-gradient(circle at 95% 8%, rgba(255,120,167,.13), transparent 24%),
+      linear-gradient(135deg,#fff 0%,#fffafd 45%,#fff3f7 100%);
+    border:1px solid #ffd6e2;
+    box-shadow:0 26px 70px rgba(247,64,120,.12);
+  }
+  .sian-form-area{
+    padding:6px 8px 6px 4px;
+  }
+  .sian-title-row{
+    align-items:center;
+    margin-bottom:2px;
+  }
+  .sian-title-row h2{
+    font-size:38px;
+    line-height:1.15;
+  }
+  .sian-title-row>span{
+    padding:9px 18px;
+    border-radius:999px;
+    font-size:14px;
+  }
+  .sian-form-area>p{
+    margin:12px 0 22px;
+    font-size:16px;
+  }
+  .sian-form-area .form-row{
+    gap:20px;
+  }
+  .sian-form-area .field{
+    margin-bottom:16px;
+  }
+  .sian-form-area .field span{
+    font-size:15px;
+    margin-bottom:9px;
+  }
+  .sian-form-area .field input{
+    height:54px;
+    border-radius:14px;
+    padding:0 16px;
+    font-size:15px;
+    background:#fff;
+    box-shadow:0 7px 18px rgba(247,64,120,.035);
+  }
+  .privacy-line{
+    margin-top:10px;
+    margin-bottom:12px;
+    padding:8px 0 4px;
+  }
+  .privacy-line a{
+    color:#7a646c;
+    font-weight:800;
+  }
+  .sian-form-area .submit-btn{
+    height:66px;
+    margin-top:16px;
+    border-radius:17px;
+    font-size:21px;
+  }
+  .sian-contact-area{
+    min-height:430px;
+    padding:34px 34px 28px;
+    border-radius:26px;
+    background:
+      radial-gradient(circle at 92% 12%, rgba(255,120,167,.20), transparent 31%),
+      linear-gradient(135deg,#fff7fb 0%,#fff 48%,#ffe7ef 100%);
+    border:1px solid #ffd4e2;
+  }
+  .sian-contact-area h3{
+    font-size:30px;
+    line-height:1.2;
+  }
+  .sian-contact-area p{
+    margin:11px 0 20px;
+    font-size:16px;
+  }
+  .contact-info-row{
+    max-width:345px;
+  }
+  .sian-contact-area .phone-card,
+  .sian-contact-area .kakao-card{
+    min-height:74px;
+    margin:12px 0;
+    padding:15px 18px;
+    border-radius:18px;
+    background:rgba(255,255,255,.94);
+    box-shadow:0 10px 26px rgba(247,64,120,.055);
+  }
+  .sian-contact-area .phone-card b{
+    font-size:25px;
+  }
+  .sian-contact-area img{
+    right:18px;
+    bottom:16px;
+    width:52%;
+    max-width:345px;
+    min-width:260px;
+    border-radius:22px;
+    box-shadow:0 20px 46px rgba(247,64,120,.11);
+  }
+
+  .reviews-section{
+    padding:40px 0 66px;
+  }
+  .review-head{
+    margin-bottom:30px;
+  }
+  .review-head span{
+    padding:8px 17px;
+    font-size:14px;
+  }
+  .review-head h2{
+    margin:16px 0 12px;
+    font-size:42px;
+    line-height:1.22;
+  }
+  .review-head p{
+    font-size:17px;
+  }
+  .review-premium-wrap{
+    grid-template-columns:1.08fr .92fr;
+    gap:24px;
+  }
+  .review-cards.premium{
+    gap:20px;
+  }
+  .review-cards.premium article{
+    min-height:178px;
+    padding:28px 26px;
+    border-radius:25px;
+    background:
+      radial-gradient(circle at 88% 12%, rgba(255,120,167,.12), transparent 26%),
+      linear-gradient(180deg,#fff,#fffafb);
+    box-shadow:0 16px 40px rgba(247,64,120,.075);
+  }
+  .review-cards.premium p{
+    margin:15px 0 18px;
+    font-size:15.5px;
+    line-height:1.72;
+  }
+  .review-side-card{
+    min-height:178px;
+    border-radius:25px;
+    grid-template-columns:1fr .96fr;
+    background:linear-gradient(135deg,#fff,#fff4f8);
+    box-shadow:0 16px 40px rgba(247,64,120,.075);
+  }
+  .review-side-card img{
+    min-height:100%;
+  }
+  .review-side-card div{
+    padding:26px 26px 26px 24px;
+  }
+  .review-side-card strong{
+    font-size:26px;
+  }
+  .review-side-card span{
+    font-size:15.5px;
+  }
+}
+
+@media(max-width:1100px){
+  .conversion-card{
+    min-height:210px;
+    padding:30px 22px;
+  }
+  .sian-apply-card{
+    gap:20px;
+    padding:24px 18px;
+    border-radius:26px;
+  }
+  .sian-form-area .field input{
+    height:52px;
+  }
+  .sian-form-area .submit-btn{
+    height:62px;
+    border-radius:16px;
+  }
+  .sian-contact-area{
+    padding:26px 20px 292px;
+    border-radius:24px;
+  }
+  .sian-contact-area h3{
+    font-size:28px;
+  }
+  .sian-contact-area img{
+    height:250px;
+    border-radius:20px;
+  }
+  .reviews-section{
+    padding-top:30px;
+  }
+  .review-cards.premium article{
+    min-height:auto;
+    padding:26px 22px;
+  }
+}
