@@ -2583,3 +2583,29 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     font-size:11px !important;
   }
 }
+
+/* ===== V23 GIFT INTRO IMAGE APPLY: GENERATED GIFT BOX PHOTO ===== */
+.gift-photo-large{
+  background:#fff7fa;
+}
+
+.gift-photo-large img{
+  object-fit:cover;
+  object-position:center center;
+  transform:none !important;
+}
+
+@media (min-width:1101px){
+  .gift-photo-large{
+    height:365px;
+  }
+  .gift-intro-card{
+    overflow:hidden;
+  }
+}
+
+@media(max-width:1100px){
+  .gift-photo-large img{
+    object-position:center center;
+  }
+}
