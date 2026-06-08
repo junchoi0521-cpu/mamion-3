@@ -1176,3 +1176,177 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     border-radius:20px;
   }
 }
+
+
+/* ===== V11 REAL SIAN CONTACT REBUILD: HTML + CSS ===== */
+@media (min-width:1101px){
+  .sian-apply-card{
+    grid-template-columns:1.12fr .88fr !important;
+    gap:30px !important;
+    align-items:stretch !important;
+  }
+
+  .target-contact-area{
+    display:grid !important;
+    grid-template-columns:0.86fr 1.14fr !important;
+    gap:18px !important;
+    min-height:0 !important;
+    height:auto !important;
+    padding:28px 26px 28px 30px !important;
+    border-radius:24px !important;
+    overflow:hidden !important;
+    background:
+      radial-gradient(circle at 88% 10%, rgba(255,118,166,.22), rgba(255,255,255,0) 38%),
+      linear-gradient(135deg,#fff7fa 0%,#fff 48%,#ffe8f0 100%) !important;
+    border:1px solid #ffd3e1 !important;
+  }
+
+  .target-contact-area::after{
+    display:none !important;
+    content:none !important;
+  }
+
+  .target-contact-copy{
+    position:relative !important;
+    z-index:3 !important;
+    width:auto !important;
+    max-width:none !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:flex-start !important;
+    padding:2px 0 0 !important;
+  }
+
+  .target-contact-copy h3{
+    margin:0 !important;
+    color:#251515 !important;
+    font-size:25px !important;
+    line-height:1.2 !important;
+    letter-spacing:-.055em !important;
+    font-weight:900 !important;
+    white-space:nowrap !important;
+  }
+
+  .target-contact-copy p{
+    margin:8px 0 16px !important;
+    color:#4d535f !important;
+    font-size:13px !important;
+    line-height:1.35 !important;
+    letter-spacing:-.03em !important;
+    font-weight:800 !important;
+  }
+
+  .target-contact-buttons{
+    display:grid !important;
+    gap:10px !important;
+    width:100% !important;
+    max-width:250px !important;
+  }
+
+  .target-contact-area .phone-card,
+  .target-contact-area .kakao-card{
+    width:100% !important;
+    min-height:64px !important;
+    margin:0 !important;
+    padding:12px 14px !important;
+    border-radius:15px !important;
+    gap:12px !important;
+    background:rgba(255,255,255,.94) !important;
+    border:1px solid #ffd1df !important;
+    box-shadow:0 10px 24px rgba(247,64,120,.045) !important;
+  }
+
+  .target-contact-area .phone-card svg,
+  .target-contact-area .kakao-card svg{
+    width:26px !important;
+    height:26px !important;
+    flex:0 0 auto !important;
+  }
+
+  .target-contact-area .phone-card b{
+    display:block !important;
+    color:#ff3d78 !important;
+    font-size:21px !important;
+    line-height:1 !important;
+    letter-spacing:-.035em !important;
+    font-weight:900 !important;
+    white-space:nowrap !important;
+  }
+
+  .target-contact-area .phone-card small,
+  .target-contact-area .kakao-card small{
+    display:block !important;
+    margin-top:4px !important;
+    color:#303640 !important;
+    font-size:10px !important;
+    line-height:1.35 !important;
+    font-weight:900 !important;
+  }
+
+  .target-contact-area .kakao-card b{
+    color:#111827 !important;
+    font-size:14px !important;
+    line-height:1.15 !important;
+    font-weight:900 !important;
+  }
+
+  .target-contact-visual{
+    position:relative !important;
+    z-index:2 !important;
+    align-self:stretch !important;
+    min-height:230px !important;
+    border-radius:22px !important;
+    overflow:hidden !important;
+    background:#fff !important;
+    box-shadow:0 16px 36px rgba(247,64,120,.08) !important;
+  }
+
+  .target-contact-area .target-contact-visual img{
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+    margin:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    display:block !important;
+  }
+
+  .sian-contact-area .contact-copy,
+  .sian-contact-area .contact-info-row{
+    width:auto !important;
+    max-width:none !important;
+  }
+}
+
+@media (max-width:1100px){
+  .target-contact-area{
+    display:flex !important;
+    flex-direction:column !important;
+    padding:24px 20px 22px !important;
+  }
+  .target-contact-buttons{
+    display:grid !important;
+    gap:10px !important;
+  }
+  .target-contact-visual{
+    position:relative !important;
+    height:230px !important;
+    margin-top:16px !important;
+    border-radius:20px !important;
+    overflow:hidden !important;
+  }
+  .target-contact-area .target-contact-visual img{
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    border-radius:0 !important;
+    margin:0 !important;
+  }
+}
