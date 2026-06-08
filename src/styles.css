@@ -1819,3 +1819,48 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     font-size:16px !important;
   }
 }
+
+/* ===== V27 HERO CENTER DETAIL =====
+   Add one light line-art accent in the middle gap without adding markup or clutter.
+*/
+@media (min-width:1101px){
+  .hero-card::before,
+  .hero-card::after{
+    display:block !important;
+    position:absolute !important;
+    z-index:3 !important;
+    pointer-events:none !important;
+  }
+
+  .hero-card::before{
+    content:'♡' !important;
+    left:47.5% !important;
+    top:39% !important;
+    color:#ff3d78 !important;
+    font-size:54px !important;
+    line-height:1 !important;
+    font-weight:400 !important;
+    opacity:.92 !important;
+    transform:rotate(-8deg) !important;
+  }
+
+  .hero-card::after{
+    content:'' !important;
+    left:39.5% !important;
+    top:54% !important;
+    width:190px !important;
+    height:54px !important;
+    border-top:2px solid rgba(247,64,120,.82) !important;
+    border-right:2px solid rgba(247,64,120,.82) !important;
+    border-radius:55% 46% 0 0 !important;
+    opacity:.82 !important;
+    transform:rotate(-8deg) !important;
+  }
+
+  .hero-content h1 strong::after{
+    right:-78px !important;
+    top:-12px !important;
+    font-size:46px !important;
+    opacity:.92 !important;
+  }
+}
