@@ -2326,3 +2326,26 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     padding-top:12px !important;
   }
 }
+
+/* ===== V31 HERO HEART TAIL CONNECT =====
+   Nudge the headline heart and curve so the line visually starts from the heart tail.
+*/
+@media (min-width:1101px){
+  .hero-content h1 strong::before{
+    left:234px !important;
+    top:42px !important;
+    width:142px !important;
+    height:34px !important;
+    border-top:2px solid rgba(247,64,120,.82) !important;
+    border-right:2px solid rgba(247,64,120,.82) !important;
+    border-radius:58% 48% 0 0 !important;
+    transform:rotate(-6deg) !important;
+  }
+
+  .hero-content h1 strong::after{
+    left:350px !important;
+    top:-12px !important;
+    font-size:58px !important;
+    transform:rotate(-8deg) !important;
+  }
+}
