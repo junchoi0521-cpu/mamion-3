@@ -266,8 +266,7 @@ function ApplySection({ onSubmitSuccess }) {
     return `${Math.floor(pregnancyDays / 7)}주 ${pregnancyDays % 7}일`;
   };
 
-  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', detailAddress: '', weeks: '', insurance: '', privacy: false, thirdParty: false, marketing: false });
-  const [faqOpen, setFaqOpen] = useState(false);
+  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', request: '', weeks: '', privacy: false });
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitMessageType, setSubmitMessageType] = useState('');
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
@@ -276,30 +275,6 @@ function ApplySection({ onSubmitSuccess }) {
     if (numbers.length < 4) return numbers;
     if (numbers.length < 8) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
     return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
-  };
-  const loadDaumPostcodeScript = () => new Promise((resolve, reject) => {
-    if (window.daum?.Postcode) return resolve();
-    const existingScript = document.getElementById('daum-postcode-script');
-    if (existingScript) { existingScript.addEventListener('load', resolve); existingScript.addEventListener('error', reject); return; }
-    const script = document.createElement('script');
-    script.id = 'daum-postcode-script';
-    script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-    script.onload = resolve;
-    script.onerror = reject;
-    document.body.appendChild(script);
-  });
-  const openAddressSearch = async () => {
-    try {
-      await loadDaumPostcodeScript();
-      new window.daum.Postcode({ oncomplete(data) {
-        const roadAddress = data.roadAddress || data.jibunAddress;
-        const extra = [];
-        if (data.bname && /[동|로|가]$/g.test(data.bname)) extra.push(data.bname);
-        if (data.buildingName && data.apartment === 'Y') extra.push(data.buildingName);
-        update('region', `[${data.zonecode}] ${roadAddress}${extra.length ? ` (${extra.join(', ')})` : ''}`);
-        setTimeout(() => document.querySelector('input[name="detailAddress"]')?.focus(), 50);
-      }}).open();
-    } catch { alert('주소 검색을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.'); }
   };
   const submitByJsonp = (payload) => new Promise((resolve, reject) => {
     const callbackName = `mamionSubmitCallback_${Date.now()}`;
@@ -313,9 +288,9 @@ function ApplySection({ onSubmitSuccess }) {
   async function submit(e) {
     e.preventDefault();
     setSubmitMessage(''); setSubmitMessageType('');
-    if (!form.name || !form.phone || !form.dueDate || !form.region || !form.weeks || !form.insurance) { setSubmitMessage('필수 항목을 모두 입력해주세요.'); setSubmitMessageType('error'); return; }
-    if (!form.privacy || !form.thirdParty) { setSubmitMessage('필수 동의 항목을 체크해주세요.'); setSubmitMessageType('error'); return; }
-    const payload = { ...form, region: `${form.region}${form.detailAddress ? ` ${form.detailAddress}` : ''}`, createdAt: new Date().toISOString() };
+    if (!form.name || !form.phone || !form.dueDate || !form.region) { setSubmitMessage('필수 항목을 모두 입력해주세요.'); setSubmitMessageType('error'); return; }
+    if (!form.privacy) { setSubmitMessage('개인정보 수집 및 이용 동의가 필요합니다.'); setSubmitMessageType('error'); return; }
+    const payload = { ...form, createdAt: new Date().toISOString() };
     try {
       const result = await submitByJsonp(payload);
       if (result?.result === 'duplicate') { setSubmitMessage(result.message || '이미 이번 달 신청이 완료되었습니다. 다음 달부터 다시 신청 가능합니다.'); setSubmitMessageType('duplicate'); return; }
@@ -326,30 +301,30 @@ function ApplySection({ onSubmitSuccess }) {
 
   return (
     <section id="apply" className="apply-section section-wrap">
-      <div className="apply-card">
-        <div className="form-area">
-          <div className="apply-title-row"><h2>마미온 선물 신청서 <Heart size={26} /></h2><span>신청 30초 완료 ✨</span></div>
-          <p>예비맘님의 소중한 선물이 안전하게 도착할 수 있도록 아래 정보를 입력해주세요.</p>
+      <div className="apply-card sian-apply-card">
+        <div className="form-area sian-form-area">
+          <div className="apply-title-row sian-title-row"><h2>임신축하선물 신청하기 <Heart size={26} /></h2><span>신청 30초 완료 ✨</span></div>
+          <p>간단한 정보 입력으로 소중한 선물을 받아보세요.</p>
           {submitMessage && <div className={`submit-message ${submitMessageType}`}>{submitMessage}</div>}
           <form onSubmit={submit}>
             <div className="form-row"><Field label="이름"><input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" /></Field><Field label="연락처"><input name="phone" value={form.phone} onChange={(e) => update('phone', formatPhoneNumber(e.target.value))} placeholder="010-1234-5678" maxLength={13} /></Field></div>
-            <div className="form-row"><Field label="출산 예정일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><Field label="선물 수령 주소"><div className="address-search-row"><input name="region" value={form.region} placeholder="주소 검색 버튼을 눌러주세요" readOnly /><button type="button" onClick={openAddressSearch}>주소 검색</button></div><input name="detailAddress" value={form.detailAddress} onChange={(e) => update('detailAddress', e.target.value)} placeholder="상세주소를 입력해주세요. 예) 101동 1001호" /></Field></div>
-            <Field label="현재 태아보험 준비 상태"><div className="chips insurance">{['이미 가입했어요', '아직 준비 전이에요', '알아보는 중이에요'].map((v) => <button type="button" key={v} onClick={() => update('insurance', v)} className={form.insurance === v ? 'active' : ''}>{v}</button>)}</div></Field>
-            <label className="agree-line"><input type="checkbox" checked={form.privacy} onChange={(e) => update('privacy', e.target.checked)} /> [필수] 개인정보 수집 및 이용 동의</label>
-            <label className="agree-line"><input type="checkbox" checked={form.thirdParty} onChange={(e) => update('thirdParty', e.target.checked)} /> [필수] 개인정보 제3자 제공 동의</label>
-            <label className="agree-line"><input type="checkbox" checked={form.marketing} onChange={(e) => update('marketing', e.target.checked)} /> [선택] 광고성 정보 수신 동의</label>
+            <div className="form-row"><Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><Field label="거주지 (시/군/구)"><input name="region" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="거주지를 입력해주세요" /></Field></div>
+            <Field label="추가 요청사항 (선택)"><input name="request" value={form.request} onChange={(e) => update('request', e.target.value)} placeholder="요청사항이 있으시면 적어주세요" /></Field>
+            <label className="agree-line privacy-line"><input type="checkbox" checked={form.privacy} onChange={(e) => update('privacy', e.target.checked)} /> 개인정보 수집 및 이용에 동의합니다. (필수) <a href="/privacy">개인정보처리방침 보기 &gt;</a></label>
             <button className="submit-btn" type="submit"><Gift size={20} /> 임신축하선물 신청하기</button>
-            <small>* 신청 정보는 선물 발송 및 안내 목적으로만 사용됩니다.</small>
+            <small>* 신청 정보는 선물 발송 및 상담 목적으로만 사용됩니다.</small>
           </form>
         </div>
-        <aside className="contact-area">
-          <h3>신청 전 궁금한 점이 있나요?</h3>
-          <p>마미온 담당자가 편하게 안내드릴게요.</p>
-          <a className="phone-card" href="tel:010-1234-5678"><Phone size={28} /><span><b>010-1234-5678</b><small>평일 09:00 - 18:00</small></span></a>
-          <a className="kakao-card" href={KAKAO_URL} target="_blank" rel="noopener noreferrer"><MessageCircle size={24} /><span><b>카카오톡 문의</b><small>@마미온 검색</small></span></a>
+        <aside className="contact-area sian-contact-area">
+          <div className="contact-copy">
+            <h3>궁금한 점이 있으신가요?</h3>
+            <p>언제든지 편하게 문의해주세요.</p>
+          </div>
+          <div className="contact-info-row">
+            <a className="phone-card" href="tel:010-1234-5678"><Phone size={28} /><span><b>010-1234-5678</b><small>평일 09:00 - 18:00<br />(주말/공휴일 휴무)</small></span></a>
+            <a className="kakao-card" href={KAKAO_URL} target="_blank" rel="noopener noreferrer"><MessageCircle size={24} /><span><b>카카오톡 문의</b><small>@마미온 검색</small></span></a>
+          </div>
           <img src={bunny} alt="마미온 문의 안내" />
-          <button className="faq-toggle" type="button" onClick={() => setFaqOpen(!faqOpen)}>신청 후 왜 연락이 오나요? <ChevronDown size={16} /></button>
-          {faqOpen && <p className="faq-answer">신청 확인, 선물 수령 안내, 필요 시 간단한 문의 응대를 위해 연락드립니다.</p>}
         </aside>
       </div>
     </section>
@@ -398,7 +373,7 @@ function Faq() {
 }
 
 function PolicySection({ initialType = 'all' }) {
-  return <section className="policy-section"><div className="policy-wrap">{(initialType === 'all' || initialType === 'privacy') && <><h2>개인정보처리방침</h2><p>제이엔파트너스(JN Partners)는 이용자의 개인정보를 중요하게 생각하며 관련 법령에 따라 안전하게 관리합니다.</p><h3>1. 수집하는 개인정보 항목</h3><ul><li>이름</li><li>연락처</li><li>출산 예정일</li><li>임신 주수</li><li>선물 수령 주소</li><li>태아보험 준비 상태</li></ul><h3>2. 개인정보 수집 및 이용 목적</h3><ul><li>임신축하선물 신청 접수</li><li>신청자 본인 확인</li><li>선물 수령 주소 확인</li><li>상담 및 안내 일정 조율</li></ul><h3>3. 보유 및 이용기간</h3><p>수집 목적 달성 후 지체 없이 파기하며, 법령에 따라 필요한 경우 해당 기간 동안 보관합니다.</p><h3>4. 개인정보 보호책임자</h3><p>상호 : 제이엔파트너스 (JN Partners)<br />대표자 : 최준<br />이메일 : cj.gasin@gmail.com</p><p>시행일 : 2026년 6월 4일</p></>}{(initialType === 'all' || initialType === 'terms') && <><h2>이용약관</h2><p>본 약관은 마미온에서 제공하는 임신축하선물 신청 서비스 이용과 관련한 기본 사항을 정합니다.</p><h3>1. 서비스 내용</h3><p>마미온은 예비맘을 대상으로 임신축하선물 신청 접수, 신청 확인, 선물 안내 및 관련 상담 안내 서비스를 제공합니다.</p><h3>2. 신청 및 이용 조건</h3><ul><li>신청자는 정확한 정보를 입력해야 합니다.</li><li>허위 정보 또는 중복 신청이 확인될 경우 제한될 수 있습니다.</li><li>선물 구성은 재고 및 협력사 사정에 따라 변경될 수 있습니다.</li></ul></>}</div></section>;
+  return <section className="policy-section"><div className="policy-wrap">{(initialType === 'all' || initialType === 'privacy') && <><h2>개인정보처리방침</h2><p>제이엔파트너스(JN Partners)는 이용자의 개인정보를 중요하게 생각하며 관련 법령에 따라 안전하게 관리합니다.</p><h3>1. 수집하는 개인정보 항목</h3><ul><li>이름</li><li>연락처</li><li>출산 예정일</li><li>임신 주수</li><li>거주지</li><li>추가 요청사항</li></ul><h3>2. 개인정보 수집 및 이용 목적</h3><ul><li>임신축하선물 신청 접수</li><li>신청자 본인 확인</li><li>선물 수령 주소 확인</li><li>상담 및 안내 일정 조율</li></ul><h3>3. 보유 및 이용기간</h3><p>수집 목적 달성 후 지체 없이 파기하며, 법령에 따라 필요한 경우 해당 기간 동안 보관합니다.</p><h3>4. 개인정보 보호책임자</h3><p>상호 : 제이엔파트너스 (JN Partners)<br />대표자 : 최준<br />이메일 : cj.gasin@gmail.com</p><p>시행일 : 2026년 6월 4일</p></>}{(initialType === 'all' || initialType === 'terms') && <><h2>이용약관</h2><p>본 약관은 마미온에서 제공하는 임신축하선물 신청 서비스 이용과 관련한 기본 사항을 정합니다.</p><h3>1. 서비스 내용</h3><p>마미온은 예비맘을 대상으로 임신축하선물 신청 접수, 신청 확인, 선물 안내 및 관련 상담 안내 서비스를 제공합니다.</p><h3>2. 신청 및 이용 조건</h3><ul><li>신청자는 정확한 정보를 입력해야 합니다.</li><li>허위 정보 또는 중복 신청이 확인될 경우 제한될 수 있습니다.</li><li>선물 구성은 재고 및 협력사 사정에 따라 변경될 수 있습니다.</li></ul></>}</div></section>;
 }
 
 function ThanksPage() { return <main className="page"><Header /><section className="thanks-section"><div className="thanks-card"><div>🎁</div><h1>신청이 완료되었습니다!</h1><p>마미온 임신축하선물 신청이 정상 접수되었습니다.<br />담당자가 신청 내용을 확인 후 순차적으로 연락드릴 예정입니다.</p><button onClick={() => window.location.href = '/'}>홈으로 돌아가기</button></div></section><Footer /></main>; }
