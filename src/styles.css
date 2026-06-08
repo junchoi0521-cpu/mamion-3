@@ -2423,3 +2423,163 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     border-radius:0 !important;
   }
 }
+
+/* ===== V34 GIFT + KIT COMPACT MOCKUP ALIGNMENT =====
+   Tighten the GiftIntro and KitPreview area to match the supplied compact mockup.
+*/
+@media (min-width:1101px){
+  .gift-intro-section{
+    padding-top:0 !important;
+  }
+
+  .gift-intro-card{
+    min-height:0 !important;
+    height:228px !important;
+    grid-template-columns:1.06fr .64fr .78fr !important;
+    gap:22px !important;
+    align-items:center !important;
+    border-radius:10px !important;
+    border:1px solid #ffd6e3 !important;
+    background:linear-gradient(135deg,#fff 0%,#fff8fb 54%,#ffeef4 100%) !important;
+    box-shadow:0 16px 42px rgba(247,64,120,.075) !important;
+  }
+
+  .gift-photo-large{
+    height:228px !important;
+  }
+
+  .gift-photo-large img{
+    object-fit:cover !important;
+    object-position:center center !important;
+    transform:none !important;
+  }
+
+  .gift-copy-area{
+    padding:20px 0 18px !important;
+  }
+
+  .section-badge{
+    gap:6px !important;
+    font-size:14px !important;
+  }
+
+  .gift-copy-area h2{
+    margin:10px 0 9px !important;
+    font-size:34px !important;
+    line-height:1.06 !important;
+    letter-spacing:-.065em !important;
+  }
+
+  .gift-copy-area p{
+    max-width:270px !important;
+    font-size:13px !important;
+    line-height:1.55 !important;
+    font-weight:800 !important;
+  }
+
+  .gift-feature-grid{
+    gap:10px 18px !important;
+    padding:16px 22px 16px 0 !important;
+  }
+
+  .gift-feature-grid article{
+    min-height:86px !important;
+  }
+
+  .gift-feature-grid article svg{
+    width:58px !important;
+    height:58px !important;
+    padding:12px !important;
+    border-width:1px !important;
+  }
+
+  .gift-feature-grid b{
+    margin-top:7px !important;
+    font-size:13px !important;
+    line-height:1.25 !important;
+  }
+
+  .gift-feature-grid span{
+    margin-top:2px !important;
+    font-size:12px !important;
+    line-height:1.25 !important;
+  }
+
+  .kit-section{
+    padding-top:18px !important;
+  }
+
+  .kit-heading{
+    align-items:center !important;
+    margin-bottom:12px !important;
+  }
+
+  .kit-heading h2{
+    gap:6px !important;
+    font-size:25px !important;
+    line-height:1.2 !important;
+    letter-spacing:-.045em !important;
+  }
+
+  .kit-heading h2 svg{
+    width:22px !important;
+    height:22px !important;
+  }
+
+  .kit-heading p{
+    margin-top:5px !important;
+    font-size:12px !important;
+    color:#6b7280 !important;
+  }
+
+  .kit-heading>span{
+    padding:8px 15px !important;
+    border-radius:999px !important;
+    font-size:12px !important;
+    white-space:nowrap !important;
+  }
+
+  .kit-grid{
+    grid-template-columns:repeat(8, minmax(0,1fr)) !important;
+    gap:9px !important;
+  }
+
+  .kit-card{
+    border-radius:8px !important;
+    box-shadow:0 8px 20px rgba(247,64,120,.07) !important;
+  }
+
+  .kit-image{
+    height:104px !important;
+  }
+
+  .kit-image b{
+    width:34px !important;
+    height:30px !important;
+    border-bottom-right-radius:8px !important;
+    font-size:14px !important;
+  }
+
+  .kit-image em{
+    right:4px !important;
+    bottom:4px !important;
+    padding:4px 6px !important;
+    font-size:9px !important;
+  }
+
+  .kit-body{
+    padding:8px 5px 9px !important;
+  }
+
+  .kit-body h3{
+    font-size:13px !important;
+    line-height:1.25 !important;
+    letter-spacing:-.035em !important;
+    white-space:nowrap !important;
+  }
+
+  .kit-note{
+    margin-top:12px !important;
+    font-size:11px !important;
+  }
+}
