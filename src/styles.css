@@ -1036,3 +1036,129 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     height:268px;
   }
 }
+
+/* ===== V9 CONTACT AREA SIAN REBUILD ===== */
+@media (min-width:1101px){
+  .sian-apply-card{
+    grid-template-columns:1.06fr .94fr;
+    gap:28px;
+    align-items:stretch;
+  }
+
+  .sian-contact-area{
+    display:grid;
+    grid-template-columns: .86fr 1.14fr;
+    grid-template-rows:auto 1fr;
+    column-gap:24px;
+    min-height:292px;
+    padding:28px 28px 26px 30px;
+    align-items:start;
+    background:
+      radial-gradient(circle at 94% 5%, rgba(255,120,167,.20), transparent 34%),
+      linear-gradient(135deg,#fff8fb 0%,#fff 44%,#ffe9f1 100%);
+  }
+
+  .sian-contact-area:after{
+    right:-95px;
+    top:-95px;
+    width:240px;
+    height:240px;
+    opacity:.78;
+  }
+
+  .sian-contact-area .contact-copy{
+    position:relative;
+    z-index:2;
+    grid-column:1;
+    grid-row:1;
+  }
+
+  .sian-contact-area h3{
+    font-size:26px;
+    line-height:1.2;
+    letter-spacing:-.055em;
+  }
+
+  .sian-contact-area p{
+    margin:8px 0 14px;
+    font-size:15px;
+    line-height:1.45;
+  }
+
+  .contact-info-row{
+    position:relative;
+    z-index:2;
+    grid-column:1;
+    grid-row:2;
+    max-width:none;
+    align-self:start;
+  }
+
+  .sian-contact-area .phone-card,
+  .sian-contact-area .kakao-card{
+    width:100%;
+    min-height:62px;
+    margin:9px 0;
+    padding:12px 14px;
+    border-radius:15px;
+    background:rgba(255,255,255,.90);
+    box-shadow:0 10px 24px rgba(247,64,120,.055);
+  }
+
+  .sian-contact-area .phone-card svg,
+  .sian-contact-area .kakao-card svg{
+    flex:0 0 auto;
+  }
+
+  .sian-contact-area .phone-card b{
+    font-size:22px;
+    line-height:1.05;
+  }
+
+  .sian-contact-area .phone-card small,
+  .sian-contact-area .kakao-card small{
+    font-size:11px;
+    line-height:1.38;
+  }
+
+  .sian-contact-area img{
+    position:relative;
+    z-index:1;
+    grid-column:2;
+    grid-row:1 / span 2;
+    align-self:end;
+    justify-self:end;
+    right:auto;
+    bottom:auto;
+    width:100%;
+    max-width:none;
+    min-width:0;
+    height:224px;
+    object-fit:cover;
+    object-position:center;
+    border-radius:22px;
+    margin:0;
+    box-shadow:0 18px 42px rgba(247,64,120,.10);
+  }
+}
+
+@media (min-width:1101px) and (max-width:1320px){
+  .sian-contact-area{
+    grid-template-columns:.95fr 1.05fr;
+    column-gap:18px;
+    padding-left:24px;
+    padding-right:24px;
+  }
+  .sian-contact-area img{
+    height:210px;
+  }
+  .sian-contact-area .phone-card b{
+    font-size:20px;
+  }
+}
+
+@media(max-width:1100px){
+  .sian-contact-area{
+    display:block;
+  }
+}
