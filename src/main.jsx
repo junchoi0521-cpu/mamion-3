@@ -266,7 +266,7 @@ function ApplySection({ onSubmitSuccess }) {
     return `${Math.floor(pregnancyDays / 7)}주 ${pregnancyDays % 7}일`;
   };
 
-  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', request: '', weeks: '', privacy: false, thirdParty: false, marketing: false });
+  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, thirdParty: false, marketing: false });
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitMessageType, setSubmitMessageType] = useState('');
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
@@ -309,7 +309,6 @@ function ApplySection({ onSubmitSuccess }) {
           <form onSubmit={submit}>
             <div className="form-row"><Field label="이름"><input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" /></Field><Field label="연락처"><input name="phone" value={form.phone} onChange={(e) => update('phone', formatPhoneNumber(e.target.value))} placeholder="010-1234-5678" maxLength={13} /></Field></div>
             <div className="form-row"><Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><Field label="거주지 (시/군/구)"><input name="region" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="거주지를 입력해주세요" /></Field></div>
-            <Field label="추가 요청사항 (선택)"><input name="request" value={form.request} onChange={(e) => update('request', e.target.value)} placeholder="요청사항이 있으시면 적어주세요" /></Field>
             <div className="agree-stack">
               <label className="agree-line"><input type="checkbox" checked={form.privacy} onChange={(e) => update('privacy', e.target.checked)} /> [필수] 개인정보 수집 및 이용 동의</label>
               <label className="agree-line"><input type="checkbox" checked={form.thirdParty} onChange={(e) => update('thirdParty', e.target.checked)} /> [필수] 개인정보 제3자 제공 동의</label>
@@ -380,7 +379,7 @@ function Faq() {
 }
 
 function PolicySection({ initialType = 'all' }) {
-  return <section className="policy-section"><div className="policy-wrap">{(initialType === 'all' || initialType === 'privacy') && <><h2>개인정보처리방침</h2><p>제이엔파트너스(JN Partners)는 이용자의 개인정보를 중요하게 생각하며 관련 법령에 따라 안전하게 관리합니다.</p><h3>1. 수집하는 개인정보 항목</h3><ul><li>이름</li><li>연락처</li><li>출산 예정일</li><li>임신 주수</li><li>거주지</li><li>추가 요청사항</li><li>개인정보 수집 및 이용 동의 여부</li><li>개인정보 제3자 제공 동의 여부</li><li>광고성 정보 수신 동의 여부</li></ul><h3>2. 개인정보 수집 및 이용 목적</h3><ul><li>임신축하선물 신청 접수</li><li>신청자 본인 확인</li><li>선물 수령 주소 확인</li><li>상담 및 안내 일정 조율</li></ul><h3>3. 보유 및 이용기간</h3><p>수집 목적 달성 후 지체 없이 파기하며, 법령에 따라 필요한 경우 해당 기간 동안 보관합니다.</p><h3>4. 개인정보 보호책임자</h3><p>상호 : 제이엔파트너스 (JN Partners)<br />대표자 : 최준<br />이메일 : cj.gasin@gmail.com</p><p>시행일 : 2026년 6월 4일</p></>}{(initialType === 'all' || initialType === 'terms') && <><h2>이용약관</h2><p>본 약관은 마미온에서 제공하는 임신축하선물 신청 서비스 이용과 관련한 기본 사항을 정합니다.</p><h3>1. 서비스 내용</h3><p>마미온은 예비맘을 대상으로 임신축하선물 신청 접수, 신청 확인, 선물 안내 및 관련 상담 안내 서비스를 제공합니다.</p><h3>2. 신청 및 이용 조건</h3><ul><li>신청자는 정확한 정보를 입력해야 합니다.</li><li>허위 정보 또는 중복 신청이 확인될 경우 제한될 수 있습니다.</li><li>선물 구성은 재고 및 협력사 사정에 따라 변경될 수 있습니다.</li></ul></>}</div></section>;
+  return <section className="policy-section"><div className="policy-wrap">{(initialType === 'all' || initialType === 'privacy') && <><h2>개인정보처리방침</h2><p>제이엔파트너스(JN Partners)는 이용자의 개인정보를 중요하게 생각하며 관련 법령에 따라 안전하게 관리합니다.</p><h3>1. 수집하는 개인정보 항목</h3><ul><li>이름</li><li>연락처</li><li>출산 예정일</li><li>임신 주수</li><li>거주지</li><li>개인정보 수집 및 이용 동의 여부</li><li>개인정보 제3자 제공 동의 여부</li><li>광고성 정보 수신 동의 여부</li></ul><h3>2. 개인정보 수집 및 이용 목적</h3><ul><li>임신축하선물 신청 접수</li><li>신청자 본인 확인</li><li>선물 수령 주소 확인</li><li>상담 및 안내 일정 조율</li></ul><h3>3. 보유 및 이용기간</h3><p>수집 목적 달성 후 지체 없이 파기하며, 법령에 따라 필요한 경우 해당 기간 동안 보관합니다.</p><h3>4. 개인정보 보호책임자</h3><p>상호 : 제이엔파트너스 (JN Partners)<br />대표자 : 최준<br />이메일 : cj.gasin@gmail.com</p><p>시행일 : 2026년 6월 4일</p></>}{(initialType === 'all' || initialType === 'terms') && <><h2>이용약관</h2><p>본 약관은 마미온에서 제공하는 임신축하선물 신청 서비스 이용과 관련한 기본 사항을 정합니다.</p><h3>1. 서비스 내용</h3><p>마미온은 예비맘을 대상으로 임신축하선물 신청 접수, 신청 확인, 선물 안내 및 관련 상담 안내 서비스를 제공합니다.</p><h3>2. 신청 및 이용 조건</h3><ul><li>신청자는 정확한 정보를 입력해야 합니다.</li><li>허위 정보 또는 중복 신청이 확인될 경우 제한될 수 있습니다.</li><li>선물 구성은 재고 및 협력사 사정에 따라 변경될 수 있습니다.</li></ul></>}</div></section>;
 }
 
 function ThanksPage() { return <main className="page"><Header /><section className="thanks-section"><div className="thanks-card"><div>🎁</div><h1>신청이 완료되었습니다!</h1><p>마미온 임신축하선물 신청이 정상 접수되었습니다.<br />담당자가 신청 내용을 확인 후 순차적으로 연락드릴 예정입니다.</p><button onClick={() => window.location.href = '/'}>홈으로 돌아가기</button></div></section><Footer /></main>; }
