@@ -143,7 +143,6 @@ function Hero() {
             <article><Truck size={34} /><b>배송비 포함</b><span>전액 무료</span></article>
             <article><ShieldCheck size={34} /><b>신청 30초</b><span>간편 신청</span></article>
           </div>
-          <button type="button" className="primary-cta hero-cta" onClick={scrollToApply}>임신축하선물 무료 신청하기 <span>›</span></button>
         </div>
       </div>
     </section>
