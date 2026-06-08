@@ -19,7 +19,7 @@ import './styles.css';
 import heroMom from './assets/hero-mom.jpg';
 import bunny from './assets/contact-bunny.jpg';
 import reviewShoes from './assets/review-shoes.jpg';
-import giftBoxOverview from './assets/gift-box-overview.jpg';
+import giftBoxOverview from './assets/gift-box-overview-v25.jpg';
 import kitHandkerchief from './assets/kit-handkerchief.jpg';
 import kitWipes from './assets/kit-wipes.jpg';
 import kitNursingPad from './assets/kit-nursing-pad.jpg';
