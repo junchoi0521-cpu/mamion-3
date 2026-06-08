@@ -1,0 +1,64 @@
+/* Address search field for the apply form. */
+.address-field{
+  display:block;
+}
+
+.address-direct-row{
+  display:grid !important;
+  grid-template-columns:minmax(0, 1fr) auto !important;
+  align-items:center !important;
+  gap:10px !important;
+}
+
+.address-direct-row input{
+  min-width:0 !important;
+}
+
+.address-direct-row .address-search-btn{
+  height:58px !important;
+  border:0 !important;
+  border-radius:17px !important;
+  padding:0 18px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:7px !important;
+  background:#2c1916 !important;
+  color:#fff !important;
+  font-size:15px !important;
+  font-weight:900 !important;
+  white-space:nowrap !important;
+  box-shadow:0 12px 26px rgba(44,25,22,.12) !important;
+}
+
+.address-direct-row .address-search-btn:hover{
+  background:var(--pink) !important;
+  box-shadow:0 14px 30px rgba(247,64,120,.20) !important;
+}
+
+.address-direct-row .address-search-btn svg{
+  flex:0 0 auto !important;
+}
+
+.address-help-text{
+  display:block !important;
+  margin-top:8px !important;
+  color:#8b6b76 !important;
+  font-size:13px !important;
+  line-height:1.35 !important;
+  font-weight:700 !important;
+  text-align:left !important;
+}
+
+@media(max-width:1100px){
+  .address-direct-row{
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
+
+  .address-direct-row .address-search-btn{
+    width:100% !important;
+    height:50px !important;
+    border-radius:14px !important;
+  }
+}
