@@ -80,6 +80,7 @@ function App() {
       <GiftIntro />
       <KitPreview />
       <WhyRandom />
+      <ConversionCta />
       <ApplySection onSubmitSuccess={increaseCount} />
       <Reviews />
       <Faq />
@@ -238,6 +239,24 @@ function StatsStrip() {
   return <div className="stats-strip">{stats.map(([icon, num, label]) => <article key={label}>{icon}<strong>{num}</strong><span>{label}</span></article>)}</div>;
 }
 
+
+function ConversionCta() {
+  return (
+    <section className="conversion-cta section-wrap" aria-label="임신축하선물 신청 안내">
+      <div className="conversion-card">
+        <div>
+          <span>이번 달 마미온 선물 접수 중</span>
+          <h2>예비맘이라면 지금 30초만에<br />무료 선물을 신청해보세요.</h2>
+          <p>선물 구성은 매월 달라질 수 있으며, 신청 확인 후 순차적으로 안내드립니다.</p>
+        </div>
+        <button type="button" onClick={scrollToApply}>
+          <Gift size={21} /> 임신축하선물 신청하기
+        </button>
+      </div>
+    </section>
+  );
+}
+
 function ApplySection({ onSubmitSuccess }) {
   const calculateWeeks = (dueDate) => {
     if (!dueDate) return '';
@@ -309,8 +328,8 @@ function ApplySection({ onSubmitSuccess }) {
     <section id="apply" className="apply-section section-wrap">
       <div className="apply-card">
         <div className="form-area">
-          <div className="apply-title-row"><h2>임신축하선물 신청하기 <Heart size={26} /></h2><span>신청 30초 완료 ✨</span></div>
-          <p>간단한 정보 입력으로 소중한 선물을 받아보세요.</p>
+          <div className="apply-title-row"><h2>마미온 선물 신청서 <Heart size={26} /></h2><span>신청 30초 완료 ✨</span></div>
+          <p>예비맘님의 소중한 선물이 안전하게 도착할 수 있도록 아래 정보를 입력해주세요.</p>
           {submitMessage && <div className={`submit-message ${submitMessageType}`}>{submitMessage}</div>}
           <form onSubmit={submit}>
             <div className="form-row"><Field label="이름"><input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" /></Field><Field label="연락처"><input name="phone" value={form.phone} onChange={(e) => update('phone', formatPhoneNumber(e.target.value))} placeholder="010-1234-5678" maxLength={13} /></Field></div>
@@ -324,8 +343,8 @@ function ApplySection({ onSubmitSuccess }) {
           </form>
         </div>
         <aside className="contact-area">
-          <h3>궁금한 점이 있으신가요?</h3>
-          <p>언제든지 편하게 문의해주세요.</p>
+          <h3>신청 전 궁금한 점이 있나요?</h3>
+          <p>마미온 담당자가 편하게 안내드릴게요.</p>
           <a className="phone-card" href="tel:010-1234-5678"><Phone size={28} /><span><b>010-1234-5678</b><small>평일 09:00 - 18:00</small></span></a>
           <a className="kakao-card" href={KAKAO_URL} target="_blank" rel="noopener noreferrer"><MessageCircle size={24} /><span><b>카카오톡 문의</b><small>@마미온 검색</small></span></a>
           <img src={bunny} alt="마미온 문의 안내" />
@@ -341,16 +360,34 @@ function Field({ label, children }) { return <label className="field"><span>{lab
 
 function Reviews() {
   const reviews = [
-    ['김○○ 고객님', '선물도 너무 알차고 포장도 예뻐서 감동받았어요! 마미온 덕분에 행복한 임신 기간을 보내고 있어요.'],
-    ['박○○ 고객님', '신청하고 일주일 안에 받았어요! 상담도 친절하고 선물도 정말 마음에 들어요.'],
-    ['이○○ 고객님', '첫 아이라 준비할 게 많았는데 좋은 선물을 받았어요. 정말 추천합니다!'],
+    ['김○○ 예비맘', '선물 박스가 생각보다 훨씬 예뻤어요. 아기용품도 실용적인 것들로 와서 출산 준비하는 기분이 더 설렜습니다.'],
+    ['박○○ 예비맘', '신청 과정이 간단했고 안내도 친절했어요. 무료 선물인데 포장까지 깔끔해서 만족스러웠습니다.'],
+    ['이○○ 예비맘', '첫 임신이라 준비할 게 많았는데 마미온 선물 덕분에 필요한 용품을 하나씩 챙기는 느낌이라 좋았어요.'],
   ];
   return (
     <section id="reviews" className="reviews-section section-wrap">
-      <div className="review-title"><h2>마미온 고객님들의<br /><strong>따뜻한 후기</strong></h2></div>
-      <div className="review-wrap">
-        <div className="review-cards">{reviews.map(([name, text]) => <article key={name}><div className="stars">★★★★★</div><p>{text}</p><b>- {name}</b></article>)}</div>
-        <img src={reviewShoes} alt="후기 이미지" />
+      <div className="review-head">
+        <span>REVIEW</span>
+        <h2>마미온을 먼저 만나본<br /><strong>예비맘들의 따뜻한 후기</strong></h2>
+        <p>선물의 구성, 포장, 안내 과정까지 실제 신청자분들이 만족한 포인트를 담았어요.</p>
+      </div>
+      <div className="review-premium-wrap">
+        <div className="review-cards premium">
+          {reviews.map(([name, text]) => (
+            <article key={name}>
+              <div className="stars">★★★★★</div>
+              <p>{text}</p>
+              <b>{name}</b>
+            </article>
+          ))}
+        </div>
+        <div className="review-side-card">
+          <img src={reviewShoes} alt="마미온 후기 이미지" />
+          <div>
+            <strong>포근한 첫 선물</strong>
+            <span>예비맘의 출산 준비를 마미온이 함께 응원합니다.</span>
+          </div>
+        </div>
       </div>
     </section>
   );
