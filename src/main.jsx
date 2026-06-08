@@ -10,7 +10,8 @@ import {
   CalendarCheck,
   Heart,
   Star,
-  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Box,
   Smile,
 } from 'lucide-react';
@@ -20,14 +21,7 @@ import heroMom from './assets/hero-mom.jpg';
 import bunny from './assets/contact-bunny.jpg';
 import reviewShoes from './assets/review-shoes.jpg';
 import giftBoxOverview from './assets/gift-box-overview-v25.jpg';
-import kitHandkerchief from './assets/kit-handkerchief.jpg';
-import kitWipes from './assets/kit-wipes.jpg';
-import kitNursingPad from './assets/kit-nursing-pad.jpg';
-import kitMomCare from './assets/kit-mom-care.jpg';
-import kitCleanser from './assets/kit-cleanser.jpg';
-import kitChecklist from './assets/kit-checklist.jpg';
-import kitClaimGuide from './assets/kit-claim-guide.jpg';
-import kitRandomGift from './assets/kit-random-gift.jpg';
+import kitProductsSprite from './assets/kit-products-v1.webp';
 import logo from './assets/logo.png';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
@@ -172,16 +166,44 @@ function GiftIntro() {
 }
 
 function KitPreview() {
+  const KIT_VISIBLE_COUNT = 7;
   const kitItems = [
-    { img: kitHandkerchief, title: '아기 손수건', desc: '부드러운 순면 손수건' },
-    { img: kitWipes, title: '아기 물티슈', desc: '매일 쓰는 실용 육아용품' },
-    { img: kitNursingPad, title: '수유패드', desc: '출산 후 필요한 산모 준비물' },
-    { img: kitMomCare, title: '산모 케어용품', desc: '산모를 위한 맞춤 케어' },
-    { img: kitCleanser, title: '젖병 세정 샘플', desc: '수유용품 세정 준비' },
-    { img: kitChecklist, title: '출산 체크리스트', desc: '준비물을 한눈에 정리' },
-    { img: kitClaimGuide, title: '보험금 청구 가이드', desc: '출산 후 청구 준비 안내' },
-    { img: kitRandomGift, title: '시크릿 선물', desc: '매월 달라지는 특별 선물' },
+    { title: '프리미엄 시크릿 박스', desc: '매월 달라지는 특별 구성', cell: [0, 0], tag: 'BEST' },
+    { title: '산모 케어 세트', desc: '출산 전후 산모 맞춤 케어', cell: [0, 2] },
+    { title: '아기 보습 로션', desc: '아기 피부를 위한 보습 샘플', cell: [1, 0] },
+    { title: '임산부 복대', desc: '편안한 산모 생활용품', cell: [3, 3] },
+    { title: '수유패드', desc: '출산 후 필요한 산모 준비물', cell: [2, 0] },
+    { title: '젖병 세정 샘플', desc: '수유용품 세정 준비', cell: [0, 1] },
+    { title: '산모 바디크림', desc: '산모를 위한 보습 케어', cell: [1, 2] },
+    { title: '프리미엄 아기 물티슈', desc: '매일 쓰는 실용 육아용품', cell: [3, 0] },
+    { title: '순면 아기 손수건', desc: '부드러운 순면 손수건', cell: [4, 0] },
+    { title: '아기 양말 세트', desc: '신생아 외출 준비용품', cell: [4, 1] },
+    { title: '속싸개 블랭킷', desc: '포근한 신생아 준비물', cell: [0, 3] },
+    { title: '후드 목욕타월', desc: '목욕 후 포근한 타월', cell: [0, 4] },
+    { title: '신생아 손싸개', desc: '작은 손을 보호하는 준비물', cell: [1, 4] },
+    { title: '아기 턱받이', desc: '실용적인 데일리 육아용품', cell: [1, 3] },
+    { title: '아기 순면 화장솜', desc: '민감한 피부를 위한 순면 패드', cell: [2, 2] },
+    { title: '노리개젖꼭지', desc: '외출 시 필요한 육아용품', cell: [3, 2] },
+    { title: '치발기', desc: '아기 구강기 준비용품', cell: [4, 2] },
+    { title: '유아 세탁 샘플', desc: '아기 옷 세탁 준비', cell: [2, 3] },
+    { title: '산모 파우치', desc: '소지품 정리에 좋은 파우치', cell: [2, 4] },
+    { title: '여행용 샘플팩', desc: '외출용 소용량 구성', cell: [3, 4] },
+    { title: '출산 체크리스트', desc: '준비물을 한눈에 정리', cell: [1, 1] },
+    { title: '태아보험 안내북', desc: '예비맘을 위한 안내 자료', cell: [2, 1] },
+    { title: '보험금 청구 가이드', desc: '출산 후 청구 준비 안내', cell: [3, 1] },
+    { title: '아기 첫 걸음 슈즈', desc: '기념 사진에도 예쁜 선물', cell: [4, 3] },
+    { title: '딸랑이 축하카드', desc: '작은 축하 선물 구성', cell: [4, 4], tag: 'NEW' },
   ];
+  const [startIndex, setStartIndex] = useState(0);
+  const maxStartIndex = Math.max(kitItems.length - KIT_VISIBLE_COUNT, 0);
+  const visibleItems = kitItems.slice(startIndex, startIndex + KIT_VISIBLE_COUNT);
+  const moveKit = (direction) => {
+    setStartIndex((prev) => {
+      const nextIndex = prev + (direction * KIT_VISIBLE_COUNT);
+      return Math.min(Math.max(nextIndex, 0), maxStartIndex);
+    });
+  };
+  const getSpritePosition = ([x, y]) => `${x * 25}% ${y * 25}%`;
 
   return (
     <section className="kit-section section-wrap">
@@ -192,17 +214,31 @@ function KitPreview() {
         </div>
         <span>매월 구성은 달라질 수 있어요!</span>
       </div>
-      <div className="kit-grid">
-        {kitItems.map((item, index) => (
-          <article className="kit-card" key={item.title}>
-            <div className="kit-image">
-              <b>{String(index + 1).padStart(2, '0')}</b>
-              {item.title === '시크릿 선물' && <em>NEW</em>}
-              <img src={item.img} alt={item.title} />
-            </div>
-            <div className="kit-body"><h3>{item.title}</h3><p>{item.desc}</p></div>
-          </article>
-        ))}
+      <div className="kit-slider-shell">
+        <button className="kit-arrow kit-arrow-left" type="button" onClick={() => moveKit(-1)} disabled={startIndex === 0} aria-label="이전 구성품 보기">
+          <ChevronLeft size={24} />
+        </button>
+        <div className="kit-grid kit-slider-grid">
+          {visibleItems.map((item) => (
+            <article className="kit-card" key={item.title}>
+              <div className="kit-image">
+                {item.tag && <em>{item.tag}</em>}
+                <span
+                  className="kit-product-photo"
+                  aria-hidden="true"
+                  style={{
+                    backgroundImage: `url(${kitProductsSprite})`,
+                    backgroundPosition: getSpritePosition(item.cell),
+                  }}
+                />
+              </div>
+              <div className="kit-body"><h3>{item.title}</h3><p>{item.desc}</p></div>
+            </article>
+          ))}
+        </div>
+        <button className="kit-arrow kit-arrow-right" type="button" onClick={() => moveKit(1)} disabled={startIndex === maxStartIndex} aria-label="다음 구성품 보기">
+          <ChevronRight size={24} />
+        </button>
       </div>
       <p className="kit-note">* 구성품 이미지는 예시이며, 실제 발송 구성은 재고 및 운영 상황에 따라 일부 변경될 수 있습니다.</p>
     </section>
