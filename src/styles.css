@@ -1350,3 +1350,239 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     margin:0 !important;
   }
 }
+
+
+/* ===== V12 APPLY SECTION: MATCH TARGET MOCKUP / REMOVE REQUEST FIELD ===== */
+@media (min-width:1101px){
+  .apply-section{
+    padding-top:28px;
+    padding-bottom:42px;
+  }
+
+  .sian-apply-card{
+    grid-template-columns:1.18fr .82fr;
+    gap:36px;
+    align-items:stretch;
+    padding:42px 46px;
+    border-radius:26px;
+    background:linear-gradient(135deg,#fff 0%,#fffafd 58%,#fff3f7 100%);
+    box-shadow:0 26px 76px rgba(247,64,120,.11);
+  }
+
+  .sian-form-area{
+    padding:0;
+  }
+
+  .sian-title-row{
+    align-items:flex-start;
+  }
+
+  .sian-title-row h2{
+    font-size:39px;
+    line-height:1.12;
+  }
+
+  .sian-title-row > span{
+    margin-top:2px;
+  }
+
+  .sian-form-area > p{
+    margin:10px 0 25px;
+    font-size:16px;
+  }
+
+  .sian-form-area .form-row{
+    gap:28px;
+    margin-bottom:20px;
+  }
+
+  .sian-form-area .field{
+    margin-bottom:21px;
+  }
+
+  .sian-form-area .field span{
+    margin-bottom:10px;
+    font-size:16px;
+  }
+
+  .sian-form-area .field input{
+    height:58px;
+    border-radius:17px;
+    padding:0 20px;
+    font-size:16px;
+  }
+
+  .agree-stack{
+    position:relative;
+    margin-top:8px;
+    padding-top:2px;
+  }
+
+  .agree-stack .agree-line{
+    min-height:34px;
+    margin:0;
+    padding:2px 0;
+    font-size:16px;
+    font-weight:900;
+    color:#22242b;
+  }
+
+  .agree-stack .agree-line input{
+    width:22px;
+    height:22px;
+    margin-right:8px;
+  }
+
+  .agree-stack .privacy-link{
+    position:absolute;
+    right:0;
+    top:10px;
+    color:#5b626d;
+    font-size:15px;
+    font-weight:800;
+    text-decoration:underline;
+    text-underline-offset:4px;
+  }
+
+  .sian-form-area .submit-btn{
+    height:70px;
+    margin-top:24px;
+    border-radius:18px;
+    font-size:24px;
+    box-shadow:0 22px 48px rgba(247,64,120,.23);
+  }
+
+  .sian-form-area form small{
+    margin-top:16px;
+    font-size:14px;
+  }
+
+  .target-contact-area{
+    display:flex !important;
+    flex-direction:column !important;
+    min-height:100%;
+    padding:34px 34px 30px !important;
+    border-radius:24px;
+    background:linear-gradient(135deg,#fff 0%,#fff8fb 58%,#ffeaf2 100%) !important;
+    border:1px solid #ffd4e1 !important;
+    overflow:hidden;
+  }
+
+  .target-contact-area::after{
+    display:none !important;
+  }
+
+  .target-contact-copy{
+    position:static !important;
+    z-index:1;
+    width:100% !important;
+    min-width:0 !important;
+    padding:0 !important;
+  }
+
+  .target-contact-copy h3{
+    margin:0;
+    font-size:31px;
+    line-height:1.2;
+    letter-spacing:-.055em;
+  }
+
+  .target-contact-copy p{
+    margin:11px 0 24px;
+    font-size:17px;
+    font-weight:800;
+  }
+
+  .target-contact-buttons{
+    display:grid !important;
+    grid-template-columns:1fr;
+    gap:14px;
+    width:100% !important;
+    max-width:none !important;
+  }
+
+  .target-contact-area .phone-card,
+  .target-contact-area .kakao-card{
+    width:100% !important;
+    min-height:94px;
+    margin:0 !important;
+    padding:18px 24px !important;
+    border-radius:18px !important;
+    background:rgba(255,255,255,.94) !important;
+    border:1px solid #ffd3e1 !important;
+    box-shadow:none !important;
+  }
+
+  .target-contact-area .kakao-card{
+    min-height:82px;
+  }
+
+  .target-contact-area .phone-card svg{
+    width:42px !important;
+    height:42px !important;
+    flex:0 0 auto;
+  }
+
+  .target-contact-area .kakao-card svg{
+    width:42px !important;
+    height:42px !important;
+    flex:0 0 auto;
+  }
+
+  .target-contact-area .phone-card b{
+    font-size:31px !important;
+    line-height:1.1;
+  }
+
+  .target-contact-area .phone-card small,
+  .target-contact-area .kakao-card small{
+    margin-top:7px;
+    font-size:14px !important;
+    line-height:1.42;
+  }
+
+  .target-contact-area .kakao-card b{
+    font-size:22px !important;
+  }
+
+  .target-contact-visual{
+    position:static !important;
+    flex:1 1 auto;
+    width:100% !important;
+    height:320px !important;
+    min-height:300px;
+    margin-top:28px;
+    border-radius:20px;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:none;
+  }
+
+  .target-contact-area .target-contact-visual img,
+  .target-contact-area img{
+    position:static !important;
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin:0 !important;
+    border-radius:20px !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+    transform:none !important;
+    box-shadow:none !important;
+  }
+}
+
+@media(max-width:1100px){
+  .target-contact-area{
+    display:flex !important;
+    flex-direction:column !important;
+    padding:24px 20px !important;
+  }
+  .target-contact-copy{position:static !important;width:100% !important;}
+  .target-contact-buttons{display:grid !important;grid-template-columns:1fr;gap:12px;width:100% !important;}
+  .target-contact-visual{position:static !important;width:100% !important;height:260px !important;margin-top:18px;border-radius:18px;overflow:hidden;}
+  .target-contact-area .target-contact-visual img{position:static !important;width:100% !important;height:100% !important;object-fit:cover !important;border-radius:18px !important;}
+}
