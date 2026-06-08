@@ -1777,3 +1777,65 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     min-height:94px !important;
   }
 }
+
+/* ===== V15 HERO CODE ONLY: APPLY TARGET GENERATED HERO VISUAL ===== */
+@media (min-width:1101px){
+  /* 전체 Hero 높이를 시안처럼 압축하고, 우측 이미지가 텍스트 쪽으로 붙게 조정 */
+  .hero-card{
+    height:590px !important;
+  }
+
+  /* 이미지 영역 시작점을 왼쪽으로 당겨 텍스트와 사진 간격 축소 */
+  .hero-visual{
+    inset:0 0 0 35.5% !important;
+    display:flex !important;
+    align-items:stretch !important;
+    justify-content:flex-start !important;
+    overflow:hidden !important;
+  }
+
+  /* 새 hero-mom.jpg는 이미 시안형으로 크롭되어 있으므로 더 이상 강제 확대하지 않음 */
+  .hero-visual img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:contain !important;
+    object-position:left bottom !important;
+    transform:none !important;
+    transform-origin:left bottom !important;
+    filter:saturate(1.07) contrast(1.05) brightness(1.01) !important;
+  }
+
+  /* 텍스트와 이미지 사이 흰 페이드 영역을 줄여 사진이 더 붙어 보이게 조정 */
+  .hero-overlay{
+    background:linear-gradient(
+      90deg,
+      #fff 0%,
+      #fff 23%,
+      rgba(255,255,255,.98) 31%,
+      rgba(255,255,255,.78) 39%,
+      rgba(255,255,255,.28) 49%,
+      rgba(255,255,255,0) 60%
+    ) !important;
+  }
+
+  /* 높이 축소에 맞춰 좌측 텍스트 묶음도 시안처럼 상단 정렬 */
+  .hero-content{
+    padding-top:24px !important;
+  }
+
+  .hero-ribbon{
+    margin-top:0 !important;
+  }
+
+  .hero-content h1{
+    margin-top:20px !important;
+  }
+
+  .hero-content p{
+    margin-top:15px !important;
+  }
+
+  .hero-benefits{
+    margin-top:20px !important;
+  }
+}
