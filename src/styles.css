@@ -1586,9 +1586,9 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
   .target-contact-visual{position:static !important;width:100% !important;height:260px !important;margin-top:18px;border-radius:18px;overflow:hidden;}
   .target-contact-area .target-contact-visual img{position:static !important;width:100% !important;height:100% !important;object-fit:cover !important;border-radius:18px !important;}
 }
-/* ===== V23 FINAL HERO PHOTO OVERRIDE =====
+/* ===== V24 FINAL HERO PHOTO OVERRIDE =====
    Keep Hero as HTML text + right-side img.
-   Removed the older V16/V21 full-image and over-zoom Hero blocks to keep Vercel CSS minify stable.
+   Use the regenerated wide hero photo with empty left space; text remains real HTML.
 */
 @media (min-width:1101px){
   .hero-shell{
@@ -1599,7 +1599,7 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
 
   .hero-card{
     position:relative !important;
-    height:620px !important;
+    height:600px !important;
     border:0 !important;
     border-radius:0 !important;
     background:#fff !important;
@@ -1613,7 +1613,7 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     top:0 !important;
     right:0 !important;
     bottom:0 !important;
-    left:32% !important;
+    left:0 !important;
     z-index:1 !important;
     width:auto !important;
     height:auto !important;
@@ -1625,9 +1625,9 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     width:100% !important;
     height:100% !important;
     max-width:none !important;
-    min-width:0 !important;
-    object-fit:contain !important;
-    object-position:right bottom !important;
+    min-width:100% !important;
+    object-fit:cover !important;
+    object-position:center 56% !important;
     transform:none !important;
     transform-origin:center center !important;
   }
@@ -1641,12 +1641,11 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     background:linear-gradient(
       90deg,
       #fff 0%,
-      #fff 31%,
-      rgba(255,255,255,.99) 39%,
-      rgba(255,255,255,.82) 48%,
-      rgba(255,255,255,.38) 58%,
-      rgba(255,255,255,.08) 67%,
-      rgba(255,255,255,0) 76%
+      rgba(255,255,255,.99) 29%,
+      rgba(255,255,255,.88) 37%,
+      rgba(255,255,255,.48) 48%,
+      rgba(255,255,255,.14) 58%,
+      rgba(255,255,255,0) 70%
     ) !important;
   }
 
