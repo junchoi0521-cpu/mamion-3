@@ -1,0 +1,153 @@
+/* Desktop-only polish for GiftIntro and KitPreview.
+   Loaded after the main page styles so the old compact V34 overrides stay harmless.
+*/
+@media (min-width:1101px){
+  html body .gift-intro-section{
+    padding-top:0 !important;
+  }
+
+  html body .gift-intro-card{
+    min-height:0 !important;
+    height:276px !important;
+    grid-template-columns:1.04fr .68fr .82fr !important;
+    gap:26px !important;
+    align-items:center !important;
+    border-radius:12px !important;
+    border:1px solid #ffd6e3 !important;
+    background:linear-gradient(135deg,#fff 0%,#fff8fb 52%,#ffeef4 100%) !important;
+    box-shadow:0 18px 48px rgba(247,64,120,.08) !important;
+  }
+
+  html body .gift-photo-large{
+    height:276px !important;
+    background-image:url('./assets/hero-mom.jpg') !important;
+    background-size:auto 175% !important;
+    background-position:92% 64% !important;
+    background-repeat:no-repeat !important;
+  }
+
+  html body .gift-photo-large img{
+    opacity:0 !important;
+    visibility:hidden !important;
+  }
+
+  html body .gift-copy-area{
+    padding:26px 0 !important;
+  }
+
+  html body .section-badge{
+    gap:7px !important;
+    font-size:15px !important;
+    line-height:1.2 !important;
+  }
+
+  html body .gift-copy-area h2{
+    margin:12px 0 11px !important;
+    font-size:39px !important;
+    line-height:1.06 !important;
+    letter-spacing:-.065em !important;
+  }
+
+  html body .gift-copy-area p{
+    max-width:300px !important;
+    font-size:14px !important;
+    line-height:1.68 !important;
+    font-weight:800 !important;
+  }
+
+  html body .gift-feature-grid{
+    gap:15px 20px !important;
+    padding:23px 28px 23px 0 !important;
+  }
+
+  html body .gift-feature-grid article{
+    min-height:104px !important;
+  }
+
+  html body .gift-feature-grid article svg{
+    width:68px !important;
+    height:68px !important;
+    padding:14px !important;
+    border-width:1px !important;
+  }
+
+  html body .gift-feature-grid b{
+    margin-top:8px !important;
+    font-size:14px !important;
+    line-height:1.28 !important;
+  }
+
+  html body .gift-feature-grid span{
+    margin-top:2px !important;
+    font-size:13px !important;
+    line-height:1.28 !important;
+  }
+
+  html body .kit-section{
+    padding-top:24px !important;
+  }
+
+  html body .kit-heading{
+    align-items:center !important;
+    margin-bottom:16px !important;
+  }
+
+  html body .kit-heading h2{
+    gap:7px !important;
+    font-size:27px !important;
+    line-height:1.2 !important;
+    letter-spacing:-.045em !important;
+  }
+
+  html body .kit-heading h2 svg{
+    width:24px !important;
+    height:24px !important;
+  }
+
+  html body .kit-heading p{
+    margin-top:6px !important;
+    font-size:13px !important;
+  }
+
+  html body .kit-heading>span{
+    padding:9px 16px !important;
+    font-size:13px !important;
+  }
+
+  html body .kit-grid{
+    grid-template-columns:repeat(8, minmax(0,1fr)) !important;
+    gap:11px !important;
+  }
+
+  html body .kit-card{
+    border-radius:10px !important;
+    box-shadow:0 10px 24px rgba(247,64,120,.075) !important;
+  }
+
+  html body .kit-image{
+    height:118px !important;
+  }
+
+  html body .kit-image b{
+    width:36px !important;
+    height:32px !important;
+    border-bottom-right-radius:9px !important;
+    font-size:15px !important;
+  }
+
+  html body .kit-body{
+    padding:9px 6px 10px !important;
+  }
+
+  html body .kit-body h3{
+    font-size:14px !important;
+    line-height:1.25 !important;
+    letter-spacing:-.035em !important;
+    white-space:nowrap !important;
+  }
+
+  html body .kit-note{
+    margin-top:14px !important;
+    font-size:11px !important;
+  }
+}
