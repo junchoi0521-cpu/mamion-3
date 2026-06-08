@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   Gift,
@@ -10,12 +10,14 @@ import {
   CalendarCheck,
   Heart,
   Star,
+  Search,
   ChevronLeft,
   ChevronRight,
   Box,
   Smile,
 } from 'lucide-react';
 import './styles.css';
+import './address-search.css';
 
 import heroMom from './assets/hero-mom.jpg';
 import bunny from './assets/contact-bunny.jpg';
@@ -294,6 +296,7 @@ function ConversionCta() {
 }
 
 function ApplySection({ onSubmitSuccess }) {
+  const addressInputRef = useRef(null);
   const calculateWeeks = (dueDate) => {
     if (!dueDate) return '';
     const diffDays = Math.floor((new Date(dueDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
@@ -311,6 +314,46 @@ function ApplySection({ onSubmitSuccess }) {
     if (numbers.length < 4) return numbers;
     if (numbers.length < 8) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
     return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+  };
+  const openAddressSearch = () => {
+    const openPostcode = () => {
+      if (!window.daum?.Postcode) {
+        addressInputRef.current?.focus();
+        return;
+      }
+
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          const selectedAddress = data.roadAddress || data.jibunAddress || data.address || '';
+          update('region', selectedAddress);
+          setTimeout(() => addressInputRef.current?.focus(), 0);
+        },
+      }).open();
+    };
+
+    if (window.daum?.Postcode) {
+      openPostcode();
+      return;
+    }
+
+    const existingScript = document.getElementById('daum-postcode-script');
+    if (existingScript) {
+      existingScript.addEventListener('load', openPostcode, { once: true });
+      addressInputRef.current?.focus();
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.id = 'daum-postcode-script';
+    script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+    script.async = true;
+    script.onload = openPostcode;
+    script.onerror = () => {
+      addressInputRef.current?.focus();
+      setSubmitMessage('주소 검색을 불러오지 못했습니다. 주소를 직접 입력해주세요.');
+      setSubmitMessageType('');
+    };
+    document.body.appendChild(script);
   };
   const submitByJsonp = (payload) => new Promise((resolve, reject) => {
     const callbackName = `mamionSubmitCallback_${Date.now()}`;
@@ -344,7 +387,7 @@ function ApplySection({ onSubmitSuccess }) {
           {submitMessage && <div className={`submit-message ${submitMessageType}`}>{submitMessage}</div>}
           <form onSubmit={submit}>
             <div className="form-row"><Field label="이름"><input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" /></Field><Field label="연락처"><input name="phone" value={form.phone} onChange={(e) => update('phone', formatPhoneNumber(e.target.value))} placeholder="010-1234-5678" maxLength={13} /></Field></div>
-            <div className="form-row"><Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><Field label="거주지 (시/군/구)"><input name="region" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="거주지를 입력해주세요" /></Field></div>
+            <div className="form-row"><Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><div className="field address-field"><span>주소 검색/직접 입력</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="주소를 검색하거나 직접 입력해주세요" autoComplete="street-address" /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label="주소 검색 열기"><Search size={18} /> 주소 검색</button></div><small className="address-help-text">예: 서울 강남구 테헤란로 123</small></div></div>
             <div className="agree-stack">
               <label className="agree-line"><input type="checkbox" checked={form.privacy} onChange={(e) => update('privacy', e.target.checked)} /> [필수] 개인정보 수집 및 이용 동의</label>
               <label className="agree-line"><input type="checkbox" checked={form.thirdParty} onChange={(e) => update('thirdParty', e.target.checked)} /> [필수] 개인정보 제3자 제공 동의</label>
