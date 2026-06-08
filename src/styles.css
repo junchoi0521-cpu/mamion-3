@@ -2349,3 +2349,64 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     transform:rotate(-8deg) !important;
   }
 }
+
+/* ===== V32 HERO HEARTS ONLY =====
+   Remove the curve and use a few separated heart accents in the empty center space.
+*/
+@media (min-width:1101px){
+  .hero-ribbon::after{
+    content:'♡  ♡' !important;
+    right:-86px !important;
+    top:-20px !important;
+    font-size:31px !important;
+    letter-spacing:0 !important;
+    transform:rotate(-10deg) !important;
+  }
+
+  .hero-content h1 strong::before{
+    display:none !important;
+    content:none !important;
+  }
+
+  .hero-content h1 strong::after{
+    display:block !important;
+    content:'♡' !important;
+    left:338px !important;
+    top:-16px !important;
+    color:var(--pink) !important;
+    font-size:58px !important;
+    line-height:1 !important;
+    font-weight:500 !important;
+    opacity:.92 !important;
+    transform:rotate(-8deg) !important;
+  }
+
+  .hero-card::before,
+  .hero-card::after{
+    display:block !important;
+    position:absolute !important;
+    z-index:3 !important;
+    pointer-events:none !important;
+    color:var(--pink) !important;
+    line-height:1 !important;
+    font-weight:400 !important;
+  }
+
+  .hero-card::before{
+    content:'♡' !important;
+    left:47.5% !important;
+    top:39% !important;
+    font-size:38px !important;
+    opacity:.76 !important;
+    transform:rotate(-12deg) !important;
+  }
+
+  .hero-card::after{
+    content:'♡' !important;
+    left:53.5% !important;
+    top:30% !important;
+    font-size:28px !important;
+    opacity:.58 !important;
+    transform:rotate(12deg) !important;
+  }
+}
