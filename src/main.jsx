@@ -320,16 +320,18 @@ function ApplySection({ onSubmitSuccess }) {
             <small>* 신청 정보는 선물 발송 및 상담 목적으로만 사용됩니다.</small>
           </form>
         </div>
-        <aside className="contact-area sian-contact-area">
-          <div className="contact-copy">
+        <aside className="contact-area sian-contact-area target-contact-area">
+          <div className="target-contact-copy">
             <h3>궁금한 점이 있으신가요?</h3>
             <p>언제든지 편하게 문의해주세요.</p>
+            <div className="target-contact-buttons">
+              <a className="phone-card" href="tel:010-1234-5678"><Phone size={28} /><span><b>010-1234-5678</b><small>평일 09:00 - 18:00<br />(주말/공휴일 휴무)</small></span></a>
+              <a className="kakao-card" href={KAKAO_URL} target="_blank" rel="noopener noreferrer"><MessageCircle size={24} /><span><b>카카오톡 문의</b><small>@마미온 검색</small></span></a>
+            </div>
           </div>
-          <div className="contact-info-row">
-            <a className="phone-card" href="tel:010-1234-5678"><Phone size={28} /><span><b>010-1234-5678</b><small>평일 09:00 - 18:00<br />(주말/공휴일 휴무)</small></span></a>
-            <a className="kakao-card" href={KAKAO_URL} target="_blank" rel="noopener noreferrer"><MessageCircle size={24} /><span><b>카카오톡 문의</b><small>@마미온 검색</small></span></a>
+          <div className="target-contact-visual">
+            <img src={bunny} alt="마미온 문의 안내" />
           </div>
-          <img src={bunny} alt="마미온 문의 안내" />
         </aside>
       </div>
     </section>
