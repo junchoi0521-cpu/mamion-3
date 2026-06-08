@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap');
 
 :root{
   --pink:#f74078;
@@ -1862,5 +1862,75 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     top:-12px !important;
     font-size:46px !important;
     opacity:.92 !important;
+  }
+}
+
+/* ===== V28 SOFT TYPE + CONNECTED CENTER ACCENT =====
+   Softer Korean headline type and one connected heart-line detail.
+*/
+@media (min-width:1101px){
+  .hero-content h1,
+  .gift-copy-area h2,
+  .kit-heading h2,
+  .why-left h2,
+  .apply-title-row h2,
+  .review-head h2,
+  .section-title h2{
+    font-family:'Gowun Dodum','Noto Sans KR',system-ui,sans-serif !important;
+    font-weight:400 !important;
+    letter-spacing:-.035em !important;
+  }
+
+  .hero-content h1{
+    font-size:47px !important;
+    line-height:1.17 !important;
+    color:#33211d !important;
+  }
+
+  .hero-content h1 strong{
+    font-family:'Gowun Dodum','Noto Sans KR',system-ui,sans-serif !important;
+    font-size:70px !important;
+    font-weight:400 !important;
+    letter-spacing:-.045em !important;
+    color:#ff3d78 !important;
+  }
+
+  .hero-content h1 strong::after{
+    display:none !important;
+    content:none !important;
+  }
+
+  .hero-ribbon,
+  .hero-content p,
+  .hero-benefits b,
+  .hero-benefits span,
+  .desktop-nav,
+  .header-apply{
+    font-family:'Noto Sans KR',system-ui,sans-serif !important;
+  }
+
+  .hero-card::before{
+    content:'♡' !important;
+    left:45.3% !important;
+    top:44% !important;
+    color:#ff3d78 !important;
+    font-size:48px !important;
+    line-height:1 !important;
+    font-weight:400 !important;
+    opacity:.90 !important;
+    transform:rotate(-8deg) !important;
+  }
+
+  .hero-card::after{
+    content:'' !important;
+    left:47.3% !important;
+    top:50.5% !important;
+    width:156px !important;
+    height:42px !important;
+    border-top:2px solid rgba(247,64,120,.78) !important;
+    border-right:0 !important;
+    border-radius:55% 45% 0 0 !important;
+    opacity:.78 !important;
+    transform:rotate(-6deg) !important;
   }
 }
