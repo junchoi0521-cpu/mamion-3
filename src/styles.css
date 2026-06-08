@@ -1728,3 +1728,52 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     ) !important;
   }
 }
+
+
+/* ===== V14 HERO IMAGE APPLY: GENERATED VISUAL + CROP ALIGN ===== */
+@media (min-width:1101px){
+  /* 우측 사진을 시안처럼 텍스트 쪽으로 더 붙이고, 더 크게/진하게 노출 */
+  .hero-card{
+    height:610px !important;
+  }
+
+  .hero-visual{
+    inset:0 0 0 36% !important;
+  }
+
+  .hero-visual img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+    transform:scale(1.12) !important;
+    transform-origin:center center !important;
+    filter:saturate(1.06) contrast(1.04) brightness(.99) !important;
+  }
+
+  /* 텍스트와 사진이 너무 멀어 보이지 않도록 흰색 페이드 구간 축소 */
+  .hero-overlay{
+    background:linear-gradient(
+      90deg,
+      #fff 0%,
+      #fff 24%,
+      rgba(255,255,255,.97) 33%,
+      rgba(255,255,255,.72) 43%,
+      rgba(255,255,255,.20) 55%,
+      rgba(255,255,255,0) 66%
+    ) !important;
+  }
+
+  /* 사진 높이를 줄인 만큼 텍스트 박스도 시안처럼 살짝 압축 */
+  .hero-content{
+    padding-top:25px !important;
+  }
+
+  .hero-benefits{
+    margin-top:20px !important;
+  }
+
+  .hero-benefits article{
+    min-height:94px !important;
+  }
+}
