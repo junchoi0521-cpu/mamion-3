@@ -1586,7 +1586,7 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
   .target-contact-visual{position:static !important;width:100% !important;height:260px !important;margin-top:18px;border-radius:18px;overflow:hidden;}
   .target-contact-area .target-contact-visual img{position:static !important;width:100% !important;height:100% !important;object-fit:cover !important;border-radius:18px !important;}
 }
-/* ===== V22 FINAL HERO PHOTO OVERRIDE =====
+/* ===== V23 FINAL HERO PHOTO OVERRIDE =====
    Keep Hero as HTML text + right-side img.
    Removed the older V16/V21 full-image and over-zoom Hero blocks to keep Vercel CSS minify stable.
 */
@@ -1613,7 +1613,7 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     top:0 !important;
     right:0 !important;
     bottom:0 !important;
-    left:30% !important;
+    left:32% !important;
     z-index:1 !important;
     width:auto !important;
     height:auto !important;
@@ -1625,9 +1625,9 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     width:100% !important;
     height:100% !important;
     max-width:none !important;
-    min-width:100% !important;
-    object-fit:cover !important;
-    object-position:50% 52% !important;
+    min-width:0 !important;
+    object-fit:contain !important;
+    object-position:right bottom !important;
     transform:none !important;
     transform-origin:center center !important;
   }
