@@ -1586,7 +1586,7 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
   .target-contact-visual{position:static !important;width:100% !important;height:260px !important;margin-top:18px;border-radius:18px;overflow:hidden;}
   .target-contact-area .target-contact-visual img{position:static !important;width:100% !important;height:100% !important;object-fit:cover !important;border-radius:18px !important;}
 }
-/* ===== V24 FINAL HERO PHOTO OVERRIDE =====
+/* ===== V25 FINAL HERO PHOTO OVERRIDE =====
    Keep Hero as HTML text + right-side img.
    Use the regenerated wide hero photo with empty left space; text remains real HTML.
 */
@@ -1625,9 +1625,9 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     width:100% !important;
     height:100% !important;
     max-width:none !important;
-    min-width:100% !important;
-    object-fit:cover !important;
-    object-position:center 56% !important;
+    min-width:0 !important;
+    object-fit:contain !important;
+    object-position:right center !important;
     transform:none !important;
     transform-origin:center center !important;
   }
