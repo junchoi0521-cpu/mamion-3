@@ -1934,3 +1934,94 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     transform:rotate(-6deg) !important;
   }
 }
+
+/* ===== V29 CLEAN FULL BANNER RESET =====
+   Remove floating center decoration, restore confident readable type, and widen the canvas slightly.
+*/
+@media (min-width:1101px){
+  .site-header-inner,
+  .hero-shell,
+  .section-wrap,
+  .why-grid-wrap{
+    width:min(1460px, calc(100% - 72px)) !important;
+  }
+
+  .hero-card{
+    height:540px !important;
+  }
+
+  .hero-card::before,
+  .hero-card::after{
+    display:none !important;
+    content:none !important;
+  }
+
+  .hero-overlay{
+    background:linear-gradient(
+      90deg,
+      #fff 0%,
+      rgba(255,255,255,.99) 25%,
+      rgba(255,255,255,.92) 34%,
+      rgba(255,255,255,.58) 44%,
+      rgba(255,255,255,.18) 54%,
+      rgba(255,255,255,0) 66%
+    ) !important;
+  }
+
+  .hero-content{
+    width:540px !important;
+    padding:46px 0 0 62px !important;
+  }
+
+  .hero-content h1,
+  .gift-copy-area h2,
+  .kit-heading h2,
+  .why-left h2,
+  .apply-title-row h2,
+  .review-head h2,
+  .section-title h2{
+    font-family:'Noto Sans KR',system-ui,sans-serif !important;
+    font-weight:900 !important;
+    letter-spacing:-.055em !important;
+  }
+
+  .hero-content h1{
+    margin-top:27px !important;
+    font-size:50px !important;
+    line-height:1.12 !important;
+    color:#2f1e1a !important;
+  }
+
+  .hero-content h1 strong{
+    font-family:'Noto Sans KR',system-ui,sans-serif !important;
+    margin-top:4px !important;
+    font-size:76px !important;
+    line-height:.94 !important;
+    font-weight:900 !important;
+    letter-spacing:-.07em !important;
+    color:#ff3d78 !important;
+  }
+
+  .hero-content h1 strong::after{
+    display:none !important;
+    content:none !important;
+  }
+
+  .hero-content p{
+    margin-top:18px !important;
+    font-size:17px !important;
+    line-height:1.58 !important;
+    font-weight:800 !important;
+  }
+
+  .hero-benefits{
+    width:430px !important;
+    gap:20px !important;
+    margin-top:25px !important;
+  }
+
+  .hero-benefits article{
+    min-height:84px !important;
+    border-radius:14px !important;
+  }
+}
