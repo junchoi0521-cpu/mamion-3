@@ -117,8 +117,8 @@ html body .gift-composition-section .kit-product-photo{
 
 html body .kit-product-grid{
   display:grid !important;
-  grid-template-columns:repeat(5, minmax(0,1fr)) !important;
-  gap:16px !important;
+  grid-template-columns:repeat(4, minmax(0,1fr)) !important;
+  gap:18px !important;
 }
 
 html body .gift-product-card{
@@ -132,7 +132,7 @@ html body .gift-product-card{
 
 html body .gift-product-image{
   position:relative !important;
-  height:178px !important;
+  height:190px !important;
   aspect-ratio:auto !important;
   overflow:hidden !important;
   background:
