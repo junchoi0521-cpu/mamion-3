@@ -129,13 +129,13 @@ function Hero() {
         </div>
         <div className="hero-overlay" />
         <div className="hero-content">
-          <div className="hero-ribbon">이번 달 예비맘 무료 신청 접수중</div>
+          <div className="hero-ribbon">예비맘을 위한 특별한 선물</div>
           <h1>
             <span>마미온 임신축하선물</span>
-            <span>5~6만원 상당 실사용 구성</span>
+            <span>20여 종 육아·산모용품</span>
             <strong>랜덤 증정</strong>
           </h1>
-          <p>예비맘이라면 누구나 신청 가능해요.<br />선호 구성까지 선택하고 <b>무료로</b> 받아보세요.</p>
+          <p>예비맘이라면 누구나 신청 가능해요.<br />매월 준비된 다양한 구성품을 <b>무료로</b> 받아보세요.</p>
           <div className="hero-benefits">
             <article><Truck size={34} /><b>배송비 포함</b><span>전액 무료</span></article>
             <article><ShieldCheck size={34} /><b>신청 30초</b><span>간편 신청</span></article>
@@ -153,16 +153,11 @@ function GiftIntro() {
         <div className="gift-photo-large"><img src={giftBoxOverview} alt="마미온 임신축하선물 박스" /></div>
         <div className="gift-copy-area">
           <span className="section-badge"><Gift size={16} /> 마미온 임신축하선물</span>
-          <h2>5~6만원 상당<br /><strong>실사용 구성</strong></h2>
-          <p>예쁜 포장보다 실제 출산 준비에 도움이 되는 육아·산모용품 위주로 구성했어요. 선호 구성은 우선 반영하고, 준비된 구성품 중 랜덤으로 증정됩니다.</p>
-          <div className="gift-value-row" aria-label="마미온 선물 구성 기준">
-            <span>실사용품 중심</span>
-            <span>선호 구성 선택</span>
-            <span>배송비 무료</span>
-          </div>
+          <h2>20여 종 구성품<br /><strong>랜덤 증정</strong></h2>
+          <p>실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 매월 구성은 달라질 수 있으며 준비된 구성품 중 랜덤으로 증정됩니다.</p>
         </div>
         <div className="gift-feature-grid">
-          <article><Gift size={42} /><b>5~6만원 상당</b><span>실사용 구성</span></article>
+          <article><Gift size={42} /><b>20여 종 구성품</b><span>랜덤 증정</span></article>
           <article><Box size={42} /><b>매월 달라지는</b><span>다양한 구성</span></article>
           <article><Heart size={42} /><b>실용적인</b><span>육아·산모용품</span></article>
           <article><Truck size={42} /><b>안전하고 빠른</b><span>무료 배송</span></article>
@@ -175,31 +170,31 @@ function GiftIntro() {
 function KitPreview() {
   const KIT_VISIBLE_COUNT = 7;
   const kitItems = [
-    { title: '프리미엄 실속 박스', desc: '5~6만원 상당 랜덤 구성', cell: [0, 0], tag: 'BEST' },
+    { title: '프리미엄 시크릿 박스', desc: '매월 달라지는 특별 구성', cell: [0, 0], tag: 'BEST' },
     { title: '산모 케어 세트', desc: '출산 전후 산모 맞춤 케어', cell: [0, 2] },
+    { title: '아기 보습 로션', desc: '아기 피부를 위한 보습 샘플', cell: [1, 0] },
     { title: '임산부 복대', desc: '편안한 산모 생활용품', cell: [3, 3] },
     { title: '수유패드', desc: '출산 후 필요한 산모 준비물', cell: [2, 0] },
-    { title: '젖병 세정제', desc: '수유용품 세정 준비', cell: [0, 1] },
-    { title: '아기 보습 로션', desc: '아기 피부를 위한 보습 샘플', cell: [1, 0] },
-    { title: '프리미엄 물티슈', desc: '매일 쓰는 실용 육아용품', cell: [3, 0] },
-    { title: '순면 손수건 세트', desc: '부드러운 순면 손수건', cell: [4, 0] },
-    { title: '신생아 속싸개', desc: '포근한 신생아 준비물', cell: [0, 3] },
-    { title: '후드 목욕타월', desc: '목욕 후 포근한 타월', cell: [0, 4] },
+    { title: '젖병 세정 샘플', desc: '수유용품 세정 준비', cell: [0, 1] },
+    { title: '산모 바디크림', desc: '산모를 위한 보습 케어', cell: [1, 2] },
+    { title: '프리미엄 아기 물티슈', desc: '매일 쓰는 실용 육아용품', cell: [3, 0] },
+    { title: '순면 아기 손수건', desc: '부드러운 순면 손수건', cell: [4, 0] },
     { title: '아기 양말 세트', desc: '신생아 외출 준비용품', cell: [4, 1] },
+    { title: '속싸개 블랭킷', desc: '포근한 신생아 준비물', cell: [0, 3] },
+    { title: '후드 목욕타월', desc: '목욕 후 포근한 타월', cell: [0, 4] },
     { title: '신생아 손싸개', desc: '작은 손을 보호하는 준비물', cell: [1, 4] },
     { title: '아기 턱받이', desc: '실용적인 데일리 육아용품', cell: [1, 3] },
-    { title: '순면 화장솜', desc: '민감한 피부를 위한 순면 패드', cell: [2, 2] },
+    { title: '아기 순면 화장솜', desc: '민감한 피부를 위한 순면 패드', cell: [2, 2] },
     { title: '노리개젖꼭지', desc: '외출 시 필요한 육아용품', cell: [3, 2] },
     { title: '치발기', desc: '아기 구강기 준비용품', cell: [4, 2] },
     { title: '유아 세탁 샘플', desc: '아기 옷 세탁 준비', cell: [2, 3] },
-    { title: '산모 바디크림', desc: '산모를 위한 보습 케어', cell: [1, 2] },
     { title: '산모 파우치', desc: '소지품 정리에 좋은 파우치', cell: [2, 4] },
-    { title: '외출 샘플팩', desc: '외출용 소용량 구성', cell: [3, 4] },
+    { title: '여행용 샘플팩', desc: '외출용 소용량 구성', cell: [3, 4] },
     { title: '출산 체크리스트', desc: '준비물을 한눈에 정리', cell: [1, 1] },
     { title: '태아보험 안내북', desc: '예비맘을 위한 안내 자료', cell: [2, 1] },
     { title: '보험금 청구 가이드', desc: '출산 후 청구 준비 안내', cell: [3, 1] },
-    { title: '아기 첫 슈즈', desc: '기념 사진에도 예쁜 선물', cell: [4, 3] },
-    { title: '축하카드 세트', desc: '작은 축하 선물 구성', cell: [4, 4], tag: 'NEW' },
+    { title: '아기 첫 걸음 슈즈', desc: '기념 사진에도 예쁜 선물', cell: [4, 3] },
+    { title: '딸랑이 축하카드', desc: '작은 축하 선물 구성', cell: [4, 4], tag: 'NEW' },
   ];
   const [startIndex, setStartIndex] = useState(0);
   const maxStartIndex = Math.max(kitItems.length - KIT_VISIBLE_COUNT, 0);
@@ -217,7 +212,7 @@ function KitPreview() {
       <div className="kit-heading">
         <div>
           <h2>구성품 예시 <Heart size={28} /></h2>
-          <p>실제 출산 준비에 바로 쓰기 좋은 구성품 예시입니다.</p>
+          <p>실제 발송되는 구성품 예시입니다.</p>
         </div>
         <span>매월 구성은 달라질 수 있어요!</span>
       </div>
@@ -310,12 +305,7 @@ function ApplySection({ onSubmitSuccess }) {
     return `${Math.floor(pregnancyDays / 7)}주 ${pregnancyDays % 7}일`;
   };
 
-  const kitPreferenceOptions = [
-    { value: '실속 육아 구성', title: '실속 육아', desc: '물티슈·손수건·세정제 중심' },
-    { value: '산모 케어 구성', title: '산모 케어', desc: '수유패드·바디케어 중심' },
-    { value: '패브릭 구성', title: '패브릭', desc: '속싸개·타월·양말 중심' },
-  ];
-  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', preferredKit: '실속 육아 구성', weeks: '', privacy: false, thirdParty: false, marketing: false });
+  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, thirdParty: false, marketing: false });
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitMessageType, setSubmitMessageType] = useState('');
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
@@ -398,25 +388,6 @@ function ApplySection({ onSubmitSuccess }) {
           <form onSubmit={submit}>
             <div className="form-row"><Field label="이름"><input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" /></Field><Field label="연락처"><input name="phone" value={form.phone} onChange={(e) => update('phone', formatPhoneNumber(e.target.value))} placeholder="010-1234-5678" maxLength={13} /></Field></div>
             <div className="form-row"><Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><div className="field address-field"><span>주소 검색/직접 입력</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="주소를 검색하거나 직접 입력해주세요" autoComplete="street-address" /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label="주소 검색 열기"><Search size={18} /> 주소 검색</button></div><small className="address-help-text">예: 서울 강남구 테헤란로 123</small></div></div>
-            <div className="field kit-preference-field">
-              <span>선호 상품구성</span>
-              <div className="kit-preference-options" role="radiogroup" aria-label="선호 상품구성">
-                {kitPreferenceOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    className={form.preferredKit === option.value ? 'active' : ''}
-                    type="button"
-                    role="radio"
-                    aria-checked={form.preferredKit === option.value}
-                    onClick={() => update('preferredKit', option.value)}
-                  >
-                    <b>{option.title}</b>
-                    <small>{option.desc}</small>
-                  </button>
-                ))}
-              </div>
-              <small className="preference-help-text">선호 구성은 최대한 반영하지만, 실제 구성은 재고와 월별 운영 상황에 따라 달라질 수 있어요.</small>
-            </div>
             <div className="agree-stack">
               <label className="agree-line"><input type="checkbox" checked={form.privacy} onChange={(e) => update('privacy', e.target.checked)} /> [필수] 개인정보 수집 및 이용 동의</label>
               <label className="agree-line"><input type="checkbox" checked={form.thirdParty} onChange={(e) => update('thirdParty', e.target.checked)} /> [필수] 개인정보 제3자 제공 동의</label>
@@ -487,7 +458,7 @@ function Faq() {
 }
 
 function PolicySection({ initialType = 'all' }) {
-  return <section className="policy-section"><div className="policy-wrap">{(initialType === 'all' || initialType === 'privacy') && <><h2>개인정보처리방침</h2><p>제이엔파트너스(JN Partners)는 이용자의 개인정보를 중요하게 생각하며 관련 법령에 따라 안전하게 관리합니다.</p><h3>1. 수집하는 개인정보 항목</h3><ul><li>이름</li><li>연락처</li><li>출산 예정일</li><li>임신 주수</li><li>거주지</li><li>선호 상품구성</li><li>개인정보 수집 및 이용 동의 여부</li><li>개인정보 제3자 제공 동의 여부</li><li>광고성 정보 수신 동의 여부</li></ul><h3>2. 개인정보 수집 및 이용 목적</h3><ul><li>임신축하선물 신청 접수</li><li>신청자 본인 확인</li><li>선물 수령 주소 확인</li><li>선호 구성 확인 및 상담 안내</li><li>상담 및 안내 일정 조율</li></ul><h3>3. 보유 및 이용기간</h3><p>수집 목적 달성 후 지체 없이 파기하며, 법령에 따라 필요한 경우 해당 기간 동안 보관합니다.</p><h3>4. 개인정보 보호책임자</h3><p>상호 : 제이엔파트너스 (JN Partners)<br />대표자 : 최준<br />이메일 : cj.gasin@gmail.com</p><p>시행일 : 2026년 6월 4일</p></>}{(initialType === 'all' || initialType === 'terms') && <><h2>이용약관</h2><p>본 약관은 마미온에서 제공하는 임신축하선물 신청 서비스 이용과 관련한 기본 사항을 정합니다.</p><h3>1. 서비스 내용</h3><p>마미온은 예비맘을 대상으로 임신축하선물 신청 접수, 신청 확인, 선물 안내 및 관련 상담 안내 서비스를 제공합니다.</p><h3>2. 신청 및 이용 조건</h3><ul><li>신청자는 정확한 정보를 입력해야 합니다.</li><li>허위 정보 또는 중복 신청이 확인될 경우 제한될 수 있습니다.</li><li>선물 구성은 재고 및 협력사 사정에 따라 변경될 수 있습니다.</li></ul></>}</div></section>;
+  return <section className="policy-section"><div className="policy-wrap">{(initialType === 'all' || initialType === 'privacy') && <><h2>개인정보처리방침</h2><p>제이엔파트너스(JN Partners)는 이용자의 개인정보를 중요하게 생각하며 관련 법령에 따라 안전하게 관리합니다.</p><h3>1. 수집하는 개인정보 항목</h3><ul><li>이름</li><li>연락처</li><li>출산 예정일</li><li>임신 주수</li><li>거주지</li><li>개인정보 수집 및 이용 동의 여부</li><li>개인정보 제3자 제공 동의 여부</li><li>광고성 정보 수신 동의 여부</li></ul><h3>2. 개인정보 수집 및 이용 목적</h3><ul><li>임신축하선물 신청 접수</li><li>신청자 본인 확인</li><li>선물 수령 주소 확인</li><li>상담 및 안내 일정 조율</li></ul><h3>3. 보유 및 이용기간</h3><p>수집 목적 달성 후 지체 없이 파기하며, 법령에 따라 필요한 경우 해당 기간 동안 보관합니다.</p><h3>4. 개인정보 보호책임자</h3><p>상호 : 제이엔파트너스 (JN Partners)<br />대표자 : 최준<br />이메일 : cj.gasin@gmail.com</p><p>시행일 : 2026년 6월 4일</p></>}{(initialType === 'all' || initialType === 'terms') && <><h2>이용약관</h2><p>본 약관은 마미온에서 제공하는 임신축하선물 신청 서비스 이용과 관련한 기본 사항을 정합니다.</p><h3>1. 서비스 내용</h3><p>마미온은 예비맘을 대상으로 임신축하선물 신청 접수, 신청 확인, 선물 안내 및 관련 상담 안내 서비스를 제공합니다.</p><h3>2. 신청 및 이용 조건</h3><ul><li>신청자는 정확한 정보를 입력해야 합니다.</li><li>허위 정보 또는 중복 신청이 확인될 경우 제한될 수 있습니다.</li><li>선물 구성은 재고 및 협력사 사정에 따라 변경될 수 있습니다.</li></ul></>}</div></section>;
 }
 
 function ThanksPage() { return <main className="page"><Header /><section className="thanks-section"><div className="thanks-card"><div>🎁</div><h1>신청이 완료되었습니다!</h1><p>마미온 임신축하선물 신청이 정상 접수되었습니다.<br />담당자가 신청 내용을 확인 후 순차적으로 연락드릴 예정입니다.</p><button onClick={() => window.location.href = '/'}>홈으로 돌아가기</button></div></section><Footer /></main>; }
