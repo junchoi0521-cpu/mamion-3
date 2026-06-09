@@ -1,0 +1,102 @@
+/* Apply form consultation polish: remove old prep/time choices and add event consent block. */
+html body .benchmark-apply-form .single-field-row{
+  grid-template-columns:minmax(0, 1fr) !important;
+  max-width:50% !important;
+}
+
+html body .benchmark-apply-form .consultation-schedule-field{
+  margin:18px 0 14px !important;
+}
+
+html body .benchmark-apply-form .consultation-schedule-grid{
+  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  gap:10px !important;
+}
+
+html body .benchmark-apply-form .consultation-schedule-grid button{
+  min-height:52px !important;
+  border-radius:16px !important;
+  font-size:14px !important;
+}
+
+html body .benchmark-apply-form .insurance-event-box{
+  position:relative !important;
+  margin:8px 0 18px !important;
+  padding:18px 20px 17px !important;
+  border:1px dashed rgba(255,151,70,.72) !important;
+  border-radius:18px !important;
+  background:linear-gradient(135deg,#fffdf8 0%,#fff8ee 54%,#fff9fb 100%) !important;
+  box-shadow:0 14px 32px rgba(255,171,96,.11) !important;
+}
+
+html body .benchmark-apply-form .insurance-event-box::before{
+  content:'' !important;
+  position:absolute !important;
+  inset:9px !important;
+  border-radius:14px !important;
+  border:1px solid rgba(255,255,255,.78) !important;
+  pointer-events:none !important;
+}
+
+html body .benchmark-apply-form .insurance-event-box>b{
+  display:block !important;
+  margin:0 0 7px !important;
+  color:#f74078 !important;
+  font-size:15px !important;
+  line-height:1.25 !important;
+  font-weight:900 !important;
+  letter-spacing:-.02em !important;
+}
+
+html body .benchmark-apply-form .insurance-event-box p{
+  max-width:620px !important;
+  margin:0 0 14px !important;
+  color:#5d4540 !important;
+  font-size:13.5px !important;
+  line-height:1.55 !important;
+  font-weight:750 !important;
+  letter-spacing:-.012em !important;
+}
+
+html body .benchmark-apply-form .event-consent-line{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  margin:0 !important;
+  color:#2c1a17 !important;
+  font-size:14.5px !important;
+  line-height:1.35 !important;
+  font-weight:900 !important;
+}
+
+html body .benchmark-apply-form .event-consent-line input{
+  flex:0 0 auto !important;
+  width:19px !important;
+  height:19px !important;
+  accent-color:#f74078 !important;
+}
+
+html body .benchmark-apply-form .agree-stack{
+  margin-top:6px !important;
+}
+
+@media(max-width:1100px){
+  html body .benchmark-apply-form .single-field-row{
+    max-width:100% !important;
+  }
+
+  html body .benchmark-apply-form .consultation-schedule-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media(max-width:560px){
+  html body .benchmark-apply-form .single-field-row,
+  html body .benchmark-apply-form .consultation-schedule-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  html body .benchmark-apply-form .insurance-event-box{
+    padding:17px 16px 16px !important;
+  }
+}
