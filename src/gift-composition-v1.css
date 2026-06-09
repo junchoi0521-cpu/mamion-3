@@ -201,6 +201,10 @@ html body .gift-product-placeholder{
   text-align:center !important;
 }
 
+html body .gift-product-sprite + .gift-product-placeholder{
+  display:none !important;
+}
+
 html body .gift-product-placeholder b{
   display:block !important;
   color:#f74078 !important;
