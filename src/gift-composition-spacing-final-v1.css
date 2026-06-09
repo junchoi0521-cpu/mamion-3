@@ -1,0 +1,12 @@
+/* Final spacing pass for the gift composition heading backdrop. */
+html body .gift-composition-section::before{
+  top:54px !important;
+  height:148px !important;
+}
+
+@media(max-width:860px){
+  html body .gift-composition-section::before{
+    top:44px !important;
+    height:138px !important;
+  }
+}
