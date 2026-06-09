@@ -61,7 +61,7 @@ function renderGiftComposition(section) {
     <div class="kit-heading gift-composition-heading">
       <div class="gift-composition-copy">
         <span class="gift-composition-badge">마미온 임신축하선물</span>
-        <h2>상품 구성 안내</h2>
+        <h2>상품 구성 안내<span aria-hidden="true"></span></h2>
         <strong>24종 후보 중 15종 내외 엄선 구성</strong>
         <p>예비맘과 아기에게 실제로 필요한 실용 품목을 중심으로 준비했습니다.</p>
       </div>
