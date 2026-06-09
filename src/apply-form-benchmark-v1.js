@@ -244,16 +244,21 @@ function enhanceContactPanel() {
   const kakaoCard = contactArea.querySelector('.kakao-card');
 
   if (heading) heading.textContent = '신청 전 확인해보세요';
-  if (description) description.textContent = '궁금한 점은 카카오톡으로 편하게 문의하실 수 있어요.';
+  if (description) description.textContent = '선정과 배송에 필요한 내용을 미리 확인해주세요.';
 
   if (!contactArea.querySelector('.contact-guide-card')) {
     const guideCard = document.createElement('div');
-    guideCard.className = 'contact-guide-card';
+    guideCard.className = 'contact-guide-card precheck-guide-card';
     guideCard.innerHTML = `
-      <b>신청 후 진행 안내</b>
-      <div><span>1</span><p>신청 정보 확인</p></div>
-      <div><span>2</span><p>선물 구성 안내</p></div>
-      <div><span>3</span><p>배송지 확인</p></div>
+      <div class="precheck-card-head"><span>CHECK</span><b>신청 전 꼭 확인해주세요</b></div>
+      <ul class="precheck-list">
+        <li><strong>예비맘 대상 신청</strong><p>신청 대상에 해당하는 예비맘 기준으로 접수됩니다.</p></li>
+        <li><strong>정보 확인 후 안내</strong><p>입력하신 정보와 실제 정보가 다를 경우 선정에서 제외될 수 있습니다.</p></li>
+        <li><strong>증빙 확인 가능</strong><p>필요 시 산모수첩, 임신확인서 등 확인 자료를 요청드릴 수 있습니다.</p></li>
+        <li><strong>주소는 정확하게</strong><p>주소 오류로 반송될 경우 재발송이 어려울 수 있습니다.</p></li>
+        <li><strong>구성품은 유동적</strong><p>신청 시기와 재고 상황에 따라 일부 품목은 변경될 수 있습니다.</p></li>
+        <li><strong>중복 신청 제한</strong><p>타인 정보 또는 중복 접수로 확인되면 안내 대상에서 제외될 수 있습니다.</p></li>
+      </ul>
     `;
 
     if (kakaoCard) kakaoCard.before(guideCard);
