@@ -23,10 +23,11 @@ const giftCompositionItems = [
   ['dday-calendar.jpg', '태아 D-DAY 캘린더', '출산 예정일까지의 시간을 기록하는 감성 아이템'],
   ['thermo-hygrometer.jpg', '디지털 온습도계', '신생아 방의 온도와 습도를 확인하는 데 도움 되는 실용템'],
   ['diaper-bag.jpg', '포켓 에코백 또는 기저귀가방', '외출 시 아기용품을 담기 좋은 데일리 가방'],
-].map(([fileName, title, desc]) => ({
+].map(([fileName, title, desc], index) => ({
   title,
   desc,
   image: `/images/gifts/${fileName}`,
+  cell: [index % 4, Math.floor(index / 4)],
 }));
 
 const giftCompositionPoints = [
@@ -36,6 +37,8 @@ const giftCompositionPoints = [
   '신청 시기·재고에 따라 엄선',
 ];
 
+const giftCompositionSprite = '/images/gifts/gift-products-ai-sheet.webp';
+
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (char) => ({
     '&': '&amp;',
@@ -44,6 +47,10 @@ function escapeHtml(value) {
     '"': '&quot;',
     "'": '&#39;',
   })[char]);
+}
+
+function getGiftSpritePosition([x, y]) {
+  return `${x * (100 / 3)}% ${y * (100 / 5)}%`;
 }
 
 function renderGiftComposition(section) {
@@ -66,7 +73,12 @@ function renderGiftComposition(section) {
       ${giftCompositionItems.map((item) => `
         <article class="kit-card gift-product-card">
           <div class="kit-image gift-product-image">
-            <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" loading="lazy" />
+            <span
+              class="gift-product-sprite"
+              role="img"
+              aria-label="${escapeHtml(item.title)}"
+              style="background-image:url('${giftCompositionSprite}');background-position:${getGiftSpritePosition(item.cell)}"
+            ></span>
             <div class="gift-product-placeholder" aria-hidden="true">
               <b>MamiOn</b>
               <span>이미지 준비중</span>
@@ -81,14 +93,6 @@ function renderGiftComposition(section) {
     </div>
     <p class="kit-note gift-composition-note">구성품은 고정 구성이 아니며, 신청 시기와 재고 상황에 따라 일부 변경될 수 있습니다. 산모님께 실제로 도움이 되는 실용 품목 위주로 엄선해 전달드립니다.</p>
   `;
-
-  section.querySelectorAll('.gift-product-image img').forEach((image) => {
-    const showPlaceholder = () => {
-      image.hidden = true;
-      image.closest('.gift-product-image')?.classList.add('image-missing');
-    };
-    image.addEventListener('error', showPlaceholder, { once: true });
-  });
 
   section.dataset.giftCompositionReady = 'true';
 }
