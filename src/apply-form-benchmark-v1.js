@@ -6,14 +6,11 @@ const formState = {
   dueDate: '',
   address: '',
   detailAddress: '',
-  consultationSchedule: '평일',
   privacy: false,
   thirdParty: false,
   insuranceConsult: false,
   marketing: false,
 };
-
-const consultationSchedules = ['평일', '주말'];
 
 function formatPhone(value) {
   const numbers = value.replace(/[^0-9]/g, '');
@@ -87,12 +84,6 @@ function setMessage(formArea, message, type = '') {
   messageBox.hidden = !message;
 }
 
-function choiceButtons(options, key) {
-  return options.map((option) => (
-    `<button class="${formState[key] === option ? 'active' : ''}" type="button" data-choice="${key}" data-value="${option}">${option}</button>`
-  )).join('');
-}
-
 function renderEnhancedForm(formArea, oldForm) {
   const form = oldForm.cloneNode(false);
   form.className = `${oldForm.className || ''} benchmark-apply-form`.trim();
@@ -114,10 +105,6 @@ function renderEnhancedForm(formArea, oldForm) {
         <input class="address-detail-input" name="detailAddress" value="${formState.detailAddress}" placeholder="상세 주소" autocomplete="address-line2" />
       </div>
       <small class="address-help-text">주소 오류로 임신축하박스가 반송될 경우 재발송이 불가하오니 정확히 입력해주세요.</small>
-    </div>
-    <div class="field option-field consultation-schedule-field">
-      <span class="field-label">상담을 원하시는 일정</span>
-      <div class="form-choice-grid consultation-schedule-grid">${choiceButtons(consultationSchedules, 'consultationSchedule')}</div>
     </div>
     <div class="insurance-event-box">
       <b>&lt;당첨 100% 이벤트&gt;</b>
@@ -156,15 +143,6 @@ function wireForm(formArea, form) {
   });
 
   form.addEventListener('click', (event) => {
-    const choice = event.target.closest('[data-choice]');
-    if (choice) {
-      formState[choice.dataset.choice] = choice.dataset.value;
-      form.querySelectorAll(`[data-choice="${choice.dataset.choice}"]`).forEach((button) => {
-        button.classList.toggle('active', button === choice);
-      });
-      return;
-    }
-
     if (event.target.closest('.address-search-btn')) {
       const addressInput = form.querySelector('[name="address"]');
       const detailInput = form.querySelector('[name="detailAddress"]');
@@ -287,7 +265,6 @@ function enhancePolicyCopy() {
       <li>임신 주수</li>
       <li>주소</li>
       <li>상세 주소</li>
-      <li>상담 희망 일정</li>
       <li>개인정보 수집 및 이용 동의 여부</li>
       <li>개인정보 제3자 제공 동의 여부</li>
       <li>태아보험 상담 동의 여부</li>
@@ -300,7 +277,7 @@ function enhancePolicyCopy() {
       <li>임신축하선물 신청 접수</li>
       <li>신청자 본인 확인</li>
       <li>선물 수령 주소 확인</li>
-      <li>상담 희망 일정 확인 및 태아보험 상담 안내</li>
+      <li>태아보험 상담 안내</li>
     `;
   }
 
