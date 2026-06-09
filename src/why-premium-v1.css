@@ -1,17 +1,17 @@
 /* Premium polish for the random gift reason and satisfaction stats section. */
 @media (min-width:1101px){
-  .why-section{
+  html body .why-section{
     padding:34px 0 30px !important;
   }
 
-  .why-grid-wrap{
+  html body .why-grid-wrap{
     grid-template-columns:1.42fr .86fr !important;
     gap:28px !important;
     align-items:stretch !important;
   }
 
-  .why-left,
-  .stats-strip{
+  html body .why-left,
+  html body .stats-strip{
     position:relative !important;
     overflow:hidden !important;
     border:1px solid rgba(255,200,218,.92) !important;
@@ -20,8 +20,8 @@
     box-shadow:0 22px 58px rgba(247,64,120,.09) !important;
   }
 
-  .why-left::before,
-  .stats-strip::before{
+  html body .why-left::before,
+  html body .stats-strip::before{
     content:'' !important;
     position:absolute !important;
     inset:0 0 auto 0 !important;
@@ -30,8 +30,8 @@
     pointer-events:none !important;
   }
 
-  .why-left::after,
-  .stats-strip::after{
+  html body .why-left::after,
+  html body .stats-strip::after{
     content:'' !important;
     position:absolute !important;
     right:-72px !important;
@@ -43,11 +43,11 @@
     pointer-events:none !important;
   }
 
-  .why-left{
+  html body .why-left{
     padding:34px 34px 32px !important;
   }
 
-  .why-left h2{
+  html body .why-left h2{
     position:relative !important;
     z-index:1 !important;
     margin:0 0 26px !important;
@@ -59,7 +59,7 @@
     letter-spacing:-.04em !important;
   }
 
-  .why-left h2::after{
+  html body .why-left h2::after{
     content:'매월 달라지는 구성으로 더 많은 예비맘에게 기회를 드려요' !important;
     display:block !important;
     margin-top:9px !important;
@@ -70,13 +70,13 @@
     letter-spacing:-.015em !important;
   }
 
-  .why-grid{
+  html body .why-grid{
     position:relative !important;
     z-index:1 !important;
     gap:18px !important;
   }
 
-  .why-grid article{
+  html body .why-grid article{
     position:relative !important;
     min-height:172px !important;
     padding:24px 22px 22px !important;
@@ -86,7 +86,7 @@
     box-shadow:0 14px 34px rgba(247,64,120,.055) !important;
   }
 
-  .why-grid article::before{
+  html body .why-grid article::before{
     content:'' !important;
     position:absolute !important;
     left:22px !important;
@@ -97,7 +97,7 @@
     background:linear-gradient(90deg,rgba(247,64,120,.82),rgba(255,167,195,.18)) !important;
   }
 
-  .why-grid i{
+  html body .why-grid i{
     width:54px !important;
     height:54px !important;
     display:inline-flex !important;
@@ -109,13 +109,13 @@
     box-shadow:inset 0 0 0 1px rgba(247,64,120,.12),0 10px 24px rgba(247,64,120,.08) !important;
   }
 
-  .why-grid i svg{
+  html body .why-grid i svg{
     width:31px !important;
     height:31px !important;
     stroke-width:2.25 !important;
   }
 
-  .why-grid h3{
+  html body .why-grid h3{
     margin:16px 0 9px !important;
     color:#261815 !important;
     font-family:'Pretendard','Noto Sans KR',system-ui,sans-serif !important;
@@ -125,7 +125,7 @@
     letter-spacing:-.03em !important;
   }
 
-  .why-grid p{
+  html body .why-grid p{
     max-width:210px !important;
     color:#5d6572 !important;
     font-size:15px !important;
@@ -134,13 +134,13 @@
     letter-spacing:-.012em !important;
   }
 
-  .stats-strip{
+  html body .stats-strip{
     grid-template-columns:1fr !important;
     gap:12px !important;
     padding:34px !important;
   }
 
-  .stats-strip article{
+  html body .stats-strip article{
     position:relative !important;
     min-height:92px !important;
     padding:18px 20px 18px 94px !important;
@@ -155,11 +155,11 @@
     box-shadow:0 12px 30px rgba(247,64,120,.045) !important;
   }
 
-  .stats-strip article:last-child{
+  html body .stats-strip article:last-child{
     border-right:1px solid rgba(255,211,226,.86) !important;
   }
 
-  .stats-strip article svg{
+  html body .stats-strip article svg{
     position:absolute !important;
     left:24px !important;
     top:50% !important;
@@ -173,7 +173,7 @@
     stroke-width:2.15 !important;
   }
 
-  .stats-strip strong{
+  html body .stats-strip strong{
     margin:0 0 4px !important;
     color:#f74078 !important;
     font-family:'Pretendard','Noto Sans KR',system-ui,sans-serif !important;
@@ -183,7 +183,7 @@
     letter-spacing:-.025em !important;
   }
 
-  .stats-strip span{
+  html body .stats-strip span{
     color:#2b1a17 !important;
     font-size:15px !important;
     line-height:1.25 !important;
@@ -193,47 +193,47 @@
 }
 
 @media (max-width:1100px){
-  .why-section{
+  html body .why-section{
     padding:26px 0 !important;
   }
 
-  .why-left,
-  .stats-strip{
+  html body .why-left,
+  html body .stats-strip{
     border-radius:20px !important;
     background:linear-gradient(135deg,#fff 0%,#fff8fb 100%) !important;
     box-shadow:0 14px 36px rgba(247,64,120,.07) !important;
   }
 
-  .why-left{
+  html body .why-left{
     padding:24px 18px !important;
   }
 
-  .why-left h2{
+  html body .why-left h2{
     font-size:24px !important;
     line-height:1.3 !important;
     letter-spacing:-.035em !important;
   }
 
-  .why-grid{
+  html body .why-grid{
     gap:12px !important;
   }
 
-  .why-grid article{
+  html body .why-grid article{
     padding:20px !important;
     border-radius:18px !important;
     background:#fff !important;
   }
 
-  .why-grid i{
+  html body .why-grid i{
     color:#f74078 !important;
   }
 
-  .stats-strip{
+  html body .stats-strip{
     gap:10px !important;
     padding:18px !important;
   }
 
-  .stats-strip article{
+  html body .stats-strip article{
     min-height:86px !important;
     padding:18px !important;
     border:1px solid #ffd8e4 !important;
@@ -241,7 +241,7 @@
     background:#fff !important;
   }
 
-  .stats-strip article:last-child{
+  html body .stats-strip article:last-child{
     border-bottom:1px solid #ffd8e4 !important;
   }
 }
