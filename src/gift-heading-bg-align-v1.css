@@ -1,0 +1,12 @@
+/* Align the soft pink backdrop with the gift composition heading. */
+html body .gift-composition-section::before{
+  top:50px !important;
+  height:122px !important;
+}
+
+@media(max-width:860px){
+  html body .gift-composition-section::before{
+    top:46px !important;
+    height:128px !important;
+  }
+}
