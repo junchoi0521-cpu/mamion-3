@@ -1,0 +1,99 @@
+/* Apply side precheck card: compact trust notes before application. */
+html body .precheck-guide-card{
+  margin:18px 0 12px !important;
+  padding:20px 20px 18px !important;
+  border-color:rgba(255,205,220,.92) !important;
+  border-radius:22px !important;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255,122,165,.16), transparent 25%),
+    linear-gradient(135deg,#fff 0%,#fff9fb 52%,#fff6f9 100%) !important;
+  box-shadow:0 18px 42px rgba(247,64,120,.09) !important;
+}
+
+html body .precheck-card-head{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  min-height:auto !important;
+  padding:0 0 13px !important;
+  margin:0 0 12px !important;
+  border-bottom:1px solid rgba(255,205,220,.72) !important;
+}
+
+html body .precheck-card-head span{
+  width:auto !important;
+  height:26px !important;
+  padding:0 10px !important;
+  border-radius:999px !important;
+  background:#fff0f5 !important;
+  color:#f74078 !important;
+  font-size:11px !important;
+  line-height:1 !important;
+  font-weight:950 !important;
+  letter-spacing:.04em !important;
+}
+
+html body .precheck-card-head b{
+  color:#2c1916 !important;
+  font-size:17px !important;
+  line-height:1.2 !important;
+  font-weight:900 !important;
+  letter-spacing:-.035em !important;
+}
+
+html body .precheck-list{
+  display:grid !important;
+  gap:10px !important;
+  margin:0 !important;
+  padding:0 !important;
+  list-style:none !important;
+}
+
+html body .precheck-list li{
+  position:relative !important;
+  min-height:0 !important;
+  padding:0 0 0 18px !important;
+}
+
+html body .precheck-list li::before{
+  content:'' !important;
+  position:absolute !important;
+  left:0 !important;
+  top:6px !important;
+  width:8px !important;
+  height:8px !important;
+  border-radius:50% !important;
+  background:#f74078 !important;
+  box-shadow:0 0 0 5px rgba(247,64,120,.10) !important;
+}
+
+html body .precheck-list strong{
+  display:block !important;
+  margin:0 0 2px !important;
+  color:#2c1916 !important;
+  font-size:13.5px !important;
+  line-height:1.25 !important;
+  font-weight:900 !important;
+  letter-spacing:-.02em !important;
+}
+
+html body .precheck-list p{
+  margin:0 !important;
+  color:#755f68 !important;
+  font-size:12.5px !important;
+  line-height:1.45 !important;
+  font-weight:720 !important;
+  letter-spacing:-.012em !important;
+  text-align:left !important;
+}
+
+html body .precheck-list p,
+html body .precheck-list strong{
+  word-break:keep-all !important;
+}
+
+@media(max-width:1100px){
+  html body .precheck-guide-card{
+    padding:18px 17px 17px !important;
+  }
+}
