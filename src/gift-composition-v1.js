@@ -37,7 +37,8 @@ const giftCompositionPoints = [
   '신청 시기·재고에 따라 엄선',
 ];
 
-const giftCompositionSprite = '/images/gifts/gift-products-ai-sheet.webp';
+const giftCompositionSprite = '/images/gifts/gift-products-ai-sheet-sharp.webp';
+const giftCompositionSpriteCellSize = 160;
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (char) => ({
@@ -50,7 +51,7 @@ function escapeHtml(value) {
 }
 
 function getGiftSpritePosition([x, y]) {
-  return `${x * (100 / 3)}% ${y * (100 / 5)}%`;
+  return `-${x * giftCompositionSpriteCellSize}px -${y * giftCompositionSpriteCellSize}px`;
 }
 
 function renderGiftComposition(section) {
