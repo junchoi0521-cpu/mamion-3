@@ -1,23 +1,28 @@
 /* Product composition card list for the Mamion gift section. */
 html body .gift-composition-section{
-  padding-top:34px !important;
+  padding-top:40px !important;
   padding-bottom:34px !important;
 }
 
 html body .gift-composition-heading{
   display:block !important;
-  margin:0 0 18px !important;
+  margin:0 0 20px !important;
+  text-align:center !important;
 }
 
 html body .gift-composition-copy{
   max-width:760px !important;
+  margin:0 auto !important;
+  text-align:center !important;
 }
 
 html body .gift-composition-badge{
   display:inline-flex !important;
   align-items:center !important;
+  justify-content:center !important;
   min-height:34px !important;
-  padding:8px 16px !important;
+  margin:0 auto !important;
+  padding:8px 18px !important;
   border-radius:999px !important;
   background:#fff2f6 !important;
   border:1px solid #ffd1df !important;
@@ -28,9 +33,9 @@ html body .gift-composition-badge{
 }
 
 html body .gift-composition-heading h2{
-  margin:14px 0 7px !important;
+  margin:16px 0 8px !important;
   color:#231313 !important;
-  font-size:38px !important;
+  font-size:42px !important;
   line-height:1.12 !important;
   letter-spacing:-.05em !important;
   font-weight:950 !important;
@@ -47,7 +52,8 @@ html body .gift-composition-heading strong{
 
 html body .gift-composition-heading p{
   display:block !important;
-  margin:10px 0 0 !important;
+  max-width:640px !important;
+  margin:11px auto 0 !important;
   color:#4b3a36 !important;
   font-size:16px !important;
   line-height:1.65 !important;
@@ -56,36 +62,40 @@ html body .gift-composition-heading p{
 }
 
 html body .gift-composition-lead{
-  margin:0 0 18px !important;
-  padding:15px 18px !important;
+  max-width:900px !important;
+  margin:0 auto 20px !important;
+  padding:16px 24px !important;
   border:1px solid #ffd5e2 !important;
-  border-radius:14px !important;
-  background:linear-gradient(135deg,#fff 0%,#fff8fb 100%) !important;
+  border-radius:999px !important;
+  background:linear-gradient(135deg,#fff 0%,#fff7fb 100%) !important;
   color:#3d2925 !important;
-  font-size:16px !important;
+  font-size:15px !important;
   line-height:1.55 !important;
   letter-spacing:-.03em !important;
   font-weight:850 !important;
+  text-align:center !important;
   box-shadow:0 12px 30px rgba(247,64,120,.06) !important;
 }
 
 html body .gift-composition-points{
   display:grid !important;
   grid-template-columns:repeat(4, minmax(0,1fr)) !important;
-  gap:12px !important;
-  margin:0 0 22px !important;
+  gap:14px !important;
+  margin:0 auto 24px !important;
 }
 
 html body .gift-composition-points article{
   display:flex !important;
   align-items:center !important;
+  justify-content:center !important;
   gap:10px !important;
-  min-height:58px !important;
-  padding:14px 15px !important;
-  border-radius:14px !important;
+  min-height:64px !important;
+  padding:15px 16px !important;
+  border-radius:16px !important;
   border:1px solid #ffd5e2 !important;
-  background:#fffafc !important;
-  box-shadow:0 10px 24px rgba(247,64,120,.055) !important;
+  background:rgba(255,255,255,.78) !important;
+  text-align:center !important;
+  box-shadow:0 12px 28px rgba(247,64,120,.06) !important;
 }
 
 html body .gift-composition-points span{
@@ -285,6 +295,11 @@ html body .gift-composition-note{
 
   html body .gift-composition-heading strong{
     font-size:21px !important;
+  }
+
+  html body .gift-composition-lead{
+    border-radius:16px !important;
+    padding:15px 16px !important;
   }
 
   html body .kit-product-grid{
