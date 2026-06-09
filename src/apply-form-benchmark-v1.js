@@ -6,15 +6,14 @@ const formState = {
   dueDate: '',
   address: '',
   detailAddress: '',
-  pregnancyType: '첫 아이',
-  contactTime: '상관없음',
+  consultationSchedule: '평일',
   privacy: false,
   thirdParty: false,
+  insuranceConsult: false,
   marketing: false,
 };
 
-const pregnancyTypes = ['첫 아이', '둘째 이상', '쌍둥이/다태아'];
-const contactTimes = ['상관없음', '오전 9시~12시', '오후 12시~6시', '저녁 6시 이후'];
+const consultationSchedules = ['평일', '주말'];
 
 function formatPhone(value) {
   const numbers = value.replace(/[^0-9]/g, '');
@@ -104,9 +103,8 @@ function renderEnhancedForm(formArea, oldForm) {
       <label class="field"><span class="field-label">이름 <em>*</em></span><input name="name" value="${formState.name}" placeholder="이름을 입력해주세요" /></label>
       <label class="field"><span class="field-label">연락처 <em>*</em></span><input name="phone" value="${formState.phone}" placeholder="010-1234-5678" maxlength="13" /></label>
     </div>
-    <div class="form-row">
+    <div class="form-row single-field-row">
       <label class="field"><span class="field-label">예상 출산일 <em>*</em></span><input name="dueDate" type="date" value="${formState.dueDate}" /><div class="week-mini-text" hidden></div></label>
-      <div class="field option-field"><span class="field-label">출산 준비 상황</span><div class="form-choice-grid pregnancy-choice-grid">${choiceButtons(pregnancyTypes, 'pregnancyType')}</div></div>
     </div>
     <div class="form-section-title address-title"><b>선물 수령 정보</b><small>주소 검색 후 상세 주소를 따로 입력해주세요.</small></div>
     <div class="field address-field">
@@ -117,7 +115,15 @@ function renderEnhancedForm(formArea, oldForm) {
       </div>
       <small class="address-help-text">주소 오류로 임신축하박스가 반송될 경우 재발송이 불가하오니 정확히 입력해주세요.</small>
     </div>
-    <div class="field option-field contact-time-field"><span class="field-label">통화 가능 시간</span><div class="form-choice-grid contact-time-grid">${choiceButtons(contactTimes, 'contactTime')}</div></div>
+    <div class="field option-field consultation-schedule-field">
+      <span class="field-label">상담을 원하시는 일정</span>
+      <div class="form-choice-grid consultation-schedule-grid">${choiceButtons(consultationSchedules, 'consultationSchedule')}</div>
+    </div>
+    <div class="insurance-event-box">
+      <b>&lt;당첨 100% 이벤트&gt;</b>
+      <p>태아보험 상담 진행 또는 기존 태아보험 진단만 받으셔도 추첨 없이 선물을 드립니다.</p>
+      <label class="event-consent-line"><input name="insuranceConsult" type="checkbox" ${formState.insuranceConsult ? 'checked' : ''} /> [필수] 태아보험 상담에 동의합니다</label>
+    </div>
     <div class="agree-stack">
       <label class="agree-line"><input name="privacy" type="checkbox" ${formState.privacy ? 'checked' : ''} /> [필수] 개인정보 수집 및 이용 동의</label>
       <label class="agree-line"><input name="thirdParty" type="checkbox" ${formState.thirdParty ? 'checked' : ''} /> [필수] 개인정보 제3자 제공 동의</label>
@@ -185,6 +191,10 @@ function wireForm(formArea, form) {
     }
     if (!formState.privacy || !formState.thirdParty) {
       setMessage(formArea, '필수 동의 항목을 체크해주세요.', 'error');
+      return;
+    }
+    if (!formState.insuranceConsult) {
+      setMessage(formArea, '태아보험 상담 필수 동의 항목을 체크해주세요.', 'error');
       return;
     }
 
@@ -272,10 +282,10 @@ function enhancePolicyCopy() {
       <li>임신 주수</li>
       <li>주소</li>
       <li>상세 주소</li>
-      <li>통화 가능 시간</li>
-      <li>출산 준비 상황</li>
+      <li>상담 희망 일정</li>
       <li>개인정보 수집 및 이용 동의 여부</li>
       <li>개인정보 제3자 제공 동의 여부</li>
+      <li>태아보험 상담 동의 여부</li>
       <li>광고성 정보 수신 동의 여부</li>
     `;
   }
@@ -285,7 +295,7 @@ function enhancePolicyCopy() {
       <li>임신축하선물 신청 접수</li>
       <li>신청자 본인 확인</li>
       <li>선물 수령 주소 확인</li>
-      <li>상담 가능 시간 확인 및 안내 일정 조율</li>
+      <li>상담 희망 일정 확인 및 태아보험 상담 안내</li>
     `;
   }
 
