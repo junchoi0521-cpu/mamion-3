@@ -117,25 +117,37 @@ html body .gift-composition-section .kit-product-photo{
 
 html body .kit-product-grid{
   display:grid !important;
-  grid-template-columns:repeat(4, minmax(0,1fr)) !important;
-  gap:18px !important;
+  grid-template-columns:repeat(5, minmax(0,1fr)) !important;
+  gap:16px !important;
 }
 
 html body .gift-product-card{
   min-width:0 !important;
   overflow:hidden !important;
-  border:1px solid #f3cbd7 !important;
-  border-radius:14px !important;
-  background:#fff !important;
-  box-shadow:0 14px 32px rgba(247,64,120,.07) !important;
+  border:1px solid rgba(255,205,220,.94) !important;
+  border-radius:16px !important;
+  background:linear-gradient(180deg,#fff 0%,#fffafb 100%) !important;
+  box-shadow:0 16px 34px rgba(247,64,120,.075) !important;
 }
 
 html body .gift-product-image{
   position:relative !important;
-  height:auto !important;
-  aspect-ratio:1 / 1 !important;
+  height:178px !important;
+  aspect-ratio:auto !important;
   overflow:hidden !important;
-  background:linear-gradient(135deg,#fff8fb 0%,#fff1f6 55%,#f9eadc 100%) !important;
+  background:
+    radial-gradient(circle at 78% 14%, rgba(255,210,224,.72), rgba(255,255,255,0) 40%),
+    linear-gradient(135deg,#fff 0%,#fff7fa 58%,#f9eadc 100%) !important;
+}
+
+html body .gift-product-image::after{
+  content:'' !important;
+  position:absolute !important;
+  inset:11px !important;
+  z-index:3 !important;
+  border:1px solid rgba(255,255,255,.72) !important;
+  border-radius:15px !important;
+  pointer-events:none !important;
 }
 
 html body .gift-product-image img,
@@ -151,8 +163,18 @@ html body .gift-product-sprite{
 }
 
 html body .gift-product-sprite{
+  inset:auto !important;
+  left:50% !important;
+  top:50% !important;
+  right:auto !important;
+  bottom:auto !important;
+  width:160px !important;
+  height:160px !important;
+  transform:translate(-50%,-50%) !important;
   background-repeat:no-repeat !important;
-  background-size:400% 600% !important;
+  background-size:640px 960px !important;
+  border-radius:14px !important;
+  box-shadow:0 10px 24px rgba(99,45,58,.08) !important;
 }
 
 html body .gift-product-placeholder{
@@ -195,18 +217,18 @@ html body .gift-product-placeholder span{
 }
 
 html body .gift-product-card .kit-body{
-  min-height:118px !important;
+  min-height:122px !important;
   display:block !important;
-  padding:16px 15px 17px !important;
+  padding:17px 16px 18px !important;
   text-align:left !important;
 }
 
 html body .gift-product-card .kit-body h3{
   margin:0 !important;
-  color:#241412 !important;
+  color:#261815 !important;
   font-size:18px !important;
   line-height:1.32 !important;
-  letter-spacing:-.04em !important;
+  letter-spacing:-.035em !important;
   font-weight:950 !important;
   white-space:normal !important;
   word-break:keep-all !important;
@@ -218,11 +240,11 @@ html body .gift-product-card .kit-body p{
   overflow:hidden !important;
   -webkit-box-orient:vertical !important;
   -webkit-line-clamp:2 !important;
-  color:#6c4d48 !important;
+  color:#6a5753 !important;
   font-size:14px !important;
   line-height:1.55 !important;
-  letter-spacing:-.025em !important;
-  font-weight:650 !important;
+  letter-spacing:-.02em !important;
+  font-weight:700 !important;
   word-break:keep-all !important;
 }
 
@@ -243,7 +265,7 @@ html body .gift-composition-note{
 
 @media(max-width:1180px){
   html body .kit-product-grid{
-    grid-template-columns:repeat(3, minmax(0,1fr)) !important;
+    grid-template-columns:repeat(4, minmax(0,1fr)) !important;
   }
 
   html body .gift-composition-points{
@@ -268,6 +290,10 @@ html body .gift-composition-note{
   html body .kit-product-grid{
     grid-template-columns:repeat(2, minmax(0,1fr)) !important;
     gap:14px !important;
+  }
+
+  html body .gift-product-image{
+    height:166px !important;
   }
 
   html body .gift-product-card .kit-body{
