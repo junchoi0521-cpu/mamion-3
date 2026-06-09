@@ -1,10 +1,14 @@
 /* Gift composition lead fix: keep the MamiOn Pick badge compact and readable. */
 html body .gift-composition-lead{
   max-width:760px !important;
-  min-height:54px !important;
-  margin:26px auto 24px !important;
-  padding:18px 28px 16px !important;
-  border-radius:999px !important;
+  min-height:74px !important;
+  margin:36px auto 24px !important;
+  padding:34px 28px 17px !important;
+  border-radius:24px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  box-sizing:border-box !important;
   overflow:visible !important;
   color:#3a2925 !important;
   font-size:14.5px !important;
@@ -14,12 +18,14 @@ html body .gift-composition-lead{
 }
 
 html body .gift-composition-lead::before{
-  top:-15px !important;
-  height:26px !important;
+  top:0 !important;
+  z-index:2 !important;
+  height:28px !important;
   padding:5px 14px !important;
   border-radius:999px !important;
   font-size:11px !important;
   line-height:1 !important;
+  transform:translate(-50%, -50%) !important;
   box-shadow:0 8px 18px rgba(247,64,120,.08) !important;
 }
 
@@ -27,7 +33,9 @@ html body .gift-composition-lead::before{
   html body .gift-composition-lead{
     max-width:calc(100% - 24px) !important;
     border-radius:18px !important;
-    padding:20px 16px 15px !important;
+    min-height:82px !important;
+    margin-top:38px !important;
+    padding:36px 16px 16px !important;
     font-size:13.5px !important;
     line-height:1.55 !important;
   }
