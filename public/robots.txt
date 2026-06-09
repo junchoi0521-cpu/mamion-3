@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mamion.kr/sitemap.xml
+Sitemap: https://www.mamion.kr/sitemap.xml

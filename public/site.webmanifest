@@ -1,0 +1,23 @@
+{
+  "name": "마미온 - 임신축하선물 무료신청",
+  "short_name": "마미온",
+  "description": "예비맘을 위한 임신축하선물 무료신청 서비스",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fff7fa",
+  "theme_color": "#f73074",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
