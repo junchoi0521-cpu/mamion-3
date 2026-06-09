@@ -133,12 +133,13 @@ html body .gift-product-card{
 html body .gift-product-image{
   position:relative !important;
   height:auto !important;
-  aspect-ratio:4 / 3 !important;
+  aspect-ratio:1 / 1 !important;
   overflow:hidden !important;
   background:linear-gradient(135deg,#fff8fb 0%,#fff1f6 55%,#f9eadc 100%) !important;
 }
 
-html body .gift-product-image img{
+html body .gift-product-image img,
+html body .gift-product-sprite{
   position:absolute !important;
   inset:0 !important;
   z-index:2 !important;
@@ -147,6 +148,11 @@ html body .gift-product-image img{
   height:100% !important;
   object-fit:cover !important;
   object-position:center !important;
+}
+
+html body .gift-product-sprite{
+  background-repeat:no-repeat !important;
+  background-size:400% 600% !important;
 }
 
 html body .gift-product-placeholder{
