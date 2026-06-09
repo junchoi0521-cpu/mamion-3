@@ -1,0 +1,181 @@
+/* Apply form benchmark polish: separated address search and detail input. */
+.benchmark-submit-message{
+  margin:12px 0 14px !important;
+  padding:13px 15px !important;
+  border-radius:14px !important;
+  background:#fff1f6 !important;
+  color:#f74078 !important;
+  font-weight:900 !important;
+  line-height:1.45 !important;
+}
+
+.benchmark-submit-message.error{
+  background:#fff4f4 !important;
+  color:#e11d48 !important;
+}
+
+.benchmark-apply-form .form-section-title{
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:space-between !important;
+  gap:12px !important;
+  margin:14px 0 14px !important;
+  padding-top:6px !important;
+  border-top:1px solid #fff0f4 !important;
+}
+
+.benchmark-apply-form .form-section-title:first-child{
+  margin-top:4px !important;
+  padding-top:0 !important;
+  border-top:0 !important;
+}
+
+.benchmark-apply-form .form-section-title b{
+  color:#2c1916 !important;
+  font-size:18px !important;
+  line-height:1.2 !important;
+  font-weight:900 !important;
+  letter-spacing:-.04em !important;
+}
+
+.benchmark-apply-form .form-section-title small{
+  margin:0 !important;
+  color:#8b6b76 !important;
+  font-size:12px !important;
+  line-height:1.35 !important;
+  font-weight:800 !important;
+  text-align:right !important;
+}
+
+.benchmark-apply-form .field .field-label{
+  display:flex !important;
+  align-items:center !important;
+  gap:4px !important;
+  color:#241716 !important;
+  font-size:15px !important;
+  font-weight:900 !important;
+}
+
+.benchmark-apply-form .field em{
+  color:#f74078 !important;
+  font-style:normal !important;
+  font-weight:900 !important;
+}
+
+.benchmark-apply-form .address-stack{
+  display:grid !important;
+  gap:9px !important;
+}
+
+.benchmark-apply-form .address-direct-row{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) 126px !important;
+  gap:10px !important;
+  align-items:center !important;
+}
+
+.benchmark-apply-form .address-direct-row input{
+  min-width:0 !important;
+}
+
+.benchmark-apply-form .address-search-btn{
+  height:58px !important;
+  border:0 !important;
+  border-radius:17px !important;
+  padding:0 16px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:#f74078 !important;
+  color:#fff !important;
+  font-size:15px !important;
+  font-weight:900 !important;
+  white-space:nowrap !important;
+  box-shadow:0 12px 26px rgba(247,64,120,.18) !important;
+}
+
+.benchmark-apply-form .address-search-btn:hover{
+  background:#e92563 !important;
+}
+
+.benchmark-apply-form .address-detail-input{
+  width:100% !important;
+  margin:0 !important;
+}
+
+.benchmark-apply-form .address-help-text{
+  display:block !important;
+  margin-top:8px !important;
+  color:#f74078 !important;
+  font-size:13px !important;
+  line-height:1.45 !important;
+  font-weight:700 !important;
+  text-align:left !important;
+}
+
+.benchmark-apply-form .option-field{
+  min-width:0 !important;
+}
+
+.benchmark-apply-form .form-choice-grid{
+  display:grid !important;
+  gap:8px !important;
+}
+
+.benchmark-apply-form .pregnancy-choice-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+}
+
+.benchmark-apply-form .contact-time-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+}
+
+.benchmark-apply-form .form-choice-grid button{
+  min-height:52px !important;
+  border:1px solid #f0d7df !important;
+  border-radius:15px !important;
+  padding:0 9px !important;
+  background:#fffdfd !important;
+  color:#2c1916 !important;
+  font-size:13px !important;
+  line-height:1.2 !important;
+  font-weight:900 !important;
+  letter-spacing:-.025em !important;
+  word-break:keep-all !important;
+  box-shadow:0 8px 20px rgba(247,64,120,.04) !important;
+}
+
+.benchmark-apply-form .form-choice-grid button.active{
+  border-color:#ff7ea9 !important;
+  background:linear-gradient(135deg,#fff 0%,#fff1f6 100%) !important;
+  color:#f3276a !important;
+  box-shadow:0 12px 24px rgba(247,64,120,.12) !important;
+}
+
+@media(max-width:1100px){
+  .benchmark-apply-form .form-section-title{
+    display:block !important;
+  }
+
+  .benchmark-apply-form .form-section-title small{
+    display:block !important;
+    margin-top:5px !important;
+    text-align:left !important;
+  }
+
+  .benchmark-apply-form .address-direct-row{
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
+
+  .benchmark-apply-form .address-search-btn{
+    width:100% !important;
+    height:50px !important;
+    border-radius:14px !important;
+  }
+
+  .benchmark-apply-form .pregnancy-choice-grid,
+  .benchmark-apply-form .contact-time-grid{
+    grid-template-columns:1fr 1fr !important;
+  }
+}
