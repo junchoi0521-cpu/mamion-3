@@ -62,3 +62,94 @@
     border-radius:14px !important;
   }
 }
+
+/* Conversion upgrade: emphasize real gift value and let applicants choose a preferred kit. */
+.gift-value-row{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:7px !important;
+  margin-top:13px !important;
+}
+
+.gift-value-row span{
+  padding:7px 10px !important;
+  border:1px solid #ffd4e1 !important;
+  border-radius:999px !important;
+  background:#fff !important;
+  color:#f74078 !important;
+  font-size:12px !important;
+  line-height:1 !important;
+  font-weight:900 !important;
+  white-space:nowrap !important;
+}
+
+.kit-preference-field{
+  margin:0 0 18px !important;
+}
+
+.kit-preference-options{
+  display:grid !important;
+  grid-template-columns:repeat(3, minmax(0,1fr)) !important;
+  gap:10px !important;
+}
+
+.kit-preference-options button{
+  min-height:72px !important;
+  border:1px solid #f0d7df !important;
+  border-radius:16px !important;
+  padding:12px 10px !important;
+  background:#fffdfd !important;
+  color:#2c1916 !important;
+  text-align:left !important;
+  box-shadow:0 8px 20px rgba(247,64,120,.05) !important;
+}
+
+.kit-preference-options button.active{
+  border-color:#ff7ea9 !important;
+  background:linear-gradient(135deg,#fff 0%,#fff2f7 100%) !important;
+  box-shadow:0 12px 26px rgba(247,64,120,.14) !important;
+}
+
+.kit-preference-options b,
+.kit-preference-options small{
+  display:block !important;
+}
+
+.kit-preference-options b{
+  color:#2c1916 !important;
+  font-size:15px !important;
+  line-height:1.2 !important;
+  font-weight:900 !important;
+}
+
+.kit-preference-options small{
+  margin-top:6px !important;
+  color:#7a6770 !important;
+  font-size:12px !important;
+  line-height:1.35 !important;
+  font-weight:800 !important;
+}
+
+.preference-help-text{
+  display:block !important;
+  margin-top:8px !important;
+  color:#8b6b76 !important;
+  font-size:13px !important;
+  line-height:1.4 !important;
+  font-weight:700 !important;
+  text-align:left !important;
+}
+
+@media(max-width:1100px){
+  .gift-value-row{
+    justify-content:center !important;
+  }
+
+  .kit-preference-options{
+    grid-template-columns:1fr !important;
+  }
+
+  .kit-preference-options button{
+    min-height:64px !important;
+  }
+}
