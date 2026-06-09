@@ -37,7 +37,7 @@ const giftCompositionPoints = [
   '신청 시기·재고에 따라 엄선',
 ];
 
-const giftCompositionSprite = '/images/gifts/gift-products-ai-sheet-sharp.webp';
+const giftCompositionSprite = '/images/gifts/gift-products-ai-sheet.webp';
 const giftCompositionSpriteCellSize = 160;
 
 function escapeHtml(value) {
