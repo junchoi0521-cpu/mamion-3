@@ -221,6 +221,39 @@ function enhanceApplyForm() {
   renderEnhancedForm(formArea, oldForm);
 }
 
+function enhanceContactPanel() {
+  const contactArea = document.querySelector('.target-contact-area, .sian-contact-area');
+  if (!contactArea || contactArea.dataset.benchmarkContactReady) return;
+
+  const phoneCard = contactArea.querySelector('.phone-card');
+  phoneCard?.remove();
+
+  const copyArea = contactArea.querySelector('.target-contact-copy, .contact-copy, .contact-info-row') || contactArea;
+  const heading = copyArea.querySelector('h3');
+  const description = copyArea.querySelector('p');
+  const kakaoCard = contactArea.querySelector('.kakao-card');
+
+  if (heading) heading.textContent = '신청 전 확인해보세요';
+  if (description) description.textContent = '궁금한 점은 카카오톡으로 편하게 문의하실 수 있어요.';
+
+  if (!contactArea.querySelector('.contact-guide-card')) {
+    const guideCard = document.createElement('div');
+    guideCard.className = 'contact-guide-card';
+    guideCard.innerHTML = `
+      <b>신청 후 진행 안내</b>
+      <div><span>1</span><p>신청 정보 확인</p></div>
+      <div><span>2</span><p>선물 구성 안내</p></div>
+      <div><span>3</span><p>배송지 확인</p></div>
+    `;
+
+    if (kakaoCard) kakaoCard.before(guideCard);
+    else copyArea.appendChild(guideCard);
+  }
+
+  kakaoCard?.classList.add('primary-kakao-card');
+  contactArea.dataset.benchmarkContactReady = 'true';
+}
+
 function enhancePolicyCopy() {
   const wrap = document.querySelector('.policy-wrap');
   if (!wrap || wrap.dataset.benchmarkPolicyReady) return;
@@ -267,6 +300,7 @@ const scheduleEnhance = (() => {
     requestAnimationFrame(() => {
       scheduled = false;
       enhanceApplyForm();
+      enhanceContactPanel();
       enhancePolicyCopy();
     });
   };
