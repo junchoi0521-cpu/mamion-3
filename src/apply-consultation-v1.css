@@ -1,22 +1,7 @@
-/* Apply form consultation polish: remove old prep/time choices and add event consent block. */
+/* Apply form consultation polish: align address/date fields and event consent block. */
 html body .benchmark-apply-form .single-field-row{
   grid-template-columns:minmax(0, 1fr) !important;
   max-width:50% !important;
-}
-
-html body .benchmark-apply-form .consultation-schedule-field{
-  margin:18px 0 14px !important;
-}
-
-html body .benchmark-apply-form .consultation-schedule-grid{
-  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
-  gap:10px !important;
-}
-
-html body .benchmark-apply-form .consultation-schedule-grid button{
-  min-height:52px !important;
-  border-radius:16px !important;
-  font-size:14px !important;
 }
 
 html body .benchmark-apply-form .insurance-event-box{
@@ -84,15 +69,10 @@ html body .benchmark-apply-form .agree-stack{
   html body .benchmark-apply-form .single-field-row{
     max-width:100% !important;
   }
-
-  html body .benchmark-apply-form .consultation-schedule-grid{
-    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
-  }
 }
 
 @media(max-width:560px){
-  html body .benchmark-apply-form .single-field-row,
-  html body .benchmark-apply-form .consultation-schedule-grid{
+  html body .benchmark-apply-form .single-field-row{
     grid-template-columns:1fr !important;
   }
 
