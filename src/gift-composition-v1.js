@@ -33,8 +33,8 @@ const giftCompositionItems = [
 const giftCompositionPoints = [
   '임신 주차 상관없이 신청',
   '예비맘과 아기를 위한 실용 구성',
-  '24종 후보 중 15종 내외 구성',
-  '신청 시기·재고에 따라 엄선',
+  '24종 구성 중 랜덤 15종 발송',
+  '신청 시기·재고에 따라 구성 변경',
 ];
 
 const giftCompositionSprite = '/images/gifts/gift-products-ai-sheet.webp';
@@ -62,11 +62,11 @@ function renderGiftComposition(section) {
       <div class="gift-composition-copy">
         <span class="gift-composition-badge">마미온 임신축하선물</span>
         <h2>상품 구성 안내<span aria-hidden="true"></span></h2>
-        <strong>24종 후보 중 15종 내외 엄선 구성</strong>
+        <strong>24종 구성 중 랜덤 15종 발송!</strong>
         <p>예비맘과 아기에게 실제로 필요한 실용 품목을 중심으로 준비했습니다.</p>
       </div>
     </div>
-    <p class="gift-composition-lead">총 24종의 선물 후보 중, 신청 시기와 재고 상황에 따라 15종 내외를 엄선해 전달드립니다.</p>
+    <p class="gift-composition-lead">24종 구성 중 랜덤 15종 발송! 신청 시기와 재고 상황에 따라 일부 구성은 변경될 수 있습니다.</p>
     <div class="gift-composition-points">
       ${giftCompositionPoints.map((point) => `<article><span></span><b>${escapeHtml(point)}</b></article>`).join('')}
     </div>
@@ -92,10 +92,33 @@ function renderGiftComposition(section) {
         </article>
       `).join('')}
     </div>
-    <p class="kit-note gift-composition-note">구성품은 고정 구성이 아니며, 신청 시기와 재고 상황에 따라 일부 변경될 수 있습니다. 산모님께 실제로 도움이 되는 실용 품목 위주로 엄선해 전달드립니다.</p>
+    <p class="kit-note gift-composition-note">구성품은 고정 구성이 아니며, 신청 시기와 재고 상황에 따라 일부 변경될 수 있습니다. 24종 구성 중 랜덤 15종 발송으로 산모님께 실제로 도움이 되는 실용 품목 위주로 전달드립니다.</p>
   `;
 
   section.dataset.giftCompositionReady = 'true';
+}
+
+function replaceExactText(root, fromText, toText) {
+  root.querySelectorAll('*').forEach((element) => {
+    if (element.childNodes.length !== 1 || element.firstChild.nodeType !== Node.TEXT_NODE) return;
+    if (element.textContent.trim() === fromText) element.textContent = toText;
+  });
+}
+
+function normalizeGiftCopy() {
+  const root = document.getElementById('root') || document.body;
+  if (!root) return;
+
+  replaceExactText(root, '20여 종 육아·산모용품', '24종 구성 중');
+  replaceExactText(root, '랜덤 증정', '랜덤 15종 발송!');
+  replaceExactText(root, '20여 종 구성품', '24종 구성 중');
+  replaceExactText(root, '왜 마미온은 랜덤 증정으로 운영하나요?', '왜 마미온은 랜덤 15종 발송으로 운영하나요?');
+
+  root.querySelectorAll('p').forEach((paragraph) => {
+    paragraph.innerHTML = paragraph.innerHTML
+      .replace('실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 매월 구성은 달라질 수 있으며 준비된 구성품 중 랜덤으로 증정됩니다.', '실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 24종 구성 중 랜덤 15종 발송으로 매월 다양한 선물을 받아보실 수 있습니다.')
+      .replace('20여 종의 폭넓은 구성품을 더 많은 예비맘에게 전해드려요.', '24종 구성 중 랜덤 15종 발송으로 더 많은 예비맘에게 다양한 구성을 전해드려요.');
+  });
 }
 
 function enhanceGiftComposition() {
@@ -111,6 +134,7 @@ const scheduleGiftComposition = (() => {
     scheduled = true;
     requestAnimationFrame(() => {
       scheduled = false;
+      normalizeGiftCopy();
       enhanceGiftComposition();
     });
   };
