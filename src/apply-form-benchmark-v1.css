@@ -1,4 +1,39 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
 /* Apply form benchmark polish: separated address search and detail input. */
+body,
+button,
+input,
+select,
+textarea{
+  font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo',system-ui,sans-serif !important;
+  letter-spacing:-.018em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+.section-title h2,
+.kit-heading h2,
+.apply-title-row h2,
+.gift-copy-area h2{
+  font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo',system-ui,sans-serif !important;
+  letter-spacing:-.04em !important;
+  word-break:keep-all;
+}
+
+p,
+li,
+small,
+label,
+input,
+button{
+  word-break:keep-all;
+}
+
 .benchmark-submit-message{
   margin:12px 0 14px !important;
   padding:13px 15px !important;
@@ -34,8 +69,8 @@
   color:#2c1916 !important;
   font-size:18px !important;
   line-height:1.2 !important;
-  font-weight:900 !important;
-  letter-spacing:-.04em !important;
+  font-weight:850 !important;
+  letter-spacing:-.025em !important;
 }
 
 .benchmark-apply-form .form-section-title small{
@@ -53,7 +88,7 @@
   gap:4px !important;
   color:#241716 !important;
   font-size:15px !important;
-  font-weight:900 !important;
+  font-weight:850 !important;
 }
 
 .benchmark-apply-form .field em{
@@ -89,7 +124,7 @@
   background:#f74078 !important;
   color:#fff !important;
   font-size:15px !important;
-  font-weight:900 !important;
+  font-weight:850 !important;
   white-space:nowrap !important;
   box-shadow:0 12px 26px rgba(247,64,120,.18) !important;
 }
@@ -139,10 +174,111 @@
   color:#2c1916 !important;
   font-size:13px !important;
   line-height:1.2 !important;
-  font-weight:900 !important;
-  letter-spacing:-.025em !important;
+  font-weight:850 !important;
+  letter-spacing:-.012em !important;
   word-break:keep-all !important;
   box-shadow:0 8px 20px rgba(247,64,120,.04) !important;
+}
+
+.target-contact-area .phone-card{
+  display:none !important;
+}
+
+.target-contact-copy h3,
+.sian-contact-area h3{
+  font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo',system-ui,sans-serif !important;
+  font-size:26px !important;
+  line-height:1.2 !important;
+  font-weight:850 !important;
+  letter-spacing:-.035em !important;
+}
+
+.target-contact-copy p,
+.sian-contact-area p{
+  color:#6f5961 !important;
+  font-size:14px !important;
+  line-height:1.55 !important;
+  font-weight:650 !important;
+  letter-spacing:-.012em !important;
+}
+
+.contact-guide-card{
+  position:relative !important;
+  z-index:2 !important;
+  width:100% !important;
+  margin:18px 0 12px !important;
+  padding:18px 18px 16px !important;
+  border:1px solid #ffd7e4 !important;
+  border-radius:20px !important;
+  background:linear-gradient(135deg,#fff 0%,#fff8fb 100%) !important;
+  box-shadow:0 14px 34px rgba(247,64,120,.08) !important;
+}
+
+.contact-guide-card>b{
+  display:block !important;
+  margin-bottom:12px !important;
+  color:#2c1916 !important;
+  font-size:17px !important;
+  line-height:1.25 !important;
+  font-weight:850 !important;
+  letter-spacing:-.025em !important;
+}
+
+.contact-guide-card div{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  min-height:34px !important;
+  padding:5px 0 !important;
+}
+
+.contact-guide-card span{
+  flex:0 0 auto !important;
+  width:26px !important;
+  height:26px !important;
+  border-radius:50% !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:#fff0f5 !important;
+  color:#f74078 !important;
+  font-size:13px !important;
+  font-weight:850 !important;
+}
+
+.contact-guide-card p{
+  margin:0 !important;
+  color:#382320 !important;
+  font-size:14px !important;
+  line-height:1.35 !important;
+  font-weight:750 !important;
+  letter-spacing:-.012em !important;
+}
+
+.target-contact-area .primary-kakao-card,
+.sian-contact-area .primary-kakao-card{
+  margin-top:10px !important;
+  border-color:#ffe0a8 !important;
+  background:linear-gradient(135deg,#fffdf7 0%,#fff8df 100%) !important;
+  box-shadow:0 12px 28px rgba(255,196,39,.13) !important;
+}
+
+.target-contact-area .primary-kakao-card b,
+.sian-contact-area .primary-kakao-card b{
+  font-weight:850 !important;
+  letter-spacing:-.02em !important;
+}
+
+.sian-form-area,
+.target-contact-area,
+.sian-contact-area{
+  letter-spacing:-.016em !important;
+}
+
+.sian-form-area .submit-btn,
+.benchmark-apply-form .submit-btn{
+  font-weight:850 !important;
+  letter-spacing:-.018em !important;
 }
 
 .benchmark-apply-form .form-choice-grid button.active{
