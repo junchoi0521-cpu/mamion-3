@@ -1,7 +1,55 @@
 const INSURANCE_STATUS_OPTIONS = ['이미 가입했어요', '아직 준비 전이에요', '알아보는 중이에요'];
+const INSURANCE_STATUS_ALIAS_NAMES = [
+  'insuranceState',
+  'insuranceReadyStatus',
+  'fetalInsuranceStatus',
+  'fetusInsuranceStatus',
+  'babyInsuranceStatus',
+  'insurance',
+  '태아보험상태',
+  '태아보험가입여부',
+];
+
+function ensureHiddenField(form, name) {
+  let input = form.querySelector(`input[type="hidden"][name="${name}"]`);
+  if (!input) {
+    input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.dataset.insuranceStatusAlias = 'true';
+    form.appendChild(input);
+  }
+  return input;
+}
+
+function syncInsuranceStatusAliases(form, value) {
+  INSURANCE_STATUS_ALIAS_NAMES.forEach((name) => {
+    const input = ensureHiddenField(form, name);
+    input.value = value || '';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+}
+
+function bindInsuranceStatusSync(form, select) {
+  if (!select || select.dataset.insuranceSheetSyncReady) return;
+  select.dataset.insuranceSheetSyncReady = 'true';
+
+  const sync = () => {
+    select.dispatchEvent(new Event('input', { bubbles: true }));
+    syncInsuranceStatusAliases(form, select.value);
+  };
+
+  select.addEventListener('change', sync);
+  select.addEventListener('input', () => syncInsuranceStatusAliases(form, select.value));
+  sync();
+}
 
 function ensureInsuranceStatusField(form) {
-  if (form.querySelector('[name="insuranceStatus"]')) return;
+  const existingSelect = form.querySelector('[name="insuranceStatus"]');
+  if (existingSelect) {
+    bindInsuranceStatusSync(form, existingSelect);
+    return;
+  }
 
   const dueDateField = form.querySelector('[name="dueDate"]')?.closest('.field');
   const secondRow = dueDateField?.closest('.form-row');
@@ -21,9 +69,7 @@ function ensureInsuranceStatusField(form) {
 
   secondRow.appendChild(field);
   const select = field.querySelector('select');
-  select.addEventListener('change', () => {
-    select.dispatchEvent(new Event('input', { bubbles: true }));
-  });
+  bindInsuranceStatusSync(form, select);
 }
 
 function polishApplyCopy(form) {
@@ -56,6 +102,10 @@ function validateFinalApplyForm(event) {
 
   const formArea = form.closest('.sian-form-area') || form.parentElement;
   const get = (name) => form.querySelector(`[name="${name}"]`);
+  const insuranceSelect = get('insuranceStatus');
+  syncInsuranceStatusAliases(form, insuranceSelect?.value || '');
+  insuranceSelect?.dispatchEvent(new Event('input', { bubbles: true }));
+
   const requiredChecks = [
     [!get('name')?.value.trim(), '이름을 입력해주세요.'],
     [!get('phone')?.value.trim(), '연락처를 입력해주세요.'],
