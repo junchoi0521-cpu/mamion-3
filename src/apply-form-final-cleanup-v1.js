@@ -1,0 +1,114 @@
+const INSURANCE_STATUS_OPTIONS = ['이미 가입했어요', '아직 준비 전이에요', '알아보는 중이에요'];
+
+function ensureInsuranceStatusField(form) {
+  if (form.querySelector('[name="insuranceStatus"]')) return;
+
+  const dueDateField = form.querySelector('[name="dueDate"]')?.closest('.field');
+  const secondRow = dueDateField?.closest('.form-row');
+  if (!dueDateField || !secondRow) return;
+
+  secondRow.classList.add('basic-info-second-row');
+
+  const field = document.createElement('label');
+  field.className = 'field insurance-status-field';
+  field.innerHTML = `
+    <span class="field-label">태아보험 준비 상황 <em>*</em></span>
+    <select name="insuranceStatus" required>
+      <option value="">선택해주세요</option>
+      ${INSURANCE_STATUS_OPTIONS.map((option) => `<option value="${option}">${option}</option>`).join('')}
+    </select>
+  `;
+
+  secondRow.appendChild(field);
+  const select = field.querySelector('select');
+  select.addEventListener('change', () => {
+    select.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+}
+
+function polishApplyCopy(form) {
+  const eventLabel = form.querySelector('.event-consent-line');
+  if (eventLabel) {
+    const input = eventLabel.querySelector('input');
+    eventLabel.textContent = ' [필수] 태아보험 상담 및 기존 보험 점검에 동의합니다';
+    if (input) eventLabel.prepend(input);
+  }
+
+  const submitButton = form.querySelector('.submit-btn');
+  if (submitButton) submitButton.lastChild.textContent = ' 임신축하선물 신청하기';
+}
+
+function showApplyMessage(formArea, message) {
+  let messageBox = formArea.querySelector('.benchmark-submit-message, .submit-message');
+  if (!messageBox) {
+    messageBox = document.createElement('div');
+    messageBox.className = 'benchmark-submit-message error';
+    formArea.querySelector('p')?.after(messageBox);
+  }
+  messageBox.className = `${messageBox.className.replace(/\berror\b|\bduplicate\b/g, '').trim()} error`.trim();
+  messageBox.textContent = message;
+  messageBox.hidden = false;
+}
+
+function validateFinalApplyForm(event) {
+  const form = event.target;
+  if (!form.matches('.benchmark-apply-form, .sian-form-area form')) return;
+
+  const formArea = form.closest('.sian-form-area') || form.parentElement;
+  const get = (name) => form.querySelector(`[name="${name}"]`);
+  const requiredChecks = [
+    [!get('name')?.value.trim(), '이름을 입력해주세요.'],
+    [!get('phone')?.value.trim(), '연락처를 입력해주세요.'],
+    [!get('dueDate')?.value, '예상 출산일을 선택해주세요.'],
+    [!get('insuranceStatus')?.value, '태아보험 준비 상황을 선택해주세요.'],
+    [!get('address')?.value.trim(), '주소를 입력해주세요.'],
+    [!get('detailAddress')?.value.trim(), '상세 주소를 입력해주세요.'],
+    [!get('insuranceConsult')?.checked, '태아보험 상담 및 기존 보험 점검 동의가 필요합니다.'],
+    [!get('privacy')?.checked, '개인정보 수집 및 이용 동의가 필요합니다.'],
+    [!get('thirdParty')?.checked, '개인정보 제3자 제공 동의가 필요합니다.'],
+  ];
+  const failed = requiredChecks.find(([condition]) => condition);
+  if (!failed) return;
+
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  showApplyMessage(formArea, failed[1]);
+}
+
+function patchPolicyCopy() {
+  const policyWrap = document.querySelector('.policy-wrap');
+  if (!policyWrap || policyWrap.dataset.insuranceStatusReady) return;
+
+  const list = [...policyWrap.querySelectorAll('h3')]
+    .find((heading) => heading.textContent.includes('수집하는 개인정보 항목'))
+    ?.nextElementSibling;
+
+  if (list?.tagName === 'UL' && !list.textContent.includes('태아보험 준비 상황')) {
+    const dueItem = [...list.children].find((item) => item.textContent.includes('출산 예정일'));
+    const item = document.createElement('li');
+    item.textContent = '태아보험 준비 상황';
+    dueItem?.after(item);
+  }
+
+  policyWrap.dataset.insuranceStatusReady = 'true';
+}
+
+function patchApplyForm() {
+  const form = document.querySelector('.benchmark-apply-form, .sian-form-area form');
+  if (!form) return;
+  ensureInsuranceStatusField(form);
+  polishApplyCopy(form);
+}
+
+function schedulePatch() {
+  requestAnimationFrame(() => {
+    patchApplyForm();
+    patchPolicyCopy();
+  });
+}
+
+document.addEventListener('submit', validateFinalApplyForm, true);
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedulePatch);
+else schedulePatch();
+
+new MutationObserver(schedulePatch).observe(document.documentElement, { childList: true, subtree: true });
