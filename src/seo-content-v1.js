@@ -1,7 +1,7 @@
 const seoFaqItems = [
   [
     '임신축하선물은 정말 무료인가요?',
-    '네. 마미온 임신축하선물은 예비맘을 위한 무료 신청 안내로 운영됩니다. 태아보험 상담 또는 기존 보험 점검 절차를 확인하신 분께 추첨 없이 선물을 안내드립니다.',
+    '네. 마미온 임신축하선물은 예비맘을 위한 무료 신청 안내로 운영됩니다. 신청 정보를 확인한 뒤 대상자에게 임신축하박스와 선물 구성을 안내드립니다.',
   ],
   [
     '임신축하박스는 누구나 신청할 수 있나요?',
@@ -16,20 +16,20 @@ const seoFaqItems = [
     '네. 출산준비 선물로 활용하기 좋은 손수건, 수유패드, 아기용품, 산모 케어 품목 등이 구성 후보에 포함됩니다. 실제 구성은 재고와 운영 상황에 따라 달라질 수 있습니다.',
   ],
   [
-    '태아보험을 이미 가입했어도 신청 가능한가요?',
-    '가능합니다. 이미 가입한 경우에는 기존 태아보험 점검이나 기존 태아보험 진단을 통해 현재 보장 내용을 함께 확인하실 수 있습니다.',
+    '신청 조건이 따로 있나요?',
+    '임신 중인 예비맘이라면 출산 예정일을 기준으로 신청하실 수 있습니다. 정확한 안내를 위해 이름, 연락처, 출산 예정일과 배송 주소를 입력해주세요.',
   ],
   [
-    '태아보험 상담만 받아도 선물을 받을 수 있나요?',
-    '태아보험 상담 진행 또는 기존 보험 점검만 받으셔도 추첨 없이 임신축하선물 안내 대상이 됩니다. 가입을 강요하는 방식이 아니라 필요한 내용을 편하게 확인하는 절차입니다.',
+    '배송비도 무료인가요?',
+    '네. 마미온 임신축하박스는 별도 배송비 없이 안내됩니다. 배송 주소 오류가 있으면 반송될 수 있으니 상세 주소까지 정확히 입력해주세요.',
   ],
   [
-    '기존 태아보험 점검도 가능한가요?',
-    '네. 기존 태아보험 점검, 태아보험 보장분석, 태아보험 가입 후 점검이 필요한 분도 신청 가능합니다. 부족하거나 중복되는 부분이 있는지 안내받을 수 있습니다.',
+    '매월 같은 구성으로 발송되나요?',
+    '구성품은 고정 구성이 아니며 신청 시기와 재고 상황에 따라 달라질 수 있습니다. 산모님께 실제로 도움이 되는 실용 품목 위주로 준비합니다.',
   ],
   [
-    '태아보험 비교 상담은 어떻게 진행되나요?',
-    '태아보험 비교 상담은 현재 준비 상황을 확인한 뒤 필요한 보장과 만기 구조를 설명드리는 방식으로 진행됩니다. 태아보험 설계 비교, 30세 만기와 100세 만기 차이도 부담 없이 확인하실 수 있습니다.',
+    '선물 구성은 직접 선택할 수 있나요?',
+    '구성품은 신청 시기와 재고 상황에 맞춰 마미온에서 엄선해 안내드립니다. 특정 상품을 지정하는 방식은 아니지만 예비맘과 아기에게 필요한 품목 중심으로 준비합니다.',
   ],
   [
     '출산 예정일이 얼마 남지 않아도 신청 가능한가요?',
@@ -41,7 +41,7 @@ const seoFaqItems = [
   ],
   [
     '신청 후 언제 연락이 오나요?',
-    '신청이 접수되면 입력하신 연락처로 순차적으로 안내드립니다. 신청 내용 확인, 선물 구성 안내, 태아보험 무료 상담 또는 기존 보험 점검 여부를 함께 확인합니다.',
+    '신청이 접수되면 입력하신 연락처로 순차적으로 안내드립니다. 신청 내용과 선물 구성, 배송 정보를 확인하기 위한 연락이 진행될 수 있습니다.',
   ],
   [
     '주소를 잘못 입력하면 어떻게 되나요?',
@@ -157,7 +157,7 @@ function patchHeroSeo(root) {
 
   const lead = hero.querySelector('p');
   if (lead) {
-    lead.innerHTML = '마미온에서 임신축하박스, 출산준비 선물, 산모 선물, 태아보험 상담 및 기존 보험 점검까지 한 번에 신청해보세요.';
+    lead.innerHTML = '마미온에서 임신축하박스, 출산준비 선물, 산모 선물까지 예비맘을 위한 무료 선물을 간편하게 신청해보세요.';
   }
 
   if (lead && !hero.querySelector('.hero-seo-tags')) {
@@ -165,7 +165,7 @@ function patchHeroSeo(root) {
     tags.className = 'hero-seo-tags';
     tags.innerHTML = `
       <span>추첨 없이 선물 안내</span>
-      <span>기존 태아보험 점검 가능</span>
+      <span>출산준비 구성 확인</span>
     `;
     lead.after(tags);
   }
@@ -237,6 +237,30 @@ function patchReviewsSeo(root) {
   reviews.dataset.seoReady = 'true';
 }
 
+function patchKitGiftLabels(root) {
+  const kitCards = root.querySelectorAll('.kit-card');
+  if (!kitCards.length) return;
+
+  const replacements = {
+    '\ud0dc\uc544\ubcf4\ud5d8 \uc548\ub0b4\ubd81': ['출산 준비 가이드', '예비맘을 위한 출산 준비 자료'],
+    '\ubcf4\ud5d8\uae08 \uccad\uad6c \uac00\uc774\ub4dc': ['육아 체크 가이드', '출산 후 육아 준비 안내'],
+  };
+
+  kitCards.forEach((card) => {
+    const title = card.querySelector('h3');
+    if (!title) return;
+
+    const replacement = replacements[title.textContent.trim()];
+    if (!replacement) return;
+
+    const [nextTitle, nextDesc] = replacement;
+    title.textContent = nextTitle;
+
+    const desc = card.querySelector('p');
+    if (desc) desc.textContent = nextDesc;
+  });
+}
+
 function renderRecommendSection(root) {
   if (root.querySelector('.seo-recommend-section')) return;
 
@@ -251,13 +275,13 @@ function renderRecommendSection(root) {
       <div class="seo-section-head">
         <span>임신축하 이벤트 안내</span>
         <h2>마미온은 이런 분들께 추천드려요</h2>
-        <p>임신축하선물 무료 신청부터 태아보험 비교와 기존 태아보험 점검까지, 예비맘에게 필요한 안내를 가볍게 확인할 수 있습니다.</p>
+        <p>임신축하선물 무료 신청과 출산준비 선물 구성을 알아보는 예비맘에게 필요한 정보를 가볍게 확인할 수 있습니다.</p>
       </div>
       <div class="seo-recommend-grid">
         <article><b>임신축하선물이나 임신축하박스를 알아보고 계신 예비맘</b><p>무료 임신축하박스와 예비맘 선물을 찾는 분께 필요한 신청 절차를 안내합니다.</p></article>
         <article><b>출산준비 선물과 신생아 준비물을 받아보고 싶은 산모님</b><p>출산준비 선물, 신생아 준비물, 산모 선물에 관심 있는 분께 실용 구성품을 안내합니다.</p></article>
-        <article><b>태아보험을 아직 준비 전이거나 비교 상담이 필요한 분</b><p>태아보험 가입 전 상담, 태아보험 비교, 태아보험 설계 비교를 부담 없이 확인할 수 있습니다.</p></article>
-        <article><b>이미 가입한 태아보험을 다시 점검받고 싶은 분</b><p>기존 태아보험 점검, 태아보험 진단, 태아보험 보장분석이 필요한 경우에도 신청 가능합니다.</p></article>
+        <article><b>임신 초기, 중기, 후기 선물을 찾고 계신 분</b><p>출산 예정일 기준으로 신청 가능하며 임신 시기와 관계없이 선물 안내를 받아볼 수 있습니다.</p></article>
+        <article><b>아기용품 선물과 산모용품을 함께 준비하고 싶은 분</b><p>손수건, 수유패드, 아기용품 등 실제 출산 준비에 도움이 되는 구성 후보를 확인할 수 있습니다.</p></article>
       </div>
     </div>
   `;
@@ -272,12 +296,12 @@ function renderSeoInfoSection(root) {
 
   const section = document.createElement('section');
   section.className = 'seo-info-section section-wrap';
-  section.setAttribute('aria-label', '임신축하선물 및 태아보험 점검 안내');
+  section.setAttribute('aria-label', '임신축하선물 및 출산준비 안내');
   section.innerHTML = `
     <div class="seo-info-card">
       <span>무료 신청 안내</span>
-      <h2>임신축하선물 신청부터 태아보험 점검까지 한 번에</h2>
-      <p>마미온은 예비맘을 위한 임신축하선물 무료 신청 서비스입니다. 임신축하박스와 출산준비 선물을 알아보는 산모님께 필요한 안내를 제공하며, 태아보험을 아직 준비하지 못한 경우에는 태아보험 비교 상담을, 이미 가입한 경우에는 기존 태아보험 점검을 도와드립니다.</p>
+      <h2>임신축하선물 신청부터 출산준비 안내까지 한 번에</h2>
+      <p>마미온은 예비맘을 위한 임신축하선물 무료 신청 서비스입니다. 임신축하박스와 출산준비 선물을 알아보는 산모님께 필요한 정보를 간단한 신청 절차로 안내드립니다.</p>
       <p>임신 초기, 중기, 후기 산모님 모두 출산 예정일 기준으로 신청 가능하며, 신생아 준비물과 산모 선물에 관심 있는 분들도 부담 없이 신청하실 수 있습니다.</p>
     </div>
   `;
@@ -289,10 +313,10 @@ function patchFaqSeo(root) {
   if (!faq || faq.dataset.seoReady === 'true') return;
 
   const heading = faq.querySelector('.section-title h2');
-  if (heading) heading.textContent = '임신축하선물과 태아보험 상담 FAQ';
+  if (heading) heading.textContent = '임신축하선물 무료 신청 FAQ';
 
   const paragraph = faq.querySelector('.section-title p');
-  if (paragraph) paragraph.textContent = '무료 임신축하박스 신청, 예비맘 선물 구성, 태아보험 상담과 기존 보험 점검에 대해 자주 묻는 질문입니다.';
+  if (paragraph) paragraph.textContent = '무료 임신축하박스 신청, 예비맘 선물 구성, 배송 안내에 대해 자주 묻는 질문입니다.';
 
   const grid = faq.querySelector('.faq-grid');
   if (grid) {
@@ -306,7 +330,7 @@ function patchImageAltSeo(root) {
   const altItems = [
     ['.hero-visual img', '마미온 예비맘 임신축하선물 무료 신청 메인 이미지'],
     ['.gift-photo-large img', '임산부와 신생아를 위한 출산준비 선물 구성품'],
-    ['.target-contact-visual img', '태아보험 상담 및 기존 보험 점검 안내'],
+    ['.target-contact-visual img', '마미온 임신축하선물 신청 안내'],
     ['.review-side-card img', '마미온 임신축하선물 신청 후기'],
     ['.logo-button img', '마미온 임신축하박스 무료 신청 로고'],
     ['.footer img', '마미온 예비맘 선물 신청 서비스 로고'],
@@ -327,6 +351,7 @@ function patchSeoContent() {
   renderRecommendSection(root);
   patchApplySeo(root);
   patchReviewsSeo(root);
+  patchKitGiftLabels(root);
   renderSeoInfoSection(root);
   patchFaqSeo(root);
   patchImageAltSeo(root);
