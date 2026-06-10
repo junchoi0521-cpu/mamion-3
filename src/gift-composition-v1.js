@@ -105,10 +105,37 @@ function replaceExactText(root, fromText, toText) {
   });
 }
 
+function normalizeGiftIntroSummary(root) {
+  const heading = root.querySelector('.gift-copy-area h2');
+  if (heading) {
+    [...heading.childNodes].forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.includes('20여 종 구성품')) {
+        node.textContent = '24종 구성 중';
+      }
+    });
+
+    const strong = heading.querySelector('strong');
+    if (strong && strong.textContent.trim() === '랜덤 증정') {
+      strong.textContent = '랜덤 15종 발송!';
+    }
+  }
+
+  const firstFeature = root.querySelector('.gift-feature-grid article:first-child');
+  const featureTitle = firstFeature?.querySelector('b');
+  const featureDesc = firstFeature?.querySelector('span');
+  if (featureTitle && featureTitle.textContent.trim() === '20여 종 구성품') {
+    featureTitle.textContent = '24종 구성 중';
+  }
+  if (featureDesc && featureDesc.textContent.trim() === '랜덤 증정') {
+    featureDesc.textContent = '랜덤 15종 발송!';
+  }
+}
+
 function normalizeGiftCopy() {
   const root = document.getElementById('root') || document.body;
   if (!root) return;
 
+  normalizeGiftIntroSummary(root);
   replaceExactText(root, '20여 종 육아·산모용품', '24종 구성 중');
   replaceExactText(root, '랜덤 증정', '랜덤 15종 발송!');
   replaceExactText(root, '20여 종 구성품', '24종 구성 중');
