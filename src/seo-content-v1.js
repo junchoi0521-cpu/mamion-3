@@ -92,9 +92,6 @@ function renderFaqSlider(faq, direction = 0) {
   track.classList.remove('is-moving-left', 'is-moving-right');
   track.innerHTML = Array.from({ length: visibleCount }, (_, offset) => renderFaqCard(currentIndex + offset)).join('');
 
-  const status = faq.querySelector('.faq-slider-status');
-  if (status) status.textContent = `${currentIndex + 1} / ${seoFaqItems.length}`;
-
   if (direction !== 0) {
     requestAnimationFrame(() => {
       track.classList.add(direction > 0 ? 'is-moving-right' : 'is-moving-left');
@@ -117,7 +114,6 @@ function setupFaqSlider(faq, grid) {
       <button class="faq-slider-arrow faq-slider-prev" type="button" aria-label="이전 FAQ 보기">‹</button>
       <div class="faq-slider-viewport"></div>
       <button class="faq-slider-arrow faq-slider-next" type="button" aria-label="다음 FAQ 보기">›</button>
-      <div class="faq-slider-status" aria-live="polite"></div>
     `;
 
     grid.before(shell);
