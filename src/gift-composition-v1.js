@@ -92,7 +92,7 @@ function renderGiftComposition(section) {
         </article>
       `).join('')}
     </div>
-    <p class="kit-note gift-composition-note">구성품은 고정 구성이 아니며, 신청 시기와 재고 상황에 따라 일부 변경될 수 있습니다. 24종 구성 중 랜덤 15종 발송으로 산모님께 실제로 도움이 되는 실용 품목 위주로 전달드립니다.</p>
+    <p class="kit-note gift-composition-note">구성품은 고정 구성이 아니며, 신청 시기와 재고 상황에 따라 일부 변경될 수 있습니다.<br />24종 구성 중 랜덤 15종 발송으로 산모님께 실제로 도움이 되는 실용 품목 위주로 전달드립니다.</p>
   `;
 
   section.dataset.giftCompositionReady = 'true';
