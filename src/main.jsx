@@ -383,7 +383,6 @@ function ApplySection({ onSubmitSuccess }) {
       <div className="apply-card sian-apply-card">
         <div className="form-area sian-form-area">
           <div className="apply-title-row sian-title-row"><h2>임신축하선물 신청하기 <Heart size={26} /></h2><span>신청 30초 완료 ✨</span></div>
-          <p>간단한 정보 입력으로 소중한 선물을 받아보세요.</p>
           {submitMessage && <div className={`submit-message ${submitMessageType}`}>{submitMessage}</div>}
           <form onSubmit={submit}>
             <div className="form-row"><Field label="이름"><input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" /></Field><Field label="연락처"><input name="phone" value={form.phone} onChange={(e) => update('phone', formatPhoneNumber(e.target.value))} placeholder="010-1234-5678" maxLength={13} /></Field></div>

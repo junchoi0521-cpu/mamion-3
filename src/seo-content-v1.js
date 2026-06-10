@@ -210,10 +210,7 @@ function patchApplySeo(root) {
   }
 
   const lead = apply.querySelector('.sian-form-area > p, .form-area > p');
-  if (lead && lead.dataset.seoReady !== 'true') {
-    lead.textContent = '임산부 선물 신청과 태아보험 상담 또는 기존 보험 점검 안내에 필요한 정보를 간단히 입력해주세요.';
-    lead.dataset.seoReady = 'true';
-  }
+  if (lead) lead.remove();
 
   const eventBox = apply.querySelector('.insurance-event-box p');
   if (eventBox && eventBox.dataset.seoReady !== 'true') {

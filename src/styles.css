@@ -2350,6 +2350,90 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
   }
 }
 
+/* ===== V33 APPLY HEADER POLISH ===== */
+.sian-title-row{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:22px;
+  margin:0 0 26px;
+  padding:28px 30px;
+  border:1px solid #ffd3e0;
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 85% 18%,rgba(255,235,243,.95) 0 76px,transparent 77px),
+    linear-gradient(135deg,#fff 0%,#fff8fb 56%,#fff1f6 100%);
+  box-shadow:0 18px 46px rgba(247,64,120,.1);
+  overflow:hidden;
+}
+
+.sian-title-row:before{
+  content:'';
+  position:absolute;
+  left:24px;
+  right:24px;
+  bottom:0;
+  height:4px;
+  border-radius:999px 999px 0 0;
+  background:linear-gradient(90deg,rgba(255,76,134,.2),rgba(255,183,207,.7),rgba(255,76,134,.2));
+}
+
+.sian-title-row h2{
+  position:relative;
+  z-index:1;
+  color:#241615;
+}
+
+.sian-title-row h2 svg{
+  width:46px;
+  height:46px;
+  margin-left:10px;
+  padding:9px;
+  border:1px solid #ffc8da;
+  border-radius:50%;
+  background:#fff;
+  color:#ff3d78;
+  box-shadow:0 14px 30px rgba(247,64,120,.13);
+}
+
+.sian-title-row > span{
+  position:relative;
+  z-index:1;
+  white-space:nowrap;
+  padding:12px 22px;
+  border-color:#ffc8da;
+  background:#fff7fa;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+.sian-form-area > .sian-title-row + p{
+  display:none;
+}
+
+@media (max-width:1100px){
+  .sian-title-row{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:14px;
+    margin-bottom:22px;
+    padding:22px 20px;
+    border-radius:20px;
+  }
+
+  .sian-title-row h2{
+    font-size:28px;
+    line-height:1.18;
+  }
+
+  .sian-title-row h2 svg{
+    width:40px;
+    height:40px;
+    margin-left:6px;
+  }
+}
+
 /* ===== V32 HERO HEARTS ONLY =====
    Remove the curve and use a few separated heart accents in the empty center space.
 */
