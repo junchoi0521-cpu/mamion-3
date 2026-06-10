@@ -59,6 +59,90 @@ function escapeHtml(value) {
   })[char]);
 }
 
+function getFaqVisibleCount() {
+  if (window.innerWidth <= 640) return 1;
+  if (window.innerWidth <= 980) return 2;
+  return 3;
+}
+
+function getWrappedFaqIndex(index) {
+  const total = seoFaqItems.length;
+  return ((index % total) + total) % total;
+}
+
+function renderFaqCard(index) {
+  const safeIndex = getWrappedFaqIndex(index);
+  const [question, answer] = seoFaqItems[safeIndex];
+  return `
+    <article data-faq-card="${safeIndex + 1}">
+      <span class="faq-card-count">${String(safeIndex + 1).padStart(2, '0')}</span>
+      <strong>${escapeHtml(question)}</strong>
+      <p>${escapeHtml(answer)}</p>
+    </article>
+  `;
+}
+
+function renderFaqSlider(faq, direction = 0) {
+  const track = faq.querySelector('.faq-slider-track');
+  if (!track) return;
+
+  const visibleCount = getFaqVisibleCount();
+  const currentIndex = getWrappedFaqIndex(Number(faq.dataset.faqIndex || 0));
+  track.style.setProperty('--faq-visible-count', visibleCount);
+  track.classList.remove('is-moving-left', 'is-moving-right');
+  track.innerHTML = Array.from({ length: visibleCount }, (_, offset) => renderFaqCard(currentIndex + offset)).join('');
+
+  const status = faq.querySelector('.faq-slider-status');
+  if (status) status.textContent = `${currentIndex + 1} / ${seoFaqItems.length}`;
+
+  if (direction !== 0) {
+    requestAnimationFrame(() => {
+      track.classList.add(direction > 0 ? 'is-moving-right' : 'is-moving-left');
+    });
+  }
+}
+
+function moveFaqSlider(faq, direction) {
+  const currentIndex = Number(faq.dataset.faqIndex || 0);
+  faq.dataset.faqIndex = String(getWrappedFaqIndex(currentIndex + direction));
+  renderFaqSlider(faq, direction);
+}
+
+function setupFaqSlider(faq, grid) {
+  let shell = faq.querySelector('.faq-slider-shell');
+  if (!shell) {
+    shell = document.createElement('div');
+    shell.className = 'faq-slider-shell';
+    shell.innerHTML = `
+      <button class="faq-slider-arrow faq-slider-prev" type="button" aria-label="이전 FAQ 보기">‹</button>
+      <div class="faq-slider-viewport"></div>
+      <button class="faq-slider-arrow faq-slider-next" type="button" aria-label="다음 FAQ 보기">›</button>
+      <div class="faq-slider-status" aria-live="polite"></div>
+    `;
+
+    grid.before(shell);
+    shell.querySelector('.faq-slider-viewport').appendChild(grid);
+  }
+
+  grid.classList.add('faq-slider-track');
+
+  if (faq.dataset.faqSliderReady !== 'true') {
+    faq.dataset.faqIndex = '0';
+    faq.querySelector('.faq-slider-prev')?.addEventListener('click', () => moveFaqSlider(faq, -1));
+    faq.querySelector('.faq-slider-next')?.addEventListener('click', () => moveFaqSlider(faq, 1));
+
+    let resizeTimer = 0;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => renderFaqSlider(faq), 140);
+    });
+
+    faq.dataset.faqSliderReady = 'true';
+  }
+
+  renderFaqSlider(faq);
+}
+
 function patchHeroSeo(root) {
   const hero = root.querySelector('.hero-content');
   if (!hero || hero.dataset.seoReady === 'true') return;
@@ -216,12 +300,7 @@ function patchFaqSeo(root) {
 
   const grid = faq.querySelector('.faq-grid');
   if (grid) {
-    grid.innerHTML = seoFaqItems.map(([question, answer]) => `
-      <article>
-        <strong>${escapeHtml(question)}</strong>
-        <p>${escapeHtml(answer)}</p>
-      </article>
-    `).join('');
+    setupFaqSlider(faq, grid);
   }
 
   faq.dataset.seoReady = 'true';
