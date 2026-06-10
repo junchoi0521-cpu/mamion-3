@@ -80,6 +80,9 @@ function polishApplyCopy(form) {
     if (input) eventLabel.prepend(input);
   }
 
+  const marketingConsentLine = form.querySelector('[name="marketing"]')?.closest('label');
+  marketingConsentLine?.remove();
+
   const submitButton = form.querySelector('.submit-btn');
   if (submitButton) submitButton.lastChild.textContent = ' 임신축하선물 신청하기';
 }
@@ -139,6 +142,10 @@ function patchPolicyCopy() {
     item.textContent = '태아보험 준비 상황';
     dueItem?.after(item);
   }
+
+  list?.querySelectorAll('li').forEach((item) => {
+    if (item.textContent.includes('광고성 정보 수신 동의')) item.remove();
+  });
 
   policyWrap.dataset.insuranceStatusReady = 'true';
 }
