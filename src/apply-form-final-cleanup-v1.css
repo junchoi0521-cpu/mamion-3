@@ -1,0 +1,136 @@
+/* Final apply form cleanup: balanced basic info, required insurance status, compact consent area. */
+html body .benchmark-apply-form .single-field-row,
+html body .benchmark-apply-form .basic-info-second-row,
+html body .sian-form-area form .single-field-row,
+html body .sian-form-area form .basic-info-second-row{
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  max-width:none !important;
+  gap:18px !important;
+}
+
+html body .benchmark-apply-form .field select,
+html body .sian-form-area .field select{
+  width:100% !important;
+  height:58px !important;
+  border:1px solid #f0d7df !important;
+  border-radius:17px !important;
+  padding:0 44px 0 18px !important;
+  background:
+    linear-gradient(45deg,transparent 50%,#8b6b76 50%) calc(100% - 24px) 50%/7px 7px no-repeat,
+    linear-gradient(135deg,#8b6b76 50%,transparent 50%) calc(100% - 17px) 50%/7px 7px no-repeat,
+    linear-gradient(135deg,#fff 0%,#fff8fb 100%) !important;
+  color:#2c1916 !important;
+  font-size:16px !important;
+  font-weight:750 !important;
+  letter-spacing:-.018em !important;
+  appearance:none !important;
+  box-sizing:border-box !important;
+}
+
+html body .benchmark-apply-form .field select:focus,
+html body .sian-form-area .field select:focus{
+  outline:none !important;
+  border-color:#f74078 !important;
+  box-shadow:0 0 0 4px rgba(247,64,120,.08) !important;
+}
+
+html body .benchmark-apply-form .address-stack,
+html body .sian-form-area .address-stack{
+  gap:8px !important;
+}
+
+html body .benchmark-apply-form .address-search-btn,
+html body .address-direct-row .address-search-btn{
+  height:58px !important;
+  border-radius:17px !important;
+  background:#341c18 !important;
+  box-shadow:0 12px 26px rgba(52,28,24,.16) !important;
+}
+
+html body .benchmark-apply-form .address-search-btn:hover,
+html body .address-direct-row .address-search-btn:hover{
+  background:#24110f !important;
+  box-shadow:0 14px 30px rgba(52,28,24,.20) !important;
+}
+
+html body .benchmark-apply-form .address-help-text,
+html body .sian-form-area .address-help-text{
+  margin-top:7px !important;
+}
+
+html body .benchmark-apply-form .insurance-event-box{
+  margin:6px 0 14px !important;
+  padding:15px 18px 14px !important;
+}
+
+html body .benchmark-apply-form .insurance-event-box::before{
+  inset:7px !important;
+}
+
+html body .benchmark-apply-form .insurance-event-box>b{
+  margin-bottom:5px !important;
+}
+
+html body .benchmark-apply-form .insurance-event-box p{
+  margin-bottom:11px !important;
+}
+
+html body .benchmark-apply-form .agree-stack{
+  display:grid !important;
+  gap:7px !important;
+  margin:8px 0 6px !important;
+  padding-right:178px !important;
+}
+
+html body .benchmark-apply-form .agree-line{
+  min-height:26px !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+html body .benchmark-apply-form .privacy-link{
+  top:1px !important;
+}
+
+html body .benchmark-apply-form .submit-btn{
+  margin-top:18px !important;
+}
+
+html body .benchmark-apply-form>small{
+  margin-top:10px !important;
+  color:#8b8f99 !important;
+  font-size:13px !important;
+  font-weight:650 !important;
+}
+
+@media(max-width:1100px){
+  html body .benchmark-apply-form .address-search-btn,
+  html body .address-direct-row .address-search-btn{
+    width:100% !important;
+    height:50px !important;
+    border-radius:14px !important;
+  }
+
+  html body .benchmark-apply-form .agree-stack{
+    padding-right:0 !important;
+  }
+
+  html body .benchmark-apply-form .privacy-link{
+    position:static !important;
+    display:inline-flex !important;
+    margin:2px 0 0 28px !important;
+  }
+}
+
+@media(max-width:560px){
+  html body .benchmark-apply-form .single-field-row,
+  html body .benchmark-apply-form .basic-info-second-row,
+  html body .sian-form-area form .single-field-row,
+  html body .sian-form-area form .basic-info-second-row{
+    grid-template-columns:1fr !important;
+  }
+
+  html body .benchmark-apply-form .insurance-event-box{
+    padding:15px 15px 14px !important;
+  }
+}
