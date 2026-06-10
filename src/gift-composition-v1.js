@@ -23,11 +23,10 @@ const giftCompositionItems = [
   ['dday-calendar.jpg', '태아 D-DAY 캘린더', '출산 예정일까지의 시간을 기록하는 감성 아이템'],
   ['thermo-hygrometer.jpg', '디지털 온습도계', '신생아 방의 온도와 습도를 확인하는 데 도움 되는 실용템'],
   ['diaper-bag.jpg', '포켓 에코백 또는 기저귀가방', '외출 시 아기용품을 담기 좋은 데일리 가방'],
-].map(([fileName, title, desc], index) => ({
+].map(([fileName, title, desc]) => ({
   title,
   desc,
   image: `/images/gifts/${fileName}`,
-  cell: [index % 4, Math.floor(index / 4)],
 }));
 
 const giftCompositionPoints = [
@@ -37,9 +36,6 @@ const giftCompositionPoints = [
   '신청 시기·재고에 따라 구성 변경',
 ];
 
-const giftCompositionSprite = '/images/gifts/gift-products-ai-sheet.webp';
-const giftCompositionSpriteCellSize = 160;
-
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (char) => ({
     '&': '&amp;',
@@ -48,10 +44,6 @@ function escapeHtml(value) {
     '"': '&quot;',
     "'": '&#39;',
   })[char]);
-}
-
-function getGiftSpritePosition([x, y]) {
-  return `-${x * giftCompositionSpriteCellSize}px -${y * giftCompositionSpriteCellSize}px`;
 }
 
 function renderGiftComposition(section) {
@@ -74,12 +66,7 @@ function renderGiftComposition(section) {
       ${giftCompositionItems.map((item) => `
         <article class="kit-card gift-product-card">
           <div class="kit-image gift-product-image">
-            <span
-              class="gift-product-sprite"
-              role="img"
-              aria-label="${escapeHtml(item.title)}"
-              style="background-image:url('${giftCompositionSprite}');background-position:${getGiftSpritePosition(item.cell)}"
-            ></span>
+            <img src="${escapeHtml(item.image)}" alt="마미온 ${escapeHtml(item.title)} 구성품 사진" loading="lazy" decoding="async" />
             <div class="gift-product-placeholder" aria-hidden="true">
               <b>MamiOn</b>
               <span>이미지 준비중</span>
