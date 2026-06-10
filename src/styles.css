@@ -2356,36 +2356,54 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:22px;
-  margin:0 0 26px;
-  padding:28px 30px;
-  border:1px solid #ffd3e0;
-  border-radius:24px;
+  gap:18px;
+  margin:0 0 28px;
+  padding:24px 26px;
+  border:1px solid #ffcddd;
+  border-radius:26px;
   background:
-    radial-gradient(circle at 85% 18%,rgba(255,235,243,.95) 0 76px,transparent 77px),
-    linear-gradient(135deg,#fff 0%,#fff8fb 56%,#fff1f6 100%);
-  box-shadow:0 18px 46px rgba(247,64,120,.1);
+    radial-gradient(circle at 88% 4%,rgba(255,228,238,.9) 0 76px,transparent 77px),
+    linear-gradient(135deg,#fff 0%,#fff9fc 54%,#fff2f7 100%);
+  box-shadow:0 18px 42px rgba(247,64,120,.09);
   overflow:hidden;
 }
 
 .sian-title-row:before{
   content:'';
   position:absolute;
-  left:24px;
-  right:24px;
+  left:30px;
+  right:30px;
   bottom:0;
-  height:4px;
+  height:5px;
   border-radius:999px 999px 0 0;
-  background:linear-gradient(90deg,rgba(255,76,134,.2),rgba(255,183,207,.7),rgba(255,76,134,.2));
+  background:linear-gradient(90deg,rgba(255,76,134,.18),rgba(255,161,194,.78),rgba(255,76,134,.18));
+}
+
+.sian-title-row:after{
+  content:'';
+  position:absolute;
+  top:18px;
+  right:108px;
+  width:92px;
+  height:92px;
+  border-radius:50%;
+  background:rgba(255,236,243,.72);
 }
 
 .sian-title-row h2{
   position:relative;
   z-index:1;
+  display:flex;
+  align-items:center;
+  flex:1 1 auto;
+  min-width:0;
+  white-space:nowrap;
   color:#241615;
+  letter-spacing:0;
 }
 
 .sian-title-row h2 svg{
+  flex:0 0 auto;
   width:46px;
   height:46px;
   margin-left:10px;
@@ -2400,6 +2418,7 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
 .sian-title-row > span{
   position:relative;
   z-index:1;
+  flex:0 0 auto;
   white-space:nowrap;
   padding:12px 22px;
   border-color:#ffc8da;
@@ -2409,6 +2428,17 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
 
 .sian-form-area > .sian-title-row + p{
   display:none;
+}
+
+@media (min-width:1101px){
+  .sian-title-row h2{
+    font-size:clamp(31px,2.35vw,38px) !important;
+    line-height:1.08 !important;
+  }
+
+  .sian-title-row > span{
+    font-size:13px !important;
+  }
 }
 
 @media (max-width:1100px){
@@ -2425,6 +2455,7 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
   .sian-title-row h2{
     font-size:28px;
     line-height:1.18;
+    white-space:normal;
   }
 
   .sian-title-row h2 svg{
