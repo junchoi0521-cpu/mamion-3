@@ -157,6 +157,60 @@
   word-break: keep-all;
 }
 
+@media (min-width: 1101px) {
+  html body .gift-intro-card {
+    height: auto !important;
+    min-height: 326px !important;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.82fr) minmax(0, 0.78fr) !important;
+    align-items: stretch !important;
+    gap: 24px !important;
+    overflow: hidden !important;
+  }
+
+  html body .gift-photo-large {
+    align-self: stretch !important;
+    height: auto !important;
+    min-height: 326px !important;
+  }
+
+  html body .gift-photo-large img {
+    height: 100% !important;
+    min-height: 326px !important;
+  }
+
+  html body .gift-copy-area {
+    align-self: stretch !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 30px 0 34px !important;
+  }
+
+  html body .gift-copy-area h2 {
+    margin: 10px 0 12px !important;
+    font-size: 39px !important;
+    line-height: 1.08 !important;
+    word-break: keep-all !important;
+  }
+
+  html body .gift-copy-area p {
+    max-width: 340px !important;
+    font-size: 14.5px !important;
+    line-height: 1.72 !important;
+  }
+
+  html body .gift-feature-grid {
+    align-self: stretch !important;
+    align-content: center !important;
+    gap: 14px 20px !important;
+    padding: 28px 30px 30px 0 !important;
+  }
+
+  html body .gift-feature-grid article {
+    min-height: 118px !important;
+  }
+}
+
 @media (max-width: 1024px) {
   .seo-recommend-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
