@@ -182,7 +182,7 @@ function patchGiftIntroSeo(root) {
 
   const heading = gift.querySelector('.gift-copy-area h2');
   if (heading) {
-    heading.innerHTML = '예비맘 임신축하박스 구성<br><strong>24종 구성 중 랜덤 15종 발송!</strong>';
+    heading.innerHTML = '<span class="gift-title-line">예비맘 임신축하박스</span><span class="gift-title-sub">24종 구성 중</span><strong>랜덤 15종 발송!</strong>';
   }
 
   const paragraph = gift.querySelector('.gift-copy-area p');

@@ -2542,6 +2542,21 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
 /* ===== V34 GIFT + KIT COMPACT MOCKUP ALIGNMENT =====
    Tighten the GiftIntro and KitPreview area to match the supplied compact mockup.
 */
+.gift-copy-area h2 .gift-title-line,
+.gift-copy-area h2 .gift-title-sub,
+.gift-copy-area h2 strong{
+  display:block;
+  word-break:keep-all;
+}
+
+.gift-copy-area h2 .gift-title-sub{
+  margin-top:6px;
+}
+
+.gift-copy-area h2 strong{
+  margin-top:4px;
+}
+
 /* ===== V35 HERO COPY UPDATE ===== */
 .hero-content h1 .hero-kicker,
 .hero-content h1 .hero-main-copy,
@@ -2703,6 +2718,36 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     font-size:34px !important;
     line-height:1.06 !important;
     letter-spacing:-.065em !important;
+  }
+
+  .gift-copy-area h2 .gift-title-line,
+  .gift-copy-area h2 .gift-title-sub,
+  .gift-copy-area h2 strong{
+    display:block !important;
+    word-break:keep-all !important;
+  }
+
+  .gift-copy-area h2 .gift-title-line{
+    font-size:33px !important;
+    line-height:1.08 !important;
+    letter-spacing:-.055em !important;
+    color:#251515 !important;
+  }
+
+  .gift-copy-area h2 .gift-title-sub{
+    margin-top:5px !important;
+    font-size:31px !important;
+    line-height:1.04 !important;
+    letter-spacing:-.055em !important;
+    color:#251515 !important;
+  }
+
+  .gift-copy-area h2 strong{
+    margin-top:4px !important;
+    font-size:38px !important;
+    line-height:1.02 !important;
+    letter-spacing:-.06em !important;
+    color:var(--pink) !important;
   }
 
   .gift-copy-area p{

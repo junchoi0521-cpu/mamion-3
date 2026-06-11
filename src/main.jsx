@@ -153,7 +153,11 @@ function GiftIntro() {
         <div className="gift-photo-large"><img src={giftBoxOverview} alt="마미온 임신축하선물 박스" /></div>
         <div className="gift-copy-area">
           <span className="section-badge"><Gift size={16} /> 마미온 임신축하선물</span>
-          <h2>20여 종 구성품<br /><strong>랜덤 증정</strong></h2>
+          <h2>
+            <span className="gift-title-line">예비맘 임신축하박스</span>
+            <span className="gift-title-sub">24종 구성 중</span>
+            <strong>랜덤 15종 발송!</strong>
+          </h2>
           <p>실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 매월 구성은 달라질 수 있으며 준비된 구성품 중 랜덤으로 증정됩니다.</p>
         </div>
         <div className="gift-feature-grid">
