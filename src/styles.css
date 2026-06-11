@@ -2542,6 +2542,126 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
 /* ===== V34 GIFT + KIT COMPACT MOCKUP ALIGNMENT =====
    Tighten the GiftIntro and KitPreview area to match the supplied compact mockup.
 */
+/* ===== V35 HERO COPY UPDATE ===== */
+.hero-content h1 .hero-kicker,
+.hero-content h1 .hero-main-copy,
+.hero-content h1 .hero-free-copy{
+  display:block;
+}
+
+.hero-content h1 .hero-kicker{
+  color:#33201c !important;
+  font-weight:900;
+}
+
+.hero-content h1 .hero-main-copy{
+  color:#241615 !important;
+}
+
+.hero-content h1 .hero-free-copy{
+  color:var(--pink) !important;
+  font-weight:900;
+}
+
+@media (min-width:1101px){
+  .hero-content{
+    width:620px !important;
+  }
+
+  .hero-content h1{
+    margin-top:26px !important;
+    font-size:46px !important;
+    line-height:1.04 !important;
+    letter-spacing:-.045em !important;
+  }
+
+  .hero-content h1 .hero-kicker{
+    font-size:46px !important;
+    line-height:1.08 !important;
+    letter-spacing:-.04em !important;
+    white-space:nowrap !important;
+  }
+
+  .hero-content h1 .hero-main-copy{
+    margin-top:6px !important;
+    font-size:72px !important;
+    line-height:.98 !important;
+    letter-spacing:-.06em !important;
+    white-space:nowrap !important;
+  }
+
+  .hero-content h1 .hero-free-copy{
+    margin-top:10px !important;
+    font-size:50px !important;
+    line-height:1.08 !important;
+    letter-spacing:-.045em !important;
+    white-space:nowrap !important;
+  }
+
+  .hero-content h1 strong::after{
+    left:500px !important;
+    top:-18px !important;
+  }
+
+  .hero-content p{
+    max-width:500px !important;
+    margin-top:22px !important;
+    font-size:18px !important;
+    line-height:1.58 !important;
+    letter-spacing:-.025em !important;
+    word-break:keep-all !important;
+  }
+}
+
+@media (max-width:1100px){
+  .hero-content h1{
+    font-size:34px !important;
+    line-height:1.08 !important;
+    letter-spacing:-.035em !important;
+  }
+
+  .hero-content h1 .hero-kicker{
+    font-size:34px !important;
+    line-height:1.12 !important;
+    letter-spacing:-.035em !important;
+  }
+
+  .hero-content h1 .hero-main-copy{
+    margin-top:6px !important;
+    font-size:clamp(42px,11vw,58px) !important;
+    line-height:1.02 !important;
+    letter-spacing:-.055em !important;
+    word-break:keep-all !important;
+  }
+
+  .hero-content h1 .hero-free-copy{
+    margin-top:8px !important;
+    font-size:clamp(31px,8vw,42px) !important;
+    line-height:1.14 !important;
+    letter-spacing:-.04em !important;
+    word-break:keep-all !important;
+  }
+
+  .hero-content p{
+    max-width:360px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    line-height:1.62 !important;
+    letter-spacing:-.02em !important;
+    word-break:keep-all !important;
+  }
+}
+
+@media (max-width:380px){
+  .hero-content h1 .hero-main-copy{
+    font-size:39px !important;
+  }
+
+  .hero-content h1 .hero-free-copy{
+    font-size:29px !important;
+  }
+}
+
 @media (min-width:1101px){
   .gift-intro-section{
     padding-top:0 !important;

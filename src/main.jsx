@@ -131,11 +131,11 @@ function Hero() {
         <div className="hero-content">
           <div className="hero-ribbon">예비맘을 위한 특별한 선물</div>
           <h1>
-            <span>마미온 임신축하선물</span>
-            <span>20여 종 육아·산모용품</span>
-            <strong>랜덤 증정</strong>
+            <span className="hero-kicker">예비맘을 위한</span>
+            <strong className="hero-main-copy">특별한 임신축하선물</strong>
+            <span className="hero-free-copy">지금 무료로 받아보세요</span>
           </h1>
-          <p>예비맘이라면 누구나 신청 가능해요.<br />매월 준비된 다양한 구성품을 <b>무료로</b> 받아보세요.</p>
+          <p>마미온에서 준비한 임신축하박스와 출산준비 선물을 간편하게 신청해보세요.</p>
           <div className="hero-benefits">
             <article><Truck size={34} /><b>배송비 포함</b><span>전액 무료</span></article>
             <article><ShieldCheck size={34} /><b>신청 30초</b><span>간편 신청</span></article>
