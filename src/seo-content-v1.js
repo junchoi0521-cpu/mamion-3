@@ -187,7 +187,7 @@ function patchGiftIntroSeo(root) {
 
   const paragraph = gift.querySelector('.gift-copy-area p');
   if (paragraph) {
-    paragraph.textContent = '마미온 임신축하박스는 임신축하선물 무료 신청을 원하는 예비맘을 위해 출산준비 선물, 신생아 준비물, 산모 선물로 활용하기 좋은 실용 품목 중심으로 준비됩니다.';
+    paragraph.innerHTML = '마미온 임신축하박스는<br>예비맘의 소중한 출산 준비를 위해<br>꼭 필요한 실용 선물로 준비됩니다.';
   }
 
   const firstFeature = gift.querySelector('.gift-feature-grid article:first-child');

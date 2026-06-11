@@ -158,7 +158,7 @@ function GiftIntro() {
             <span className="gift-title-sub">24종 구성 중</span>
             <strong>랜덤 15종 발송!</strong>
           </h2>
-          <p>실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 매월 구성은 달라질 수 있으며 준비된 구성품 중 랜덤으로 증정됩니다.</p>
+          <p>마미온 임신축하박스는<br />예비맘의 소중한 출산 준비를 위해<br />꼭 필요한 실용 선물로 준비됩니다.</p>
         </div>
         <div className="gift-feature-grid">
           <article><Gift size={42} /><b>20여 종 구성품</b><span>랜덤 증정</span></article>
