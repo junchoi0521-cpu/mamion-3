@@ -149,15 +149,15 @@ function patchHeroSeo(root) {
   const heading = hero.querySelector('h1');
   if (heading) {
     heading.innerHTML = `
-      <span>예비맘을 위한</span>
-      <span>임신축하선물</span>
-      <strong>무료 신청</strong>
+      <span class="hero-kicker">예비맘을 위한</span>
+      <strong class="hero-main-copy">특별한 임신축하선물</strong>
+      <span class="hero-free-copy">지금 무료로 받아보세요</span>
     `;
   }
 
   const lead = hero.querySelector('p');
   if (lead) {
-    lead.innerHTML = '마미온에서 임신축하박스, 출산준비 선물, 산모 선물까지 예비맘을 위한 무료 선물을 간편하게 신청해보세요.';
+    lead.innerHTML = '산모용품부터 출산준비, 육아용품까지<br>예비맘에게 필요한 선물을<br>마미온에서 간편하게 신청해보세요❣️';
   }
 
   if (lead && !hero.querySelector('.hero-seo-tags')) {
