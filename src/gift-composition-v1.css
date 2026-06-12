@@ -509,7 +509,7 @@ html body .gift-product-image{
   width:100% !important;
   height:auto !important;
   min-height:0 !important;
-  aspect-ratio:1 / 1 !important;
+  aspect-ratio:5 / 6 !important;
   padding:10px !important;
   overflow:hidden !important;
   border-radius:18px 18px 0 0 !important;
@@ -586,6 +586,7 @@ html body .gift-product-card .kit-body p{
   }
 
   html body .gift-product-image{
+    aspect-ratio:5 / 6 !important;
     padding:8px !important;
   }
 }
