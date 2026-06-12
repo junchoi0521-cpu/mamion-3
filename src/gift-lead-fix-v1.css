@@ -18,7 +18,7 @@ html body .gift-composition-lead{
 }
 
 html body .gift-composition-lead::before{
-  top:0 !important;
+  top:-5px !important;
   z-index:2 !important;
   height:24px !important;
   padding:0 12px !important;
