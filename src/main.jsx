@@ -22,7 +22,6 @@ import './address-search.css';
 import heroMom from './assets/hero-mom.jpg';
 import bunny from './assets/contact-bunny.jpg';
 import reviewShoes from './assets/review-shoes.jpg';
-import kitProductsSprite from './assets/kit-products-v1.webp';
 import logo from './assets/logo.png';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
@@ -176,81 +175,67 @@ function GiftIntro() {
 }
 
 function KitPreview() {
-  const KIT_VISIBLE_COUNT = 7;
   const kitItems = [
-    { title: '프리미엄 시크릿 박스', desc: '매월 달라지는 특별 구성', cell: [0, 0], tag: 'BEST' },
-    { title: '산모 케어 세트', desc: '출산 전후 산모 맞춤 케어', cell: [0, 2] },
-    { title: '아기 보습 로션', desc: '아기 피부를 위한 보습 샘플', cell: [1, 0] },
-    { title: '임산부 복대', desc: '편안한 산모 생활용품', cell: [3, 3] },
-    { title: '수유패드', desc: '출산 후 필요한 산모 준비물', cell: [2, 0] },
-    { title: '젖병 세정 샘플', desc: '수유용품 세정 준비', cell: [0, 1] },
-    { title: '산모 바디크림', desc: '산모를 위한 보습 케어', cell: [1, 2] },
-    { title: '프리미엄 아기 물티슈', desc: '매일 쓰는 실용 육아용품', cell: [3, 0] },
-    { title: '순면 아기 손수건', desc: '부드러운 순면 손수건', cell: [4, 0] },
-    { title: '아기 양말 세트', desc: '신생아 외출 준비용품', cell: [4, 1] },
-    { title: '속싸개 블랭킷', desc: '포근한 신생아 준비물', cell: [0, 3] },
-    { title: '후드 목욕타월', desc: '목욕 후 포근한 타월', cell: [0, 4] },
-    { title: '신생아 손싸개', desc: '작은 손을 보호하는 준비물', cell: [1, 4] },
-    { title: '아기 턱받이', desc: '실용적인 데일리 육아용품', cell: [1, 3] },
-    { title: '아기 순면 화장솜', desc: '민감한 피부를 위한 순면 패드', cell: [2, 2] },
-    { title: '노리개젖꼭지', desc: '외출 시 필요한 육아용품', cell: [3, 2] },
-    { title: '치발기', desc: '아기 구강기 준비용품', cell: [4, 2] },
-    { title: '유아 세탁 샘플', desc: '아기 옷 세탁 준비', cell: [2, 3] },
-    { title: '산모 파우치', desc: '소지품 정리에 좋은 파우치', cell: [2, 4] },
-    { title: '여행용 샘플팩', desc: '외출용 소용량 구성', cell: [3, 4] },
-    { title: '출산 체크리스트', desc: '준비물을 한눈에 정리', cell: [1, 1] },
-    { title: '태아보험 안내북', desc: '예비맘을 위한 안내 자료', cell: [2, 1] },
-    { title: '보험금 청구 가이드', desc: '출산 후 청구 준비 안내', cell: [3, 1] },
-    { title: '아기 첫 걸음 슈즈', desc: '기념 사진에도 예쁜 선물', cell: [4, 3] },
-    { title: '딸랑이 축하카드', desc: '작은 축하 선물 구성', cell: [4, 4], tag: 'NEW' },
-  ];
-  const [startIndex, setStartIndex] = useState(0);
-  const maxStartIndex = Math.max(kitItems.length - KIT_VISIBLE_COUNT, 0);
-  const visibleItems = kitItems.slice(startIndex, startIndex + KIT_VISIBLE_COUNT);
-  const moveKit = (direction) => {
-    setStartIndex((prev) => {
-      const nextIndex = prev + (direction * KIT_VISIBLE_COUNT);
-      return Math.min(Math.max(nextIndex, 0), maxStartIndex);
-    });
-  };
-  const getSpritePosition = ([x, y]) => `${x * 25}% ${y * 25}%`;
+    ['신생아 순면 손수건', '아기 피부에 부드럽게 닿는 출산 준비 필수 품목입니다.', '01-handkerchief.png'],
+    ['신생아 면봉', '신생아 위생 관리를 위한 기본 구성품입니다.', '02-cotton-swabs.png'],
+    ['프리미엄 아기 물티슈', '외출과 기저귀 교체 시 자주 쓰이는 실용 품목입니다.', '03-baby-wipes.png'],
+    ['신생아 손싸개', '아기 손톱 긁힘을 줄여주는 신생아 준비 품목입니다.', '04-baby-mittens.png'],
+    ['아기 수면 양말', '포근한 착용감으로 아기 체온 관리에 도움을 줍니다.', '05-baby-sleep-socks.png'],
+    ['유아용 칫솔', '작은 구강 관리를 시작할 때 필요한 준비 품목입니다.', '06-baby-toothbrush.png'],
+    ['유아용 치약', '아이 첫 구강 케어를 위한 실용 구성품입니다.', '07-baby-toothpaste.png'],
+    ['다용도 아기 지퍼백', '아기용품과 소품을 위생적으로 보관하기 좋습니다.', '08-baby-zipper-bag.png'],
+    ['유아 옷걸이', '작고 가벼운 아기 옷을 정리하기 좋은 구성품입니다.', '09-baby-hangers.png'],
+    ['아기 세탁망', '아기 옷과 손수건을 분리 세탁할 때 유용합니다.', '10-laundry-mesh-bag.png'],
+    ['일회용 수유패드', '출산 전후 수유 시기 위생 관리에 도움을 줍니다.', '11-nursing-pads.png'],
+    ['산모용 오버나이트 패드', '출산 전후 산모 위생 관리를 위한 구성품입니다.', '12-maternity-overnight-pad.png'],
+    ['젖병 세정제', '젖병과 아기 식기를 깨끗하게 관리하는 품목입니다.', '13-bottle-cleanser.png'],
+    ['유아 식기 세트', '이유식 시기까지 활용하기 좋은 실용 구성입니다.', '14-baby-tableware-set.png'],
+    ['이유식 보관용기 세트', '이유식과 간식을 깔끔하게 보관하기 좋습니다.', '15-baby-food-container-set.png'],
+    ['신생아 턱받이', '수유와 이유식 시기에 활용하기 좋은 아기용품입니다.', '16-newborn-bib.png'],
+    ['산모 손목보호대', '출산 전후 손목 부담을 줄이는 산모 케어 품목입니다.', '17-maternity-wrist-support.png'],
+    ['유아 샴푸모자', '목욕 시 물과 거품으로부터 아기를 보호해 줍니다.', '18-baby-shampoo-cap.png'],
+    ['산모 실리콘 손목보호대', '가사와 육아 중 손목을 편안하게 보호하는 품목입니다.', '19-silicone-wrist-guards.png'],
+    ['위생 파우치', '산모용품과 위생용품을 깔끔하게 보관할 수 있습니다.', '20-hygiene-pouch.png'],
+    ['임산부 건강즙 또는 건강간식', '예비맘을 위한 가벼운 건강 간식 구성입니다.', '21-prenatal-health-juice.png'],
+    ['태아 D-DAY 캘린더', '출산 예정일까지의 시간을 기록하는 감성 품목입니다.', '22-baby-d-day-calendar.png'],
+    ['디지털 온습도계', '아기 방의 온도와 습도를 확인하는 실용 품목입니다.', '23-digital-thermo-hygrometer.png'],
+    ['포켓 에코백 또는 기저귀가방', '외출 시 아기용품을 담기 좋은 데일리 가방입니다.', '24-pocket-eco-bag.png'],
+  ].map(([title, desc, fileName], index) => ({
+    title,
+    desc,
+    fileName,
+    image: `/images/products/${fileName}`,
+    index: String(index + 1).padStart(2, '0'),
+  }));
 
   return (
-    <section className="kit-section section-wrap">
-      <div className="kit-heading">
-        <div>
-          <h2>구성품 예시 <Heart size={28} /></h2>
-          <p>실제 발송되는 구성품 예시입니다.</p>
+    <section className="kit-section gift-composition-section section-wrap" data-gift-composition-ready="true" aria-label="상품 구성 안내">
+      <div className="kit-heading gift-composition-heading">
+        <div className="gift-composition-copy">
+          <span className="gift-composition-badge">마미온 임신축하선물</span>
+          <h2>상품 구성 안내<span aria-hidden="true"></span></h2>
+          <strong>24종 구성 중 랜덤 15종 발송!</strong>
+          <p>예비맘과 아기에게 실제로 필요한 실용 선물 위주로 준비됩니다.</p>
         </div>
-        <span>매월 구성은 달라질 수 있어요!</span>
       </div>
-      <div className="kit-slider-shell">
-        <button className="kit-arrow kit-arrow-left" type="button" onClick={() => moveKit(-1)} disabled={startIndex === 0} aria-label="이전 구성품 보기">
-          <ChevronLeft size={24} />
-        </button>
-        <div className="kit-grid kit-slider-grid">
-          {visibleItems.map((item) => (
-            <article className="kit-card" key={item.title}>
-              <div className="kit-image">
-                {item.tag && <em>{item.tag}</em>}
-                <span
-                  className="kit-product-photo"
-                  aria-hidden="true"
-                  style={{
-                    backgroundImage: `url(${kitProductsSprite})`,
-                    backgroundPosition: getSpritePosition(item.cell),
-                  }}
-                />
-              </div>
-              <div className="kit-body"><h3>{item.title}</h3><p>{item.desc}</p></div>
-            </article>
-          ))}
-        </div>
-        <button className="kit-arrow kit-arrow-right" type="button" onClick={() => moveKit(1)} disabled={startIndex === maxStartIndex} aria-label="다음 구성품 보기">
-          <ChevronRight size={24} />
-        </button>
+      <p className="gift-composition-lead">구성품은 고정 구성이 아니며, 신청 시기와 재고 상황에 따라 일부 변경될 수 있습니다.<br />24종 구성 중 랜덤 15종 발송으로 산모님께 실제로 도움이 되는 실용 품목 위주로 전달드립니다.</p>
+      <div className="gift-composition-points">
+        {['예비맘과 아기를 위한 실용 구성', '24종 구성 중 랜덤 15종 발송', '신청 시기와 재고에 따라 구성 변경', '상품 이미지는 실제 구성 예시입니다'].map((point) => (
+          <article key={point}><span></span><b>{point}</b></article>
+        ))}
       </div>
-      <p className="kit-note">* 구성품 이미지는 예시이며, 실제 발송 구성은 재고 및 운영 상황에 따라 일부 변경될 수 있습니다.</p>
+      <div className="kit-grid kit-product-grid">
+        {kitItems.map((item) => (
+          <article className="kit-card gift-product-card" key={item.fileName}>
+            <div className="kit-image gift-product-image">
+              <b>{item.index}</b>
+              <img className="gift-product-img" src={item.image} alt={`마미온 ${item.title} 상품 이미지`} loading="lazy" decoding="async" />
+            </div>
+            <div className="kit-body gift-product-body"><h3>{item.title}</h3><p>{item.desc}</p></div>
+          </article>
+        ))}
+      </div>
+      <p className="kit-note gift-composition-note">구성품은 신청 시기와 재고 상황에 따라 일부 변경될 수 있으며, 실제 발송 구성은 안내 기준에 따라 랜덤으로 제공됩니다.</p>
     </section>
   );
 }

@@ -1,44 +1,138 @@
+const productBasePath = '/images/products/';
+
 const giftCompositionItems = [
-  ['baby-handkerchief.jpg', '신생아 순면 손수건', '아기 피부에 부드럽게 닿는 출산 준비 필수템'],
-  ['baby-cotton-swab.jpg', '신생아 면봉', '코·귀 주변을 조심스럽게 관리할 때 필요한 기본 육아템'],
-  ['baby-wipes.jpg', '유아용 물티슈', '외출이나 기저귀 교체 시 자주 사용하는 실용 구성품'],
-  ['baby-mittens.jpg', '아기 손싸개', '신생아 얼굴 긁힘을 줄여주는 출산 준비용품'],
-  ['baby-socks.jpg', '아기 양말', '조리원과 외출 준비에 좋은 귀여운 아기 기본템'],
-  ['baby-toothbrush.jpg', '유아용 칫솔', '성장 후 구강 관리를 준비할 수 있는 육아 아이템'],
-  ['baby-toothpaste.jpg', '유아용 치약', '아기 구강 관리 시기에 맞춰 사용할 수 있는 준비용품'],
-  ['baby-zipbag.jpg', '아기 지퍼백', '손수건, 젖병, 쪽쪽이 등을 위생적으로 보관하기 좋은 아이템'],
-  ['baby-hanger.jpg', '유아 옷걸이', '작고 귀여운 아기 옷을 정리하기 좋은 실용템'],
-  ['baby-laundry-net.jpg', '아기 세탁망', '아기 옷과 손수건을 분리 세탁할 때 유용한 구성품'],
-  ['nursing-pad.jpg', '일회용 수유패드', '출산 후 수유 시기에 필요한 산모 필수품'],
-  ['maternity-pad.jpg', '산모패드 또는 오버나이트', '출산 전후 산모 위생 관리에 도움이 되는 구성품'],
-  ['bottle-cleanser.jpg', '젖병세정제', '젖병과 아기 식기를 깨끗하게 관리하기 위한 준비템'],
-  ['baby-tableware.jpg', '유아 식기세트', '이유식 시기까지 활용할 수 있는 실용 구성품'],
-  ['storage-container.jpg', '밀폐용기 세트', '이유식, 간식, 작은 육아용품을 보관하기 좋은 아이템'],
-  ['baby-bib.jpg', '턱받이', '수유와 이유식 시기에 활용도가 높은 아기용품'],
-  ['wrist-support.jpg', '산모 손목보호대', '출산 후 손목 부담을 줄이는 데 도움이 되는 산모 케어템'],
-  ['stretch-mark-cream.jpg', '튼살크림 샘플', '임신 중 피부 관리를 위한 예비맘 케어 구성품'],
-  ['mom-mask-pack.jpg', '산모 마스크팩', '예비맘의 간단한 셀프케어를 위한 선물'],
-  ['sanitary-pouch.jpg', '생리대 파우치', '산모패드와 위생용품을 깔끔하게 보관할 수 있는 파우치'],
-  ['mom-snack.jpg', '건강즙 또는 임산부 간식', '예비맘을 위한 가벼운 건강 간식 구성'],
-  ['dday-calendar.jpg', '태아 D-DAY 캘린더', '출산 예정일까지의 시간을 기록하는 감성 아이템'],
-  ['thermo-hygrometer.jpg', '디지털 온습도계', '신생아 방의 온도와 습도를 확인하는 데 도움 되는 실용템'],
-  ['diaper-bag.jpg', '포켓 에코백 또는 기저귀가방', '외출 시 아기용품을 담기 좋은 데일리 가방'],
-].map(([fileName, title, desc], index) => ({
-  title,
-  desc,
-  image: `/images/gifts/${fileName}`,
-  cell: [index % 4, Math.floor(index / 4)],
+  {
+    title: '신생아 순면 손수건',
+    desc: '아기 피부에 부드럽게 닿는 출산 준비 필수 품목입니다.',
+    fileName: '01-handkerchief.png',
+  },
+  {
+    title: '신생아 면봉',
+    desc: '신생아 위생 관리를 위한 기본 구성품입니다.',
+    fileName: '02-cotton-swabs.png',
+  },
+  {
+    title: '프리미엄 아기 물티슈',
+    desc: '외출과 기저귀 교체 시 자주 쓰이는 실용 품목입니다.',
+    fileName: '03-baby-wipes.png',
+  },
+  {
+    title: '신생아 손싸개',
+    desc: '아기 손톱 긁힘을 줄여주는 신생아 준비 품목입니다.',
+    fileName: '04-baby-mittens.png',
+  },
+  {
+    title: '아기 수면 양말',
+    desc: '포근한 착용감으로 아기 체온 관리에 도움을 줍니다.',
+    fileName: '05-baby-sleep-socks.png',
+  },
+  {
+    title: '유아용 칫솔',
+    desc: '작은 구강 관리를 시작할 때 필요한 준비 품목입니다.',
+    fileName: '06-baby-toothbrush.png',
+  },
+  {
+    title: '유아용 치약',
+    desc: '아이 첫 구강 케어를 위한 실용 구성품입니다.',
+    fileName: '07-baby-toothpaste.png',
+  },
+  {
+    title: '다용도 아기 지퍼백',
+    desc: '아기용품과 소품을 위생적으로 보관하기 좋습니다.',
+    fileName: '08-baby-zipper-bag.png',
+  },
+  {
+    title: '유아 옷걸이',
+    desc: '작고 가벼운 아기 옷을 정리하기 좋은 구성품입니다.',
+    fileName: '09-baby-hangers.png',
+  },
+  {
+    title: '아기 세탁망',
+    desc: '아기 옷과 손수건을 분리 세탁할 때 유용합니다.',
+    fileName: '10-laundry-mesh-bag.png',
+  },
+  {
+    title: '일회용 수유패드',
+    desc: '출산 전후 수유 시기 위생 관리에 도움을 줍니다.',
+    fileName: '11-nursing-pads.png',
+  },
+  {
+    title: '산모용 오버나이트 패드',
+    desc: '출산 전후 산모 위생 관리를 위한 구성품입니다.',
+    fileName: '12-maternity-overnight-pad.png',
+  },
+  {
+    title: '젖병 세정제',
+    desc: '젖병과 아기 식기를 깨끗하게 관리하는 품목입니다.',
+    fileName: '13-bottle-cleanser.png',
+  },
+  {
+    title: '유아 식기 세트',
+    desc: '이유식 시기까지 활용하기 좋은 실용 구성입니다.',
+    fileName: '14-baby-tableware-set.png',
+  },
+  {
+    title: '이유식 보관용기 세트',
+    desc: '이유식과 간식을 깔끔하게 보관하기 좋습니다.',
+    fileName: '15-baby-food-container-set.png',
+  },
+  {
+    title: '신생아 턱받이',
+    desc: '수유와 이유식 시기에 활용하기 좋은 아기용품입니다.',
+    fileName: '16-newborn-bib.png',
+  },
+  {
+    title: '산모 손목보호대',
+    desc: '출산 전후 손목 부담을 줄이는 산모 케어 품목입니다.',
+    fileName: '17-maternity-wrist-support.png',
+  },
+  {
+    title: '유아 샴푸모자',
+    desc: '목욕 시 물과 거품으로부터 아기를 보호해 줍니다.',
+    fileName: '18-baby-shampoo-cap.png',
+  },
+  {
+    title: '산모 실리콘 손목보호대',
+    desc: '가사와 육아 중 손목을 편안하게 보호하는 품목입니다.',
+    fileName: '19-silicone-wrist-guards.png',
+  },
+  {
+    title: '위생 파우치',
+    desc: '산모용품과 위생용품을 깔끔하게 보관할 수 있습니다.',
+    fileName: '20-hygiene-pouch.png',
+  },
+  {
+    title: '임산부 건강즙 또는 건강간식',
+    desc: '예비맘을 위한 가벼운 건강 간식 구성입니다.',
+    fileName: '21-prenatal-health-juice.png',
+  },
+  {
+    title: '태아 D-DAY 캘린더',
+    desc: '출산 예정일까지의 시간을 기록하는 감성 품목입니다.',
+    fileName: '22-baby-d-day-calendar.png',
+  },
+  {
+    title: '디지털 온습도계',
+    desc: '아기 방의 온도와 습도를 확인하는 실용 품목입니다.',
+    fileName: '23-digital-thermo-hygrometer.png',
+  },
+  {
+    title: '포켓 에코백 또는 기저귀가방',
+    desc: '외출 시 아기용품을 담기 좋은 데일리 가방입니다.',
+    fileName: '24-pocket-eco-bag.png',
+  },
+].map((item, index) => ({
+  ...item,
+  index: String(index + 1).padStart(2, '0'),
+  image: `${productBasePath}${item.fileName}`,
 }));
 
 const giftCompositionPoints = [
-  '임신 주차 상관없이 신청',
   '예비맘과 아기를 위한 실용 구성',
   '24종 구성 중 랜덤 15종 발송',
-  '신청 시기·재고에 따라 구성 변경',
+  '신청 시기와 재고에 따라 구성 변경',
+  '상품 이미지는 실제 구성 예시입니다',
 ];
-
-const giftCompositionSprite = '/images/gifts/gift-products-ai-sheet.webp';
-const giftCompositionSpriteCellSize = 160;
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (char) => ({
@@ -50,10 +144,6 @@ function escapeHtml(value) {
   })[char]);
 }
 
-function getGiftSpritePosition([x, y]) {
-  return `-${x * giftCompositionSpriteCellSize}px -${y * giftCompositionSpriteCellSize}px`;
-}
-
 function renderGiftComposition(section) {
   section.classList.add('gift-composition-section');
   section.setAttribute('aria-label', '상품 구성 안내');
@@ -63,10 +153,10 @@ function renderGiftComposition(section) {
         <span class="gift-composition-badge">마미온 임신축하선물</span>
         <h2>상품 구성 안내<span aria-hidden="true"></span></h2>
         <strong>24종 구성 중 랜덤 15종 발송!</strong>
-        <p>예비맘과 아기에게 실제로 필요한 실용 품목을 중심으로 준비했습니다.</p>
+        <p>예비맘과 아기에게 실제로 필요한 실용 선물 위주로 준비됩니다.</p>
       </div>
     </div>
-    <p class="gift-composition-lead">24종 구성 중 랜덤 15종 발송! 신청 시기와 재고 상황에 따라 일부 구성은 변경될 수 있습니다.</p>
+    <p class="gift-composition-lead">구성품은 고정 구성이 아니며, 신청 시기와 재고 상황에 따라 일부 변경될 수 있습니다.<br />24종 구성 중 랜덤 15종 발송으로 산모님께 실제로 도움이 되는 실용 품목 위주로 전달드립니다.</p>
     <div class="gift-composition-points">
       ${giftCompositionPoints.map((point) => `<article><span></span><b>${escapeHtml(point)}</b></article>`).join('')}
     </div>
@@ -74,16 +164,14 @@ function renderGiftComposition(section) {
       ${giftCompositionItems.map((item) => `
         <article class="kit-card gift-product-card">
           <div class="kit-image gift-product-image">
-            <span
-              class="gift-product-sprite"
-              role="img"
-              aria-label="마미온 ${escapeHtml(item.title)} 구성품 사진"
-              style="background-image:url('${giftCompositionSprite}');background-position:${getGiftSpritePosition(item.cell)}"
-            ></span>
-            <div class="gift-product-placeholder" aria-hidden="true">
-              <b>MamiOn</b>
-              <span>이미지 준비중</span>
-            </div>
+            <b>${item.index}</b>
+            <img
+              class="gift-product-img"
+              src="${escapeHtml(item.image)}"
+              alt="마미온 ${escapeHtml(item.title)} 상품 이미지"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <div class="kit-body gift-product-body">
             <h3>${escapeHtml(item.title)}</h3>
@@ -92,65 +180,15 @@ function renderGiftComposition(section) {
         </article>
       `).join('')}
     </div>
-    <p class="kit-note gift-composition-note">구성품은 고정 구성이 아니며, 신청 시기와 재고 상황에 따라 일부 변경될 수 있습니다.<br />24종 구성 중 랜덤 15종 발송으로 산모님께 실제로 도움이 되는 실용 품목 위주로 전달드립니다.</p>
+    <p class="kit-note gift-composition-note">구성품은 신청 시기와 재고 상황에 따라 일부 변경될 수 있으며, 실제 발송 구성은 안내 기준에 따라 랜덤으로 제공됩니다.</p>
   `;
 
   section.dataset.giftCompositionReady = 'true';
 }
 
-function replaceExactText(root, fromText, toText) {
-  root.querySelectorAll('*').forEach((element) => {
-    if (element.childNodes.length !== 1 || element.firstChild.nodeType !== Node.TEXT_NODE) return;
-    if (element.textContent.trim() === fromText) element.textContent = toText;
-  });
-}
-
-function normalizeGiftIntroSummary(root) {
-  const heading = root.querySelector('.gift-copy-area h2');
-  if (heading) {
-    [...heading.childNodes].forEach((node) => {
-      if (node.nodeType === Node.TEXT_NODE && node.textContent.includes('20여 종 구성품')) {
-        node.textContent = '24종 구성 중';
-      }
-    });
-
-    const strong = heading.querySelector('strong');
-    if (strong && strong.textContent.trim() === '랜덤 증정') {
-      strong.textContent = '랜덤 15종 발송!';
-    }
-  }
-
-  const firstFeature = root.querySelector('.gift-feature-grid article:first-child');
-  const featureTitle = firstFeature?.querySelector('b');
-  const featureDesc = firstFeature?.querySelector('span');
-  if (featureTitle && featureTitle.textContent.trim() === '20여 종 구성품') {
-    featureTitle.textContent = '24종 구성 중';
-  }
-  if (featureDesc && featureDesc.textContent.trim() === '랜덤 증정') {
-    featureDesc.textContent = '랜덤 15종 발송!';
-  }
-}
-
-function normalizeGiftCopy() {
-  const root = document.getElementById('root') || document.body;
-  if (!root) return;
-
-  normalizeGiftIntroSummary(root);
-  replaceExactText(root, '20여 종 육아·산모용품', '24종 구성 중');
-  replaceExactText(root, '랜덤 증정', '랜덤 15종 발송!');
-  replaceExactText(root, '20여 종 구성품', '24종 구성 중');
-  replaceExactText(root, '왜 마미온은 랜덤 증정으로 운영하나요?', '왜 마미온은 랜덤 15종 발송으로 운영하나요?');
-
-  root.querySelectorAll('p').forEach((paragraph) => {
-    paragraph.innerHTML = paragraph.innerHTML
-      .replace('실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 매월 구성은 달라질 수 있으며 준비된 구성품 중 랜덤으로 증정됩니다.', '실제 출산 준비에 필요한 육아·산모용품 위주로 구성했어요. 24종 구성 중 랜덤 15종 발송으로 매월 다양한 선물을 받아보실 수 있습니다.')
-      .replace('20여 종의 폭넓은 구성품을 더 많은 예비맘에게 전해드려요.', '24종 구성 중 랜덤 15종 발송으로 더 많은 예비맘에게 다양한 구성을 전해드려요.');
-  });
-}
-
 function enhanceGiftComposition() {
   const section = document.querySelector('.kit-section');
-  if (!section || section.dataset.giftCompositionReady) return;
+  if (!section || section.dataset.giftCompositionReady === 'true') return;
   renderGiftComposition(section);
 }
 
@@ -161,13 +199,18 @@ const scheduleGiftComposition = (() => {
     scheduled = true;
     requestAnimationFrame(() => {
       scheduled = false;
-      normalizeGiftCopy();
       enhanceGiftComposition();
     });
   };
 })();
 
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', scheduleGiftComposition);
-else scheduleGiftComposition();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', scheduleGiftComposition);
+} else {
+  scheduleGiftComposition();
+}
 
-new MutationObserver(scheduleGiftComposition).observe(document.documentElement, { childList: true, subtree: true });
+new MutationObserver(scheduleGiftComposition).observe(document.documentElement, {
+  childList: true,
+  subtree: true,
+});
