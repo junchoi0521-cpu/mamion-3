@@ -2584,8 +2584,8 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
   }
 
   .hero-card{
-    height:680px !important;
-    min-height:680px !important;
+    height:635px !important;
+    min-height:635px !important;
   }
 
   .hero-content{
