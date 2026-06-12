@@ -83,6 +83,13 @@ function App() {
 
 function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navItems = [
+    ['giftbox', '선물 소개'],
+    ['apply', '신청 방법'],
+    ['random', '랜덤 증정 안내'],
+    ['review-event', '후기 이벤트'],
+    ['faq', 'FAQ'],
+  ];
   const move = (id) => {
     setMobileOpen(false);
     goToSection(id);
@@ -91,21 +98,31 @@ function Header() {
   return (
     <header className="site-header">
       <div className="site-header-inner">
-        <button className="logo-button" type="button" onClick={() => goToSection('top')} aria-label="마미온 홈">
-          <img src={logo} alt="마미온" />
-        </button>
+        <div className="brand-area">
+          <button className="logo-button" type="button" onClick={() => goToSection('top')} aria-label="마미온 홈">
+            <img src={logo} alt="마미온" />
+          </button>
+          <span className="brand-subcopy">예비맘을 위한 무료 임신축하선물</span>
+        </div>
         <nav className="desktop-nav">
-          <button type="button" onClick={() => goToSection('giftbox')}>선물 소개</button>
-          <button type="button" onClick={() => goToSection('apply')}>신청 방법</button>
-          <button type="button" onClick={() => goToSection('faq')}>FAQ</button>
+          {navItems.map(([id, label]) => (
+            <button key={id} type="button" onClick={() => goToSection(id)}>{label}</button>
+          ))}
         </nav>
-        <button className="header-apply" type="button" onClick={scrollToApply}><Gift size={18} /> 임신축하선물 신청하기</button>
+        <div className="header-actions">
+          <a className="header-kakao" href={KAKAO_URL} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} /> 카카오톡 문의</a>
+          <button className="header-apply" type="button" onClick={scrollToApply}><Gift size={18} /> 임신축하선물 신청하기</button>
+        </div>
         <button className="mobile-menu" type="button" onClick={() => setMobileOpen((prev) => !prev)} aria-label="메뉴 열기"><Menu size={24} /></button>
         {mobileOpen && (
           <div className="mobile-nav-panel">
-            <button type="button" onClick={() => move('giftbox')}>선물 소개</button>
-            <button type="button" onClick={() => move('apply')}>신청 방법</button>
-            <button type="button" onClick={() => move('faq')}>FAQ</button>
+            {navItems.map(([id, label]) => (
+              <button key={id} type="button" onClick={() => move(id)}>{label}</button>
+            ))}
+            <div className="mobile-nav-actions">
+              <a href={KAKAO_URL} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}><MessageCircle size={18} /> 카카오톡 문의</a>
+              <button type="button" onClick={() => move('apply')}><Gift size={18} /> 임신축하선물 신청하기</button>
+            </div>
           </div>
         )}
       </div>
@@ -247,7 +264,7 @@ function WhyRandom() {
     [<Gift size={22} />, '03', '선물 안내', '예비맘에게 필요한 실용템 위주로 전달돼요'],
   ];
   return (
-    <section className="why-section">
+    <section id="random" className="why-section">
       <div className="why-grid-wrap section-wrap">
         <div className="why-left">
           <h2>왜 마미온은 랜덤 증정으로 운영하나요?</h2>
@@ -284,7 +301,7 @@ function ReviewEventCard() {
     [<UserCheck size={22} />, '실제 수령자 대상 진행'],
   ];
   return (
-    <aside className="review-event-card" aria-label="후기 이벤트 안내">
+    <aside id="review-event" className="review-event-card" aria-label="후기 이벤트 안내">
       <div className="review-event-visual" aria-hidden="true">
         <Gift size={38} />
         <Heart size={22} />
