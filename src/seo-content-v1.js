@@ -151,7 +151,7 @@ function patchHeroSeo(root) {
     heading.innerHTML = `
       <span class="hero-kicker">예비맘을 위한</span>
       <strong class="hero-main-copy">특별한 임신축하선물</strong>
-      <span class="hero-free-copy">지금 무료로 받아보세요</span>
+      <span class="hero-free-copy">지금 무료로 받아보세요💕</span>
     `;
   }
 

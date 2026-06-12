@@ -133,7 +133,7 @@ function Hero() {
           <h1>
             <span className="hero-kicker">예비맘을 위한</span>
             <strong className="hero-main-copy">특별한 임신축하선물</strong>
-            <span className="hero-free-copy">지금 무료로 받아보세요</span>
+            <span className="hero-free-copy">지금 무료로 받아보세요💕</span>
           </h1>
           <p>산모용품부터 출산준비, 육아용품까지<br />예비맘에게 필요한 선물을<br />마미온에서 간편하게 신청해보세요❣️</p>
           <div className="hero-benefits">
