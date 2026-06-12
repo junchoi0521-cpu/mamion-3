@@ -73,7 +73,6 @@ function App() {
       <GiftIntro />
       <KitPreview />
       <WhyRandom />
-      <ConversionCta />
       <ApplySection onSubmitSuccess={increaseCount} />
       <Faq />
       <Footer />
@@ -317,23 +316,6 @@ function ReviewEventCard() {
   );
 }
 
-
-function ConversionCta() {
-  return (
-    <section className="conversion-cta section-wrap" aria-label="임신축하선물 신청 안내">
-      <div className="conversion-card">
-        <div>
-          <span>이번 달 마미온 선물 접수 중</span>
-          <h2>예비맘이라면 지금 30초만에<br />무료 선물을 신청해보세요.</h2>
-          <p>선물 구성은 매월 달라질 수 있으며, 신청 확인 후 순차적으로 안내드립니다.</p>
-        </div>
-        <button type="button" onClick={scrollToApply}>
-          <Gift size={21} /> 임신축하선물 신청하기
-        </button>
-      </div>
-    </section>
-  );
-}
 
 function ApplySection({ onSubmitSuccess }) {
   const addressInputRef = useRef(null);

@@ -119,7 +119,6 @@ html body .desktop-nav button:hover::after{
 
 html body .header-apply,
 html body .submit-btn,
-html body .conversion-card button,
 html body .sticky{
   background:linear-gradient(135deg,#ff4a82 0%,#f72f72 55%,#e91f62 100%) !important;
   color:#fff !important;
@@ -129,7 +128,6 @@ html body .sticky{
 
 html body .header-apply:hover,
 html body .submit-btn:hover,
-html body .conversion-card button:hover,
 html body .sticky:hover{
   transform:translateY(-1px) !important;
   box-shadow:0 22px 44px rgba(247,64,120,.28) !important;
@@ -235,14 +233,12 @@ html body .review-side-card,
 html body .faq-grid article,
 html body .gift-product-card,
 html body .gift-composition-lead,
-html body .gift-composition-points article,
-html body .conversion-card{
+html body .gift-composition-points article{
   border-color:var(--mamion-line) !important;
   box-shadow:var(--mamion-shadow) !important;
 }
 
 html body .gift-intro-card,
-html body .conversion-card,
 html body .apply-card,
 html body .why-left,
 html body .stats-strip,
