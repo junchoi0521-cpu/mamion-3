@@ -219,21 +219,6 @@ function patchApplySeo(root) {
   }
 }
 
-function patchReviewsSeo(root) {
-  const reviews = root.querySelector('#reviews');
-  if (!reviews || reviews.dataset.seoReady === 'true') return;
-
-  const heading = reviews.querySelector('.review-head h2');
-  if (heading) heading.innerHTML = '마미온 임신축하선물<br><strong>신청 후기</strong>';
-
-  const paragraph = reviews.querySelector('.review-head p');
-  if (paragraph) {
-    paragraph.textContent = '임신축하박스 구성, 예비맘 선물 안내, 출산준비 선물 신청 과정을 경험한 산모님들의 후기를 담았습니다.';
-  }
-
-  reviews.dataset.seoReady = 'true';
-}
-
 function patchKitGiftLabels(root) {
   const kitCards = root.querySelectorAll('.kit-card');
   if (!kitCards.length) return;
@@ -328,7 +313,6 @@ function patchImageAltSeo(root) {
     ['.hero-visual img', '마미온 예비맘 임신축하선물 무료 신청 메인 이미지'],
     ['.gift-photo-large img', '임산부와 신생아를 위한 출산준비 선물 구성품'],
     ['.target-contact-visual img', '마미온 임신축하선물 신청 안내'],
-    ['.review-side-card img', '마미온 임신축하선물 신청 후기'],
     ['.logo-button img', '마미온 임신축하박스 무료 신청 로고'],
     ['.footer img', '마미온 예비맘 선물 신청 서비스 로고'],
   ];
@@ -347,7 +331,6 @@ function patchSeoContent() {
   patchGiftIntroSeo(root);
   renderRecommendSection(root);
   patchApplySeo(root);
-  patchReviewsSeo(root);
   patchKitGiftLabels(root);
   renderSeoInfoSection(root);
   patchFaqSeo(root);

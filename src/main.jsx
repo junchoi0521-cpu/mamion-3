@@ -21,7 +21,6 @@ import './address-search.css';
 
 import heroMom from './assets/hero-mom.jpg';
 import bunny from './assets/contact-bunny.jpg';
-import reviewShoes from './assets/review-shoes.jpg';
 import logo from './assets/logo.png';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
@@ -76,7 +75,6 @@ function App() {
       <WhyRandom />
       <ConversionCta />
       <ApplySection onSubmitSuccess={increaseCount} />
-      <Reviews />
       <Faq />
       <Footer />
       <StickyButton />
@@ -100,7 +98,6 @@ function Header() {
         <nav className="desktop-nav">
           <button type="button" onClick={() => goToSection('giftbox')}>선물 소개</button>
           <button type="button" onClick={() => goToSection('apply')}>신청 방법</button>
-          <button type="button" onClick={() => goToSection('reviews')}>고객 후기</button>
           <button type="button" onClick={() => goToSection('faq')}>FAQ</button>
         </nav>
         <button className="header-apply" type="button" onClick={scrollToApply}><Gift size={18} /> 임신축하선물 신청하기</button>
@@ -109,7 +106,6 @@ function Header() {
           <div className="mobile-nav-panel">
             <button type="button" onClick={() => move('giftbox')}>선물 소개</button>
             <button type="button" onClick={() => move('apply')}>신청 방법</button>
-            <button type="button" onClick={() => move('reviews')}>고객 후기</button>
             <button type="button" onClick={() => move('faq')}>FAQ</button>
           </div>
         )}
@@ -409,41 +405,6 @@ function ApplySection({ onSubmitSuccess }) {
 }
 
 function Field({ label, children }) { return <label className="field"><span>{label}</span>{children}</label>; }
-
-function Reviews() {
-  const reviews = [
-    ['김○○ 예비맘', '선물 박스가 생각보다 훨씬 예뻤어요. 아기용품도 실용적인 것들로 와서 출산 준비하는 기분이 더 설렜습니다.'],
-    ['박○○ 예비맘', '신청 과정이 간단했고 안내도 친절했어요. 무료 선물인데 포장까지 깔끔해서 만족스러웠습니다.'],
-    ['이○○ 예비맘', '첫 임신이라 준비할 게 많았는데 마미온 선물 덕분에 필요한 용품을 하나씩 챙기는 느낌이라 좋았어요.'],
-  ];
-  return (
-    <section id="reviews" className="reviews-section section-wrap">
-      <div className="review-head">
-        <span>REVIEW</span>
-        <h2>마미온을 먼저 만나본<br /><strong>예비맘들의 따뜻한 후기</strong></h2>
-        <p>선물의 구성, 포장, 안내 과정까지 실제 신청자분들이 만족한 포인트를 담았어요.</p>
-      </div>
-      <div className="review-premium-wrap">
-        <div className="review-cards premium">
-          {reviews.map(([name, text]) => (
-            <article key={name}>
-              <div className="stars">★★★★★</div>
-              <p>{text}</p>
-              <b>{name}</b>
-            </article>
-          ))}
-        </div>
-        <div className="review-side-card">
-          <img src={reviewShoes} alt="마미온 후기 이미지" />
-          <div>
-            <strong>포근한 첫 선물</strong>
-            <span>예비맘의 출산 준비를 마미온이 함께 응원합니다.</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Faq() {
   return <section id="faq" className="faq-section section-wrap"><div className="section-title"><h2>자주 묻는 질문</h2><p>현재 전국 예비맘 대상 신청 접수 중입니다.</p></div><div className="faq-grid"><article><strong>정말 무료인가요?</strong><p>네. 신청 대상에 해당하는 예비맘께 무료로 안내드립니다.</p></article><article><strong>배송비도 무료인가요?</strong><p>네. 별도 배송비 없이 신청 가능합니다.</p></article><article><strong>신청 후 왜 연락이 오나요?</strong><p>신청 확인 및 축하선물 안내를 위해 순차적으로 연락드립니다.</p></article></div></section>;
