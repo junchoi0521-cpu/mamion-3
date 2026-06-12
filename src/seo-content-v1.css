@@ -20,14 +20,12 @@
   box-shadow: 0 10px 22px rgba(247, 48, 116, 0.08);
 }
 
-.seo-recommend-section,
-.seo-info-section {
+.seo-recommend-section {
   margin-top: 22px;
   margin-bottom: 22px;
 }
 
-.seo-section-card,
-.seo-info-card {
+.seo-section-card {
   border: 1px solid rgba(255, 150, 180, 0.38);
   border-radius: 22px;
   background:
@@ -49,8 +47,7 @@
   max-width: 760px;
 }
 
-.seo-section-head span,
-.seo-info-card span {
+.seo-section-head span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -64,8 +61,7 @@
   font-weight: 900;
 }
 
-.seo-section-head h2,
-.seo-info-card h2 {
+.seo-section-head h2 {
   margin: 0;
   color: #25110e;
   font-size: clamp(25px, 3vw, 38px);
@@ -74,8 +70,7 @@
   line-height: 1.16;
 }
 
-.seo-section-head p,
-.seo-info-card p {
+.seo-section-head p {
   margin: 0;
   color: #6f5c5b;
   font-size: 15px;
@@ -128,16 +123,6 @@
   font-weight: 650;
   line-height: 1.65;
   word-break: keep-all;
-}
-
-.seo-info-card {
-  display: grid;
-  gap: 12px;
-  padding: 28px 34px;
-}
-
-.seo-info-card p {
-  max-width: 980px;
 }
 
 .faq-section .faq-grid {
@@ -340,17 +325,12 @@
     padding: 6px 10px;
   }
 
-  .seo-section-card,
-  .seo-info-card {
+  .seo-section-card {
     border-radius: 18px;
   }
 
   .seo-section-card {
     padding: 22px 16px;
-  }
-
-  .seo-info-card {
-    padding: 22px 18px;
   }
 
   .seo-recommend-grid {

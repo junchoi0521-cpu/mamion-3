@@ -270,26 +270,6 @@ function renderRecommendSection(root) {
   apply.before(section);
 }
 
-function renderSeoInfoSection(root) {
-  if (root.querySelector('.seo-info-section')) return;
-
-  const faq = root.querySelector('#faq');
-  if (!faq) return;
-
-  const section = document.createElement('section');
-  section.className = 'seo-info-section section-wrap';
-  section.setAttribute('aria-label', '임신축하선물 및 출산준비 안내');
-  section.innerHTML = `
-    <div class="seo-info-card">
-      <span>무료 신청 안내</span>
-      <h2>임신축하선물 신청부터 출산준비 안내까지 한 번에</h2>
-      <p>마미온은 예비맘을 위한 임신축하선물 무료 신청 서비스입니다. 임신축하박스와 출산준비 선물을 알아보는 산모님께 필요한 정보를 간단한 신청 절차로 안내드립니다.</p>
-      <p>임신 초기, 중기, 후기 산모님 모두 출산 예정일 기준으로 신청 가능하며, 신생아 준비물과 산모 선물에 관심 있는 분들도 부담 없이 신청하실 수 있습니다.</p>
-    </div>
-  `;
-  faq.before(section);
-}
-
 function patchFaqSeo(root) {
   const faq = root.querySelector('#faq');
   if (!faq || faq.dataset.seoReady === 'true') return;
@@ -332,7 +312,6 @@ function patchSeoContent() {
   renderRecommendSection(root);
   patchApplySeo(root);
   patchKitGiftLabels(root);
-  renderSeoInfoSection(root);
   patchFaqSeo(root);
   patchImageAltSeo(root);
 }
