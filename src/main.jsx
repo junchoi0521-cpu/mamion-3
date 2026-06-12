@@ -22,7 +22,6 @@ import './address-search.css';
 import heroMom from './assets/hero-mom.jpg';
 import bunny from './assets/contact-bunny.jpg';
 import reviewShoes from './assets/review-shoes.jpg';
-import giftBoxOverview from './assets/gift-box-overview-v25.jpg';
 import kitProductsSprite from './assets/kit-products-v1.webp';
 import logo from './assets/logo.png';
 
@@ -150,7 +149,12 @@ function GiftIntro() {
   return (
     <section id="giftbox" className="gift-intro-section section-wrap">
       <div className="gift-intro-card">
-        <div className="gift-photo-large"><img src={giftBoxOverview} alt="마미온 임신축하선물 박스" /></div>
+        <div className="gift-photo-large">
+          <picture>
+            <source srcSet="/images/mamion-giftbox-main.webp" type="image/webp" />
+            <img src="/images/mamion-giftbox-main.png" alt="마미온 임신축하박스 상품 구성" />
+          </picture>
+        </div>
         <div className="gift-copy-area">
           <span className="section-badge"><Gift size={16} /> 마미온 임신축하선물</span>
           <h2>
