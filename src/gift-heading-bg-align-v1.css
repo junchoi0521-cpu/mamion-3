@@ -36,3 +36,54 @@ html body .gift-photo-large img{
     height:240px !important;
   }
 }
+
+/* Keep GiftIntro on the real product image element instead of legacy CSS backgrounds. */
+html body .gift-photo-large{
+  background-image:none !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  overflow:visible !important;
+}
+
+html body .gift-photo-large picture{
+  display:block !important;
+  width:100% !important;
+}
+
+html body .gift-photo-large img{
+  opacity:1 !important;
+  visibility:visible !important;
+  display:block !important;
+  width:100% !important;
+  height:auto !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  transform:none !important;
+}
+
+@media (min-width:1101px){
+  html body .gift-intro-card{
+    height:auto !important;
+    min-height:360px !important;
+    grid-template-columns:minmax(420px,1.18fr) minmax(260px,.68fr) minmax(300px,.82fr) !important;
+  }
+
+  html body .gift-photo-large{
+    height:auto !important;
+    min-height:320px !important;
+    padding:18px !important;
+  }
+
+  html body .gift-photo-large img{
+    max-height:340px !important;
+  }
+}
+
+@media(max-width:1100px){
+  html body .gift-photo-large{
+    height:auto !important;
+    min-height:0 !important;
+    padding:16px !important;
+  }
+}

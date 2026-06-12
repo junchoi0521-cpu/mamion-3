@@ -20,16 +20,22 @@
 
   html body .gift-photo-large{
     height:276px !important;
-    background-image:url('./assets/gift-box-overview-v24.jpg') !important;
-    background-size:100% auto !important;
-    background-position:center 30% !important;
+    background-image:none !important;
+    background-size:initial !important;
+    background-position:center center !important;
     background-repeat:no-repeat !important;
     background-color:#fff8fb !important;
   }
 
   html body .gift-photo-large img{
-    opacity:0 !important;
-    visibility:hidden !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    display:block !important;
+    width:100% !important;
+    height:auto !important;
+    object-fit:contain !important;
+    object-position:center center !important;
+    transform:none !important;
   }
 
   html body .gift-copy-area{
