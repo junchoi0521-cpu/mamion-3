@@ -11,7 +11,7 @@
   }
 
   html body .why-left,
-  html body .stats-strip{
+  html body .review-event-card{
     position:relative !important;
     overflow:hidden !important;
     border:1px solid rgba(255,200,218,.92) !important;
@@ -21,7 +21,7 @@
   }
 
   html body .why-left::before,
-  html body .stats-strip::before{
+  html body .review-event-card::before{
     content:'' !important;
     position:absolute !important;
     inset:0 0 auto 0 !important;
@@ -31,7 +31,7 @@
   }
 
   html body .why-left::after,
-  html body .stats-strip::after{
+  html body .review-event-card::after{
     content:'' !important;
     position:absolute !important;
     right:-72px !important;
@@ -134,61 +134,152 @@
     letter-spacing:-.012em !important;
   }
 
-  html body .stats-strip{
-    grid-template-columns:1fr !important;
-    gap:12px !important;
+  html body .review-event-card{
+    min-height:100% !important;
     padding:34px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    gap:16px !important;
   }
 
-  html body .stats-strip article{
+  html body .review-event-visual{
+    position:absolute !important;
+    right:26px !important;
+    top:24px !important;
+    width:82px !important;
+    height:82px !important;
+  }
+
+  html body .review-event-badge{
+    width:max-content !important;
+    padding:8px 15px !important;
+    border-radius:999px !important;
+    border:1px solid rgba(247,64,120,.18) !important;
+    background:rgba(255,242,247,.9) !important;
+    color:#f74078 !important;
+    font-size:13px !important;
+    font-weight:900 !important;
+    line-height:1 !important;
+    letter-spacing:.04em !important;
+  }
+
+  html body .review-event-card h3{
     position:relative !important;
-    min-height:92px !important;
-    padding:18px 20px 18px 94px !important;
+    z-index:1 !important;
+    max-width:330px !important;
+    margin:0 !important;
+    color:#261815 !important;
+    font-family:'Pretendard','Noto Sans KR',system-ui,sans-serif !important;
+    font-size:31px !important;
+    line-height:1.18 !important;
+    font-weight:900 !important;
+    letter-spacing:-.045em !important;
+  }
+
+  html body .review-event-desc{
+    position:relative !important;
+    z-index:1 !important;
+    max-width:420px !important;
+    margin:0 !important;
+    color:#65535b !important;
+    font-size:15px !important;
+    line-height:1.7 !important;
+    font-weight:650 !important;
+    letter-spacing:-.012em !important;
+  }
+
+  html body .review-event-points{
+    position:relative !important;
+    z-index:1 !important;
     display:grid !important;
     grid-template-columns:1fr !important;
-    align-content:center !important;
-    justify-items:start !important;
-    text-align:left !important;
-    border:1px solid rgba(255,211,226,.86) !important;
-    border-radius:20px !important;
-    background:rgba(255,255,255,.72) !important;
-    box-shadow:0 12px 30px rgba(247,64,120,.045) !important;
+    gap:9px !important;
   }
 
-  html body .stats-strip article:last-child{
-    border-right:1px solid rgba(255,211,226,.86) !important;
-  }
-
-  html body .stats-strip article svg{
-    position:absolute !important;
-    left:24px !important;
-    top:50% !important;
-    width:46px !important;
-    height:46px !important;
-    padding:10px !important;
+  html body .review-event-points article{
+    min-height:48px !important;
+    padding:11px 14px !important;
+    display:flex !important;
+    align-items:center !important;
+    gap:11px !important;
+    border:1px solid rgba(255,211,226,.88) !important;
     border-radius:16px !important;
+    background:rgba(255,255,255,.74) !important;
+    box-shadow:0 10px 24px rgba(247,64,120,.045) !important;
+  }
+
+  html body .review-event-points svg{
+    width:36px !important;
+    height:36px !important;
+    padding:8px !important;
+    flex:0 0 auto !important;
+    border-radius:13px !important;
     background:#fff1f6 !important;
     color:#f74078 !important;
-    transform:translateY(-50%) !important;
-    stroke-width:2.15 !important;
+    stroke-width:2.25 !important;
   }
 
-  html body .stats-strip strong{
-    margin:0 0 4px !important;
-    color:#f74078 !important;
-    font-family:'Pretendard','Noto Sans KR',system-ui,sans-serif !important;
-    font-size:36px !important;
-    line-height:1 !important;
+  html body .review-event-points b{
+    color:#33201c !important;
+    font-size:14px !important;
+    line-height:1.3 !important;
     font-weight:850 !important;
-    letter-spacing:-.025em !important;
+    letter-spacing:-.015em !important;
   }
 
-  html body .stats-strip span{
-    color:#2b1a17 !important;
+  html body .review-event-guide{
+    position:relative !important;
+    z-index:1 !important;
+    padding:17px 18px !important;
+    border:1px solid rgba(247,64,120,.16) !important;
+    border-radius:20px !important;
+    background:linear-gradient(135deg,#fff 0%,#fff4f8 100%) !important;
+  }
+
+  html body .review-event-guide strong{
+    display:block !important;
+    margin-bottom:8px !important;
+    color:#f74078 !important;
     font-size:15px !important;
-    line-height:1.25 !important;
-    font-weight:800 !important;
+    line-height:1.42 !important;
+    font-weight:900 !important;
     letter-spacing:-.018em !important;
+  }
+
+  html body .review-event-guide p{
+    margin:0 !important;
+    color:#66565b !important;
+    font-size:13.5px !important;
+    line-height:1.65 !important;
+    font-weight:620 !important;
+    letter-spacing:-.01em !important;
+  }
+
+  html body .review-event-button{
+    position:relative !important;
+    z-index:1 !important;
+    width:100% !important;
+    min-height:50px !important;
+    border:0 !important;
+    border-radius:999px !important;
+    background:linear-gradient(135deg,#ff6f9f 0%,#f74078 100%) !important;
+    color:#fff !important;
+    box-shadow:0 14px 28px rgba(247,64,120,.2) !important;
+    font-size:15px !important;
+    font-weight:900 !important;
+    letter-spacing:-.01em !important;
+  }
+
+  html body .review-event-card small{
+    position:relative !important;
+    z-index:1 !important;
+    display:block !important;
+    color:#8a737b !important;
+    font-size:12.5px !important;
+    line-height:1.55 !important;
+    font-weight:650 !important;
+    letter-spacing:-.01em !important;
   }
 }
 
@@ -198,7 +289,7 @@
   }
 
   html body .why-left,
-  html body .stats-strip{
+  html body .review-event-card{
     border-radius:20px !important;
     background:linear-gradient(135deg,#fff 0%,#fff8fb 100%) !important;
     box-shadow:0 14px 36px rgba(247,64,120,.07) !important;
@@ -228,20 +319,187 @@
     color:#f74078 !important;
   }
 
-  html body .stats-strip{
-    gap:10px !important;
-    padding:18px !important;
+  html body .review-event-card{
+    position:relative !important;
+    overflow:hidden !important;
+    padding:24px 18px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    gap:14px !important;
+    border:1px solid rgba(255,205,220,.92) !important;
   }
 
-  html body .stats-strip article{
-    min-height:86px !important;
-    padding:18px !important;
+  html body .review-event-card::before{
+    content:'' !important;
+    position:absolute !important;
+    inset:0 0 auto 0 !important;
+    height:4px !important;
+    background:linear-gradient(90deg,#ff6f9f,rgba(255,111,159,.16)) !important;
+  }
+
+  html body .review-event-card::after{
+    content:'' !important;
+    position:absolute !important;
+    right:-70px !important;
+    top:-82px !important;
+    width:170px !important;
+    height:170px !important;
+    border-radius:50% !important;
+    background:radial-gradient(circle,rgba(255,120,167,.14),rgba(255,255,255,0) 68%) !important;
+  }
+
+  html body .review-event-visual{
+    position:absolute !important;
+    right:16px !important;
+    top:20px !important;
+    width:64px !important;
+    height:64px !important;
+  }
+
+  html body .review-event-visual svg:first-child{
+    width:54px !important;
+    height:54px !important;
+    padding:13px !important;
+  }
+
+  html body .review-event-visual svg:last-child{
+    width:24px !important;
+    height:24px !important;
+  }
+
+  html body .review-event-badge{
+    width:max-content !important;
+    padding:8px 14px !important;
+    border-radius:999px !important;
+    border:1px solid rgba(247,64,120,.18) !important;
+    background:#fff1f6 !important;
+    color:#f74078 !important;
+    font-size:12px !important;
+    font-weight:900 !important;
+    letter-spacing:.04em !important;
+  }
+
+  html body .review-event-card h3{
+    position:relative !important;
+    z-index:1 !important;
+    margin:0 !important;
+    padding-right:58px !important;
+    color:#261815 !important;
+    font-size:25px !important;
+    line-height:1.22 !important;
+    font-weight:900 !important;
+    letter-spacing:-.04em !important;
+  }
+
+  html body .review-event-desc,
+  html body .review-event-guide p{
+    position:relative !important;
+    z-index:1 !important;
+    margin:0 !important;
+    color:#65535b !important;
+    font-size:14px !important;
+    line-height:1.68 !important;
+    font-weight:650 !important;
+  }
+
+  html body .review-event-points{
+    position:relative !important;
+    z-index:1 !important;
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:9px !important;
+  }
+
+  html body .review-event-points article{
+    padding:11px 13px !important;
+    display:flex !important;
+    align-items:center !important;
+    gap:10px !important;
     border:1px solid #ffd8e4 !important;
-    border-radius:18px !important;
+    border-radius:16px !important;
     background:#fff !important;
   }
 
-  html body .stats-strip article:last-child{
-    border-bottom:1px solid #ffd8e4 !important;
+  html body .review-event-points svg{
+    width:34px !important;
+    height:34px !important;
+    padding:8px !important;
+    flex:0 0 auto !important;
+    border-radius:12px !important;
+    background:#fff1f6 !important;
+    color:#f74078 !important;
   }
+
+  html body .review-event-points b{
+    color:#33201c !important;
+    font-size:13.5px !important;
+    line-height:1.3 !important;
+    font-weight:850 !important;
+  }
+
+  html body .review-event-guide{
+    position:relative !important;
+    z-index:1 !important;
+    padding:16px !important;
+    border:1px solid rgba(247,64,120,.16) !important;
+    border-radius:18px !important;
+    background:linear-gradient(135deg,#fff 0%,#fff4f8 100%) !important;
+  }
+
+  html body .review-event-guide strong{
+    display:block !important;
+    margin-bottom:8px !important;
+    color:#f74078 !important;
+    font-size:14.5px !important;
+    line-height:1.45 !important;
+    font-weight:900 !important;
+  }
+
+  html body .review-event-button{
+    position:relative !important;
+    z-index:1 !important;
+    width:100% !important;
+    min-height:48px !important;
+    border:0 !important;
+    border-radius:999px !important;
+    background:linear-gradient(135deg,#ff6f9f 0%,#f74078 100%) !important;
+    color:#fff !important;
+    box-shadow:0 12px 24px rgba(247,64,120,.18) !important;
+    font-size:14px !important;
+    font-weight:900 !important;
+  }
+
+  html body .review-event-card small{
+    position:relative !important;
+    z-index:1 !important;
+    color:#8a737b !important;
+    font-size:12px !important;
+    line-height:1.55 !important;
+    font-weight:650 !important;
+  }
+}
+
+html body .review-event-visual svg:first-child{
+  position:absolute !important;
+  right:0 !important;
+  top:0 !important;
+  width:70px !important;
+  height:70px !important;
+  padding:16px !important;
+  border-radius:24px !important;
+  background:linear-gradient(135deg,#fff 0%,#fff0f5 100%) !important;
+  color:#f74078 !important;
+  box-shadow:inset 0 0 0 1px rgba(247,64,120,.13),0 12px 30px rgba(247,64,120,.09) !important;
+  stroke-width:1.9 !important;
+}
+
+html body .review-event-visual svg:last-child{
+  position:absolute !important;
+  right:54px !important;
+  top:46px !important;
+  width:26px !important;
+  height:26px !important;
+  color:#ff7da7 !important;
+  fill:rgba(255,125,167,.16) !important;
+  stroke-width:2.2 !important;
 }

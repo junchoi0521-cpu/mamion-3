@@ -9,12 +9,12 @@ import {
   Phone,
   CalendarCheck,
   Heart,
-  Star,
   Search,
   ChevronLeft,
   ChevronRight,
   Box,
-  Smile,
+  PencilLine,
+  UserCheck,
 } from 'lucide-react';
 import './styles.css';
 import './address-search.css';
@@ -251,19 +251,48 @@ function WhyRandom() {
             {cards.map(([icon, title, desc]) => <article key={title}><i>{icon}</i><h3>{title}</h3><p>{desc}</p></article>)}
           </div>
         </div>
-        <StatsStrip />
+        <ReviewEventCard />
       </div>
     </section>
   );
 }
 
-function StatsStrip() {
-  const stats = [
-    [<Star size={34} />, '4.9', '평균 만족도'],
-    [<Smile size={34} />, '2,300+', '누적 후기'],
-    [<Heart size={34} />, '98%', '추천 의사'],
+function ReviewEventCard() {
+  const points = [
+    [<PencilLine size={22} />, '자유로운 후기 작성'],
+    [<ShieldCheck size={22} />, '개인정보 마스킹 후 활용'],
+    [<UserCheck size={22} />, '실제 수령자 대상 진행'],
   ];
-  return <div className="stats-strip">{stats.map(([icon, num, label]) => <article key={label}>{icon}<strong>{num}</strong><span>{label}</span></article>)}</div>;
+  return (
+    <aside className="review-event-card" aria-label="후기 이벤트 안내">
+      <div className="review-event-visual" aria-hidden="true">
+        <Gift size={38} />
+        <Heart size={22} />
+      </div>
+      <span className="review-event-badge">EVENT</span>
+      <h3>선물 수령 후 후기 이벤트</h3>
+      <p className="review-event-desc">
+        마미온 임신축하선물을 수령하신 뒤 사진 또는 간단한 후기를 남겨주시면 감사 선물 이벤트 참여 안내를 도와드려요.
+      </p>
+      <div className="review-event-points">
+        {points.map(([icon, label]) => (
+          <article key={label}>
+            {icon}
+            <b>{label}</b>
+          </article>
+        ))}
+      </div>
+      <div className="review-event-guide">
+        <strong>리뷰 작성 후 “마미온” 카카오톡으로 보내주세요</strong>
+        <p>
+          블로그, 인스타그램, 페이스북 등 SNS에 작성하신 후기 링크를 보내주시면 됩니다.
+          또는 수령 사진과 간단한 후기를 카카오톡으로 직접 전달해 주셔도 좋아요.
+        </p>
+      </div>
+      <button type="button" className="review-event-button">이벤트 안내 예정</button>
+      <small>후기는 실제 수령자에 한해 안내되며, 활용 시 개인정보는 보호됩니다.</small>
+    </aside>
+  );
 }
 
 
