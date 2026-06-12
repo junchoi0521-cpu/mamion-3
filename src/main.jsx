@@ -242,6 +242,11 @@ function WhyRandom() {
     [<CalendarCheck size={42} />, '매월 새로운 구성', '매월 새로운 구성으로 더 설레는 선물을 보내드려요.'],
     [<Gift size={42} />, '추가 선물의 기회', '매월 일부 신청자에게 특별 선물이 함께 갈 수 있어요.'],
   ];
+  const flow = [
+    [<Box size={22} />, '01', '구성품 준비', '매월 준비 가능한 품목을 확인해요'],
+    [<CalendarCheck size={22} />, '02', '랜덤 구성', '신청 시기와 재고에 따라 랜덤으로 구성돼요'],
+    [<Gift size={22} />, '03', '선물 안내', '예비맘에게 필요한 실용템 위주로 전달돼요'],
+  ];
   return (
     <section className="why-section">
       <div className="why-grid-wrap section-wrap">
@@ -249,6 +254,22 @@ function WhyRandom() {
           <h2>왜 마미온은 랜덤 증정으로 운영하나요?</h2>
           <div className="why-grid">
             {cards.map(([icon, title, desc]) => <article key={title}><i>{icon}</i><h3>{title}</h3><p>{desc}</p></article>)}
+          </div>
+          <div className="random-flow-card" aria-label="랜덤 구성 운영 흐름">
+            <div className="random-flow-head">
+              <strong>랜덤 구성은 이렇게 운영돼요</strong>
+            </div>
+            <div className="random-flow-steps">
+              {flow.map(([icon, step, title, desc]) => (
+                <article key={step}>
+                  <i>{icon}</i>
+                  <span>{step}</span>
+                  <b>{title}</b>
+                  <p>{desc}</p>
+                </article>
+              ))}
+            </div>
+            <small>구성품은 신청 시기와 재고 상황에 따라 달라질 수 있으며, 모든 예비맘에게 공정하게 랜덤으로 안내됩니다.</small>
           </div>
         </div>
         <ReviewEventCard />
@@ -283,14 +304,15 @@ function ReviewEventCard() {
         ))}
       </div>
       <div className="review-event-guide">
+        <span className="review-event-guide-label">참여 방법</span>
         <strong>리뷰 작성 후 “마미온” 카카오톡으로 보내주세요</strong>
         <p>
           블로그, 인스타그램, 페이스북 등 SNS에 작성하신 후기 링크를 보내주시면 됩니다.
           또는 수령 사진과 간단한 후기를 카카오톡으로 직접 전달해 주셔도 좋아요.
         </p>
       </div>
-      <button type="button" className="review-event-button">이벤트 안내 예정</button>
-      <small>후기는 실제 수령자에 한해 안내되며, 활용 시 개인정보는 보호됩니다.</small>
+      <button type="button" className="review-event-button">후기 이벤트 안내 받기</button>
+      <small>후기 이벤트는 실제 수령자에 한해 안내되며, 활용 시 개인정보는 마스킹 처리됩니다.</small>
     </aside>
   );
 }
