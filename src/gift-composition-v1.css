@@ -1,7 +1,7 @@
 /* Product composition card list for the Mamion gift section. */
 html body .gift-composition-section{
   position:relative !important;
-  padding-top:58px !important;
+  padding-top:46px !important;
   padding-bottom:40px !important;
 }
 
@@ -9,9 +9,9 @@ html body .gift-composition-section::before{
   content:'' !important;
   position:absolute !important;
   left:50% !important;
-  top:22px !important;
-  width:min(920px, 86vw) !important;
-  height:118px !important;
+  top:46px !important;
+  width:min(860px, 82vw) !important;
+  height:86px !important;
   transform:translateX(-50%) !important;
   border-radius:999px !important;
   background:
@@ -25,7 +25,7 @@ html body .gift-composition-heading{
   display:block !important;
   position:relative !important;
   z-index:1 !important;
-  margin:0 0 20px !important;
+  margin:0 0 18px !important;
   text-align:center !important;
 }
 
@@ -40,19 +40,19 @@ html body .gift-composition-badge{
   display:inline-flex !important;
   align-items:center !important;
   justify-content:center !important;
-  min-height:36px !important;
-  margin:0 auto 8px !important;
-  padding:8px 20px !important;
+  min-height:34px !important;
+  margin:0 auto -2px !important;
+  padding:7px 20px !important;
   border-radius:999px !important;
-  background:linear-gradient(135deg,#ff4a82 0%,#ff7fa6 100%) !important;
-  border:1px solid rgba(255,255,255,.68) !important;
-  color:#fff !important;
+  background:linear-gradient(135deg,#fff 0%,#fff7fa 100%) !important;
+  border:1px solid rgba(247,64,120,.22) !important;
+  color:#ff3f78 !important;
   font-size:14px !important;
   line-height:1.2 !important;
   letter-spacing:-.02em !important;
   font-weight:900 !important;
-  transform:rotate(-1.2deg) !important;
-  box-shadow:0 16px 34px rgba(247,64,120,.20), inset 0 1px 0 rgba(255,255,255,.50) !important;
+  transform:translateY(8px) !important;
+  box-shadow:0 10px 24px rgba(247,64,120,.12), inset 0 1px 0 rgba(255,255,255,.70) !important;
 }
 
 html body .gift-composition-heading h2{
@@ -60,7 +60,7 @@ html body .gift-composition-heading h2{
   display:block !important;
   width:max-content !important;
   max-width:100% !important;
-  margin:10px auto 14px !important;
+  margin:12px auto 12px !important;
   padding:0 56px 16px !important;
   color:#251714 !important;
   font-size:56px !important;
