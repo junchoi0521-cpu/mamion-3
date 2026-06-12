@@ -2579,8 +2579,18 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
 }
 
 @media (min-width:1101px){
+  .hero-shell{
+    padding-bottom:28px !important;
+  }
+
+  .hero-card{
+    height:680px !important;
+    min-height:680px !important;
+  }
+
   .hero-content{
     width:620px !important;
+    padding-top:48px !important;
   }
 
   .hero-content h1{
@@ -2640,6 +2650,10 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
     line-height:1.58 !important;
     letter-spacing:-.025em !important;
     word-break:keep-all !important;
+  }
+
+  .hero-benefits{
+    margin-top:26px !important;
   }
 }
 
