@@ -588,8 +588,10 @@ function SchedulePage() {
         return;
       }
       if (result?.result === 'success') {
-        setStatus(result.message || '상담 일정이 정상적으로 접수되었습니다.');
-        setStatusType('success');
+        try {
+          if (applicantName) sessionStorage.setItem('mamionScheduleCompleteName', applicantName);
+        } catch {}
+        window.location.href = '/schedule-complete';
         return;
       }
       setStatus(result?.message || '일정 저장 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
@@ -627,9 +629,43 @@ function SchedulePage() {
   );
 }
 
+function ScheduleCompletePage() {
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    try {
+      setName(sessionStorage.getItem('mamionScheduleCompleteName') || '');
+      sessionStorage.removeItem('mamionScheduleCompleteName');
+    } catch {}
+  }, []);
+
+  return (
+    <main className="page schedule-page schedule-complete-page">
+      <Header />
+      <section className="schedule-complete-section">
+        <div className="schedule-complete-card">
+          <span className="schedule-badge">MamiOn Schedule</span>
+          <div className="schedule-complete-icon" aria-hidden="true">✓</div>
+          <h1>{name ? `${name}님, 상담 일정이 정상적으로 접수되었습니다.` : '상담 일정이 정상적으로 접수되었습니다.'}</h1>
+          <p>남겨주신 상담 가능 일시와 희망 장소를 확인한 뒤 순차적으로 안내드리겠습니다.</p>
+          <div className="schedule-complete-note">
+            <strong>접수 후 안내</strong>
+            <span>마미온 담당자가 신청 정보와 상담 일정을 확인한 후 연락드릴 예정입니다.</span>
+          </div>
+          <div className="schedule-complete-actions">
+            <a href="/">홈으로 돌아가기</a>
+            <a href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오톡 문의</a>
+          </div>
+        </div>
+      </section>
+      <Footer />
+    </main>
+  );
+}
+
 function PolicyPage({ type }) { return <main className="page"><Header /><PolicySection initialType={type} /><Footer /></main>; }
 function Footer() { return <footer className="footer"><div><img src={logo} alt="마미온" /><p>예비맘과 아기의 건강한 시작을 응원하는 임신축하선물 무료 신청 플랫폼</p></div><nav><a href="/privacy">개인정보처리방침</a><a href="/terms">이용약관</a><a href={KAKAO_URL} target="_blank" rel="noopener noreferrer">문의하기</a></nav><small>© 2026 MamiOn. All Rights Reserved.</small></footer>; }
 function StickyButton() { return <button className="sticky" type="button" onClick={scrollToApply}>임신축하선물 무료 신청하기</button>; }
 
 const path = window.location.pathname;
-createRoot(document.getElementById('root')).render(path === '/privacy' ? <PolicyPage type="privacy" /> : path === '/terms' ? <PolicyPage type="terms" /> : path === '/thanks' ? <ThanksPage /> : path === '/schedule' ? <SchedulePage /> : <App />);
+createRoot(document.getElementById('root')).render(path === '/privacy' ? <PolicyPage type="privacy" /> : path === '/terms' ? <PolicyPage type="terms" /> : path === '/thanks' ? <ThanksPage /> : path === '/schedule' ? <SchedulePage /> : path === '/schedule-complete' ? <ScheduleCompletePage /> : <App />);
