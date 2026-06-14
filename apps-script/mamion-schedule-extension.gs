@@ -7,8 +7,9 @@
  * 2. Call ensureScheduleColumns_(sheet) before reading/writing headers.
  * 3. In the existing submit handler, call enrichScheduleFields_(data, sheet)
  *    before appending the applicant row.
- * 4. Add this route to doGet(e):
+ * 4. Add these routes to doGet(e):
  *    if (e.parameter.action === 'schedule') return handleScheduleSubmit_(e);
+ *    if (e.parameter.action === 'scheduleInfo') return handleScheduleInfo_(e);
  *
  * Existing rows and column order are preserved. Missing schedule columns are
  * appended to the end of the first row only.
@@ -97,6 +98,35 @@ function setRowValuesByHeader_(sheet, rowIndex, valuesByHeader) {
   Object.keys(valuesByHeader).forEach(function (headerName) {
     var columnIndex = headers.indexOf(headerName) + 1;
     if (columnIndex > 0) sheet.getRange(rowIndex, columnIndex).setValue(valuesByHeader[headerName]);
+  });
+}
+
+function getRowValueByHeader_(sheet, rowIndex, headers, headerName) {
+  var columnIndex = headers.indexOf(headerName) + 1;
+  if (columnIndex > 0) return sheet.getRange(rowIndex, columnIndex).getValue();
+  return '';
+}
+
+function handleScheduleInfo_(e) {
+  var callback = e.parameter.callback || 'callback';
+  var data = {};
+  try {
+    data = JSON.parse(e.parameter.data || '{}');
+  } catch (error) {
+    return jsonp_(callback, { result: 'error', message: '잘못된 요청입니다.' });
+  }
+
+  var token = String(data.token || '').trim();
+  if (!token) return jsonp_(callback, { result: 'error', message: '잘못된 접근입니다.' });
+
+  var sheet = getActiveMamionSheet_();
+  var headers = ensureScheduleColumns_(sheet);
+  var rowIndex = findRowByHeaderValue_(sheet, '신청토큰', token);
+  if (rowIndex === -1) return jsonp_(callback, { result: 'not_found', message: '신청 정보를 찾을 수 없습니다.' });
+
+  return jsonp_(callback, {
+    result: 'success',
+    name: String(getRowValueByHeader_(sheet, rowIndex, headers, '이름') || sheet.getRange(rowIndex, 2).getValue() || '').trim(),
   });
 }
 

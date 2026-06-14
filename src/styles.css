@@ -3164,6 +3164,12 @@ html body .schedule-form{
   gap:16px !important;
 }
 
+html body .schedule-date-time{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:14px !important;
+}
+
 html body .schedule-form label{
   display:grid !important;
   gap:8px !important;
@@ -3266,5 +3272,10 @@ html body .schedule-message.success{
   html body .schedule-form button{
     height:56px !important;
     font-size:16px !important;
+  }
+
+  html body .schedule-date-time{
+    grid-template-columns:1fr !important;
+    gap:16px !important;
   }
 }

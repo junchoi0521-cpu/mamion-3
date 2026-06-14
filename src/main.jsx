@@ -511,12 +511,36 @@ function ThanksPage() { return <main className="page"><Header /><section classNa
 
 function SchedulePage() {
   const token = new URLSearchParams(window.location.search).get('token') || '';
-  const placeOptions = ['신청 주소 근처 조용한 카페', '자택', '직장 근처', '직접 입력'];
-  const [form, setForm] = useState({ availableAt: '', place: placeOptions[0], customPlace: '', request: '' });
+  const [form, setForm] = useState({ date: '', time: '', place: '', request: '' });
+  const [applicantName, setApplicantName] = useState('');
   const [status, setStatus] = useState(token ? '' : '잘못된 접근입니다.');
   const [statusType, setStatusType] = useState(token ? '' : 'error');
   const [submitting, setSubmitting] = useState(false);
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
+
+  useEffect(() => {
+    if (!token) return;
+
+    let active = true;
+    callAppsScript('scheduleInfo', { token })
+      .then((result) => {
+        if (!active) return;
+        if (result?.result === 'not_found') {
+          setStatus(result.message || '신청 정보를 찾을 수 없습니다.');
+          setStatusType('error');
+          return;
+        }
+        if (result?.result === 'success' && result.name) setApplicantName(result.name);
+      })
+      .catch(() => {});
+
+    return () => { active = false; };
+  }, [token]);
+
+  const formatScheduleDateTime = () => {
+    if (!form.date || !form.time.trim()) return '';
+    return `${form.date} ${form.time.trim()}`;
+  };
 
   const submitSchedule = async (event) => {
     event.preventDefault();
@@ -525,28 +549,36 @@ function SchedulePage() {
       setStatusType('error');
       return;
     }
-    if (!form.availableAt.trim()) {
-      setStatus('상담 가능 일시를 입력해주세요.');
+    if (!form.date) {
+      setStatus('상담 가능 날짜를 선택해주세요.');
       setStatusType('error');
       return;
     }
-    const preferredPlace = form.place === '직접 입력' ? form.customPlace.trim() : form.place;
-    if (!preferredPlace) {
+    if (!form.time.trim()) {
+      setStatus('상담 가능 시간을 입력해주세요.');
+      setStatusType('error');
+      return;
+    }
+    if (!form.place.trim()) {
       setStatus('희망 상담 장소를 입력해주세요.');
       setStatusType('error');
       return;
     }
 
+    const availableAt = formatScheduleDateTime();
+    const preferredPlace = form.place.trim();
     setSubmitting(true);
     setStatus('');
     setStatusType('');
     try {
       const result = await callAppsScript('schedule', {
         token,
-        availableAt: form.availableAt.trim(),
+        availableAt,
+        scheduleDate: form.date,
+        scheduleTime: form.time.trim(),
         preferredPlace,
         request: form.request.trim(),
-        '상담 가능 일시': form.availableAt.trim(),
+        '상담 가능 일시': availableAt,
         '희망 상담 장소': preferredPlace,
         '기타 요청사항': form.request.trim(),
       });
@@ -576,13 +608,15 @@ function SchedulePage() {
       <section className="schedule-section">
         <div className="schedule-card">
           <span className="schedule-badge">MamiOn Schedule</span>
-          <h1>마미온 임신축하선물 신청이 정상 접수되었습니다.</h1>
+          <h1>{applicantName ? `${applicantName}님, 마미온 임신축하선물 신청이 정상 접수되었습니다.` : '마미온 임신축하선물 신청이 정상 접수되었습니다.'}</h1>
           <p>보다 빠른 안내를 위해 상담 가능 일시와 희망 장소를 남겨주세요.</p>
           <form className="schedule-form" onSubmit={submitSchedule}>
             {status && <div className={`schedule-message ${statusType}`}>{status}</div>}
-            <label><span>상담 가능 일시</span><input value={form.availableAt} onChange={(event) => update('availableAt', event.target.value)} placeholder="예: 6월 18일 오후 2시 / 평일 저녁 가능" disabled={!token || submitting} /></label>
-            <label><span>희망 상담 장소</span><select value={form.place} onChange={(event) => update('place', event.target.value)} disabled={!token || submitting}>{placeOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></label>
-            {form.place === '직접 입력' && <label><span>희망 상담 장소 직접 입력</span><input value={form.customPlace} onChange={(event) => update('customPlace', event.target.value)} placeholder="예: 병원 근처 카페 / 거주지 근처" disabled={!token || submitting} /></label>}
+            <div className="schedule-date-time">
+              <label><span>상담 가능 날짜</span><input type="date" value={form.date} onChange={(event) => update('date', event.target.value)} disabled={!token || submitting} /></label>
+              <label><span>상담 가능 시간</span><input value={form.time} onChange={(event) => update('time', event.target.value)} placeholder="예: 오후 2시 / 18:30 / 평일 저녁" disabled={!token || submitting} /></label>
+            </div>
+            <label><span>희망 상담 장소</span><input value={form.place} onChange={(event) => update('place', event.target.value)} placeholder="예: 투썸플레이스 강남역점 / 자택 근처 카페" disabled={!token || submitting} /></label>
             <label><span>기타 요청사항</span><textarea value={form.request} onChange={(event) => update('request', event.target.value)} placeholder="예: 남편과 함께 상담 희망 / 전화 먼저 희망" rows={4} disabled={!token || submitting} /></label>
             <button type="submit" disabled={!token || submitting}>{submitting ? '저장 중입니다...' : '상담 일정 제출하기'}</button>
           </form>
