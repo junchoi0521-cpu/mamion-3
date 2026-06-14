@@ -23,7 +23,7 @@ import heroMom from './assets/hero-mom.jpg';
 import bunny from './assets/contact-bunny.jpg';
 import logo from './assets/logo.png';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxluQ98Wg3VrkopnN0i9ffTzwWJRrShqSOe9GqbWJ3rOltHgWtRyflaiKWHWE-MCVyCsg/exec';
 const PRODUCTION_ORIGIN = 'https://www.mamion.kr';
 const DISPLAY_TODAY_OFFSET = 43;
 const DISPLAY_TOTAL_OFFSET = 3875;

@@ -1,4 +1,4 @@
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxluQ98Wg3VrkopnN0i9ffTzwWJRrShqSOe9GqbWJ3rOltHgWtRyflaiKWHWE-MCVyCsg/exec';
 const PRODUCTION_ORIGIN = 'https://www.mamion.kr';
 
 const formState = {
