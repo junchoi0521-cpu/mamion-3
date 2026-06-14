@@ -3086,3 +3086,185 @@ html body .mobile-nav-actions svg{
     color:#fff !important;
   }
 }
+
+/* ===== V44 SCHEDULE LINK PAGE ===== */
+html body .schedule-page{
+  min-height:100vh !important;
+  background:linear-gradient(180deg,#fff8fb 0%,#fff 48%,#fff7f2 100%) !important;
+}
+
+html body .schedule-section{
+  width:min(880px, calc(100% - 40px)) !important;
+  margin:0 auto !important;
+  padding:104px 0 72px !important;
+}
+
+html body .schedule-card{
+  position:relative !important;
+  overflow:hidden !important;
+  padding:42px !important;
+  border:1px solid #ffc9d9 !important;
+  border-radius:24px !important;
+  background:rgba(255,255,255,.96) !important;
+  box-shadow:0 24px 70px rgba(247,64,120,.12) !important;
+}
+
+html body .schedule-card::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 0 auto auto !important;
+  width:220px !important;
+  height:220px !important;
+  border-radius:0 24px 0 999px !important;
+  background:linear-gradient(135deg,rgba(255,238,244,.95),rgba(255,248,242,.3)) !important;
+  pointer-events:none !important;
+}
+
+html body .schedule-badge{
+  position:relative !important;
+  z-index:1 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-height:34px !important;
+  padding:0 18px !important;
+  border:1px solid #ffc4d6 !important;
+  border-radius:999px !important;
+  background:#fff7fa !important;
+  color:#f33878 !important;
+  font-size:13px !important;
+  font-weight:900 !important;
+}
+
+html body .schedule-card h1{
+  position:relative !important;
+  z-index:1 !important;
+  max-width:640px !important;
+  margin:20px 0 12px !important;
+  color:#251614 !important;
+  font-size:36px !important;
+  line-height:1.18 !important;
+  letter-spacing:-.045em !important;
+}
+
+html body .schedule-card>p{
+  position:relative !important;
+  z-index:1 !important;
+  margin:0 0 28px !important;
+  color:#72666a !important;
+  font-size:17px !important;
+  line-height:1.65 !important;
+  font-weight:800 !important;
+}
+
+html body .schedule-form{
+  position:relative !important;
+  z-index:1 !important;
+  display:grid !important;
+  gap:16px !important;
+}
+
+html body .schedule-form label{
+  display:grid !important;
+  gap:8px !important;
+  color:#30201d !important;
+  font-size:15px !important;
+  font-weight:900 !important;
+}
+
+html body .schedule-form input,
+html body .schedule-form select,
+html body .schedule-form textarea{
+  width:100% !important;
+  border:1px solid #eadde0 !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  color:#2c1a17 !important;
+  font-size:15px !important;
+  font-weight:800 !important;
+  line-height:1.5 !important;
+  box-shadow:0 10px 24px rgba(133,91,99,.05) !important;
+}
+
+html body .schedule-form input,
+html body .schedule-form select{
+  height:54px !important;
+  padding:0 15px !important;
+}
+
+html body .schedule-form textarea{
+  min-height:116px !important;
+  padding:14px 15px !important;
+  resize:vertical !important;
+}
+
+html body .schedule-form input:focus,
+html body .schedule-form select:focus,
+html body .schedule-form textarea:focus{
+  outline:none !important;
+  border-color:#f74078 !important;
+  box-shadow:0 0 0 4px rgba(247,64,120,.09) !important;
+}
+
+html body .schedule-form button{
+  height:60px !important;
+  margin-top:6px !important;
+  border:0 !important;
+  border-radius:15px !important;
+  background:linear-gradient(135deg,#ff4c86,#f22970) !important;
+  color:#fff !important;
+  font-size:18px !important;
+  font-weight:950 !important;
+  box-shadow:0 18px 42px rgba(247,64,120,.2) !important;
+}
+
+html body .schedule-form button:disabled{
+  cursor:not-allowed !important;
+  opacity:.62 !important;
+}
+
+html body .schedule-message{
+  padding:14px 16px !important;
+  border-radius:14px !important;
+  font-size:14px !important;
+  font-weight:900 !important;
+  line-height:1.5 !important;
+}
+
+html body .schedule-message.error{
+  border:1px solid #ffc6d2 !important;
+  background:#fff4f6 !important;
+  color:#d71d56 !important;
+}
+
+html body .schedule-message.success{
+  border:1px solid #cdebd8 !important;
+  background:#f4fff8 !important;
+  color:#237348 !important;
+}
+
+@media(max-width:1100px){
+  html body .schedule-section{
+    width:100% !important;
+    padding:84px 18px 54px !important;
+  }
+
+  html body .schedule-card{
+    padding:28px 20px !important;
+    border-radius:20px !important;
+  }
+
+  html body .schedule-card h1{
+    font-size:28px !important;
+    line-height:1.22 !important;
+  }
+
+  html body .schedule-card>p{
+    font-size:15px !important;
+  }
+
+  html body .schedule-form button{
+    height:56px !important;
+    font-size:16px !important;
+  }
+}

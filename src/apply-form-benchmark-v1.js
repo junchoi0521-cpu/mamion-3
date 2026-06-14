@@ -1,4 +1,5 @@
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
+const PRODUCTION_ORIGIN = 'https://www.mamion.kr';
 
 const formState = {
   name: '',
@@ -25,6 +26,26 @@ function calculateWeeks(dueDate) {
   const pregnancyDays = 280 - diffDays;
   if (pregnancyDays < 0) return '0주 0일';
   return `${Math.floor(pregnancyDays / 7)}주 ${pregnancyDays % 7}일`;
+}
+
+function getScheduleOrigin() {
+  const host = window.location.hostname;
+  if (host === 'localhost' || host === '127.0.0.1') return window.location.origin;
+  return PRODUCTION_ORIGIN;
+}
+
+function createApplicationToken() {
+  const bytes = new Uint8Array(24);
+  if (window.crypto?.getRandomValues) {
+    window.crypto.getRandomValues(bytes);
+  } else {
+    bytes.forEach((_, index) => { bytes[index] = Math.floor(Math.random() * 256); });
+  }
+  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+}
+
+function createScheduleLink(token) {
+  return `${getScheduleOrigin()}/schedule?token=${encodeURIComponent(token)}`;
 }
 
 function submitByJsonp(payload) {
@@ -177,10 +198,16 @@ function wireForm(formArea, form) {
     }
 
     const fullAddress = [formState.address, formState.detailAddress].filter(Boolean).join(' ');
+    const applicationToken = createApplicationToken();
+    const scheduleLink = createScheduleLink(applicationToken);
     const payload = {
       ...formState,
       region: fullAddress,
       weeks: calculateWeeks(formState.dueDate),
+      applicationToken,
+      scheduleLink,
+      신청토큰: applicationToken,
+      '상담일시 입력 링크': scheduleLink,
       createdAt: new Date().toISOString(),
     };
 

@@ -24,6 +24,7 @@ import bunny from './assets/contact-bunny.jpg';
 import logo from './assets/logo.png';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW0BhGPbsDF8iboIme4HaTRnLAVPcd-NFCy3K9gGlYaeMbdX1BbvtlP3R__dffoDN-Kw/exec';
+const PRODUCTION_ORIGIN = 'https://www.mamion.kr';
 const DISPLAY_TODAY_OFFSET = 43;
 const DISPLAY_TOTAL_OFFSET = 3875;
 const KAKAO_URL = 'https://pf.kakao.com/_MKDGX/friend';
@@ -33,6 +34,47 @@ const goToSection = (id) => {
   if (window.location.pathname === '/') document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   else window.location.href = `/#${id}`;
 };
+
+const getScheduleOrigin = () => {
+  const host = window.location.hostname;
+  if (host === 'localhost' || host === '127.0.0.1') return window.location.origin;
+  return PRODUCTION_ORIGIN;
+};
+
+const createApplicationToken = () => {
+  const bytes = new Uint8Array(24);
+  if (window.crypto?.getRandomValues) {
+    window.crypto.getRandomValues(bytes);
+  } else {
+    bytes.forEach((_, index) => { bytes[index] = Math.floor(Math.random() * 256); });
+  }
+  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+};
+
+const createScheduleLink = (token) => `${getScheduleOrigin()}/schedule?token=${encodeURIComponent(token)}`;
+
+const callAppsScript = (action, payload = {}) => new Promise((resolve, reject) => {
+  const callbackName = `mamion${action[0]?.toUpperCase() || ''}${action.slice(1)}Callback_${Date.now()}`;
+  window[callbackName] = (result) => {
+    resolve(result);
+    delete window[callbackName];
+    document.getElementById(callbackName)?.remove();
+  };
+
+  const script = document.createElement('script');
+  script.id = callbackName;
+  script.src = `${APPS_SCRIPT_URL}?${new URLSearchParams({
+    action,
+    callback: callbackName,
+    data: JSON.stringify(payload),
+  }).toString()}`;
+  script.onerror = () => {
+    delete window[callbackName];
+    script.remove();
+    reject(new Error(`${action} failed`));
+  };
+  document.body.appendChild(script);
+});
 
 function App() {
   const [today, setToday] = useState(DISPLAY_TODAY_OFFSET);
@@ -394,21 +436,22 @@ function ApplySection({ onSubmitSuccess }) {
     };
     document.body.appendChild(script);
   };
-  const submitByJsonp = (payload) => new Promise((resolve, reject) => {
-    const callbackName = `mamionSubmitCallback_${Date.now()}`;
-    window[callbackName] = (result) => { resolve(result); delete window[callbackName]; document.getElementById(callbackName)?.remove(); };
-    const script = document.createElement('script');
-    script.id = callbackName;
-    script.src = `${APPS_SCRIPT_URL}?${new URLSearchParams({ action: 'submit', callback: callbackName, data: JSON.stringify(payload) }).toString()}`;
-    script.onerror = () => { delete window[callbackName]; script.remove(); reject(new Error('submit failed')); };
-    document.body.appendChild(script);
-  });
+  const submitByJsonp = (payload) => callAppsScript('submit', payload);
   async function submit(e) {
     e.preventDefault();
     setSubmitMessage(''); setSubmitMessageType('');
     if (!form.name || !form.phone || !form.dueDate || !form.region) { setSubmitMessage('필수 항목을 모두 입력해주세요.'); setSubmitMessageType('error'); return; }
     if (!form.privacy || !form.thirdParty) { setSubmitMessage('필수 동의 항목을 체크해주세요.'); setSubmitMessageType('error'); return; }
-    const payload = { ...form, createdAt: new Date().toISOString() };
+    const applicationToken = createApplicationToken();
+    const scheduleLink = createScheduleLink(applicationToken);
+    const payload = {
+      ...form,
+      applicationToken,
+      scheduleLink,
+      신청토큰: applicationToken,
+      '상담일시 입력 링크': scheduleLink,
+      createdAt: new Date().toISOString(),
+    };
     try {
       const result = await submitByJsonp(payload);
       if (result?.result === 'duplicate') { setSubmitMessage(result.message || '이미 이번 달 신청이 완료되었습니다. 다음 달부터 다시 신청 가능합니다.'); setSubmitMessageType('duplicate'); return; }
@@ -465,9 +508,94 @@ function PolicySection({ initialType = 'all' }) {
 }
 
 function ThanksPage() { return <main className="page"><Header /><section className="thanks-section"><div className="thanks-card"><div>🎁</div><h1>신청이 완료되었습니다!</h1><p>마미온 임신축하선물 신청이 정상 접수되었습니다.<br />담당자가 신청 내용을 확인 후 순차적으로 연락드릴 예정입니다.</p><button onClick={() => window.location.href = '/'}>홈으로 돌아가기</button></div></section><Footer /></main>; }
+
+function SchedulePage() {
+  const token = new URLSearchParams(window.location.search).get('token') || '';
+  const placeOptions = ['신청 주소 근처 조용한 카페', '자택', '직장 근처', '직접 입력'];
+  const [form, setForm] = useState({ availableAt: '', place: placeOptions[0], customPlace: '', request: '' });
+  const [status, setStatus] = useState(token ? '' : '잘못된 접근입니다.');
+  const [statusType, setStatusType] = useState(token ? '' : 'error');
+  const [submitting, setSubmitting] = useState(false);
+  const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
+
+  const submitSchedule = async (event) => {
+    event.preventDefault();
+    if (!token) {
+      setStatus('잘못된 접근입니다.');
+      setStatusType('error');
+      return;
+    }
+    if (!form.availableAt.trim()) {
+      setStatus('상담 가능 일시를 입력해주세요.');
+      setStatusType('error');
+      return;
+    }
+    const preferredPlace = form.place === '직접 입력' ? form.customPlace.trim() : form.place;
+    if (!preferredPlace) {
+      setStatus('희망 상담 장소를 입력해주세요.');
+      setStatusType('error');
+      return;
+    }
+
+    setSubmitting(true);
+    setStatus('');
+    setStatusType('');
+    try {
+      const result = await callAppsScript('schedule', {
+        token,
+        availableAt: form.availableAt.trim(),
+        preferredPlace,
+        request: form.request.trim(),
+        '상담 가능 일시': form.availableAt.trim(),
+        '희망 상담 장소': preferredPlace,
+        '기타 요청사항': form.request.trim(),
+      });
+      if (result?.result === 'not_found') {
+        setStatus(result.message || '신청 정보를 찾을 수 없습니다.');
+        setStatusType('error');
+        return;
+      }
+      if (result?.result === 'success') {
+        setStatus(result.message || '상담 일정이 정상적으로 접수되었습니다.');
+        setStatusType('success');
+        return;
+      }
+      setStatus(result?.message || '일정 저장 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      setStatusType('error');
+    } catch {
+      setStatus('일정 저장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      setStatusType('error');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <main className="page schedule-page">
+      <Header />
+      <section className="schedule-section">
+        <div className="schedule-card">
+          <span className="schedule-badge">MamiOn Schedule</span>
+          <h1>마미온 임신축하선물 신청이 정상 접수되었습니다.</h1>
+          <p>보다 빠른 안내를 위해 상담 가능 일시와 희망 장소를 남겨주세요.</p>
+          <form className="schedule-form" onSubmit={submitSchedule}>
+            {status && <div className={`schedule-message ${statusType}`}>{status}</div>}
+            <label><span>상담 가능 일시</span><input value={form.availableAt} onChange={(event) => update('availableAt', event.target.value)} placeholder="예: 6월 18일 오후 2시 / 평일 저녁 가능" disabled={!token || submitting} /></label>
+            <label><span>희망 상담 장소</span><select value={form.place} onChange={(event) => update('place', event.target.value)} disabled={!token || submitting}>{placeOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></label>
+            {form.place === '직접 입력' && <label><span>희망 상담 장소 직접 입력</span><input value={form.customPlace} onChange={(event) => update('customPlace', event.target.value)} placeholder="예: 병원 근처 카페 / 거주지 근처" disabled={!token || submitting} /></label>}
+            <label><span>기타 요청사항</span><textarea value={form.request} onChange={(event) => update('request', event.target.value)} placeholder="예: 남편과 함께 상담 희망 / 전화 먼저 희망" rows={4} disabled={!token || submitting} /></label>
+            <button type="submit" disabled={!token || submitting}>{submitting ? '저장 중입니다...' : '상담 일정 제출하기'}</button>
+          </form>
+        </div>
+      </section>
+      <Footer />
+    </main>
+  );
+}
+
 function PolicyPage({ type }) { return <main className="page"><Header /><PolicySection initialType={type} /><Footer /></main>; }
 function Footer() { return <footer className="footer"><div><img src={logo} alt="마미온" /><p>예비맘과 아기의 건강한 시작을 응원하는 임신축하선물 무료 신청 플랫폼</p></div><nav><a href="/privacy">개인정보처리방침</a><a href="/terms">이용약관</a><a href={KAKAO_URL} target="_blank" rel="noopener noreferrer">문의하기</a></nav><small>© 2026 MamiOn. All Rights Reserved.</small></footer>; }
 function StickyButton() { return <button className="sticky" type="button" onClick={scrollToApply}>임신축하선물 무료 신청하기</button>; }
 
 const path = window.location.pathname;
-createRoot(document.getElementById('root')).render(path === '/privacy' ? <PolicyPage type="privacy" /> : path === '/terms' ? <PolicyPage type="terms" /> : path === '/thanks' ? <ThanksPage /> : <App />);
+createRoot(document.getElementById('root')).render(path === '/privacy' ? <PolicyPage type="privacy" /> : path === '/terms' ? <PolicyPage type="terms" /> : path === '/thanks' ? <ThanksPage /> : path === '/schedule' ? <SchedulePage /> : <App />);
