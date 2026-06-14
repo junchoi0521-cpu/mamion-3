@@ -44,6 +44,26 @@ function bindInsuranceStatusSync(form, select) {
   sync();
 }
 
+function bindInsuranceConsultCheckbox(form) {
+  const input = form.querySelector('[name="insuranceConsult"]');
+  const label = input?.closest('.event-consent-line');
+  if (!input || !label || input.dataset.insuranceConsultClickReady) return;
+
+  input.dataset.insuranceConsultClickReady = 'true';
+  input.id = input.id || 'insurance-consult-consent';
+  label.htmlFor = input.id;
+  input.style.pointerEvents = 'auto';
+
+  const sync = () => {
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  };
+
+  input.addEventListener('click', () => {
+    requestAnimationFrame(sync);
+  });
+}
+
 function ensureInsuranceStatusField(form) {
   const existingSelect = form.querySelector('[name="insuranceStatus"]');
   if (existingSelect) {
@@ -79,6 +99,7 @@ function polishApplyCopy(form) {
     eventLabel.textContent = ' [필수] 태아보험 상담 및 기존 보험 점검에 동의합니다';
     if (input) eventLabel.prepend(input);
   }
+  bindInsuranceConsultCheckbox(form);
 
   const marketingConsentLine = form.querySelector('[name="marketing"]')?.closest('label');
   marketingConsentLine?.remove();
