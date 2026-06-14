@@ -176,7 +176,7 @@ function GiftIntro() {
           <p>마미온 임신축하박스는<br />예비맘의 소중한 출산 준비를 위해<br />꼭 필요한 실용 선물로 준비됩니다.</p>
         </div>
         <div className="gift-feature-grid">
-          <article><Gift size={42} /><b>20여 종 구성품</b><span>랜덤 증정</span></article>
+          <article><Gift size={42} /><b>24종 구성품</b><span>랜덤 증정</span></article>
           <article><Box size={42} /><b>매월 달라지는</b><span>다양한 구성</span></article>
           <article><Heart size={42} /><b>실용적인</b><span>육아·산모용품</span></article>
           <article><Truck size={42} /><b>안전하고 빠른</b><span>무료 배송</span></article>
@@ -254,7 +254,7 @@ function KitPreview() {
 
 function WhyRandom() {
   const cards = [
-    [<Box size={42} />, '더 다양한 구성품 제공', '20여 종의 폭넓은 구성품을 더 많은 예비맘에게 전해드려요.'],
+    [<Box size={42} />, '더 다양한 구성품 제공', '24종의 폭넓은 구성품을 더 많은 예비맘에게 전해드려요.'],
     [<CalendarCheck size={42} />, '매월 새로운 구성', '매월 새로운 구성으로 더 설레는 선물을 보내드려요.'],
     [<Gift size={42} />, '추가 선물의 기회', '매월 일부 신청자에게 특별 선물이 함께 갈 수 있어요.'],
   ];
