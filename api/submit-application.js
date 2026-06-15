@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxluQ98Wg3VrkopnN0i9ffTzwWJRrShqSOe9GqbWJ3rOltHgWtRyflaiKWHWE-MCVyCsg/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9FIEw6clTrOWCMqYvHLnH8QcDpCKQ7iF5vI7N0l7QrD6PTqJUwF8iDT7be0hOq478Tg/exec';
 const SOLAPI_SEND_URL = 'https://api.solapi.com/messages/v4/send';
 
 const isEnabled = (value) => String(value || '').toLowerCase() === 'true';
