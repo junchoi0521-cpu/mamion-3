@@ -436,7 +436,19 @@ function ApplySection({ onSubmitSuccess }) {
     };
     document.body.appendChild(script);
   };
-  const submitByJsonp = (payload) => callAppsScript('submit', payload);
+  const submitApplication = async (payload) => {
+    try {
+      const response = await fetch('/api/submit-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!response.ok) throw new Error('submit api failed');
+      return await response.json();
+    } catch {
+      return callAppsScript('submit', payload);
+    }
+  };
   async function submit(e) {
     e.preventDefault();
     setSubmitMessage(''); setSubmitMessageType('');
@@ -453,7 +465,7 @@ function ApplySection({ onSubmitSuccess }) {
       createdAt: new Date().toISOString(),
     };
     try {
-      const result = await submitByJsonp(payload);
+      const result = await submitApplication(payload);
       if (result?.result === 'duplicate') { setSubmitMessage(result.message || '이미 이번 달 신청이 완료되었습니다. 다음 달부터 다시 신청 가능합니다.'); setSubmitMessageType('duplicate'); return; }
       if (result?.result === 'success') { if (window.gtag) window.gtag('event', 'apply_complete', { event_category: 'lead', event_label: 'mamion_apply_form', value: 1 }); onSubmitSuccess(); setTimeout(() => { window.location.href = '/thanks'; }, 300); return; }
       setSubmitMessage('신청 처리 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.'); setSubmitMessageType('error');

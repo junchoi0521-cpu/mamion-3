@@ -10,6 +10,7 @@
  * 4. Add these routes to doGet(e):
  *    if (e.parameter.action === 'schedule') return handleScheduleSubmit_(e);
  *    if (e.parameter.action === 'scheduleInfo') return handleScheduleInfo_(e);
+ *    if (e.parameter.action === 'alimtalkResult') return handleAlimtalkResult_(e);
  *
  * Existing rows and column order are preserved. Missing schedule columns are
  * appended to the end of the first row only.
@@ -25,6 +26,13 @@ var SCHEDULE_COLUMNS = [
   '기타 요청사항',
   '일정 입력 완료 여부',
   '일정 입력 시간',
+];
+
+var ALIMTALK_COLUMNS = [
+  '알림톡 발송 여부',
+  '알림톡 발송 시간',
+  '알림톡 발송 결과',
+  '알림톡 실패 사유',
 ];
 
 function jsonp_(callback, payload) {
@@ -54,12 +62,28 @@ function ensureScheduleColumns_(sheet) {
   return headers;
 }
 
+function ensureAlimtalkColumns_(sheet) {
+  var headers = getHeaders_(sheet);
+  ALIMTALK_COLUMNS.forEach(function (columnName) {
+    if (headers.indexOf(columnName) === -1) {
+      sheet.getRange(1, headers.length + 1).setValue(columnName);
+      headers.push(columnName);
+    }
+  });
+  return headers;
+}
+
+function ensureMamionColumns_(sheet) {
+  ensureScheduleColumns_(sheet);
+  return ensureAlimtalkColumns_(sheet);
+}
+
 function createScheduleToken_() {
   return Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, '').slice(0, 16);
 }
 
 function findRowByHeaderValue_(sheet, headerName, value) {
-  var headers = ensureScheduleColumns_(sheet);
+  var headers = ensureMamionColumns_(sheet);
   var columnIndex = headers.indexOf(headerName) + 1;
   if (columnIndex < 1 || !value) return -1;
 
@@ -82,7 +106,7 @@ function createUniqueScheduleToken_(sheet) {
 }
 
 function enrichScheduleFields_(data, sheet) {
-  ensureScheduleColumns_(sheet);
+  ensureMamionColumns_(sheet);
   var token = data['신청토큰'] || data.applicationToken || createUniqueScheduleToken_(sheet);
   var link = data['상담일시 입력 링크'] || data.scheduleLink || (MAMION_SITE_ORIGIN + '/schedule?token=' + encodeURIComponent(token));
 
@@ -94,7 +118,7 @@ function enrichScheduleFields_(data, sheet) {
 }
 
 function setRowValuesByHeader_(sheet, rowIndex, valuesByHeader) {
-  var headers = ensureScheduleColumns_(sheet);
+  var headers = ensureMamionColumns_(sheet);
   Object.keys(valuesByHeader).forEach(function (headerName) {
     var columnIndex = headers.indexOf(headerName) + 1;
     if (columnIndex > 0) sheet.getRange(rowIndex, columnIndex).setValue(valuesByHeader[headerName]);
@@ -120,7 +144,7 @@ function handleScheduleInfo_(e) {
   if (!token) return jsonp_(callback, { result: 'error', message: '잘못된 접근입니다.' });
 
   var sheet = getActiveMamionSheet_();
-  var headers = ensureScheduleColumns_(sheet);
+  var headers = ensureMamionColumns_(sheet);
   var rowIndex = findRowByHeaderValue_(sheet, '신청토큰', token);
   if (rowIndex === -1) return jsonp_(callback, { result: 'not_found', message: '신청 정보를 찾을 수 없습니다.' });
 
@@ -143,7 +167,7 @@ function handleScheduleSubmit_(e) {
   if (!token) return jsonp_(callback, { result: 'error', message: '잘못된 접근입니다.' });
 
   var sheet = getActiveMamionSheet_();
-  ensureScheduleColumns_(sheet);
+  ensureMamionColumns_(sheet);
   var rowIndex = findRowByHeaderValue_(sheet, '신청토큰', token);
   if (rowIndex === -1) return jsonp_(callback, { result: 'not_found', message: '신청 정보를 찾을 수 없습니다.' });
 
@@ -156,4 +180,31 @@ function handleScheduleSubmit_(e) {
   });
 
   return jsonp_(callback, { result: 'success', message: '상담 일정이 정상적으로 접수되었습니다.' });
+}
+
+function handleAlimtalkResult_(e) {
+  var callback = e.parameter.callback || 'callback';
+  var data = {};
+  try {
+    data = JSON.parse(e.parameter.data || '{}');
+  } catch (error) {
+    return jsonp_(callback, { result: 'error', message: '잘못된 요청입니다.' });
+  }
+
+  var token = String(data.token || '').trim();
+  if (!token) return jsonp_(callback, { result: 'error', message: '잘못된 접근입니다.' });
+
+  var sheet = getActiveMamionSheet_();
+  ensureMamionColumns_(sheet);
+  var rowIndex = findRowByHeaderValue_(sheet, '신청토큰', token);
+  if (rowIndex === -1) return jsonp_(callback, { result: 'not_found', message: '신청 정보를 찾을 수 없습니다.' });
+
+  setRowValuesByHeader_(sheet, rowIndex, {
+    '알림톡 발송 여부': data['알림톡 발송 여부'] || '',
+    '알림톡 발송 시간': data['알림톡 발송 시간'] || new Date(),
+    '알림톡 발송 결과': data['알림톡 발송 결과'] || '',
+    '알림톡 실패 사유': data['알림톡 실패 사유'] || '',
+  });
+
+  return jsonp_(callback, { result: 'success', message: '알림톡 발송 결과가 저장되었습니다.' });
 }

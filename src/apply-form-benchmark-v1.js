@@ -73,6 +73,20 @@ function submitByJsonp(payload) {
   });
 }
 
+async function submitApplication(payload) {
+  try {
+    const response = await fetch('/api/submit-application', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error('submit api failed');
+    return await response.json();
+  } catch {
+    return submitByJsonp(payload);
+  }
+}
+
 function loadPostcode(callback) {
   if (window.daum?.Postcode) {
     callback();
@@ -212,7 +226,7 @@ function wireForm(formArea, form) {
     };
 
     try {
-      const result = await submitByJsonp(payload);
+      const result = await submitApplication(payload);
       if (result?.result === 'duplicate') {
         setMessage(formArea, result.message || '이미 이번 달 신청이 완료되었습니다. 다음 달부터 다시 신청 가능합니다.', 'duplicate');
         return;
