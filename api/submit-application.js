@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9FIEw6clTrOWCMqYvHLnH8QcDpCKQ7iF5vI7N0l7QrD6PTqJUwF8iDT7be0hOq478Tg/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCsbrRzNR0ujxuj9x3_scOdDr-sVTLWdYy9fn0lpfZl1t0zLUWVo_qwhCuFb8VoLcxlw/exec';
 const SOLAPI_SEND_URL = 'https://api.solapi.com/messages/v4/send';
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
