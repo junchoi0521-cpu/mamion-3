@@ -17,6 +17,7 @@
  */
 
 var MAMION_SITE_ORIGIN = 'https://www.mamion.kr';
+var MAMION_SUBMIT_SECRET_PROPERTY = 'MAMION_SUBMIT_SECRET';
 
 var SCHEDULE_COLUMNS = [
   '신청토큰',
@@ -80,6 +81,12 @@ function ensureMamionColumns_(sheet) {
 
 function createScheduleToken_() {
   return Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, '').slice(0, 16);
+}
+
+function isSubmitSecretValid_(data) {
+  var expectedSecret = PropertiesService.getScriptProperties().getProperty(MAMION_SUBMIT_SECRET_PROPERTY);
+  if (!expectedSecret) return true;
+  return String(data.submitSecret || '') === String(expectedSecret);
 }
 
 function findRowByHeaderValue_(sheet, headerName, value) {

@@ -2,10 +2,63 @@ import crypto from 'node:crypto';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9FIEw6clTrOWCMqYvHLnH8QcDpCKQ7iF5vI7N0l7QrD6PTqJUwF8iDT7be0hOq478Tg/exec';
 const SOLAPI_SEND_URL = 'https://api.solapi.com/messages/v4/send';
+const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 5;
+const DAY_LIMIT_WINDOW_MS = 24 * 60 * 60 * 1000;
+const DAY_LIMIT_MAX_REQUESTS = 20;
+const ipBuckets = new Map();
 
 const isEnabled = (value) => String(value || '').toLowerCase() === 'true';
 
 const normalizePhone = (value) => String(value || '').replace(/[^0-9]/g, '');
+
+const getClientIp = (req) => {
+  const forwarded = req.headers['x-forwarded-for'];
+  if (typeof forwarded === 'string' && forwarded) return forwarded.split(',')[0].trim();
+  return req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
+};
+
+const pruneBucket = (bucket, now) => {
+  bucket.short = bucket.short.filter((timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS);
+  bucket.day = bucket.day.filter((timestamp) => now - timestamp < DAY_LIMIT_WINDOW_MS);
+};
+
+const checkRateLimit = (ip) => {
+  const now = Date.now();
+  const key = String(ip || 'unknown');
+  const bucket = ipBuckets.get(key) || { short: [], day: [] };
+  pruneBucket(bucket, now);
+
+  if (bucket.short.length >= RATE_LIMIT_MAX_REQUESTS || bucket.day.length >= DAY_LIMIT_MAX_REQUESTS) {
+    ipBuckets.set(key, bucket);
+    return false;
+  }
+
+  bucket.short.push(now);
+  bucket.day.push(now);
+  ipBuckets.set(key, bucket);
+  return true;
+};
+
+const verifyTurnstile = async ({ token, ip }) => {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return { success: true, skipped: true };
+  if (!token) return { success: false };
+
+  const response = await fetch(TURNSTILE_VERIFY_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      secret,
+      response: token,
+      remoteip: ip,
+    }),
+  });
+
+  if (!response.ok) return { success: false };
+  return response.json();
+};
 
 const parseAppsScriptResponse = (text) => {
   const trimmed = String(text || '').trim();
@@ -151,7 +204,29 @@ export default async function handler(req, res) {
 
   try {
     const data = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : req.body || {};
-    const submitResult = await callAppsScript('submit', data);
+    const clientIp = getClientIp(req);
+
+    if (!checkRateLimit(clientIp)) {
+      return res.status(429).json({
+        result: 'rate_limited',
+        message: '신청 요청이 일시적으로 많습니다. 잠시 후 다시 시도해주세요.',
+      });
+    }
+
+    const turnstileResult = await verifyTurnstile({ token: data.turnstileToken, ip: clientIp });
+    if (!turnstileResult?.success) {
+      return res.status(403).json({
+        result: 'turnstile_failed',
+        message: '자동 신청 방지 확인에 실패했습니다. 새로고침 후 다시 시도해주세요.',
+      });
+    }
+
+    const submitPayload = { ...data };
+    if (process.env.APPS_SCRIPT_SUBMIT_SECRET) {
+      submitPayload.submitSecret = process.env.APPS_SCRIPT_SUBMIT_SECRET;
+    }
+
+    const submitResult = await callAppsScript('submit', submitPayload);
 
     if (submitResult?.result !== 'success') {
       return res.status(200).json(submitResult);

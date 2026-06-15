@@ -25,6 +25,7 @@ import logo from './assets/logo.png';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9FIEw6clTrOWCMqYvHLnH8QcDpCKQ7iF5vI7N0l7QrD6PTqJUwF8iDT7be0hOq478Tg/exec';
 const PRODUCTION_ORIGIN = 'https://www.mamion.kr';
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
 const DISPLAY_TODAY_OFFSET = 43;
 const DISPLAY_TOTAL_OFFSET = 3875;
 const KAKAO_URL = 'https://pf.kakao.com/_MKDGX/friend';
@@ -52,6 +53,55 @@ const createApplicationToken = () => {
 };
 
 const createScheduleLink = (token) => `${getScheduleOrigin()}/schedule?token=${encodeURIComponent(token)}`;
+
+function TurnstileBox({ onVerify, onReset }) {
+  const boxRef = useRef(null);
+  const widgetIdRef = useRef(null);
+  const onVerifyRef = useRef(onVerify);
+  const onResetRef = useRef(onReset);
+
+  useEffect(() => { onVerifyRef.current = onVerify; }, [onVerify]);
+  useEffect(() => { onResetRef.current = onReset; }, [onReset]);
+
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY || !boxRef.current) return;
+
+    let cancelled = false;
+    const renderWidget = () => {
+      if (cancelled || !boxRef.current || !window.turnstile || widgetIdRef.current !== null) return;
+      widgetIdRef.current = window.turnstile.render(boxRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: (token) => onVerifyRef.current?.(token),
+        'expired-callback': () => onResetRef.current?.(),
+        'error-callback': () => onResetRef.current?.(),
+      });
+    };
+
+    if (window.turnstile) {
+      renderWidget();
+      return () => { cancelled = true; };
+    }
+
+    const existingScript = document.getElementById('cloudflare-turnstile-script');
+    if (existingScript) {
+      existingScript.addEventListener('load', renderWidget, { once: true });
+      return () => { cancelled = true; };
+    }
+
+    const script = document.createElement('script');
+    script.id = 'cloudflare-turnstile-script';
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    script.async = true;
+    script.defer = true;
+    script.onload = renderWidget;
+    document.head.appendChild(script);
+
+    return () => { cancelled = true; };
+  }, []);
+
+  if (!TURNSTILE_SITE_KEY) return null;
+  return <div className="turnstile-wrap"><div ref={boxRef} /></div>;
+}
 
 const callAppsScript = (action, payload = {}) => new Promise((resolve, reject) => {
   const callbackName = `mamion${action[0]?.toUpperCase() || ''}${action.slice(1)}Callback_${Date.now()}`;
@@ -387,6 +437,7 @@ function ApplySection({ onSubmitSuccess }) {
   };
 
   const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, thirdParty: false, marketing: false });
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitMessageType, setSubmitMessageType] = useState('');
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
@@ -437,23 +488,19 @@ function ApplySection({ onSubmitSuccess }) {
     document.body.appendChild(script);
   };
   const submitApplication = async (payload) => {
-    try {
-      const response = await fetch('/api/submit-application', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      if (!response.ok) throw new Error('submit api failed');
-      return await response.json();
-    } catch {
-      return callAppsScript('submit', payload);
-    }
+    const response = await fetch('/api/submit-application', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return response.json();
   };
   async function submit(e) {
     e.preventDefault();
     setSubmitMessage(''); setSubmitMessageType('');
     if (!form.name || !form.phone || !form.dueDate || !form.region) { setSubmitMessage('필수 항목을 모두 입력해주세요.'); setSubmitMessageType('error'); return; }
     if (!form.privacy || !form.thirdParty) { setSubmitMessage('필수 동의 항목을 체크해주세요.'); setSubmitMessageType('error'); return; }
+    if (TURNSTILE_SITE_KEY && !turnstileToken) { setSubmitMessage('자동 신청 방지 확인을 완료해주세요.'); setSubmitMessageType('error'); return; }
     const applicationToken = createApplicationToken();
     const scheduleLink = createScheduleLink(applicationToken);
     const payload = {
@@ -462,11 +509,13 @@ function ApplySection({ onSubmitSuccess }) {
       scheduleLink,
       신청토큰: applicationToken,
       '상담일시 입력 링크': scheduleLink,
+      turnstileToken,
       createdAt: new Date().toISOString(),
     };
     try {
       const result = await submitApplication(payload);
       if (result?.result === 'duplicate') { setSubmitMessage(result.message || '이미 이번 달 신청이 완료되었습니다. 다음 달부터 다시 신청 가능합니다.'); setSubmitMessageType('duplicate'); return; }
+      if (result?.result === 'rate_limited' || result?.result === 'turnstile_failed') { setSubmitMessage(result.message || '신청 확인 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.'); setSubmitMessageType('error'); return; }
       if (result?.result === 'success') { if (window.gtag) window.gtag('event', 'apply_complete', { event_category: 'lead', event_label: 'mamion_apply_form', value: 1 }); onSubmitSuccess(); setTimeout(() => { window.location.href = '/thanks'; }, 300); return; }
       setSubmitMessage('신청 처리 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.'); setSubmitMessageType('error');
     } catch { setSubmitMessage('신청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'); setSubmitMessageType('error'); }
@@ -487,6 +536,7 @@ function ApplySection({ onSubmitSuccess }) {
               <label className="agree-line"><input type="checkbox" checked={form.marketing} onChange={(e) => update('marketing', e.target.checked)} /> [선택] 광고성 정보 수신 동의</label>
               <a className="privacy-link" href="/privacy">개인정보처리방침 보기 &gt;</a>
             </div>
+            <TurnstileBox onVerify={setTurnstileToken} onReset={() => setTurnstileToken('')} />
             <button className="submit-btn" type="submit"><Gift size={20} /> 임신축하선물 신청하기</button>
             <small>* 신청 정보는 선물 발송 및 상담 목적으로만 사용됩니다.</small>
           </form>

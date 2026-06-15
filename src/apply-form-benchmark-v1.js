@@ -1,5 +1,6 @@
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9FIEw6clTrOWCMqYvHLnH8QcDpCKQ7iF5vI7N0l7QrD6PTqJUwF8iDT7be0hOq478Tg/exec';
 const PRODUCTION_ORIGIN = 'https://www.mamion.kr';
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
 
 const formState = {
   name: '',
@@ -11,6 +12,7 @@ const formState = {
   thirdParty: false,
   insuranceConsult: false,
   marketing: false,
+  turnstileToken: '',
 };
 
 function formatPhone(value) {
@@ -74,17 +76,51 @@ function submitByJsonp(payload) {
 }
 
 async function submitApplication(payload) {
-  try {
-    const response = await fetch('/api/submit-application', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!response.ok) throw new Error('submit api failed');
-    return await response.json();
-  } catch {
-    return submitByJsonp(payload);
+  const response = await fetch('/api/submit-application', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  return response.json();
+}
+
+function loadTurnstileScript(callback) {
+  if (!TURNSTILE_SITE_KEY) return;
+  if (window.turnstile) {
+    callback();
+    return;
   }
+
+  const existingScript = document.getElementById('cloudflare-turnstile-script');
+  if (existingScript) {
+    existingScript.addEventListener('load', callback, { once: true });
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.id = 'cloudflare-turnstile-script';
+  script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+  script.async = true;
+  script.defer = true;
+  script.onload = callback;
+  document.head.appendChild(script);
+}
+
+function renderTurnstile(form) {
+  if (!TURNSTILE_SITE_KEY) return;
+  const container = form.querySelector('.turnstile-widget');
+  if (!container || container.dataset.rendered === 'true') return;
+
+  loadTurnstileScript(() => {
+    if (!window.turnstile || container.dataset.rendered === 'true') return;
+    window.turnstile.render(container, {
+      sitekey: TURNSTILE_SITE_KEY,
+      callback: (token) => { formState.turnstileToken = token; },
+      'expired-callback': () => { formState.turnstileToken = ''; },
+      'error-callback': () => { formState.turnstileToken = ''; },
+    });
+    container.dataset.rendered = 'true';
+  });
 }
 
 function loadPostcode(callback) {
@@ -152,11 +188,13 @@ function renderEnhancedForm(formArea, oldForm) {
       <label class="agree-line"><input name="marketing" type="checkbox" ${formState.marketing ? 'checked' : ''} /> [선택] 광고성 정보 수신 동의</label>
       <a class="privacy-link" href="/privacy">개인정보처리방침 보기 &gt;</a>
     </div>
+    ${TURNSTILE_SITE_KEY ? '<div class="turnstile-wrap"><div class="turnstile-widget"></div></div>' : ''}
     <button class="submit-btn" type="submit">임신축하선물 신청하기</button>
     <small>* 신청 정보는 선물 발송 및 상담 목적으로만 사용됩니다.</small>
   `;
   oldForm.replaceWith(form);
   wireForm(formArea, form);
+  renderTurnstile(form);
 }
 
 function wireForm(formArea, form) {
@@ -210,6 +248,10 @@ function wireForm(formArea, form) {
       setMessage(formArea, '태아보험 상담 필수 동의 항목을 체크해주세요.', 'error');
       return;
     }
+    if (TURNSTILE_SITE_KEY && !formState.turnstileToken) {
+      setMessage(formArea, '자동 신청 방지 확인을 완료해주세요.', 'error');
+      return;
+    }
 
     const fullAddress = [formState.address, formState.detailAddress].filter(Boolean).join(' ');
     const applicationToken = createApplicationToken();
@@ -222,6 +264,7 @@ function wireForm(formArea, form) {
       scheduleLink,
       신청토큰: applicationToken,
       '상담일시 입력 링크': scheduleLink,
+      turnstileToken: formState.turnstileToken,
       createdAt: new Date().toISOString(),
     };
 
@@ -229,6 +272,10 @@ function wireForm(formArea, form) {
       const result = await submitApplication(payload);
       if (result?.result === 'duplicate') {
         setMessage(formArea, result.message || '이미 이번 달 신청이 완료되었습니다. 다음 달부터 다시 신청 가능합니다.', 'duplicate');
+        return;
+      }
+      if (result?.result === 'rate_limited' || result?.result === 'turnstile_failed') {
+        setMessage(formArea, result.message || '신청 확인 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.', 'error');
         return;
       }
       if (result?.result === 'success') {
