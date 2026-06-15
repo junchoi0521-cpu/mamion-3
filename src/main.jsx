@@ -719,9 +719,9 @@ function SchedulePage() {
             {status && <div className={`schedule-message ${statusType}`}>{status}</div>}
             <div className="schedule-date-time">
               <label><span>상담 가능 날짜</span><input type="date" value={form.date} onChange={(event) => update('date', event.target.value)} disabled={!token || submitting} /></label>
-              <label><span>상담 가능 시간</span><input value={form.time} onChange={(event) => update('time', event.target.value)} placeholder="예: 오후 2시 / 18:30 / 평일 저녁" disabled={!token || submitting} /></label>
+              <label><span>상담 가능 시간</span><input value={form.time} onChange={(event) => update('time', event.target.value)} placeholder="예: 오후 2시 / 18:30" disabled={!token || submitting} /></label>
             </div>
-            <label><span>희망 상담 장소</span><input value={form.place} onChange={(event) => update('place', event.target.value)} placeholder="예: 투썸플레이스 강남역점 / 자택 근처 카페" disabled={!token || submitting} /></label>
+            <label><span>희망 상담 장소</span><input value={form.place} onChange={(event) => update('place', event.target.value)} placeholder="예: 투썸플레이스 강남역점" disabled={!token || submitting} /></label>
             <label><span>기타 요청사항</span><textarea value={form.request} onChange={(event) => update('request', event.target.value)} placeholder="예: 남편과 함께 상담 희망 / 전화 먼저 희망" rows={4} disabled={!token || submitting} /></label>
             <button type="submit" disabled={!token || submitting}>{submitting ? '저장 중입니다...' : '상담 일정 제출하기'}</button>
           </form>
