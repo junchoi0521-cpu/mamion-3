@@ -3374,6 +3374,208 @@ html body .schedule-complete-actions a:last-child{
   box-shadow:0 14px 32px rgba(247,64,120,.18) !important;
 }
 
+/* ===== V46 THANKS PAGE POLISH ===== */
+html body .thanks-page{
+  min-height:100vh !important;
+  background:
+    radial-gradient(circle at 16% 18%,rgba(255,224,234,.75),rgba(255,255,255,0) 28%),
+    radial-gradient(circle at 88% 24%,rgba(255,244,236,.95),rgba(255,255,255,0) 30%),
+    linear-gradient(180deg,#fff8fb 0%,#fff 46%,#fff7f2 100%) !important;
+}
+
+html body .thanks-section{
+  padding:110px 22px 76px !important;
+}
+
+html body .thanks-card{
+  position:relative !important;
+  overflow:hidden !important;
+  max-width:940px !important;
+  padding:54px 52px 48px !important;
+  border:1px solid #ffc9d9 !important;
+  border-radius:30px !important;
+  background:rgba(255,255,255,.97) !important;
+  box-shadow:0 26px 78px rgba(247,64,120,.13) !important;
+  text-align:center !important;
+}
+
+html body .thanks-card::before{
+  content:"" !important;
+  position:absolute !important;
+  top:-96px !important;
+  right:-82px !important;
+  width:250px !important;
+  height:250px !important;
+  border-radius:999px !important;
+  background:radial-gradient(circle,rgba(255,231,239,.98),rgba(255,248,242,0) 68%) !important;
+}
+
+html body .thanks-card::after{
+  content:"" !important;
+  position:absolute !important;
+  left:52px !important;
+  right:52px !important;
+  top:0 !important;
+  height:5px !important;
+  border-radius:0 0 999px 999px !important;
+  background:linear-gradient(90deg,rgba(255,120,162,0),#ff77a4,#f33878,#ffbed0,rgba(255,120,162,0)) !important;
+}
+
+html body .thanks-badge,
+html body .thanks-icon-wrap,
+html body .thanks-card h1,
+html body .thanks-lead,
+html body .thanks-copy,
+html body .thanks-steps,
+html body .thanks-notice,
+html body .thanks-actions{
+  position:relative !important;
+  z-index:1 !important;
+}
+
+html body .thanks-badge{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-height:34px !important;
+  padding:0 18px !important;
+  border:1px solid #ffc4d6 !important;
+  border-radius:999px !important;
+  background:#fff7fa !important;
+  color:#f33878 !important;
+  font-size:13px !important;
+  font-weight:950 !important;
+}
+
+html body .thanks-icon-wrap{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:88px !important;
+  height:88px !important;
+  margin:24px auto 18px !important;
+  border:1px solid #ffc4d6 !important;
+  border-radius:999px !important;
+  background:linear-gradient(135deg,#ff4c86,#f22970) !important;
+  color:#fff !important;
+  box-shadow:0 18px 42px rgba(247,64,120,.2) !important;
+}
+
+html body .thanks-card h1{
+  margin:0 !important;
+  color:#251614 !important;
+  font-size:40px !important;
+  line-height:1.18 !important;
+  letter-spacing:-.045em !important;
+}
+
+html body .thanks-lead{
+  margin:18px 0 0 !important;
+  color:#3a2926 !important;
+  font-size:18px !important;
+  font-weight:900 !important;
+  line-height:1.6 !important;
+}
+
+html body .thanks-copy{
+  margin:6px 0 0 !important;
+  color:#75686c !important;
+  font-size:16px !important;
+  font-weight:800 !important;
+  line-height:1.65 !important;
+}
+
+html body .thanks-steps{
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:14px !important;
+  margin:34px 0 0 !important;
+}
+
+html body .thanks-steps article{
+  display:grid !important;
+  justify-items:center !important;
+  gap:8px !important;
+  min-height:148px !important;
+  padding:22px 16px !important;
+  border:1px solid #ffe0e9 !important;
+  border-radius:20px !important;
+  background:linear-gradient(180deg,#fff,#fff9fb) !important;
+  color:#f33878 !important;
+}
+
+html body .thanks-steps strong{
+  color:#2c1a17 !important;
+  font-size:16px !important;
+  font-weight:950 !important;
+}
+
+html body .thanks-steps span{
+  max-width:170px !important;
+  color:#746366 !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+  line-height:1.55 !important;
+}
+
+html body .thanks-notice{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:10px !important;
+  margin:22px auto 0 !important;
+  padding:15px 18px !important;
+  border:1px solid #ffe0e9 !important;
+  border-radius:16px !important;
+  background:#fff8f4 !important;
+  color:#6f5b58 !important;
+  font-size:14px !important;
+  line-height:1.55 !important;
+  font-weight:800 !important;
+}
+
+html body .thanks-notice strong{
+  flex:0 0 auto !important;
+  color:#f33878 !important;
+  font-weight:950 !important;
+}
+
+html body .thanks-actions{
+  display:flex !important;
+  justify-content:center !important;
+  gap:12px !important;
+  margin-top:30px !important;
+}
+
+html body .thanks-actions button,
+html body .thanks-actions a{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:7px !important;
+  min-width:166px !important;
+  height:54px !important;
+  margin:0 !important;
+  padding:0 22px !important;
+  border-radius:999px !important;
+  font-size:15px !important;
+  font-weight:950 !important;
+  text-decoration:none !important;
+}
+
+html body .thanks-actions button{
+  border:0 !important;
+  background:linear-gradient(135deg,#ff4c86,#f22970) !important;
+  color:#fff !important;
+  box-shadow:0 14px 34px rgba(247,64,120,.22) !important;
+}
+
+html body .thanks-actions a{
+  border:1px solid #ffc4d6 !important;
+  background:#fff !important;
+  color:#f33878 !important;
+}
+
 @media(max-width:1100px){
   html body .schedule-section{
     width:100% !important;
@@ -3435,6 +3637,69 @@ html body .schedule-complete-actions a:last-child{
   }
 
   html body .schedule-complete-actions a{
+    width:100% !important;
+  }
+
+  html body .thanks-section{
+    padding:88px 18px 58px !important;
+  }
+
+  html body .thanks-card{
+    padding:38px 20px 32px !important;
+    border-radius:22px !important;
+  }
+
+  html body .thanks-card::after{
+    left:24px !important;
+    right:24px !important;
+  }
+
+  html body .thanks-icon-wrap{
+    width:76px !important;
+    height:76px !important;
+    margin:22px auto 17px !important;
+  }
+
+  html body .thanks-card h1{
+    font-size:31px !important;
+    line-height:1.24 !important;
+  }
+
+  html body .thanks-lead{
+    font-size:16px !important;
+  }
+
+  html body .thanks-copy{
+    font-size:14px !important;
+  }
+
+  html body .thanks-steps{
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+  }
+
+  html body .thanks-steps article{
+    min-height:auto !important;
+    justify-items:start !important;
+    text-align:left !important;
+  }
+
+  html body .thanks-steps span{
+    max-width:none !important;
+  }
+
+  html body .thanks-notice{
+    display:grid !important;
+    justify-items:start !important;
+    text-align:left !important;
+  }
+
+  html body .thanks-actions{
+    flex-direction:column !important;
+  }
+
+  html body .thanks-actions button,
+  html body .thanks-actions a{
     width:100% !important;
   }
 }

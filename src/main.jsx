@@ -507,7 +507,48 @@ function PolicySection({ initialType = 'all' }) {
   return <section className="policy-section"><div className="policy-wrap">{(initialType === 'all' || initialType === 'privacy') && <><h2>개인정보처리방침</h2><p>제이엔파트너스(JN Partners)는 이용자의 개인정보를 중요하게 생각하며 관련 법령에 따라 안전하게 관리합니다.</p><h3>1. 수집하는 개인정보 항목</h3><ul><li>이름</li><li>연락처</li><li>출산 예정일</li><li>임신 주수</li><li>거주지</li><li>개인정보 수집 및 이용 동의 여부</li><li>개인정보 제3자 제공 동의 여부</li><li>광고성 정보 수신 동의 여부</li></ul><h3>2. 개인정보 수집 및 이용 목적</h3><ul><li>임신축하선물 신청 접수</li><li>신청자 본인 확인</li><li>선물 수령 주소 확인</li><li>상담 및 안내 일정 조율</li></ul><h3>3. 보유 및 이용기간</h3><p>수집 목적 달성 후 지체 없이 파기하며, 법령에 따라 필요한 경우 해당 기간 동안 보관합니다.</p><h3>4. 개인정보 보호책임자</h3><p>상호 : 제이엔파트너스 (JN Partners)<br />대표자 : 최준<br />이메일 : cj.gasin@gmail.com</p><p>시행일 : 2026년 6월 4일</p></>}{(initialType === 'all' || initialType === 'terms') && <><h2>이용약관</h2><p>본 약관은 마미온에서 제공하는 임신축하선물 신청 서비스 이용과 관련한 기본 사항을 정합니다.</p><h3>1. 서비스 내용</h3><p>마미온은 예비맘을 대상으로 임신축하선물 신청 접수, 신청 확인, 선물 안내 및 관련 상담 안내 서비스를 제공합니다.</p><h3>2. 신청 및 이용 조건</h3><ul><li>신청자는 정확한 정보를 입력해야 합니다.</li><li>허위 정보 또는 중복 신청이 확인될 경우 제한될 수 있습니다.</li><li>선물 구성은 재고 및 협력사 사정에 따라 변경될 수 있습니다.</li></ul></>}</div></section>;
 }
 
-function ThanksPage() { return <main className="page"><Header /><section className="thanks-section"><div className="thanks-card"><div>🎁</div><h1>신청이 완료되었습니다!</h1><p>마미온 임신축하선물 신청이 정상 접수되었습니다.<br />담당자가 신청 내용을 확인 후 순차적으로 연락드릴 예정입니다.</p><button onClick={() => window.location.href = '/'}>홈으로 돌아가기</button></div></section><Footer /></main>; }
+function ThanksPage() {
+  return (
+    <main className="page thanks-page">
+      <Header />
+      <section className="thanks-section">
+        <div className="thanks-card">
+          <span className="thanks-badge">MamiOn Gift</span>
+          <div className="thanks-icon-wrap" aria-hidden="true"><Gift size={42} /></div>
+          <h1>신청이 완료되었습니다!</h1>
+          <p className="thanks-lead">마미온 임신축하선물 신청이 정상 접수되었습니다.</p>
+          <p className="thanks-copy">담당자가 신청 내용을 확인한 뒤 순차적으로 연락드릴 예정입니다.</p>
+          <div className="thanks-steps" aria-label="접수 후 진행 안내">
+            <article>
+              <CalendarCheck size={24} />
+              <strong>신청 내용 확인</strong>
+              <span>입력하신 신청 정보를 확인합니다.</span>
+            </article>
+            <article>
+              <ShieldCheck size={24} />
+              <strong>대상 여부 안내</strong>
+              <span>접수 순서에 따라 안내드립니다.</span>
+            </article>
+            <article>
+              <Truck size={24} />
+              <strong>선물 발송 준비</strong>
+              <span>구성 확인 후 순차 발송됩니다.</span>
+            </article>
+          </div>
+          <div className="thanks-notice">
+            <strong>확인해주세요</strong>
+            <span>선물 구성은 신청 시기와 재고 상황에 따라 일부 달라질 수 있습니다.</span>
+          </div>
+          <div className="thanks-actions">
+            <button type="button" onClick={() => window.location.href = '/'}>홈으로 돌아가기</button>
+            <a href={KAKAO_URL} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} /> 카카오톡 문의</a>
+          </div>
+        </div>
+      </section>
+      <Footer />
+    </main>
+  );
+}
 
 function SchedulePage() {
   const token = new URLSearchParams(window.location.search).get('token') || '';
