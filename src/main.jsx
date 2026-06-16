@@ -10,6 +10,9 @@ import {
   CalendarCheck,
   Heart,
   Search,
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
   ChevronLeft,
   ChevronRight,
   Box,
@@ -358,11 +361,13 @@ function WhyRandom() {
     [<CalendarCheck size={42} />, '매월 새로운 구성', '매월 새로운 구성으로 더 설레는 선물을 보내드려요.'],
     [<Gift size={42} />, '추가 선물의 기회', '매월 일부 신청자에게 특별 선물이 함께 갈 수 있어요.'],
   ];
-  const flow = [
-    [<Box size={22} />, '01', '구성품 준비', '매월 준비 가능한 품목을 확인해요'],
-    [<CalendarCheck size={22} />, '02', '랜덤 구성', '신청 시기와 재고에 따라 랜덤으로 구성돼요'],
-    [<Gift size={22} />, '03', '선물 안내', '예비맘에게 필요한 실용템 위주로 전달돼요'],
+  const deliverySteps = [
+    [<UserCheck size={22} />, '01', '신청 접수', '신청 정보와 기본 내용을 먼저 확인해요.'],
+    [<MessageCircle size={22} />, '02', '상담 진행', '필요한 안내를 순차적으로 도와드려요.'],
+    [<Box size={22} />, '03', '선물 구성', '신청 시기와 재고에 맞춰 실용 구성으로 준비돼요.'],
+    [<Truck size={22} />, '04', '배송', '구성 확인 후 순차적으로 안내·배송돼요.'],
   ];
+  const [step1, step2, step3, step4] = deliverySteps;
   return (
     <section id="random" className="why-section">
       <div className="why-grid-wrap section-wrap">
@@ -371,21 +376,54 @@ function WhyRandom() {
           <div className="why-grid">
             {cards.map(([icon, title, desc]) => <article key={title}><i>{icon}</i><h3>{title}</h3><p>{desc}</p></article>)}
           </div>
-          <div className="random-flow-card" aria-label="랜덤 구성 운영 흐름">
-            <div className="random-flow-head">
-              <strong>랜덤 구성은 이렇게 운영돼요</strong>
+          <div className="delivery-flow-panel" aria-label="선물 수령 절차 안내">
+            <div className="delivery-flow-head">
+              <strong>선물 수령은 이렇게 됩니다</strong>
+              <p>신청 정보를 확인한 뒤 상담과 선물 안내가 순서대로 진행됩니다.</p>
             </div>
-            <div className="random-flow-steps">
-              {flow.map(([icon, step, title, desc]) => (
-                <article key={step}>
-                  <i>{icon}</i>
-                  <span>{step}</span>
-                  <b>{title}</b>
-                  <p>{desc}</p>
-                </article>
-              ))}
+            <div className="delivery-flow-grid">
+              <article className="delivery-flow-step delivery-flow-step-1">
+                <div className="delivery-flow-step-top">
+                  <i>{step1[0]}</i>
+                  <span>{step1[1]}</span>
+                </div>
+                <b>{step1[2]}</b>
+                <p>{step1[3]}</p>
+              </article>
+              <div className="delivery-flow-arrow delivery-flow-arrow-right" aria-hidden="true">
+                <ArrowRight size={18} />
+              </div>
+              <article className="delivery-flow-step delivery-flow-step-2">
+                <div className="delivery-flow-step-top">
+                  <i>{step2[0]}</i>
+                  <span>{step2[1]}</span>
+                </div>
+                <b>{step2[2]}</b>
+                <p>{step2[3]}</p>
+              </article>
+              <div className="delivery-flow-arrow delivery-flow-arrow-down" aria-hidden="true">
+                <ArrowDown size={18} />
+              </div>
+              <article className="delivery-flow-step delivery-flow-step-4">
+                <div className="delivery-flow-step-top">
+                  <i>{step4[0]}</i>
+                  <span>{step4[1]}</span>
+                </div>
+                <b>{step4[2]}</b>
+                <p>{step4[3]}</p>
+              </article>
+              <div className="delivery-flow-arrow delivery-flow-arrow-left" aria-hidden="true">
+                <ArrowLeft size={18} />
+              </div>
+              <article className="delivery-flow-step delivery-flow-step-3">
+                <div className="delivery-flow-step-top">
+                  <i>{step3[0]}</i>
+                  <span>{step3[1]}</span>
+                </div>
+                <b>{step3[2]}</b>
+                <p>{step3[3]}</p>
+              </article>
             </div>
-            <small>구성품은 신청 시기와 재고 상황에 따라 달라질 수 있으며, 모든 예비맘에게 공정하게 랜덤으로 안내됩니다.</small>
           </div>
         </div>
         <ReviewEventCard />
