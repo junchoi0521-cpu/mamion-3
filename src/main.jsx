@@ -532,6 +532,7 @@ function ConsentField({ section, checked, onChange, open, onToggleDetail }) {
 
 function ApplySection({ onSubmitSuccess }) {
   const addressInputRef = useRef(null);
+  const detailAddressInputRef = useRef(null);
   const calculateWeeks = (dueDate) => {
     if (!dueDate) return '';
     const diffDays = Math.floor((new Date(dueDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
@@ -540,7 +541,7 @@ function ApplySection({ onSubmitSuccess }) {
     return `${Math.floor(pregnancyDays / 7)}주 ${pregnancyDays % 7}일`;
   };
 
-  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, termsConsent: false, thirdParty: false, insuranceConsult: false, marketing: false });
+  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', detailAddress: '', weeks: '', privacy: false, termsConsent: false, thirdParty: false, insuranceConsult: false, marketing: false });
   const [openConsentDetails, setOpenConsentDetails] = useState(() => Object.fromEntries(
     CONSENT_SECTIONS.map((section) => [section.id, false]),
   ));
@@ -585,7 +586,13 @@ function ApplySection({ onSubmitSuccess }) {
         oncomplete: (data) => {
           const selectedAddress = data.roadAddress || data.jibunAddress || data.address || '';
           update('region', selectedAddress);
-          setTimeout(() => addressInputRef.current?.focus(), 0);
+          setTimeout(() => {
+            if (detailAddressInputRef.current) {
+              detailAddressInputRef.current.focus();
+              return;
+            }
+            addressInputRef.current?.focus();
+          }, 0);
         },
       }).open();
     };
@@ -694,12 +701,14 @@ function ApplySection({ onSubmitSuccess }) {
     if (!isPhoneVerified) { setSubmitMessage('휴대폰 인증을 완료해주세요.'); setSubmitMessageType('error'); return; }
     if (CONSENT_SECTIONS.some((section) => section.required && !form[section.formField])) { setSubmitMessage('필수 동의 항목에 동의해야 신청이 가능합니다.'); setSubmitMessageType('error'); return; }
     if (TURNSTILE_SITE_KEY && !turnstileToken) { setSubmitMessage('자동 신청 방지 확인을 완료해주세요.'); setSubmitMessageType('error'); return; }
+    const fullAddress = [form.region, form.detailAddress].filter(Boolean).join(' ');
     const applicationToken = createApplicationToken();
     const scheduleLink = createScheduleLink(applicationToken);
     const consentAgreedAt = new Date().toISOString();
     const consentPayload = buildConsentPayload(form, consentAgreedAt);
     const payload = {
       ...form,
+      region: fullAddress || form.region,
       ...consentPayload,
       applicationToken,
       scheduleLink,
@@ -728,19 +737,22 @@ function ApplySection({ onSubmitSuccess }) {
           {submitMessage && <div className={`submit-message ${submitMessageType}`}>{submitMessage}</div>}
           <form onSubmit={submit}>
             <div className="form-row"><Field label="이름"><input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" /></Field><Field label="연락처"><input name="phone" value={form.phone} onChange={(e) => update('phone', formatPhoneNumber(e.target.value))} placeholder="010-1234-5678" maxLength={13} /></Field></div>
-            <div className="phone-verify-box">
-              <div className="phone-verify-actions">
-                <button type="button" onClick={requestPhoneCode} disabled={!form.phone || phoneVerification.sending || isPhoneVerified}>
-                  {phoneVerification.sending ? '발송 중...' : isPhoneVerified ? '인증 완료' : '인증번호 받기'}
-                </button>
-                <input value={phoneCode} onChange={(event) => setPhoneCode(event.target.value.replace(/[^0-9]/g, '').slice(0, 6))} placeholder="6자리 인증번호" inputMode="numeric" maxLength={6} disabled={isPhoneVerified} />
-                <button type="button" onClick={verifyPhoneCode} disabled={!phoneCode || phoneVerification.verifying || isPhoneVerified}>
-                  {phoneVerification.verifying ? '확인 중...' : '인증 확인'}
-                </button>
+            <div className="form-row phone-date-row">
+              <div className="phone-verify-box">
+                <div className="phone-verify-actions">
+                  <button type="button" onClick={requestPhoneCode} disabled={!form.phone || phoneVerification.sending || isPhoneVerified}>
+                    {phoneVerification.sending ? '\uBC1C\uC1A1 \uC911..' : isPhoneVerified ? '\uC778\uC99D \uC644\uB8CC' : '\uC778\uC99D\uBC88\uD638 \uBC1B\uAE30'}
+                  </button>
+                  <input value={phoneCode} onChange={(event) => setPhoneCode(event.target.value.replace(/[^0-9]/g, '').slice(0, 6))} placeholder={'\u0036\uC790\uB9AC \uC778\uC99D\uBC88\uD638'} inputMode="numeric" maxLength={6} disabled={isPhoneVerified} />
+                  <button type="button" onClick={verifyPhoneCode} disabled={!phoneCode || phoneVerification.verifying || isPhoneVerified}>
+                    {phoneVerification.verifying ? '\uD655\uC778 \uC911..' : '\uC778\uC99D \uD655\uC778'}
+                  </button>
+                </div>
+                {phoneVerification.message && <p className={`phone-verify-message ${phoneVerification.type}`}>{phoneVerification.message}</p>}
               </div>
-              {phoneVerification.message && <p className={`phone-verify-message ${phoneVerification.type}`}>{phoneVerification.message}</p>}
+              <Field label={'\uCD9C\uC0B0\uC608\uC815\uC77C'} className="due-date-field"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">{'\uD604\uC7AC \uC784\uC2E0 \uC8FC\uC218 '}<strong>{form.weeks}</strong></div>}</Field>
             </div>
-            <div className="form-row"><Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><div className="field address-field"><span>주소 검색/직접 입력</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="주소를 검색하거나 직접 입력해주세요" autoComplete="street-address" /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label="주소 검색 열기"><Search size={18} /> 주소 검색</button></div><small className="address-help-text">예: 서울 강남구 테헤란로 123</small></div></div>
+            <div className="form-row address-detail-row"><div className="field address-field"><span>{'\uC8FC\uC18C \uAC80\uC0C9/\uC9C1\uC811 \uC785\uB825'}</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder={'\uC8FC\uC18C\uB97C \uAC80\uC0C9\uD558\uAC70\uB098 \uC785\uB825\uD574\uC8FC\uC138\uC694'} autoComplete="address-line1" /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label={'\uC8FC\uC18C \uAC80\uC0C9 \uC5F4\uAE30'}><Search size={18} /> {'\uC8FC\uC18C \uAC80\uC0C9'}</button></div><small className="address-help-text">{'\uC608: \uC11C\uC6B8 \uAC15\uB0A8\uAD6C \uD14C\uD5E4\uB780\uB85C 123'}</small></div><Field label={'\uC0C1\uC138\uC8FC\uC18C'} className="detail-address-field"><input ref={detailAddressInputRef} name="detailAddress" value={form.detailAddress} onChange={(e) => update('detailAddress', e.target.value)} placeholder={'\uB3D9\u00B7\uD638\uC218 \uB4F1 \uC0C1\uC138\uC8FC\uC18C \uC785\uB825'} autoComplete="address-line2" /></Field></div>
             <GiftProvisionNotice />
             <div className="consent-card">
               <div className="consent-card-header">
@@ -802,7 +814,7 @@ function ApplySection({ onSubmitSuccess }) {
   );
 }
 
-function Field({ label, children }) { return <label className="field"><span>{label}</span>{children}</label>; }
+function Field({ label, children, className = '' }) { return <label className={`field ${className}`.trim()}><span>{label}</span>{children}</label>; }
 
 function Faq() {
   return <section id="faq" className="faq-section section-wrap"><div className="section-title"><h2>자주 묻는 질문</h2><p>현재 전국 예비맘 대상 신청 접수 중입니다.</p></div><div className="faq-grid"><article><strong>정말 무료인가요?</strong><p>네. 신청 대상에 해당하는 예비맘께 무료로 안내드립니다.</p></article><article><strong>배송비도 무료인가요?</strong><p>네. 별도 배송비 없이 신청 가능합니다.</p></article><article><strong>신청 후 왜 연락이 오나요?</strong><p>신청 확인 및 축하선물 안내를 위해 순차적으로 연락드립니다.</p></article></div></section>;

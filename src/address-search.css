@@ -50,6 +50,14 @@
   text-align:left !important;
 }
 
+.address-detail-row .address-direct-row{
+  grid-template-columns:minmax(0, 1fr) 132px !important;
+}
+
+.address-detail-row .address-direct-row .address-search-btn{
+  width:100% !important;
+}
+
 @media(max-width:1100px){
   .address-direct-row{
     grid-template-columns:1fr !important;
