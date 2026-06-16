@@ -8,7 +8,7 @@ import {
 } from './phone-verification-utils.js';
 import { buildConsentPayload } from '../src/compliance-content.js';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzN848rfJXCkogphSZ6fSGFCeihMoOz_eS-XgshDqjvHJtE3kTbFuEpm5WB530yUqXf6w/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJyu85JNVY6nAAwTWpxPKqPwT_Cj180EcsqAyUR-fIq2sFGZotYF_qCJHbPpsX-3UkdQ/exec';
 const SOLAPI_SEND_URL = 'https://api.solapi.com/messages/v4/send';
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;

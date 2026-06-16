@@ -1,6 +1,6 @@
 import { buildConsentPayload, CONSENT_SECTIONS, GIFT_PROVISION_NOTICE } from './compliance-content.js';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzN848rfJXCkogphSZ6fSGFCeihMoOz_eS-XgshDqjvHJtE3kTbFuEpm5WB530yUqXf6w/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJyu85JNVY6nAAwTWpxPKqPwT_Cj180EcsqAyUR-fIq2sFGZotYF_qCJHbPpsX-3UkdQ/exec';
 const PRODUCTION_ORIGIN = 'https://www.mamion.kr';
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
 
