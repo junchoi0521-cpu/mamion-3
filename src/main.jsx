@@ -245,7 +245,7 @@ function Hero() {
             <span className="hero-free-copy">지금 무료로 신청해보세요💕</span>
           </h1>
           <p>산모용품부터 출산준비, 육아용품까지<br />예비맘에게 필요한 선물을<br />마미온에서 간편하게 신청해보세요❣️</p>
-          <p className="hero-condition-note">신청 후 담당자가 순차적으로 안내드리며, 상담 진행 후 선물이 자택으로 배송됩니다.</p>
+          <p className="hero-condition-note">신청 후 순차 안내되며, 상담 진행 후 선물이 자택으로 배송됩니다.</p>
           <div className="hero-benefits">
             <article><Truck size={34} /><b>배송비 포함</b><span>상담 후 배송</span></article>
             <article><ShieldCheck size={34} /><b>신청 30초</b><span>간편 신청</span></article>
