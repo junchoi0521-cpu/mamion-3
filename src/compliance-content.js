@@ -10,7 +10,7 @@ export const PERSONAL_INFO_ITEMS = [
   '신청경로',
 ];
 
-export const THIRD_PARTY_RECIPIENTS = ['(주)카라멜에셋 하이-원 지사 김영탁 지점'];
+export const THIRD_PARTY_RECIPIENTS = ['(주)카라멜에셋'];
 
 export const RETENTION_PERIOD = '신청일로부터 2년 또는 동의 철회 시까지';
 export const THIRD_PARTY_RETENTION_PERIOD = '개인정보 제공일로부터 2년 또는 동의 철회 시까지';
