@@ -4106,6 +4106,11 @@ html body .benchmark-apply-form .consent-detail{
   gap:8px !important;
 }
 
+.consent-card .agree-stack{
+  width:100%;
+  padding-right:0 !important;
+}
+
 .consent-item{
   width:100%;
   box-sizing:border-box;
