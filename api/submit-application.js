@@ -1,4 +1,11 @@
 import crypto from 'node:crypto';
+import {
+  getClientIp,
+  isEnabled,
+  isExplicitlyDisabled,
+  normalizePhone,
+  verifyVerificationToken,
+} from './phone-verification-utils.js';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCsbrRzNR0ujxuj9x3_scOdDr-sVTLWdYy9fn0lpfZl1t0zLUWVo_qwhCuFb8VoLcxlw/exec';
 const SOLAPI_SEND_URL = 'https://api.solapi.com/messages/v4/send';
@@ -8,16 +15,6 @@ const RATE_LIMIT_MAX_REQUESTS = 5;
 const DAY_LIMIT_WINDOW_MS = 24 * 60 * 60 * 1000;
 const DAY_LIMIT_MAX_REQUESTS = 20;
 const ipBuckets = new Map();
-
-const isEnabled = (value) => String(value || '').toLowerCase() === 'true';
-
-const normalizePhone = (value) => String(value || '').replace(/[^0-9]/g, '');
-
-const getClientIp = (req) => {
-  const forwarded = req.headers['x-forwarded-for'];
-  if (typeof forwarded === 'string' && forwarded) return forwarded.split(',')[0].trim();
-  return req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
-};
 
 const pruneBucket = (bucket, now) => {
   bucket.short = bucket.short.filter((timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS);
@@ -205,6 +202,7 @@ export default async function handler(req, res) {
   try {
     const data = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : req.body || {};
     const clientIp = getClientIp(req);
+    const phoneVerificationRequired = !isExplicitlyDisabled(process.env.PHONE_VERIFY_ENABLED);
 
     if (!checkRateLimit(clientIp)) {
       return res.status(429).json({
@@ -221,7 +219,26 @@ export default async function handler(req, res) {
       });
     }
 
+    if (phoneVerificationRequired && !verifyVerificationToken({
+      token: data.phoneVerificationToken,
+      phone: data.phone,
+    })) {
+      return res.status(403).json({
+        result: 'phone_verification_required',
+        message: '휴대폰 인증을 완료한 뒤 신청해주세요.',
+      });
+    }
+
     const submitPayload = { ...data };
+    if (phoneVerificationRequired) {
+      submitPayload.phoneVerified = true;
+      submitPayload.phoneVerifiedAt = new Date().toISOString();
+      submitPayload.phoneVerifiedNumber = normalizePhone(data.phone);
+      submitPayload['휴대폰 인증 여부'] = '완료';
+      submitPayload['휴대폰 인증 시간'] = submitPayload.phoneVerifiedAt;
+      submitPayload['휴대폰 인증 번호'] = submitPayload.phoneVerifiedNumber;
+    }
+
     if (process.env.APPS_SCRIPT_SUBMIT_SECRET) {
       submitPayload.submitSecret = process.env.APPS_SCRIPT_SUBMIT_SECRET;
     }

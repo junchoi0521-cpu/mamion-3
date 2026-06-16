@@ -36,6 +36,12 @@ var ALIMTALK_COLUMNS = [
   '알림톡 실패 사유',
 ];
 
+var PHONE_VERIFICATION_COLUMNS = [
+  '휴대폰 인증 여부',
+  '휴대폰 인증 시간',
+  '휴대폰 인증 번호',
+];
+
 function jsonp_(callback, payload) {
   var body = callback + '(' + JSON.stringify(payload) + ')';
   return ContentService.createTextOutput(body).setMimeType(ContentService.MimeType.JAVASCRIPT);
@@ -76,7 +82,19 @@ function ensureAlimtalkColumns_(sheet) {
 
 function ensureMamionColumns_(sheet) {
   ensureScheduleColumns_(sheet);
-  return ensureAlimtalkColumns_(sheet);
+  ensureAlimtalkColumns_(sheet);
+  return ensurePhoneVerificationColumns_(sheet);
+}
+
+function ensurePhoneVerificationColumns_(sheet) {
+  var headers = getHeaders_(sheet);
+  PHONE_VERIFICATION_COLUMNS.forEach(function (columnName) {
+    if (headers.indexOf(columnName) === -1) {
+      sheet.getRange(1, headers.length + 1).setValue(columnName);
+      headers.push(columnName);
+    }
+  });
+  return headers;
 }
 
 function createScheduleToken_() {

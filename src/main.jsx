@@ -438,9 +438,19 @@ function ApplySection({ onSubmitSuccess }) {
 
   const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, thirdParty: false, marketing: false });
   const [turnstileToken, setTurnstileToken] = useState('');
+  const [phoneCode, setPhoneCode] = useState('');
+  const [phoneVerification, setPhoneVerification] = useState({ token: '', verifiedPhone: '', message: '', type: '', sending: false, verifying: false });
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitMessageType, setSubmitMessageType] = useState('');
-  const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
+  const update = (key, value) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+    if (key === 'phone') {
+      setPhoneCode('');
+      setPhoneVerification({ token: '', verifiedPhone: '', message: '', type: '', sending: false, verifying: false });
+    }
+  };
+  const normalizedPhone = form.phone.replace(/[^0-9]/g, '');
+  const isPhoneVerified = !!phoneVerification.token && phoneVerification.verifiedPhone === normalizedPhone;
   const formatPhoneNumber = (value) => {
     const numbers = value.replace(/[^0-9]/g, '');
     if (numbers.length < 4) return numbers;
@@ -495,10 +505,74 @@ function ApplySection({ onSubmitSuccess }) {
     });
     return response.json();
   };
+  const requestPhoneCode = async () => {
+    setSubmitMessage('');
+    setSubmitMessageType('');
+    setPhoneVerification((prev) => ({ ...prev, message: '', type: '', sending: true }));
+
+    if (!/^01[016789][0-9]{7,8}$/.test(normalizedPhone)) {
+      setPhoneVerification({ token: '', verifiedPhone: '', message: '휴대폰 번호를 정확히 입력해주세요.', type: 'error', sending: false, verifying: false });
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/send-phone-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: form.phone }),
+      });
+      const result = await response.json();
+      setPhoneVerification((prev) => ({
+        ...prev,
+        message: result.message || (result.result === 'success' ? '인증번호를 발송했습니다.' : '인증번호 발송에 실패했습니다.'),
+        type: result.result === 'success' ? 'success' : 'error',
+        sending: false,
+      }));
+    } catch {
+      setPhoneVerification((prev) => ({ ...prev, message: '인증번호 발송 중 오류가 발생했습니다.', type: 'error', sending: false }));
+    }
+  };
+  const verifyPhoneCode = async () => {
+    setPhoneVerification((prev) => ({ ...prev, message: '', type: '', verifying: true }));
+
+    if (!/^[0-9]{6}$/.test(phoneCode)) {
+      setPhoneVerification((prev) => ({ ...prev, message: '6자리 인증번호를 입력해주세요.', type: 'error', verifying: false }));
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/verify-phone-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: form.phone, code: phoneCode }),
+      });
+      const result = await response.json();
+      if (result.result === 'success' && result.phoneVerificationToken) {
+        setPhoneVerification({
+          token: result.phoneVerificationToken,
+          verifiedPhone: normalizedPhone,
+          message: result.message || '휴대폰 인증이 완료되었습니다.',
+          type: 'success',
+          sending: false,
+          verifying: false,
+        });
+        return;
+      }
+      setPhoneVerification((prev) => ({
+        ...prev,
+        message: result.message || '인증번호가 일치하지 않습니다.',
+        type: 'error',
+        verifying: false,
+      }));
+    } catch {
+      setPhoneVerification((prev) => ({ ...prev, message: '휴대폰 인증 확인 중 오류가 발생했습니다.', type: 'error', verifying: false }));
+    }
+  };
   async function submit(e) {
     e.preventDefault();
     setSubmitMessage(''); setSubmitMessageType('');
     if (!form.name || !form.phone || !form.dueDate || !form.region) { setSubmitMessage('필수 항목을 모두 입력해주세요.'); setSubmitMessageType('error'); return; }
+    if (!isPhoneVerified) { setSubmitMessage('휴대폰 인증을 완료해주세요.'); setSubmitMessageType('error'); return; }
     if (!form.privacy || !form.thirdParty) { setSubmitMessage('필수 동의 항목을 체크해주세요.'); setSubmitMessageType('error'); return; }
     if (TURNSTILE_SITE_KEY && !turnstileToken) { setSubmitMessage('자동 신청 방지 확인을 완료해주세요.'); setSubmitMessageType('error'); return; }
     const applicationToken = createApplicationToken();
@@ -507,6 +581,9 @@ function ApplySection({ onSubmitSuccess }) {
       ...form,
       applicationToken,
       scheduleLink,
+      phoneVerificationToken: phoneVerification.token,
+      phoneVerified: true,
+      phoneVerifiedNumber: normalizedPhone,
       신청토큰: applicationToken,
       '상담일시 입력 링크': scheduleLink,
       turnstileToken,
@@ -529,6 +606,18 @@ function ApplySection({ onSubmitSuccess }) {
           {submitMessage && <div className={`submit-message ${submitMessageType}`}>{submitMessage}</div>}
           <form onSubmit={submit}>
             <div className="form-row"><Field label="이름"><input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" /></Field><Field label="연락처"><input name="phone" value={form.phone} onChange={(e) => update('phone', formatPhoneNumber(e.target.value))} placeholder="010-1234-5678" maxLength={13} /></Field></div>
+            <div className="phone-verify-box">
+              <div className="phone-verify-actions">
+                <button type="button" onClick={requestPhoneCode} disabled={!form.phone || phoneVerification.sending || isPhoneVerified}>
+                  {phoneVerification.sending ? '발송 중...' : isPhoneVerified ? '인증 완료' : '인증번호 받기'}
+                </button>
+                <input value={phoneCode} onChange={(event) => setPhoneCode(event.target.value.replace(/[^0-9]/g, '').slice(0, 6))} placeholder="6자리 인증번호" inputMode="numeric" maxLength={6} disabled={isPhoneVerified} />
+                <button type="button" onClick={verifyPhoneCode} disabled={!phoneCode || phoneVerification.verifying || isPhoneVerified}>
+                  {phoneVerification.verifying ? '확인 중...' : '인증 확인'}
+                </button>
+              </div>
+              {phoneVerification.message && <p className={`phone-verify-message ${phoneVerification.type}`}>{phoneVerification.message}</p>}
+            </div>
             <div className="form-row"><Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><div className="field address-field"><span>주소 검색/직접 입력</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="주소를 검색하거나 직접 입력해주세요" autoComplete="street-address" /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label="주소 검색 열기"><Search size={18} /> 주소 검색</button></div><small className="address-help-text">예: 서울 강남구 테헤란로 123</small></div></div>
             <div className="agree-stack">
               <label className="agree-line"><input type="checkbox" checked={form.privacy} onChange={(e) => update('privacy', e.target.checked)} /> [필수] 개인정보 수집 및 이용 동의</label>
@@ -537,7 +626,7 @@ function ApplySection({ onSubmitSuccess }) {
               <a className="privacy-link" href="/privacy">개인정보처리방침 보기 &gt;</a>
             </div>
             <TurnstileBox onVerify={setTurnstileToken} onReset={() => setTurnstileToken('')} />
-            <button className="submit-btn" type="submit"><Gift size={20} /> 임신축하선물 신청하기</button>
+            <button className="submit-btn" type="submit" disabled={!isPhoneVerified}><Gift size={20} /> 임신축하선물 신청하기</button>
             <small>* 신청 정보는 선물 발송 및 상담 목적으로만 사용됩니다.</small>
           </form>
         </div>

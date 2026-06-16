@@ -3719,3 +3719,66 @@ html body .turnstile-wrap:empty{
     width:100% !important;
   }
 }
+
+.phone-verify-box{
+  margin:-4px 0 16px;
+  padding:14px;
+  border:1px solid #ffd1df;
+  border-radius:16px;
+  background:linear-gradient(180deg,#fff8fb,#fff);
+}
+.phone-verify-actions{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:8px;
+  align-items:center;
+}
+.phone-verify-actions input{
+  width:100%;
+  height:48px;
+  border:1px solid #e5e7eb;
+  border-radius:11px;
+  padding:0 14px;
+  font-size:15px;
+  font-weight:800;
+}
+.phone-verify-actions input:focus{
+  outline:none;
+  border-color:var(--pink);
+  box-shadow:0 0 0 4px rgba(247,64,120,.08);
+}
+.phone-verify-actions button{
+  height:48px;
+  border:1px solid #ffb9cc;
+  border-radius:11px;
+  padding:0 14px;
+  background:#fff;
+  color:var(--pink);
+  font-weight:900;
+  white-space:nowrap;
+}
+.phone-verify-actions button:first-child{background:#fff1f6}
+.phone-verify-actions button:disabled,
+.submit-btn:disabled{
+  cursor:not-allowed;
+  opacity:.55;
+  box-shadow:none;
+}
+.phone-verify-message{
+  margin:10px 2px 0;
+  font-size:13px;
+  font-weight:900;
+  color:#6b7280;
+}
+.phone-verify-message.success{color:#15803d}
+.phone-verify-message.error{color:#e11d48}
+
+@media(max-width:720px){
+  .phone-verify-actions{
+    grid-template-columns:1fr;
+  }
+  .phone-verify-actions button,
+  .phone-verify-actions input{
+    width:100%;
+  }
+}

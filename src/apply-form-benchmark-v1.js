@@ -13,6 +13,13 @@ const formState = {
   insuranceConsult: false,
   marketing: false,
   turnstileToken: '',
+  phoneVerificationCode: '',
+  phoneVerificationToken: '',
+  phoneVerifiedPhone: '',
+  phoneVerificationMessage: '',
+  phoneVerificationType: '',
+  phoneVerificationSending: false,
+  phoneVerificationVerifying: false,
 };
 
 function formatPhone(value) {
@@ -28,6 +35,14 @@ function calculateWeeks(dueDate) {
   const pregnancyDays = 280 - diffDays;
   if (pregnancyDays < 0) return '0주 0일';
   return `${Math.floor(pregnancyDays / 7)}주 ${pregnancyDays % 7}일`;
+}
+
+function normalizePhone(value) {
+  return String(value || '').replace(/[^0-9]/g, '');
+}
+
+function isPhoneVerified() {
+  return !!formState.phoneVerificationToken && formState.phoneVerifiedPhone === normalizePhone(formState.phone);
 }
 
 function getScheduleOrigin() {
@@ -82,6 +97,110 @@ async function submitApplication(payload) {
     body: JSON.stringify(payload),
   });
   return response.json();
+}
+
+async function requestPhoneCode() {
+  const phone = normalizePhone(formState.phone);
+  formState.phoneVerificationMessage = '';
+  formState.phoneVerificationType = '';
+  formState.phoneVerificationSending = true;
+
+  if (!/^01[016789][0-9]{7,8}$/.test(phone)) {
+    formState.phoneVerificationSending = false;
+    formState.phoneVerificationMessage = '휴대폰 번호를 정확히 입력해주세요.';
+    formState.phoneVerificationType = 'error';
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/send-phone-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: formState.phone }),
+    });
+    const result = await response.json();
+    formState.phoneVerificationMessage = result.message || (result.result === 'success' ? '인증번호를 발송했습니다.' : '인증번호 발송에 실패했습니다.');
+    formState.phoneVerificationType = result.result === 'success' ? 'success' : 'error';
+  } catch {
+    formState.phoneVerificationMessage = '인증번호 발송 중 오류가 발생했습니다.';
+    formState.phoneVerificationType = 'error';
+  } finally {
+    formState.phoneVerificationSending = false;
+  }
+}
+
+async function verifyPhoneCode() {
+  formState.phoneVerificationMessage = '';
+  formState.phoneVerificationType = '';
+  formState.phoneVerificationVerifying = true;
+
+  if (!/^[0-9]{6}$/.test(formState.phoneVerificationCode)) {
+    formState.phoneVerificationVerifying = false;
+    formState.phoneVerificationMessage = '6자리 인증번호를 입력해주세요.';
+    formState.phoneVerificationType = 'error';
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/verify-phone-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: formState.phone, code: formState.phoneVerificationCode }),
+    });
+    const result = await response.json();
+    if (result.result === 'success' && result.phoneVerificationToken) {
+      formState.phoneVerificationToken = result.phoneVerificationToken;
+      formState.phoneVerifiedPhone = normalizePhone(formState.phone);
+      formState.phoneVerificationMessage = result.message || '휴대폰 인증이 완료되었습니다.';
+      formState.phoneVerificationType = 'success';
+      return;
+    }
+    formState.phoneVerificationMessage = result.message || '인증번호가 일치하지 않습니다.';
+    formState.phoneVerificationType = 'error';
+  } catch {
+    formState.phoneVerificationMessage = '휴대폰 인증 확인 중 오류가 발생했습니다.';
+    formState.phoneVerificationType = 'error';
+  } finally {
+    formState.phoneVerificationVerifying = false;
+  }
+}
+
+function resetPhoneVerification() {
+  formState.phoneVerificationCode = '';
+  formState.phoneVerificationToken = '';
+  formState.phoneVerifiedPhone = '';
+  formState.phoneVerificationMessage = '';
+  formState.phoneVerificationType = '';
+  formState.phoneVerificationSending = false;
+  formState.phoneVerificationVerifying = false;
+}
+
+function syncPhoneVerificationUi(form) {
+  const verified = isPhoneVerified();
+  const codeInput = form.querySelector('[name="phoneVerificationCode"]');
+  const sendButton = form.querySelector('[data-phone-action="send"]');
+  const verifyButton = form.querySelector('[data-phone-action="verify"]');
+  const message = form.querySelector('.phone-verify-message');
+  const submitButton = form.querySelector('.submit-btn');
+
+  if (codeInput) {
+    codeInput.value = formState.phoneVerificationCode;
+    codeInput.disabled = verified;
+  }
+  if (sendButton) {
+    sendButton.disabled = !formState.phone || formState.phoneVerificationSending || verified;
+    sendButton.textContent = formState.phoneVerificationSending ? '발송 중...' : verified ? '인증 완료' : '인증번호 받기';
+  }
+  if (verifyButton) {
+    verifyButton.disabled = !formState.phoneVerificationCode || formState.phoneVerificationVerifying || verified;
+    verifyButton.textContent = formState.phoneVerificationVerifying ? '확인 중...' : '인증 확인';
+  }
+  if (message) {
+    message.textContent = formState.phoneVerificationMessage;
+    message.className = `phone-verify-message ${formState.phoneVerificationType}`.trim();
+    message.hidden = !formState.phoneVerificationMessage;
+  }
+  if (submitButton) submitButton.disabled = !verified;
 }
 
 function loadTurnstileScript(callback) {
@@ -165,6 +284,14 @@ function renderEnhancedForm(formArea, oldForm) {
       <label class="field"><span class="field-label">이름 <em>*</em></span><input name="name" value="${formState.name}" placeholder="이름을 입력해주세요" /></label>
       <label class="field"><span class="field-label">연락처 <em>*</em></span><input name="phone" value="${formState.phone}" placeholder="010-1234-5678" maxlength="13" /></label>
     </div>
+    <div class="phone-verify-box">
+      <div class="phone-verify-actions">
+        <button type="button" data-phone-action="send">인증번호 받기</button>
+        <input name="phoneVerificationCode" value="${formState.phoneVerificationCode}" placeholder="6자리 인증번호" inputmode="numeric" maxlength="6" />
+        <button type="button" data-phone-action="verify">인증 확인</button>
+      </div>
+      <p class="phone-verify-message ${formState.phoneVerificationType}" ${formState.phoneVerificationMessage ? '' : 'hidden'}>${formState.phoneVerificationMessage}</p>
+    </div>
     <div class="form-row single-field-row">
       <label class="field"><span class="field-label">예상 출산일 <em>*</em></span><input name="dueDate" type="date" value="${formState.dueDate}" /><div class="week-mini-text" hidden></div></label>
     </div>
@@ -189,11 +316,12 @@ function renderEnhancedForm(formArea, oldForm) {
       <a class="privacy-link" href="/privacy">개인정보처리방침 보기 &gt;</a>
     </div>
     ${TURNSTILE_SITE_KEY ? '<div class="turnstile-wrap"><div class="turnstile-widget"></div></div>' : ''}
-    <button class="submit-btn" type="submit">임신축하선물 신청하기</button>
+    <button class="submit-btn" type="submit" disabled>임신축하선물 신청하기</button>
     <small>* 신청 정보는 선물 발송 및 상담 목적으로만 사용됩니다.</small>
   `;
   oldForm.replaceWith(form);
   wireForm(formArea, form);
+  syncPhoneVerificationUi(form);
   renderTurnstile(form);
 }
 
@@ -209,13 +337,33 @@ function wireForm(formArea, form) {
   form.addEventListener('input', (event) => {
     const target = event.target;
     if (!target.name) return;
-    if (target.name === 'phone') target.value = formatPhone(target.value);
+    if (target.name === 'phone') {
+      target.value = formatPhone(target.value);
+      if (normalizePhone(target.value) !== formState.phoneVerifiedPhone) resetPhoneVerification();
+    }
+    if (target.name === 'phoneVerificationCode') {
+      target.value = target.value.replace(/[^0-9]/g, '').slice(0, 6);
+      formState.phoneVerificationCode = target.value;
+      syncPhoneVerificationUi(form);
+      return;
+    }
     if (target.type === 'checkbox') formState[target.name] = target.checked;
     else formState[target.name] = target.value;
     if (target.name === 'dueDate') syncWeekText();
+    syncPhoneVerificationUi(form);
   });
 
   form.addEventListener('click', (event) => {
+    if (event.target.closest('[data-phone-action="send"]')) {
+      requestPhoneCode().finally(() => syncPhoneVerificationUi(form));
+      return;
+    }
+
+    if (event.target.closest('[data-phone-action="verify"]')) {
+      verifyPhoneCode().finally(() => syncPhoneVerificationUi(form));
+      return;
+    }
+
     if (event.target.closest('.address-search-btn')) {
       const addressInput = form.querySelector('[name="address"]');
       const detailInput = form.querySelector('[name="detailAddress"]');
@@ -240,6 +388,10 @@ function wireForm(formArea, form) {
       setMessage(formArea, '필수 항목을 모두 입력해주세요.', 'error');
       return;
     }
+    if (!isPhoneVerified()) {
+      setMessage(formArea, '휴대폰 인증을 완료해주세요.', 'error');
+      return;
+    }
     if (!formState.privacy || !formState.thirdParty) {
       setMessage(formArea, '필수 동의 항목을 체크해주세요.', 'error');
       return;
@@ -262,6 +414,9 @@ function wireForm(formArea, form) {
       weeks: calculateWeeks(formState.dueDate),
       applicationToken,
       scheduleLink,
+      phoneVerificationToken: formState.phoneVerificationToken,
+      phoneVerified: true,
+      phoneVerifiedNumber: normalizePhone(formState.phone),
       신청토큰: applicationToken,
       '상담일시 입력 링크': scheduleLink,
       turnstileToken: formState.turnstileToken,
