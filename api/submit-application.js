@@ -7,7 +7,7 @@ import {
   verifyVerificationToken,
 } from './phone-verification-utils.js';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCsbrRzNR0ujxuj9x3_scOdDr-sVTLWdYy9fn0lpfZl1t0zLUWVo_qwhCuFb8VoLcxlw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzN848rfJXCkogphSZ6fSGFCeihMoOz_eS-XgshDqjvHJtE3kTbFuEpm5WB530yUqXf6w/exec';
 const SOLAPI_SEND_URL = 'https://api.solapi.com/messages/v4/send';
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
