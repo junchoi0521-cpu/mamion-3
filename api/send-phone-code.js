@@ -22,12 +22,49 @@ const createCode = () => {
   return String(crypto.randomInt(0, 1000000)).padStart(6, '0');
 };
 
-const sendSms = async ({ to, code }) => {
-  if (isEnabled(process.env.PHONE_VERIFY_TEST_MODE)) {
-    return { skipped: true, summary: 'PHONE_VERIFY_TEST_MODE is true' };
+const interpolateKakaoVariable = (value, { code, phone }) => String(value ?? '')
+  .replaceAll('{{code}}', code)
+  .replaceAll('{{phone}}', phone)
+  .replaceAll('{{brand}}', '마미온');
+
+const buildKakaoVerificationVariables = ({ code, phone }) => {
+  const rawVariables = process.env.PHONE_VERIFY_KAKAO_VARIABLES_JSON;
+  if (rawVariables) {
+    let parsedVariables;
+    try {
+      parsedVariables = JSON.parse(rawVariables);
+    } catch {
+      throw new Error('PHONE_VERIFY_KAKAO_VARIABLES_JSON must be valid JSON');
+    }
+
+    if (!parsedVariables || Array.isArray(parsedVariables) || typeof parsedVariables !== 'object') {
+      throw new Error('PHONE_VERIFY_KAKAO_VARIABLES_JSON must be a JSON object');
+    }
+
+    return Object.fromEntries(
+      Object.entries(parsedVariables).map(([key, value]) => [
+        key,
+        interpolateKakaoVariable(value, { code, phone }),
+      ]),
+    );
   }
 
-  if (!process.env.SOLAPI_SENDER_NUMBER) throw new Error('SOLAPI_SENDER_NUMBER is missing');
+  const codeVariable = process.env.PHONE_VERIFY_KAKAO_CODE_VARIABLE || '#{인증번호}';
+  return { [codeVariable]: code };
+};
+
+const sendKakaoVerification = async ({ to, code }) => {
+  if (isEnabled(process.env.PHONE_VERIFY_TEST_MODE)) {
+    return { skipped: true, channel: 'test', summary: 'PHONE_VERIFY_TEST_MODE is true' };
+  }
+
+  const senderNumber = normalizePhone(process.env.SOLAPI_SENDER_NUMBER);
+  const pfId = process.env.PHONE_VERIFY_KAKAO_PF_ID || process.env.SOLAPI_PF_ID;
+  const templateId = process.env.PHONE_VERIFY_KAKAO_TEMPLATE_ID || process.env.PHONE_VERIFY_TEMPLATE_ID;
+
+  if (!senderNumber) throw new Error('SOLAPI_SENDER_NUMBER is missing');
+  if (!pfId) throw new Error('PHONE_VERIFY_KAKAO_PF_ID or SOLAPI_PF_ID is missing');
+  if (!templateId) throw new Error('PHONE_VERIFY_KAKAO_TEMPLATE_ID is missing');
 
   const response = await fetch(SOLAPI_SEND_URL, {
     method: 'POST',
@@ -38,8 +75,12 @@ const sendSms = async ({ to, code }) => {
     body: JSON.stringify({
       message: {
         to,
-        from: normalizePhone(process.env.SOLAPI_SENDER_NUMBER),
-        text: `[마미온] 휴대폰 인증번호는 ${code} 입니다. 5분 이내에 입력해주세요.`,
+        from: senderNumber,
+        kakaoOptions: {
+          pfId,
+          templateId,
+          variables: buildKakaoVerificationVariables({ code, phone: to }),
+        },
       },
     }),
   });
@@ -54,10 +95,10 @@ const sendSms = async ({ to, code }) => {
     const errorMessage = typeof payload === 'string'
       ? payload
       : payload?.message || payload?.errorMessage || JSON.stringify(payload);
-    throw new Error(errorMessage || `Solapi SMS request failed: ${response.status}`);
+    throw new Error(errorMessage || `Solapi Kakao request failed: ${response.status}`);
   }
 
-  return { skipped: false, summary: summarizeSolapiResponse(payload) };
+  return { skipped: false, channel: 'kakao', summary: summarizeSolapiResponse(payload) };
 };
 
 export default async function handler(req, res) {
@@ -109,7 +150,7 @@ export default async function handler(req, res) {
     }
 
     const code = createCode();
-    const smsResult = await sendSms({ to: phone, code });
+    const deliveryResult = await sendKakaoVerification({ to: phone, code });
 
     const codeHash = hashCode({ phone, code });
     const expiresAt = now + ttlMinutes * 60 * 1000;
@@ -126,10 +167,12 @@ export default async function handler(req, res) {
       result: 'success',
       message: isEnabled(process.env.PHONE_VERIFY_TEST_MODE)
         ? `테스트 인증번호는 ${code} 입니다.`
-        : '인증번호를 발송했습니다.',
+        : '카카오톡으로 인증번호를 발송했습니다. 카카오톡 메시지를 확인해주세요.',
       phoneVerificationChallenge: createCodeChallenge({ phone, codeHash, expiresAt }),
       testMode: isEnabled(process.env.PHONE_VERIFY_TEST_MODE),
-      sms: smsResult.skipped ? 'skipped' : 'sent',
+      sms: deliveryResult.skipped ? 'skipped' : 'sent',
+      kakao: deliveryResult.skipped ? 'skipped' : 'sent',
+      deliveryChannel: deliveryResult.channel || 'kakao',
     });
   } catch (error) {
     console.error('Phone code send failed:', error);
