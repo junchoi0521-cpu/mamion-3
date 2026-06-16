@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import {
   SOLAPI_SEND_URL,
   checkMemoryRateLimit,
+  createCodeChallenge,
   createSolapiAuthorization,
   getClientIp,
   getEnvNumber,
@@ -110,11 +111,14 @@ export default async function handler(req, res) {
     const code = createCode();
     const smsResult = await sendSms({ to: phone, code });
 
+    const codeHash = hashCode({ phone, code });
+    const expiresAt = now + ttlMinutes * 60 * 1000;
+
     await storeSet(key, {
-      codeHash: hashCode({ phone, code }),
+      codeHash,
       attempts: 0,
       lastSentAt: now,
-      expiresAt: now + ttlMinutes * 60 * 1000,
+      expiresAt,
       sendTimes: [...sendTimes, now],
     }, 24 * 60 * 60);
 
@@ -123,6 +127,7 @@ export default async function handler(req, res) {
       message: isEnabled(process.env.PHONE_VERIFY_TEST_MODE)
         ? `테스트 인증번호는 ${code} 입니다.`
         : '인증번호를 발송했습니다.',
+      phoneVerificationChallenge: createCodeChallenge({ phone, codeHash, expiresAt }),
       testMode: isEnabled(process.env.PHONE_VERIFY_TEST_MODE),
       sms: smsResult.skipped ? 'skipped' : 'sent',
     });

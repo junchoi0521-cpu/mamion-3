@@ -439,14 +439,14 @@ function ApplySection({ onSubmitSuccess }) {
   const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, thirdParty: false, marketing: false });
   const [turnstileToken, setTurnstileToken] = useState('');
   const [phoneCode, setPhoneCode] = useState('');
-  const [phoneVerification, setPhoneVerification] = useState({ token: '', verifiedPhone: '', message: '', type: '', sending: false, verifying: false });
+  const [phoneVerification, setPhoneVerification] = useState({ token: '', challenge: '', verifiedPhone: '', message: '', type: '', sending: false, verifying: false });
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitMessageType, setSubmitMessageType] = useState('');
   const update = (key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
     if (key === 'phone') {
       setPhoneCode('');
-      setPhoneVerification({ token: '', verifiedPhone: '', message: '', type: '', sending: false, verifying: false });
+      setPhoneVerification({ token: '', challenge: '', verifiedPhone: '', message: '', type: '', sending: false, verifying: false });
     }
   };
   const normalizedPhone = form.phone.replace(/[^0-9]/g, '');
@@ -511,7 +511,7 @@ function ApplySection({ onSubmitSuccess }) {
     setPhoneVerification((prev) => ({ ...prev, message: '', type: '', sending: true }));
 
     if (!/^01[016789][0-9]{7,8}$/.test(normalizedPhone)) {
-      setPhoneVerification({ token: '', verifiedPhone: '', message: '휴대폰 번호를 정확히 입력해주세요.', type: 'error', sending: false, verifying: false });
+      setPhoneVerification({ token: '', challenge: '', verifiedPhone: '', message: '휴대폰 번호를 정확히 입력해주세요.', type: 'error', sending: false, verifying: false });
       return;
     }
 
@@ -524,6 +524,7 @@ function ApplySection({ onSubmitSuccess }) {
       const result = await response.json();
       setPhoneVerification((prev) => ({
         ...prev,
+        challenge: result.phoneVerificationChallenge || '',
         message: result.message || (result.result === 'success' ? '인증번호를 발송했습니다.' : '인증번호 발송에 실패했습니다.'),
         type: result.result === 'success' ? 'success' : 'error',
         sending: false,
@@ -544,12 +545,13 @@ function ApplySection({ onSubmitSuccess }) {
       const response = await fetch('/api/verify-phone-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: form.phone, code: phoneCode }),
+        body: JSON.stringify({ phone: form.phone, code: phoneCode, phoneVerificationChallenge: phoneVerification.challenge }),
       });
       const result = await response.json();
       if (result.result === 'success' && result.phoneVerificationToken) {
         setPhoneVerification({
           token: result.phoneVerificationToken,
+          challenge: phoneVerification.challenge,
           verifiedPhone: normalizedPhone,
           message: result.message || '휴대폰 인증이 완료되었습니다.',
           type: 'success',

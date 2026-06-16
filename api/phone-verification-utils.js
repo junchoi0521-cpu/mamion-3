@@ -75,7 +75,12 @@ const redisCommand = async (command) => {
 };
 
 export const storeGet = async (key) => {
-  const redisValue = await redisCommand(['GET', key]);
+  let redisValue = null;
+  try {
+    redisValue = await redisCommand(['GET', key]);
+  } catch (error) {
+    console.error('Redis GET failed:', error);
+  }
   if (redisValue !== null) {
     try {
       return JSON.parse(redisValue);
@@ -94,7 +99,11 @@ export const storeGet = async (key) => {
 };
 
 export const storeSet = async (key, value, ttlSeconds) => {
-  await redisCommand(['SET', key, JSON.stringify(value), 'EX', ttlSeconds]);
+  try {
+    await redisCommand(['SET', key, JSON.stringify(value), 'EX', ttlSeconds]);
+  } catch (error) {
+    console.error('Redis SET failed:', error);
+  }
   memoryStore.set(key, {
     value,
     expiresAt: Date.now() + ttlSeconds * 1000,
@@ -124,6 +133,40 @@ export const createVerificationToken = ({ phone }) => {
   const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
   const signature = crypto.createHmac('sha256', getTokenSecret()).update(body).digest('base64url');
   return `${body}.${signature}`;
+};
+
+export const createCodeChallenge = ({ phone, codeHash, expiresAt }) => {
+  const payload = {
+    phone: normalizePhone(phone),
+    codeHash,
+    expiresAt,
+    nonce: crypto.randomUUID(),
+  };
+  const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
+  const signature = crypto.createHmac('sha256', getTokenSecret()).update(body).digest('base64url');
+  return `${body}.${signature}`;
+};
+
+export const verifyCodeChallenge = ({ challenge, phone, code }) => {
+  if (!challenge || !phone || !code) return false;
+
+  const [body, signature] = String(challenge).split('.');
+  if (!body || !signature) return false;
+
+  const expected = crypto.createHmac('sha256', getTokenSecret()).update(body).digest('base64url');
+  if (signature.length !== expected.length) return false;
+  if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) return false;
+
+  let payload;
+  try {
+    payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf8'));
+  } catch {
+    return false;
+  }
+
+  if (payload.phone !== normalizePhone(phone)) return false;
+  if (Number(payload.expiresAt || 0) < Date.now()) return false;
+  return payload.codeHash === hashCode({ phone, code });
 };
 
 export const verifyVerificationToken = ({ token, phone }) => {

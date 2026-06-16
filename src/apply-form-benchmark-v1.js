@@ -15,6 +15,7 @@ const formState = {
   turnstileToken: '',
   phoneVerificationCode: '',
   phoneVerificationToken: '',
+  phoneVerificationChallenge: '',
   phoneVerifiedPhone: '',
   phoneVerificationMessage: '',
   phoneVerificationType: '',
@@ -119,6 +120,7 @@ async function requestPhoneCode() {
       body: JSON.stringify({ phone: formState.phone }),
     });
     const result = await response.json();
+    formState.phoneVerificationChallenge = result.phoneVerificationChallenge || '';
     formState.phoneVerificationMessage = result.message || (result.result === 'success' ? '인증번호를 발송했습니다.' : '인증번호 발송에 실패했습니다.');
     formState.phoneVerificationType = result.result === 'success' ? 'success' : 'error';
   } catch {
@@ -145,7 +147,11 @@ async function verifyPhoneCode() {
     const response = await fetch('/api/verify-phone-code', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phone: formState.phone, code: formState.phoneVerificationCode }),
+      body: JSON.stringify({
+        phone: formState.phone,
+        code: formState.phoneVerificationCode,
+        phoneVerificationChallenge: formState.phoneVerificationChallenge,
+      }),
     });
     const result = await response.json();
     if (result.result === 'success' && result.phoneVerificationToken) {
@@ -168,6 +174,7 @@ async function verifyPhoneCode() {
 function resetPhoneVerification() {
   formState.phoneVerificationCode = '';
   formState.phoneVerificationToken = '';
+  formState.phoneVerificationChallenge = '';
   formState.phoneVerifiedPhone = '';
   formState.phoneVerificationMessage = '';
   formState.phoneVerificationType = '';
