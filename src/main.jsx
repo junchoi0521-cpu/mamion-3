@@ -488,7 +488,7 @@ function ApplySection({ onSubmitSuccess }) {
     return `${Math.floor(pregnancyDays / 7)}주 ${pregnancyDays % 7}일`;
   };
 
-  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, thirdParty: false, insuranceConsult: false, marketing: false });
+  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, termsConsent: false, thirdParty: false, insuranceConsult: false, marketing: false });
   const [turnstileToken, setTurnstileToken] = useState('');
   const [phoneCode, setPhoneCode] = useState('');
   const [phoneVerification, setPhoneVerification] = useState({ token: '', challenge: '', verifiedPhone: '', message: '', type: '', sending: false, verifying: false });
@@ -627,7 +627,7 @@ function ApplySection({ onSubmitSuccess }) {
     setSubmitMessage(''); setSubmitMessageType('');
     if (!form.name || !form.phone || !form.dueDate || !form.region) { setSubmitMessage('필수 항목을 모두 입력해주세요.'); setSubmitMessageType('error'); return; }
     if (!isPhoneVerified) { setSubmitMessage('휴대폰 인증을 완료해주세요.'); setSubmitMessageType('error'); return; }
-    if (!form.privacy || !form.thirdParty || !form.insuranceConsult) { setSubmitMessage('필수 동의 항목에 동의해야 신청이 가능합니다.'); setSubmitMessageType('error'); return; }
+    if (CONSENT_SECTIONS.some((section) => section.required && !form[section.formField])) { setSubmitMessage('필수 동의 항목에 동의해야 신청이 가능합니다.'); setSubmitMessageType('error'); return; }
     if (TURNSTILE_SITE_KEY && !turnstileToken) { setSubmitMessage('자동 신청 방지 확인을 완료해주세요.'); setSubmitMessageType('error'); return; }
     const applicationToken = createApplicationToken();
     const scheduleLink = createScheduleLink(applicationToken);

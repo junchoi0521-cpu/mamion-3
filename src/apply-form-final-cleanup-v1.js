@@ -134,7 +134,7 @@ function validateFinalApplyForm(event) {
     [!get('insuranceStatus')?.value, '태아보험 준비 상황을 선택해주세요.'],
     [!get('address')?.value.trim(), '주소를 입력해주세요.'],
     [!get('detailAddress')?.value.trim(), '상세 주소를 입력해주세요.'],
-    [!get('privacy')?.checked || !get('thirdParty')?.checked || !get('insuranceConsult')?.checked, '필수 동의 항목에 동의해야 신청이 가능합니다.'],
+    [!get('privacy')?.checked || !get('termsConsent')?.checked || !get('thirdParty')?.checked || !get('insuranceConsult')?.checked, '필수 동의 항목에 동의해야 신청이 가능합니다.'],
   ];
   const failed = requiredChecks.find(([condition]) => condition);
   if (!failed) return;

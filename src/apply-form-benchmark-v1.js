@@ -11,6 +11,7 @@ const formState = {
   address: '',
   detailAddress: '',
   privacy: false,
+  termsConsent: false,
   thirdParty: false,
   insuranceConsult: false,
   marketing: false,
@@ -437,7 +438,7 @@ function wireForm(formArea, form) {
       setMessage(formArea, '휴대폰 인증을 완료해주세요.', 'error');
       return;
     }
-    if (!formState.privacy || !formState.thirdParty || !formState.insuranceConsult) {
+    if (CONSENT_SECTIONS.some((section) => section.required && !formState[section.formField])) {
       setMessage(formArea, '필수 동의 항목에 동의해야 신청이 가능합니다.', 'error');
       return;
     }
