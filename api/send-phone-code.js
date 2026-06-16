@@ -22,6 +22,8 @@ const createCode = () => {
   return String(crypto.randomInt(0, 1000000)).padStart(6, '0');
 };
 
+const MIN_PHONE_VERIFY_DAILY_LIMIT = 20;
+
 const interpolateKakaoVariable = (value, { code, phone }) => String(value ?? '')
   .replaceAll('{{code}}', code)
   .replaceAll('{{phone}}', phone)
@@ -121,7 +123,10 @@ export default async function handler(req, res) {
     }
 
     const resendSeconds = getEnvNumber('PHONE_VERIFY_RESEND_SECONDS', 60);
-    const dailyLimit = getEnvNumber('PHONE_VERIFY_DAILY_LIMIT', 5);
+    const dailyLimit = Math.max(
+      getEnvNumber('PHONE_VERIFY_DAILY_LIMIT', MIN_PHONE_VERIFY_DAILY_LIMIT),
+      MIN_PHONE_VERIFY_DAILY_LIMIT,
+    );
     const ttlMinutes = getEnvNumber('PHONE_VERIFY_CODE_TTL_MINUTES', 5);
     const key = `phone-verify:${phone}`;
     const now = Date.now();
