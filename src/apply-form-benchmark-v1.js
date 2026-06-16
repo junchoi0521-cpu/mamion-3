@@ -23,6 +23,83 @@ const formState = {
   phoneVerificationVerifying: false,
 };
 
+const giftProvisionNoticeHtml = `
+  <div class="gift-provision-note">
+    <strong>[선물 지급 안내]</strong>
+    <p>마미온 임신축하선물은 신청자 정보 확인 및 상담 진행 후 자택으로 순차 배송됩니다.</p>
+    <p>선물 구성은 재고 및 운영 상황에 따라 변경될 수 있습니다.</p>
+    <p>허위 정보 입력, 중복 신청, 연락 불가 시 선물 지급이 제한될 수 있습니다.</p>
+  </div>
+`;
+
+const getConsentDetailsHtml = () => `
+  <div class="agree-stack">
+    <div class="agree-item">
+      <label class="agree-line"><input name="privacy" type="checkbox" ${formState.privacy ? 'checked' : ''} /> [필수] 개인정보 수집·이용 동의</label>
+      <details class="consent-detail">
+        <summary>자세히 보기</summary>
+        <div>
+          <p>마미온 임신축하선물 신청 및 상담 안내를 위해 아래와 같이 개인정보를 수집·이용합니다.</p>
+          <b>수집·이용 목적</b>
+          <ul><li>임신축하선물 신청 접수 및 신청자 본인 확인</li><li>신청 내용 확인, 상담 안내, 일정 조율 및 고객 문의 응대</li><li>선물 지급 대상 확인 및 배송 안내</li><li>중복 신청, 허위 신청 및 부정 이용 방지</li></ul>
+          <b>수집 항목</b>
+          <ul><li>성명, 휴대폰번호, 주소/배송지 정보, 출산예정일, 임신주수, 태아보험 가입여부, 희망 상담방식, 신청일시, 신청경로</li></ul>
+          <b>보유 및 이용기간</b>
+          <ul><li>신청일로부터 2년 또는 동의 철회 시까지</li><li>단, 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관할 수 있습니다.</li></ul>
+          <b>동의 거부권 및 불이익</b>
+          <ul><li>신청자는 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다.</li><li>다만, 동의하지 않을 경우 임신축하선물 신청, 상담 안내 및 선물 지급이 제한될 수 있습니다.</li></ul>
+        </div>
+      </details>
+    </div>
+    <div class="agree-item">
+      <label class="agree-line"><input name="thirdParty" type="checkbox" ${formState.thirdParty ? 'checked' : ''} /> [필수] 개인정보 제3자 제공 동의</label>
+      <details class="consent-detail">
+        <summary>자세히 보기</summary>
+        <div>
+          <p>마미온 임신축하선물 신청 및 태아보험 상담 안내를 위해 아래와 같이 신청자의 개인정보를 제3자에게 제공하는 것에 동의합니다.</p>
+          <b>개인정보를 제공받는 자</b>
+          <ul><li>(주)카라멜에셋 하이-원 지사 김영탁 지점</li></ul>
+          <b>개인정보 제공 목적</b>
+          <ul><li>임신축하선물 신청 확인 및 상담 안내</li><li>태아보험 상담, 보험상품 안내 및 상담 일정 조율</li><li>선물 지급 대상 확인, 고객 문의 응대 및 배송 안내</li></ul>
+          <b>제공하는 개인정보 항목</b>
+          <ul><li>성명, 휴대폰번호, 주소/배송지 정보, 출산예정일, 임신주수, 태아보험 가입여부, 희망 상담방식, 신청일시, 신청경로</li></ul>
+          <b>보유 및 이용기간</b>
+          <ul><li>개인정보 제공일로부터 2년 또는 동의 철회 시까지</li><li>단, 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관할 수 있습니다.</li></ul>
+          <b>동의 거부권 및 불이익</b>
+          <ul><li>신청자는 개인정보 제3자 제공에 대한 동의를 거부할 권리가 있습니다.</li><li>다만, 동의하지 않을 경우 임신축하선물 신청, 태아보험 상담 안내 및 선물 지급이 제한될 수 있습니다.</li></ul>
+          <b>안내</b>
+          <ul><li>현재 개인정보 제공 대상은 위 기재된 제공받는 자로 한정됩니다.</li><li>향후 제공받는 자가 변경 또는 추가되는 경우 관련 법령에 따라 필요한 고지 또는 동의 절차를 진행합니다.</li></ul>
+        </div>
+      </details>
+    </div>
+    <div class="agree-item">
+      <label class="agree-line event-consent-line"><input name="insuranceConsult" type="checkbox" ${formState.insuranceConsult ? 'checked' : ''} /> [필수] 임신축하선물 신청 및 상담 안내 확인</label>
+      <details class="consent-detail">
+        <summary>자세히 보기</summary>
+        <div><p>마미온 임신축하선물은 신청 후 담당자가 순차적으로 연락드리며, 상담 진행 후 선물이 자택으로 배송되는 구조임을 확인했습니다.</p></div>
+      </details>
+    </div>
+    <div class="agree-item">
+      <label class="agree-line"><input name="marketing" type="checkbox" ${formState.marketing ? 'checked' : ''} /> [선택] 광고성 정보 수신동의</label>
+      <details class="consent-detail">
+        <summary>자세히 보기</summary>
+        <div>
+          <p>마미온 및 상담 담당자는 임신·출산·육아 관련 정보, 이벤트 안내, 보험상품 및 서비스 안내 등 광고성 정보를 아래 수단으로 발송할 수 있습니다.</p>
+          <b>수신 목적</b>
+          <ul><li>임신·출산·육아 관련 정보 제공</li><li>이벤트, 혜택 및 서비스 안내</li><li>보험상품 및 상담 서비스 안내</li></ul>
+          <b>수신 방법</b>
+          <ul><li>문자메시지(SMS/LMS), 카카오톡 알림톡/친구톡, 전화, 이메일</li></ul>
+          <b>보유 및 이용기간</b>
+          <ul><li>동의일로부터 2년 또는 수신동의 철회 시까지</li></ul>
+          <b>동의 거부권</b>
+          <ul><li>광고성 정보 수신동의는 선택 사항이며, 동의하지 않아도 임신축하선물 신청은 가능합니다.</li><li>다만, 동의하지 않을 경우 이벤트, 혜택 및 광고성 정보 안내가 제한될 수 있습니다.</li></ul>
+        </div>
+      </details>
+    </div>
+    <a class="privacy-link" href="/privacy">개인정보처리방침 보기 &gt;</a>
+  </div>
+`;
+
 function formatPhone(value) {
   const numbers = value.replace(/[^0-9]/g, '');
   if (numbers.length < 4) return numbers;
@@ -311,17 +388,8 @@ function renderEnhancedForm(formArea, oldForm) {
       </div>
       <small class="address-help-text">주소 오류로 임신축하박스가 반송될 경우 재발송이 불가하오니 정확히 입력해주세요.</small>
     </div>
-    <div class="insurance-event-box">
-      <b>&lt;당첨 100% 이벤트&gt;</b>
-      <p>태아보험 상담 진행 또는 기존 태아보험 진단만 받으셔도 추첨 없이 선물을 드립니다.</p>
-      <label class="event-consent-line"><input name="insuranceConsult" type="checkbox" ${formState.insuranceConsult ? 'checked' : ''} /> [필수] 태아보험 상담에 동의합니다</label>
-    </div>
-    <div class="agree-stack">
-      <label class="agree-line"><input name="privacy" type="checkbox" ${formState.privacy ? 'checked' : ''} /> [필수] 개인정보 수집 및 이용 동의</label>
-      <label class="agree-line"><input name="thirdParty" type="checkbox" ${formState.thirdParty ? 'checked' : ''} /> [필수] 개인정보 제3자 제공 동의</label>
-      <label class="agree-line"><input name="marketing" type="checkbox" ${formState.marketing ? 'checked' : ''} /> [선택] 광고성 정보 수신 동의</label>
-      <a class="privacy-link" href="/privacy">개인정보처리방침 보기 &gt;</a>
-    </div>
+    ${giftProvisionNoticeHtml}
+    ${getConsentDetailsHtml()}
     ${TURNSTILE_SITE_KEY ? '<div class="turnstile-wrap"><div class="turnstile-widget"></div></div>' : ''}
     <button class="submit-btn" type="submit" disabled>임신축하선물 신청하기</button>
     <small>* 신청 정보는 선물 발송 및 상담 목적으로만 사용됩니다.</small>
@@ -399,12 +467,8 @@ function wireForm(formArea, form) {
       setMessage(formArea, '휴대폰 인증을 완료해주세요.', 'error');
       return;
     }
-    if (!formState.privacy || !formState.thirdParty) {
-      setMessage(formArea, '필수 동의 항목을 체크해주세요.', 'error');
-      return;
-    }
-    if (!formState.insuranceConsult) {
-      setMessage(formArea, '태아보험 상담 필수 동의 항목을 체크해주세요.', 'error');
+    if (!formState.privacy || !formState.thirdParty || !formState.insuranceConsult) {
+      setMessage(formArea, '필수 동의 항목에 동의해야 신청이 가능합니다.', 'error');
       return;
     }
     if (TURNSTILE_SITE_KEY && !formState.turnstileToken) {

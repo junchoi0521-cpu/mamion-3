@@ -96,13 +96,10 @@ function polishApplyCopy(form) {
   const eventLabel = form.querySelector('.event-consent-line');
   if (eventLabel) {
     const input = eventLabel.querySelector('input');
-    eventLabel.textContent = ' [필수] 태아보험 상담 및 기존 보험 점검에 동의합니다';
+    eventLabel.textContent = ' [필수] 임신축하선물 신청 및 상담 안내 확인';
     if (input) eventLabel.prepend(input);
   }
   bindInsuranceConsultCheckbox(form);
-
-  const marketingConsentLine = form.querySelector('[name="marketing"]')?.closest('label');
-  marketingConsentLine?.remove();
 
   const submitButton = form.querySelector('.submit-btn');
   if (submitButton) submitButton.lastChild.textContent = ' 임신축하선물 신청하기';
@@ -137,9 +134,7 @@ function validateFinalApplyForm(event) {
     [!get('insuranceStatus')?.value, '태아보험 준비 상황을 선택해주세요.'],
     [!get('address')?.value.trim(), '주소를 입력해주세요.'],
     [!get('detailAddress')?.value.trim(), '상세 주소를 입력해주세요.'],
-    [!get('insuranceConsult')?.checked, '태아보험 상담 및 기존 보험 점검 동의가 필요합니다.'],
-    [!get('privacy')?.checked, '개인정보 수집 및 이용 동의가 필요합니다.'],
-    [!get('thirdParty')?.checked, '개인정보 제3자 제공 동의가 필요합니다.'],
+    [!get('privacy')?.checked || !get('thirdParty')?.checked || !get('insuranceConsult')?.checked, '필수 동의 항목에 동의해야 신청이 가능합니다.'],
   ];
   const failed = requiredChecks.find(([condition]) => condition);
   if (!failed) return;

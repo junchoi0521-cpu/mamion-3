@@ -151,7 +151,7 @@ function patchHeroSeo(root) {
     heading.innerHTML = `
       <span class="hero-kicker">예비맘을 위한</span>
       <strong class="hero-main-copy">특별한 임신축하선물</strong>
-      <span class="hero-free-copy">지금 무료로 받아보세요💕</span>
+      <span class="hero-free-copy">지금 무료로 신청해보세요💕</span>
     `;
   }
 
@@ -164,10 +164,17 @@ function patchHeroSeo(root) {
     const tags = document.createElement('div');
     tags.className = 'hero-seo-tags';
     tags.innerHTML = `
-      <span>추첨 없이 선물 안내</span>
+      <span>상담 후 선물 배송 안내</span>
       <span>출산준비 구성 확인</span>
     `;
     lead.after(tags);
+  }
+
+  if (lead && !hero.querySelector('.hero-condition-note')) {
+    const note = document.createElement('p');
+    note.className = 'hero-condition-note';
+    note.textContent = '신청 후 담당자가 순차적으로 안내드리며, 상담 진행 후 선물이 자택으로 배송됩니다.';
+    lead.after(note);
   }
 
   hero.dataset.seoReady = 'true';
@@ -214,7 +221,7 @@ function patchApplySeo(root) {
 
   const eventBox = apply.querySelector('.insurance-event-box p');
   if (eventBox && eventBox.dataset.seoReady !== 'true') {
-    eventBox.textContent = '태아보험 상담 진행 또는 기존 태아보험 진단만 받으셔도 추첨 없이 임신축하선물을 안내드립니다.';
+    eventBox.textContent = '마미온 임신축하선물은 신청자 정보 확인 및 상담 진행 후 자택으로 순차 배송됩니다.';
     eventBox.dataset.seoReady = 'true';
   }
 }

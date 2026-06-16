@@ -235,11 +235,12 @@ function Hero() {
           <h1>
             <span className="hero-kicker">예비맘을 위한</span>
             <strong className="hero-main-copy">특별한 임신축하선물</strong>
-            <span className="hero-free-copy">지금 무료로 받아보세요💕</span>
+            <span className="hero-free-copy">지금 무료로 신청해보세요💕</span>
           </h1>
           <p>산모용품부터 출산준비, 육아용품까지<br />예비맘에게 필요한 선물을<br />마미온에서 간편하게 신청해보세요❣️</p>
+          <p className="hero-condition-note">신청 후 담당자가 순차적으로 안내드리며, 상담 진행 후 선물이 자택으로 배송됩니다.</p>
           <div className="hero-benefits">
-            <article><Truck size={34} /><b>배송비 포함</b><span>전액 무료</span></article>
+            <article><Truck size={34} /><b>배송비 포함</b><span>상담 후 배송</span></article>
             <article><ShieldCheck size={34} /><b>신청 30초</b><span>간편 신청</span></article>
           </div>
         </div>
@@ -426,6 +427,26 @@ function ReviewEventCard() {
 }
 
 
+function ConsentDetail({ children }) {
+  return (
+    <details className="consent-detail">
+      <summary>자세히 보기</summary>
+      <div>{children}</div>
+    </details>
+  );
+}
+
+function GiftProvisionNotice() {
+  return (
+    <div className="gift-provision-note">
+      <strong>[선물 지급 안내]</strong>
+      <p>마미온 임신축하선물은 신청자 정보 확인 및 상담 진행 후 자택으로 순차 배송됩니다.</p>
+      <p>선물 구성은 재고 및 운영 상황에 따라 변경될 수 있습니다.</p>
+      <p>허위 정보 입력, 중복 신청, 연락 불가 시 선물 지급이 제한될 수 있습니다.</p>
+    </div>
+  );
+}
+
 function ApplySection({ onSubmitSuccess }) {
   const addressInputRef = useRef(null);
   const calculateWeeks = (dueDate) => {
@@ -436,7 +457,7 @@ function ApplySection({ onSubmitSuccess }) {
     return `${Math.floor(pregnancyDays / 7)}주 ${pregnancyDays % 7}일`;
   };
 
-  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, thirdParty: false, marketing: false });
+  const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, thirdParty: false, insuranceConsult: false, marketing: false });
   const [turnstileToken, setTurnstileToken] = useState('');
   const [phoneCode, setPhoneCode] = useState('');
   const [phoneVerification, setPhoneVerification] = useState({ token: '', challenge: '', verifiedPhone: '', message: '', type: '', sending: false, verifying: false });
@@ -575,7 +596,7 @@ function ApplySection({ onSubmitSuccess }) {
     setSubmitMessage(''); setSubmitMessageType('');
     if (!form.name || !form.phone || !form.dueDate || !form.region) { setSubmitMessage('필수 항목을 모두 입력해주세요.'); setSubmitMessageType('error'); return; }
     if (!isPhoneVerified) { setSubmitMessage('휴대폰 인증을 완료해주세요.'); setSubmitMessageType('error'); return; }
-    if (!form.privacy || !form.thirdParty) { setSubmitMessage('필수 동의 항목을 체크해주세요.'); setSubmitMessageType('error'); return; }
+    if (!form.privacy || !form.thirdParty || !form.insuranceConsult) { setSubmitMessage('필수 동의 항목에 동의해야 신청이 가능합니다.'); setSubmitMessageType('error'); return; }
     if (TURNSTILE_SITE_KEY && !turnstileToken) { setSubmitMessage('자동 신청 방지 확인을 완료해주세요.'); setSubmitMessageType('error'); return; }
     const applicationToken = createApplicationToken();
     const scheduleLink = createScheduleLink(applicationToken);
@@ -621,10 +642,60 @@ function ApplySection({ onSubmitSuccess }) {
               {phoneVerification.message && <p className={`phone-verify-message ${phoneVerification.type}`}>{phoneVerification.message}</p>}
             </div>
             <div className="form-row"><Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><div className="field address-field"><span>주소 검색/직접 입력</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="주소를 검색하거나 직접 입력해주세요" autoComplete="street-address" /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label="주소 검색 열기"><Search size={18} /> 주소 검색</button></div><small className="address-help-text">예: 서울 강남구 테헤란로 123</small></div></div>
+            <GiftProvisionNotice />
             <div className="agree-stack">
-              <label className="agree-line"><input type="checkbox" checked={form.privacy} onChange={(e) => update('privacy', e.target.checked)} /> [필수] 개인정보 수집 및 이용 동의</label>
-              <label className="agree-line"><input type="checkbox" checked={form.thirdParty} onChange={(e) => update('thirdParty', e.target.checked)} /> [필수] 개인정보 제3자 제공 동의</label>
-              <label className="agree-line"><input type="checkbox" checked={form.marketing} onChange={(e) => update('marketing', e.target.checked)} /> [선택] 광고성 정보 수신 동의</label>
+              <div className="agree-item">
+                <label className="agree-line"><input name="privacy" type="checkbox" checked={form.privacy} onChange={(e) => update('privacy', e.target.checked)} /> [필수] 개인정보 수집·이용 동의</label>
+                <ConsentDetail>
+                  <p>마미온 임신축하선물 신청 및 상담 안내를 위해 아래와 같이 개인정보를 수집·이용합니다.</p>
+                  <b>수집·이용 목적</b>
+                  <ul><li>임신축하선물 신청 접수 및 신청자 본인 확인</li><li>신청 내용 확인, 상담 안내, 일정 조율 및 고객 문의 응대</li><li>선물 지급 대상 확인 및 배송 안내</li><li>중복 신청, 허위 신청 및 부정 이용 방지</li></ul>
+                  <b>수집 항목</b>
+                  <ul><li>성명, 휴대폰번호, 주소/배송지 정보, 출산예정일, 임신주수, 태아보험 가입여부, 희망 상담방식, 신청일시, 신청경로</li></ul>
+                  <b>보유 및 이용기간</b>
+                  <ul><li>신청일로부터 2년 또는 동의 철회 시까지</li><li>단, 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관할 수 있습니다.</li></ul>
+                  <b>동의 거부권 및 불이익</b>
+                  <ul><li>신청자는 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다.</li><li>다만, 동의하지 않을 경우 임신축하선물 신청, 상담 안내 및 선물 지급이 제한될 수 있습니다.</li></ul>
+                </ConsentDetail>
+              </div>
+              <div className="agree-item">
+                <label className="agree-line"><input name="thirdParty" type="checkbox" checked={form.thirdParty} onChange={(e) => update('thirdParty', e.target.checked)} /> [필수] 개인정보 제3자 제공 동의</label>
+                <ConsentDetail>
+                  <p>마미온 임신축하선물 신청 및 태아보험 상담 안내를 위해 아래와 같이 신청자의 개인정보를 제3자에게 제공하는 것에 동의합니다.</p>
+                  <b>개인정보를 제공받는 자</b>
+                  <ul><li>(주)카라멜에셋 하이-원 지사 김영탁 지점</li></ul>
+                  <b>개인정보 제공 목적</b>
+                  <ul><li>임신축하선물 신청 확인 및 상담 안내</li><li>태아보험 상담, 보험상품 안내 및 상담 일정 조율</li><li>선물 지급 대상 확인, 고객 문의 응대 및 배송 안내</li></ul>
+                  <b>제공하는 개인정보 항목</b>
+                  <ul><li>성명, 휴대폰번호, 주소/배송지 정보, 출산예정일, 임신주수, 태아보험 가입여부, 희망 상담방식, 신청일시, 신청경로</li></ul>
+                  <b>보유 및 이용기간</b>
+                  <ul><li>개인정보 제공일로부터 2년 또는 동의 철회 시까지</li><li>단, 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관할 수 있습니다.</li></ul>
+                  <b>동의 거부권 및 불이익</b>
+                  <ul><li>신청자는 개인정보 제3자 제공에 대한 동의를 거부할 권리가 있습니다.</li><li>다만, 동의하지 않을 경우 임신축하선물 신청, 태아보험 상담 안내 및 선물 지급이 제한될 수 있습니다.</li></ul>
+                  <b>안내</b>
+                  <ul><li>현재 개인정보 제공 대상은 위 기재된 제공받는 자로 한정됩니다.</li><li>향후 제공받는 자가 변경 또는 추가되는 경우 관련 법령에 따라 필요한 고지 또는 동의 절차를 진행합니다.</li></ul>
+                </ConsentDetail>
+              </div>
+              <div className="agree-item">
+                <label className="agree-line"><input name="insuranceConsult" type="checkbox" checked={form.insuranceConsult} onChange={(e) => update('insuranceConsult', e.target.checked)} /> [필수] 임신축하선물 신청 및 상담 안내 확인</label>
+                <ConsentDetail>
+                  <p>마미온 임신축하선물은 신청 후 담당자가 순차적으로 연락드리며, 상담 진행 후 선물이 자택으로 배송되는 구조임을 확인했습니다.</p>
+                </ConsentDetail>
+              </div>
+              <div className="agree-item">
+                <label className="agree-line"><input name="marketing" type="checkbox" checked={form.marketing} onChange={(e) => update('marketing', e.target.checked)} /> [선택] 광고성 정보 수신동의</label>
+                <ConsentDetail>
+                  <p>마미온 및 상담 담당자는 임신·출산·육아 관련 정보, 이벤트 안내, 보험상품 및 서비스 안내 등 광고성 정보를 아래 수단으로 발송할 수 있습니다.</p>
+                  <b>수신 목적</b>
+                  <ul><li>임신·출산·육아 관련 정보 제공</li><li>이벤트, 혜택 및 서비스 안내</li><li>보험상품 및 상담 서비스 안내</li></ul>
+                  <b>수신 방법</b>
+                  <ul><li>문자메시지(SMS/LMS), 카카오톡 알림톡/친구톡, 전화, 이메일</li></ul>
+                  <b>보유 및 이용기간</b>
+                  <ul><li>동의일로부터 2년 또는 수신동의 철회 시까지</li></ul>
+                  <b>동의 거부권</b>
+                  <ul><li>광고성 정보 수신동의는 선택 사항이며, 동의하지 않아도 임신축하선물 신청은 가능합니다.</li><li>다만, 동의하지 않을 경우 이벤트, 혜택 및 광고성 정보 안내가 제한될 수 있습니다.</li></ul>
+                </ConsentDetail>
+              </div>
               <a className="privacy-link" href="/privacy">개인정보처리방침 보기 &gt;</a>
             </div>
             <TurnstileBox onVerify={setTurnstileToken} onReset={() => setTurnstileToken('')} />
