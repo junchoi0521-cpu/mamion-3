@@ -767,27 +767,27 @@ function ThanksPage() {
           <div className="thanks-icon-wrap" aria-hidden="true"><Gift size={42} /></div>
           <h1>신청이 완료되었습니다!</h1>
           <p className="thanks-lead">마미온 임신축하선물 신청이 정상 접수되었습니다.</p>
-          <p className="thanks-copy">담당자가 신청 내용을 확인한 뒤 순차적으로 연락드릴 예정입니다.</p>
+          <p className="thanks-copy">카카오 알림톡으로 전달되는 상담 일정 입력 링크에 가능하신 시간을 남겨주시면 더 빠르고 편하게 안내받으실 수 있습니다.</p>
           <div className="thanks-steps" aria-label="접수 후 진행 안내">
             <article>
+              <MessageCircle size={24} />
+              <strong>알림톡 확인</strong>
+              <span>접수 후 카카오 알림톡으로 상담 일정 입력 링크가 전달됩니다.</span>
+            </article>
+            <article>
               <CalendarCheck size={24} />
-              <strong>신청 내용 확인</strong>
-              <span>입력하신 신청 정보를 확인합니다.</span>
+              <strong>상담 일정 남기기</strong>
+              <span>가능하신 날짜와 시간을 남겨주시면 안내가 더 수월해집니다.</span>
             </article>
             <article>
               <ShieldCheck size={24} />
-              <strong>대상 여부 안내</strong>
-              <span>접수 순서에 따라 안내드립니다.</span>
-            </article>
-            <article>
-              <Truck size={24} />
-              <strong>선물 발송 준비</strong>
-              <span>구성 확인 후 순차 발송됩니다.</span>
+              <strong>확인 후 순차 안내</strong>
+              <span>남겨주신 일정과 신청 내용을 확인한 뒤 순차적으로 안내드립니다.</span>
             </article>
           </div>
           <div className="thanks-notice">
-            <strong>확인해주세요</strong>
-            <span>선물 구성은 신청 시기와 재고 상황에 따라 일부 달라질 수 있습니다.</span>
+            <strong>알림톡 확인 부탁드려요</strong>
+            <span>카카오 알림톡에서 상담 일정을 먼저 남겨주시면 확인과 안내가 더 빠르게 진행됩니다.</span>
           </div>
           <div className="thanks-actions">
             <button type="button" onClick={() => window.location.href = '/'}>홈으로 돌아가기</button>
