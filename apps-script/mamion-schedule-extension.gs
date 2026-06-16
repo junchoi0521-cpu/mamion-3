@@ -6,11 +6,13 @@
  *    action=submit and action=count.
  * 2. Call ensureScheduleColumns_(sheet) before reading/writing headers.
  * 3. In the existing submit handler, call enrichScheduleFields_(data, sheet)
- *    before appending the applicant row.
+ *    before appending the applicant row. This also enriches consent fields.
  * 4. Add these routes to doGet(e):
  *    if (e.parameter.action === 'schedule') return handleScheduleSubmit_(e);
  *    if (e.parameter.action === 'scheduleInfo') return handleScheduleInfo_(e);
  *    if (e.parameter.action === 'alimtalkResult') return handleAlimtalkResult_(e);
+ * 5. If the submit handler sends an email, append
+ *    buildConsentEmailLines_(data).join('\n') to include consent statuses.
  *
  * Existing rows and column order are preserved. Missing schedule columns are
  * appended to the end of the first row only.
@@ -40,6 +42,14 @@ var PHONE_VERIFICATION_COLUMNS = [
   '휴대폰 인증 여부',
   '휴대폰 인증 시간',
   '휴대폰 인증 번호',
+];
+
+var CONSENT_COLUMNS = [
+  '개인정보 수집·이용 동의',
+  '개인정보 제3자 제공 동의',
+  '임신축하선물 신청 및 상담 안내 확인',
+  '광고성 정보 수신동의',
+  '동의 일시',
 ];
 
 function jsonp_(callback, payload) {
@@ -83,7 +93,8 @@ function ensureAlimtalkColumns_(sheet) {
 function ensureMamionColumns_(sheet) {
   ensureScheduleColumns_(sheet);
   ensureAlimtalkColumns_(sheet);
-  return ensurePhoneVerificationColumns_(sheet);
+  ensurePhoneVerificationColumns_(sheet);
+  return ensureConsentColumns_(sheet);
 }
 
 function ensurePhoneVerificationColumns_(sheet) {
@@ -95,6 +106,59 @@ function ensurePhoneVerificationColumns_(sheet) {
     }
   });
   return headers;
+}
+
+function ensureConsentColumns_(sheet) {
+  var headers = getHeaders_(sheet);
+  CONSENT_COLUMNS.forEach(function (columnName) {
+    if (headers.indexOf(columnName) === -1) {
+      sheet.getRange(1, headers.length + 1).setValue(columnName);
+      headers.push(columnName);
+    }
+  });
+  return headers;
+}
+
+function consentLabel_(value) {
+  if (value === true || value === 1) return '동의';
+  var normalized = String(value || '').trim().toLowerCase();
+  return ['true', '1', 'yes', 'y', '동의', '완료', 'checked', 'on'].indexOf(normalized) !== -1 ? '동의' : '미동의';
+}
+
+function resolveConsentLabel_(data, sheetColumn, payloadField, formField) {
+  if (data[sheetColumn] !== undefined && data[sheetColumn] !== null && String(data[sheetColumn]).trim() !== '') {
+    return data[sheetColumn];
+  }
+
+  if (data[payloadField] !== undefined && data[payloadField] !== null && String(data[payloadField]).trim() !== '') {
+    return consentLabel_(data[payloadField]);
+  }
+
+  return consentLabel_(data[formField]);
+}
+
+function enrichConsentFields_(data, sheet) {
+  ensureConsentColumns_(sheet);
+  var agreedAt = data.consentAgreedAt || data['동의 일시'] || data.createdAt || new Date();
+
+  data['개인정보 수집·이용 동의'] = resolveConsentLabel_(data, '개인정보 수집·이용 동의', 'privacyConsent', 'privacy');
+  data['개인정보 제3자 제공 동의'] = resolveConsentLabel_(data, '개인정보 제3자 제공 동의', 'thirdPartyConsent', 'thirdParty');
+  data['임신축하선물 신청 및 상담 안내 확인'] = resolveConsentLabel_(data, '임신축하선물 신청 및 상담 안내 확인', 'consultationNoticeConsent', 'insuranceConsult');
+  data['광고성 정보 수신동의'] = resolveConsentLabel_(data, '광고성 정보 수신동의', 'marketingConsent', 'marketing');
+  data['동의 일시'] = agreedAt;
+  data.consentAgreedAt = agreedAt;
+
+  return data;
+}
+
+function buildConsentEmailLines_(data) {
+  return [
+    '개인정보 수집·이용 동의: ' + resolveConsentLabel_(data, '개인정보 수집·이용 동의', 'privacyConsent', 'privacy'),
+    '개인정보 제3자 제공 동의: ' + resolveConsentLabel_(data, '개인정보 제3자 제공 동의', 'thirdPartyConsent', 'thirdParty'),
+    '임신축하선물 신청 및 상담 안내 확인: ' + resolveConsentLabel_(data, '임신축하선물 신청 및 상담 안내 확인', 'consultationNoticeConsent', 'insuranceConsult'),
+    '광고성 정보 수신동의: ' + resolveConsentLabel_(data, '광고성 정보 수신동의', 'marketingConsent', 'marketing'),
+    '동의 일시: ' + (data['동의 일시'] || data.consentAgreedAt || ''),
+  ];
 }
 
 function createScheduleToken_() {
@@ -139,7 +203,7 @@ function enrichScheduleFields_(data, sheet) {
   data['상담일시 입력 링크'] = link;
   data.applicationToken = token;
   data.scheduleLink = link;
-  return data;
+  return enrichConsentFields_(data, sheet);
 }
 
 function setRowValuesByHeader_(sheet, rowIndex, valuesByHeader) {

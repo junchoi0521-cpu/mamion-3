@@ -18,6 +18,13 @@ import {
 } from 'lucide-react';
 import './styles.css';
 import './address-search.css';
+import {
+  buildConsentPayload,
+  CONSENT_SECTIONS,
+  GIFT_PROVISION_NOTICE,
+  POLICY_CONTENT,
+  TERMS_CONTENT,
+} from './compliance-content.js';
 
 import heroMom from './assets/hero-mom.jpg';
 import bunny from './assets/contact-bunny.jpg';
@@ -427,11 +434,19 @@ function ReviewEventCard() {
 }
 
 
-function ConsentDetail({ children }) {
+function ConsentDetail({ section }) {
   return (
     <details className="consent-detail">
       <summary>자세히 보기</summary>
-      <div>{children}</div>
+      <div>
+        {section.intro && <p>{section.intro}</p>}
+        {section.blocks.map((block) => (
+          <React.Fragment key={block.title}>
+            <b>{block.title}</b>
+            <ul>{block.items.map((item) => <li key={item}>{item}</li>)}</ul>
+          </React.Fragment>
+        ))}
+      </div>
     </details>
   );
 }
@@ -439,10 +454,26 @@ function ConsentDetail({ children }) {
 function GiftProvisionNotice() {
   return (
     <div className="gift-provision-note">
-      <strong>[선물 지급 안내]</strong>
-      <p>마미온 임신축하선물은 신청자 정보 확인 및 상담 진행 후 자택으로 순차 배송됩니다.</p>
-      <p>선물 구성은 재고 및 운영 상황에 따라 변경될 수 있습니다.</p>
-      <p>허위 정보 입력, 중복 신청, 연락 불가 시 선물 지급이 제한될 수 있습니다.</p>
+      <strong>{GIFT_PROVISION_NOTICE.title}</strong>
+      {GIFT_PROVISION_NOTICE.lines.map((line) => <p key={line}>{line}</p>)}
+    </div>
+  );
+}
+
+function ConsentField({ section, checked, onChange }) {
+  return (
+    <div className="agree-item">
+      <label className={`agree-line${section.formField === 'insuranceConsult' ? ' event-consent-line' : ''}`}>
+        <input
+          name={section.formField}
+          type="checkbox"
+          checked={checked}
+          onChange={(event) => onChange(section.formField, event.target.checked)}
+        />
+        {' '}
+        {section.label}
+      </label>
+      <ConsentDetail section={section} />
     </div>
   );
 }
@@ -600,8 +631,11 @@ function ApplySection({ onSubmitSuccess }) {
     if (TURNSTILE_SITE_KEY && !turnstileToken) { setSubmitMessage('자동 신청 방지 확인을 완료해주세요.'); setSubmitMessageType('error'); return; }
     const applicationToken = createApplicationToken();
     const scheduleLink = createScheduleLink(applicationToken);
+    const consentAgreedAt = new Date().toISOString();
+    const consentPayload = buildConsentPayload(form, consentAgreedAt);
     const payload = {
       ...form,
+      ...consentPayload,
       applicationToken,
       scheduleLink,
       phoneVerificationToken: phoneVerification.token,
@@ -610,7 +644,7 @@ function ApplySection({ onSubmitSuccess }) {
       신청토큰: applicationToken,
       '상담일시 입력 링크': scheduleLink,
       turnstileToken,
-      createdAt: new Date().toISOString(),
+      createdAt: consentAgreedAt,
     };
     try {
       const result = await submitApplication(payload);
@@ -644,58 +678,14 @@ function ApplySection({ onSubmitSuccess }) {
             <div className="form-row"><Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><div className="field address-field"><span>주소 검색/직접 입력</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="주소를 검색하거나 직접 입력해주세요" autoComplete="street-address" /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label="주소 검색 열기"><Search size={18} /> 주소 검색</button></div><small className="address-help-text">예: 서울 강남구 테헤란로 123</small></div></div>
             <GiftProvisionNotice />
             <div className="agree-stack">
-              <div className="agree-item">
-                <label className="agree-line"><input name="privacy" type="checkbox" checked={form.privacy} onChange={(e) => update('privacy', e.target.checked)} /> [필수] 개인정보 수집·이용 동의</label>
-                <ConsentDetail>
-                  <p>마미온 임신축하선물 신청 및 상담 안내를 위해 아래와 같이 개인정보를 수집·이용합니다.</p>
-                  <b>수집·이용 목적</b>
-                  <ul><li>임신축하선물 신청 접수 및 신청자 본인 확인</li><li>신청 내용 확인, 상담 안내, 일정 조율 및 고객 문의 응대</li><li>선물 지급 대상 확인 및 배송 안내</li><li>중복 신청, 허위 신청 및 부정 이용 방지</li></ul>
-                  <b>수집 항목</b>
-                  <ul><li>성명, 휴대폰번호, 주소/배송지 정보, 출산예정일, 임신주수, 태아보험 가입여부, 희망 상담방식, 신청일시, 신청경로</li></ul>
-                  <b>보유 및 이용기간</b>
-                  <ul><li>신청일로부터 2년 또는 동의 철회 시까지</li><li>단, 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관할 수 있습니다.</li></ul>
-                  <b>동의 거부권 및 불이익</b>
-                  <ul><li>신청자는 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다.</li><li>다만, 동의하지 않을 경우 임신축하선물 신청, 상담 안내 및 선물 지급이 제한될 수 있습니다.</li></ul>
-                </ConsentDetail>
-              </div>
-              <div className="agree-item">
-                <label className="agree-line"><input name="thirdParty" type="checkbox" checked={form.thirdParty} onChange={(e) => update('thirdParty', e.target.checked)} /> [필수] 개인정보 제3자 제공 동의</label>
-                <ConsentDetail>
-                  <p>마미온 임신축하선물 신청 및 태아보험 상담 안내를 위해 아래와 같이 신청자의 개인정보를 제3자에게 제공하는 것에 동의합니다.</p>
-                  <b>개인정보를 제공받는 자</b>
-                  <ul><li>(주)카라멜에셋 하이-원 지사 김영탁 지점</li></ul>
-                  <b>개인정보 제공 목적</b>
-                  <ul><li>임신축하선물 신청 확인 및 상담 안내</li><li>태아보험 상담, 보험상품 안내 및 상담 일정 조율</li><li>선물 지급 대상 확인, 고객 문의 응대 및 배송 안내</li></ul>
-                  <b>제공하는 개인정보 항목</b>
-                  <ul><li>성명, 휴대폰번호, 주소/배송지 정보, 출산예정일, 임신주수, 태아보험 가입여부, 희망 상담방식, 신청일시, 신청경로</li></ul>
-                  <b>보유 및 이용기간</b>
-                  <ul><li>개인정보 제공일로부터 2년 또는 동의 철회 시까지</li><li>단, 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관할 수 있습니다.</li></ul>
-                  <b>동의 거부권 및 불이익</b>
-                  <ul><li>신청자는 개인정보 제3자 제공에 대한 동의를 거부할 권리가 있습니다.</li><li>다만, 동의하지 않을 경우 임신축하선물 신청, 태아보험 상담 안내 및 선물 지급이 제한될 수 있습니다.</li></ul>
-                  <b>안내</b>
-                  <ul><li>현재 개인정보 제공 대상은 위 기재된 제공받는 자로 한정됩니다.</li><li>향후 제공받는 자가 변경 또는 추가되는 경우 관련 법령에 따라 필요한 고지 또는 동의 절차를 진행합니다.</li></ul>
-                </ConsentDetail>
-              </div>
-              <div className="agree-item">
-                <label className="agree-line"><input name="insuranceConsult" type="checkbox" checked={form.insuranceConsult} onChange={(e) => update('insuranceConsult', e.target.checked)} /> [필수] 임신축하선물 신청 및 상담 안내 확인</label>
-                <ConsentDetail>
-                  <p>마미온 임신축하선물은 신청 후 담당자가 순차적으로 연락드리며, 상담 진행 후 선물이 자택으로 배송되는 구조임을 확인했습니다.</p>
-                </ConsentDetail>
-              </div>
-              <div className="agree-item">
-                <label className="agree-line"><input name="marketing" type="checkbox" checked={form.marketing} onChange={(e) => update('marketing', e.target.checked)} /> [선택] 광고성 정보 수신동의</label>
-                <ConsentDetail>
-                  <p>마미온 및 상담 담당자는 임신·출산·육아 관련 정보, 이벤트 안내, 보험상품 및 서비스 안내 등 광고성 정보를 아래 수단으로 발송할 수 있습니다.</p>
-                  <b>수신 목적</b>
-                  <ul><li>임신·출산·육아 관련 정보 제공</li><li>이벤트, 혜택 및 서비스 안내</li><li>보험상품 및 상담 서비스 안내</li></ul>
-                  <b>수신 방법</b>
-                  <ul><li>문자메시지(SMS/LMS), 카카오톡 알림톡/친구톡, 전화, 이메일</li></ul>
-                  <b>보유 및 이용기간</b>
-                  <ul><li>동의일로부터 2년 또는 수신동의 철회 시까지</li></ul>
-                  <b>동의 거부권</b>
-                  <ul><li>광고성 정보 수신동의는 선택 사항이며, 동의하지 않아도 임신축하선물 신청은 가능합니다.</li><li>다만, 동의하지 않을 경우 이벤트, 혜택 및 광고성 정보 안내가 제한될 수 있습니다.</li></ul>
-                </ConsentDetail>
-              </div>
+              {CONSENT_SECTIONS.map((section) => (
+                <ConsentField
+                  key={section.id}
+                  section={section}
+                  checked={form[section.formField]}
+                  onChange={update}
+                />
+              ))}
               <a className="privacy-link" href="/privacy">개인정보처리방침 보기 &gt;</a>
             </div>
             <TurnstileBox onVerify={setTurnstileToken} onReset={() => setTurnstileToken('')} />
@@ -727,8 +717,44 @@ function Faq() {
   return <section id="faq" className="faq-section section-wrap"><div className="section-title"><h2>자주 묻는 질문</h2><p>현재 전국 예비맘 대상 신청 접수 중입니다.</p></div><div className="faq-grid"><article><strong>정말 무료인가요?</strong><p>네. 신청 대상에 해당하는 예비맘께 무료로 안내드립니다.</p></article><article><strong>배송비도 무료인가요?</strong><p>네. 별도 배송비 없이 신청 가능합니다.</p></article><article><strong>신청 후 왜 연락이 오나요?</strong><p>신청 확인 및 축하선물 안내를 위해 순차적으로 연락드립니다.</p></article></div></section>;
 }
 
+function PolicyContentSection({ section }) {
+  return (
+    <React.Fragment>
+      <h3>{section.title}</h3>
+      {section.intro && <p>{section.intro}</p>}
+      {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+      {section.items && <ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul>}
+      {section.blocks?.map((block) => (
+        <React.Fragment key={block.title}>
+          <p><strong>{block.title}</strong></p>
+          <ul>{block.items.map((item) => <li key={item}>{item}</li>)}</ul>
+        </React.Fragment>
+      ))}
+    </React.Fragment>
+  );
+}
+
 function PolicySection({ initialType = 'all' }) {
-  return <section className="policy-section"><div className="policy-wrap">{(initialType === 'all' || initialType === 'privacy') && <><h2>개인정보처리방침</h2><p>제이엔파트너스(JN Partners)는 이용자의 개인정보를 중요하게 생각하며 관련 법령에 따라 안전하게 관리합니다.</p><h3>1. 수집하는 개인정보 항목</h3><ul><li>이름</li><li>연락처</li><li>출산 예정일</li><li>임신 주수</li><li>거주지</li><li>개인정보 수집 및 이용 동의 여부</li><li>개인정보 제3자 제공 동의 여부</li><li>광고성 정보 수신 동의 여부</li></ul><h3>2. 개인정보 수집 및 이용 목적</h3><ul><li>임신축하선물 신청 접수</li><li>신청자 본인 확인</li><li>선물 수령 주소 확인</li><li>상담 및 안내 일정 조율</li></ul><h3>3. 보유 및 이용기간</h3><p>수집 목적 달성 후 지체 없이 파기하며, 법령에 따라 필요한 경우 해당 기간 동안 보관합니다.</p><h3>4. 개인정보 보호책임자</h3><p>상호 : 제이엔파트너스 (JN Partners)<br />대표자 : 최준<br />이메일 : cj.gasin@gmail.com</p><p>시행일 : 2026년 6월 4일</p></>}{(initialType === 'all' || initialType === 'terms') && <><h2>이용약관</h2><p>본 약관은 마미온에서 제공하는 임신축하선물 신청 서비스 이용과 관련한 기본 사항을 정합니다.</p><h3>1. 서비스 내용</h3><p>마미온은 예비맘을 대상으로 임신축하선물 신청 접수, 신청 확인, 선물 안내 및 관련 상담 안내 서비스를 제공합니다.</p><h3>2. 신청 및 이용 조건</h3><ul><li>신청자는 정확한 정보를 입력해야 합니다.</li><li>허위 정보 또는 중복 신청이 확인될 경우 제한될 수 있습니다.</li><li>선물 구성은 재고 및 협력사 사정에 따라 변경될 수 있습니다.</li></ul></>}</div></section>;
+  return (
+    <section className="policy-section">
+      <div className="policy-wrap">
+        {(initialType === 'all' || initialType === 'privacy') && (
+          <>
+            <h2>개인정보처리방침</h2>
+            <p>제이엔파트너스(JN Partners)는 이용자의 개인정보를 중요하게 생각하며 관련 법령에 따라 안전하게 관리합니다.</p>
+            {POLICY_CONTENT.map((section) => <PolicyContentSection key={section.title} section={section} />)}
+          </>
+        )}
+        {(initialType === 'all' || initialType === 'terms') && (
+          <>
+            <h2>이용약관</h2>
+            <p>본 약관은 마미온에서 제공하는 임신축하선물 신청 서비스 이용과 관련한 기본 사항을 정합니다.</p>
+            {TERMS_CONTENT.map((section) => <PolicyContentSection key={section.title} section={section} />)}
+          </>
+        )}
+      </div>
+    </section>
+  );
 }
 
 function ThanksPage() {

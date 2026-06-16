@@ -147,22 +147,6 @@ function validateFinalApplyForm(event) {
 function patchPolicyCopy() {
   const policyWrap = document.querySelector('.policy-wrap');
   if (!policyWrap || policyWrap.dataset.insuranceStatusReady) return;
-
-  const list = [...policyWrap.querySelectorAll('h3')]
-    .find((heading) => heading.textContent.includes('수집하는 개인정보 항목'))
-    ?.nextElementSibling;
-
-  if (list?.tagName === 'UL' && !list.textContent.includes('태아보험 준비 상황')) {
-    const dueItem = [...list.children].find((item) => item.textContent.includes('출산 예정일'));
-    const item = document.createElement('li');
-    item.textContent = '태아보험 준비 상황';
-    dueItem?.after(item);
-  }
-
-  list?.querySelectorAll('li').forEach((item) => {
-    if (item.textContent.includes('광고성 정보 수신 동의')) item.remove();
-  });
-
   policyWrap.dataset.insuranceStatusReady = 'true';
 }
 

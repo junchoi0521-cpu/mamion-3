@@ -6,6 +6,7 @@ import {
   normalizePhone,
   verifyVerificationToken,
 } from './phone-verification-utils.js';
+import { buildConsentPayload } from '../src/compliance-content.js';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzN848rfJXCkogphSZ6fSGFCeihMoOz_eS-XgshDqjvHJtE3kTbFuEpm5WB530yUqXf6w/exec';
 const SOLAPI_SEND_URL = 'https://api.solapi.com/messages/v4/send';
@@ -229,7 +230,11 @@ export default async function handler(req, res) {
       });
     }
 
-    const submitPayload = { ...data };
+    const consentAgreedAt = data.consentAgreedAt || data['동의 일시'] || data.createdAt || new Date().toISOString();
+    const submitPayload = {
+      ...data,
+      ...buildConsentPayload(data, consentAgreedAt),
+    };
     if (phoneVerificationRequired) {
       submitPayload.phoneVerified = true;
       submitPayload.phoneVerifiedAt = new Date().toISOString();
