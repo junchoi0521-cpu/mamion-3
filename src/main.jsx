@@ -434,20 +434,19 @@ function ReviewEventCard() {
 }
 
 
-function ConsentDetail({ section }) {
+function ConsentDetail({ section, open, detailId }) {
+  if (!open) return null;
+
   return (
-    <details className="consent-detail">
-      <summary>자세히 보기</summary>
-      <div>
-        {section.intro && <p>{section.intro}</p>}
-        {section.blocks.map((block) => (
-          <React.Fragment key={block.title}>
-            <b>{block.title}</b>
-            <ul>{block.items.map((item) => <li key={item}>{item}</li>)}</ul>
-          </React.Fragment>
-        ))}
-      </div>
-    </details>
+    <div className="consent-detail" id={detailId}>
+      {section.intro && <p>{section.intro}</p>}
+      {section.blocks.map((block) => (
+        <React.Fragment key={block.title}>
+          <b>{block.title}</b>
+          <ul>{block.items.map((item) => <li key={item}>{item}</li>)}</ul>
+        </React.Fragment>
+      ))}
+    </div>
   );
 }
 
@@ -460,20 +459,35 @@ function GiftProvisionNotice() {
   );
 }
 
-function ConsentField({ section, checked, onChange }) {
+function ConsentField({ section, checked, onChange, open, onToggleDetail }) {
+  const detailId = `consent-detail-${section.id}`;
+
   return (
-    <div className="agree-item">
-      <label className={`agree-line${section.formField === 'insuranceConsult' ? ' event-consent-line' : ''}`}>
-        <input
-          name={section.formField}
-          type="checkbox"
-          checked={checked}
-          onChange={(event) => onChange(section.formField, event.target.checked)}
-        />
-        {' '}
-        {section.label}
-      </label>
-      <ConsentDetail section={section} />
+    <div className={`agree-item consent-item${checked ? ' is-checked' : ''}`}>
+      <div className="consent-item-head">
+        <label className="agree-line">
+          <input
+            name={section.formField}
+            type="checkbox"
+            checked={checked}
+            onChange={(event) => onChange(section.formField, event.target.checked)}
+          />
+          <span className="consent-copy">
+            <strong>{section.label}</strong>
+            <small>{section.summary}</small>
+          </span>
+        </label>
+        <button
+          type="button"
+          className={`consent-toggle${open ? ' is-open' : ''}`}
+          aria-expanded={open}
+          aria-controls={detailId}
+          onClick={() => onToggleDetail(section.id)}
+        >
+          {open ? '닫기' : '자세히'}
+        </button>
+      </div>
+      <ConsentDetail section={section} open={open} detailId={detailId} />
     </div>
   );
 }
@@ -489,6 +503,9 @@ function ApplySection({ onSubmitSuccess }) {
   };
 
   const [form, setForm] = useState({ name: '', phone: '', dueDate: '', region: '', weeks: '', privacy: false, termsConsent: false, thirdParty: false, insuranceConsult: false, marketing: false });
+  const [openConsentDetails, setOpenConsentDetails] = useState(() => Object.fromEntries(
+    CONSENT_SECTIONS.map((section) => [section.id, false]),
+  ));
   const [turnstileToken, setTurnstileToken] = useState('');
   const [phoneCode, setPhoneCode] = useState('');
   const [phoneVerification, setPhoneVerification] = useState({ token: '', challenge: '', verifiedPhone: '', message: '', type: '', sending: false, verifying: false });
@@ -503,11 +520,21 @@ function ApplySection({ onSubmitSuccess }) {
   };
   const normalizedPhone = form.phone.replace(/[^0-9]/g, '');
   const isPhoneVerified = !!phoneVerification.token && phoneVerification.verifiedPhone === normalizedPhone;
+  const allConsentsChecked = CONSENT_SECTIONS.every((section) => form[section.formField]);
   const formatPhoneNumber = (value) => {
     const numbers = value.replace(/[^0-9]/g, '');
     if (numbers.length < 4) return numbers;
     if (numbers.length < 8) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
     return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+  };
+  const toggleAllConsents = (checked) => {
+    setForm((prev) => ({
+      ...prev,
+      ...Object.fromEntries(CONSENT_SECTIONS.map((section) => [section.formField, checked])),
+    }));
+  };
+  const toggleConsentDetail = (id) => {
+    setOpenConsentDetails((prev) => ({ ...prev, [id]: !prev[id] }));
   };
   const openAddressSearch = () => {
     const openPostcode = () => {
@@ -677,16 +704,42 @@ function ApplySection({ onSubmitSuccess }) {
             </div>
             <div className="form-row"><Field label="예상 출산일"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">현재 임신 주수 <strong>{form.weeks}</strong></div>}</Field><div className="field address-field"><span>주소 검색/직접 입력</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="주소를 검색하거나 직접 입력해주세요" autoComplete="street-address" /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label="주소 검색 열기"><Search size={18} /> 주소 검색</button></div><small className="address-help-text">예: 서울 강남구 테헤란로 123</small></div></div>
             <GiftProvisionNotice />
-            <div className="agree-stack">
-              {CONSENT_SECTIONS.map((section) => (
-                <ConsentField
-                  key={section.id}
-                  section={section}
-                  checked={form[section.formField]}
-                  onChange={update}
-                />
-              ))}
-              <a className="privacy-link" href="/privacy">개인정보처리방침 보기 &gt;</a>
+            <div className="consent-card">
+              <div className="consent-card-header">
+                <div className="consent-card-copy">
+                  <h3>동의 및 안내 확인</h3>
+                  <p>필수 항목에 동의해야 신청이 가능합니다.</p>
+                </div>
+                <label className="consent-all-line">
+                  <input
+                    name="allConsent"
+                    type="checkbox"
+                    checked={allConsentsChecked}
+                    onChange={(event) => toggleAllConsents(event.target.checked)}
+                  />
+                  <span className="consent-all-copy">
+                    <strong>전체 동의</strong>
+                    <small>선택 항목 포함</small>
+                  </span>
+                </label>
+              </div>
+              <div className="agree-stack">
+                {CONSENT_SECTIONS.map((section) => (
+                  <ConsentField
+                    key={section.id}
+                    section={section}
+                    checked={form[section.formField]}
+                    onChange={update}
+                    open={!!openConsentDetails[section.id]}
+                    onToggleDetail={toggleConsentDetail}
+                  />
+                ))}
+              </div>
+              <div className="consent-links">
+                <a href="/privacy">개인정보처리방침 보기</a>
+                <span>|</span>
+                <a href="/terms">이용약관 보기</a>
+              </div>
             </div>
             <TurnstileBox onVerify={setTurnstileToken} onReset={() => setTurnstileToken('')} />
             <button className="submit-btn" type="submit" disabled={!isPhoneVerified}><Gift size={20} /> 임신축하선물 신청하기</button>

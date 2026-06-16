@@ -20,11 +20,9 @@ export const PRIVACY_POLICY_VERSION = '2026-06-16.v2';
 export const TERMS_VERSION = '2026-06-16.v1';
 
 export const GIFT_PROVISION_NOTICE = {
-  title: '[선물 지급 안내]',
+  title: '선물 지급 안내',
   lines: [
-    '마미온 임신축하선물은 신청자 정보 확인 및 상담 진행 후 자택으로 순차 배송됩니다.',
-    '선물 구성은 재고 및 운영 상황에 따라 변경될 수 있습니다.',
-    '허위 정보 입력, 중복 신청, 연락 불가 시 선물 지급이 제한될 수 있습니다.',
+    '선물은 신청자 정보 확인 및 상담 안내 절차 후 순차적으로 안내·배송됩니다. 자세한 기준은 이용약관에서 확인하실 수 있습니다.',
   ],
 };
 
@@ -36,6 +34,7 @@ export const CONSENT_SECTIONS = [
     sheetColumn: '개인정보 수집·이용 동의',
     required: true,
     label: '[필수] 개인정보 수집·이용 동의',
+    summary: '신청 확인, 본인 확인, 선물 안내 및 상담 연결을 위해 필요한 정보를 수집합니다.',
     intro: '마미온은 임신축하선물 신청 접수, 상담 신청 정보 확인, 제휴 상담 연결, 선물 안내 및 배송을 위해 아래와 같이 개인정보를 수집·이용합니다.',
     blocks: [
       {
@@ -70,6 +69,7 @@ export const CONSENT_SECTIONS = [
     payloadField: 'termsConsent',
     required: true,
     label: '[필수] 이용약관 동의',
+    summary: '마미온 서비스 이용 조건과 선물 안내 기준을 확인했습니다.',
     intro: '마미온 신청 고객 상담 연결, 제휴 상담 연결, 선물 안내 및 배송 관련 서비스 이용약관을 확인하고 동의합니다.',
     blocks: [
       {
@@ -96,6 +96,7 @@ export const CONSENT_SECTIONS = [
     sheetColumn: '개인정보 제3자 제공 동의',
     required: true,
     label: '[필수] 개인정보 제3자 제공 동의',
+    summary: '동의한 경우 제휴 보험설계사 또는 GA 상담 담당자에게 상담 연결을 위한 신청 정보가 제공될 수 있습니다.',
     intro: '신청자가 동의한 경우에 한해 마미온 신청 고객 상담 연결, 제휴 상담 연결, 상담 일정 조율을 위해 신청자의 상담 신청 정보가 제휴 보험설계사 또는 GA 상담 담당자에게 제공될 수 있음에 동의합니다.',
     blocks: [
       { title: '개인정보를 제공받는 자', items: THIRD_PARTY_RECIPIENTS },
@@ -138,7 +139,8 @@ export const CONSENT_SECTIONS = [
     payloadField: 'consultationNoticeConsent',
     sheetColumn: '임신축하선물 신청 및 상담 안내 확인',
     required: true,
-    label: '[필수] 임신축하선물 신청 및 상담 안내 확인',
+    label: '[필수] 태아보험 상담/기존 보험 점검 안내 확인',
+    summary: '신청 후 상담 담당자가 태아보험 상담 또는 기존 보험 점검 안내를 위해 연락드릴 수 있습니다.',
     intro: '마미온 임신축하선물은 신청자가 동의한 상담 신청 정보 확인 후, 제휴 보험설계사 또는 GA 상담 담당자가 순차적으로 연락드려 상담 연결을 진행하고, 상담 이후 선물이 자택으로 배송되는 구조임을 확인했습니다.',
     blocks: [],
   },
@@ -148,7 +150,8 @@ export const CONSENT_SECTIONS = [
     payloadField: 'marketingConsent',
     sheetColumn: '광고성 정보 수신동의',
     required: false,
-    label: '[선택] 광고성 정보 수신동의',
+    label: '[선택] 광고성 정보 수신 동의',
+    summary: '이벤트, 혜택, 상담 안내를 문자·전화·카카오톡 등으로 받을 수 있습니다.',
     intro: '마미온 및 상담 담당자는 임신·출산·육아 관련 정보, 이벤트 안내, 보험상품 및 서비스 안내 등 광고성 정보를 아래 수단으로 발송할 수 있습니다.',
     blocks: [
       {
