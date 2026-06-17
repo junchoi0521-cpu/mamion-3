@@ -4541,8 +4541,8 @@ html body .benchmark-apply-form .consent-detail{
 .delivery-flow-step b{
   display:block;
   color:#221815;
-  font-size:18px;
-  line-height:1.22;
+  font-size:19px;
+  line-height:1.24;
   font-weight:900;
   letter-spacing:0;
 }
@@ -4550,8 +4550,8 @@ html body .benchmark-apply-form .consent-detail{
 .delivery-flow-step p{
   margin:8px 0 0;
   color:#6a6267;
-  font-size:13px;
-  line-height:1.58;
+  font-size:13.8px;
+  line-height:1.62;
   font-weight:700;
 }
 
@@ -4593,7 +4593,12 @@ html body .benchmark-apply-form .consent-detail{
   }
 
   .delivery-flow-step b{
-    font-size:18px;
+    font-size:19px;
+  }
+
+  .delivery-flow-step p{
+    font-size:13.6px;
+    line-height:1.6;
   }
 }
 
@@ -4648,13 +4653,13 @@ html body .benchmark-apply-form .consent-detail{
   }
 
   .delivery-flow-step b{
-    font-size:16px;
+    font-size:16.8px;
   }
 
   .delivery-flow-step p{
     margin-top:8px;
-    font-size:12.5px;
-    line-height:1.6;
+    font-size:12.9px;
+    line-height:1.62;
   }
 
   .delivery-flow-arrow{
