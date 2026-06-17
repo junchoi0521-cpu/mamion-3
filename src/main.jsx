@@ -438,6 +438,12 @@ function ReviewEventCard() {
     [<ShieldCheck size={22} />, '개인정보 마스킹 후 활용'],
     [<UserCheck size={22} />, '실제 수령자 대상 진행'],
   ];
+  const quickNotes = [
+    ['보내실 내용', '사진 1장 또는 짧은 후기'],
+    ['전달 채널', '카카오톡으로 간편 전달'],
+    ['안내 방식', '확인 후 순차 안내'],
+    ['참여 대상', '실제 수령 고객 우선'],
+  ];
   return (
     <aside id="review-event" className="review-event-card" aria-label="후기 이벤트 안내">
       <div className="review-event-visual" aria-hidden="true">
@@ -464,6 +470,14 @@ function ReviewEventCard() {
           블로그, 인스타그램, 페이스북 등 SNS에 작성하신 후기 링크를 보내주시면 됩니다.
           또는 수령 사진과 간단한 후기를 카카오톡으로 직접 전달해 주셔도 좋아요.
         </p>
+      </div>
+      <div className="review-event-note-grid" aria-label="후기 이벤트 요약">
+        {quickNotes.map(([label, value]) => (
+          <article key={label}>
+            <span>{label}</span>
+            <strong>{value}</strong>
+          </article>
+        ))}
       </div>
       <button type="button" className="review-event-button">후기 이벤트 안내 받기</button>
       <small>후기 이벤트는 실제 수령자에 한해 안내되며, 활용 시 개인정보는 마스킹 처리됩니다.</small>
