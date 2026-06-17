@@ -559,6 +559,7 @@ function ApplySection({ onSubmitSuccess }) {
   const [openConsentDetails, setOpenConsentDetails] = useState(() => Object.fromEntries(
     CONSENT_SECTIONS.map((section) => [section.id, false]),
   ));
+  const [addressManualFallback, setAddressManualFallback] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState('');
   const [phoneCode, setPhoneCode] = useState('');
   const [phoneVerification, setPhoneVerification] = useState({ token: '', challenge: '', verifiedPhone: '', message: '', type: '', sending: false, verifying: false });
@@ -589,16 +590,23 @@ function ApplySection({ onSubmitSuccess }) {
   const toggleConsentDetail = (id) => {
     setOpenConsentDetails((prev) => ({ ...prev, [id]: !prev[id] }));
   };
+  const enableAddressManualFallback = () => {
+    setAddressManualFallback(true);
+    addressInputRef.current?.focus();
+    setSubmitMessage('주소 검색을 불러오지 못했습니다. 주소를 직접 입력해주세요.');
+    setSubmitMessageType('error');
+  };
   const openAddressSearch = () => {
     const openPostcode = () => {
       if (!window.daum?.Postcode) {
-        addressInputRef.current?.focus();
+        enableAddressManualFallback();
         return;
       }
 
       new window.daum.Postcode({
         oncomplete: (data) => {
           const selectedAddress = data.roadAddress || data.jibunAddress || data.address || '';
+          setAddressManualFallback(false);
           update('region', selectedAddress);
           setTimeout(() => {
             if (detailAddressInputRef.current) {
@@ -628,11 +636,7 @@ function ApplySection({ onSubmitSuccess }) {
     script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
     script.async = true;
     script.onload = openPostcode;
-    script.onerror = () => {
-      addressInputRef.current?.focus();
-      setSubmitMessage('주소 검색을 불러오지 못했습니다. 주소를 직접 입력해주세요.');
-      setSubmitMessageType('');
-    };
+    script.onerror = enableAddressManualFallback;
     document.body.appendChild(script);
   };
   const submitApplication = async (payload) => {
@@ -766,7 +770,7 @@ function ApplySection({ onSubmitSuccess }) {
               </div></Field>
               <Field label={'\uCD9C\uC0B0\uC608\uC815\uC77C'} className="due-date-field"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">{'\uD604\uC7AC \uC784\uC2E0 \uC8FC\uC218 '}<strong>{form.weeks}</strong></div>}</Field>
             </div>
-            <div className="form-row address-detail-row"><div className="field address-field"><span>{'\uC8FC\uC18C \uAC80\uC0C9'}</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onClick={openAddressSearch} onKeyDown={(event) => { if (event.key === 'Enter') { event.preventDefault(); openAddressSearch(); } }} placeholder={'\uC8FC\uC18C\uB97C \uAC80\uC0C9\uD574\uC8FC\uC138\uC694'} autoComplete="address-line1" readOnly aria-label={'\uC8FC\uC18C \uAC80\uC0C9'} /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label={'\uC8FC\uC18C \uAC80\uC0C9 \uC5F4\uAE30'}><Search size={18} /> {'\uC8FC\uC18C \uAC80\uC0C9'}</button></div></div><Field label={'\uC0C1\uC138\uC8FC\uC18C'} className="detail-address-field"><input ref={detailAddressInputRef} name="detailAddress" value={form.detailAddress} onChange={(e) => update('detailAddress', e.target.value)} placeholder={'\uB3D9\u00B7\uD638\uC218 \uB4F1 \uC0C1\uC138\uC8FC\uC18C \uC785\uB825'} autoComplete="address-line2" /></Field></div>
+            <div className="form-row address-detail-row"><div className="field address-field"><span>{'\uC8FC\uC18C \uAC80\uC0C9'}</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onChange={(e) => update('region', e.target.value)} onClick={() => { if (!addressManualFallback) openAddressSearch(); }} onKeyDown={(event) => { if (!addressManualFallback && event.key === 'Enter') { event.preventDefault(); openAddressSearch(); } }} placeholder={addressManualFallback ? '\uC8FC\uC18C\uB97C \uC9C1\uC811 \uC785\uB825\uD574\uC8FC\uC138\uC694' : '\uC8FC\uC18C\uB97C \uAC80\uC0C9\uD574\uC8FC\uC138\uC694'} autoComplete="address-line1" readOnly={!addressManualFallback} aria-label={'\uC8FC\uC18C \uAC80\uC0C9'} /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label={'\uC8FC\uC18C \uAC80\uC0C9 \uC5F4\uAE30'}><Search size={18} /> {'\uC8FC\uC18C \uAC80\uC0C9'}</button></div></div><Field label={'\uC0C1\uC138\uC8FC\uC18C'} className="detail-address-field"><input ref={detailAddressInputRef} name="detailAddress" value={form.detailAddress} onChange={(e) => update('detailAddress', e.target.value)} placeholder={'\uB3D9\u00B7\uD638\uC218 \uB4F1 \uC0C1\uC138\uC8FC\uC18C \uC785\uB825'} autoComplete="address-line2" /></Field></div>
             <GiftProvisionNotice />
             <div className="consent-card">
               <div className="consent-card-header">
