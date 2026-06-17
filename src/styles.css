@@ -2329,6 +2329,10 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
   border-radius:16px !important;
 }
 
+.address-detail-row .address-search-row input[readonly]{
+  cursor:pointer;
+}
+
 @media (max-width:1100px){
   .phone-date-row,
   .address-detail-row{
