@@ -2255,24 +2255,49 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
 }
 
 .phone-date-row{
-  grid-template-columns:minmax(0,1.38fr) minmax(238px,.82fr);
+  grid-template-columns:minmax(0,1.26fr) minmax(244px,.8fr);
+  align-items:start;
+}
+
+.phone-date-row .phone-verify-field{
+  display:block;
 }
 
 .phone-date-row .phone-verify-box{
   min-width:0;
   margin:0;
-  padding:12px;
+  padding:4px 6px;
+  border-radius:16px;
 }
 
 .phone-date-row .phone-verify-actions{
-  grid-template-columns:minmax(112px,124px) minmax(0,1fr) minmax(96px,108px);
-  gap:10px;
+  grid-template-columns:minmax(104px,114px) minmax(70px,84px) minmax(92px,102px);
+  gap:8px;
 }
 
 .phone-date-row .phone-verify-actions button,
 .phone-date-row .phone-verify-actions input{
-  height:50px;
-  border-radius:14px;
+  height:40px;
+  border-radius:12px;
+}
+
+.phone-date-row .phone-verify-actions button{
+  padding:0 10px;
+  font-size:13px;
+  line-height:1.2;
+  font-weight:800;
+}
+
+.phone-date-row .phone-verify-actions input{
+  padding:0 10px;
+  font-size:13px;
+  text-align:center;
+}
+
+.phone-date-row .phone-verify-message{
+  margin:4px 2px 0;
+  font-size:11.5px;
+  line-height:1.35;
 }
 
 .phone-date-row .field,
@@ -2287,10 +2312,14 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
 
 .address-detail-row{
   grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr);
+  align-items:end;
 }
 
+.address-detail-row .field input,
 .detail-address-field input{
+  height:54px !important;
   margin-top:0 !important;
+  border-radius:16px !important;
 }
 
 @media (max-width:1100px){

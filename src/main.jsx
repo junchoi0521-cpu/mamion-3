@@ -738,7 +738,7 @@ function ApplySection({ onSubmitSuccess }) {
           <form onSubmit={submit}>
             <div className="form-row"><Field label="이름"><input name="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="이름을 입력해주세요" /></Field><Field label="연락처"><input name="phone" value={form.phone} onChange={(e) => update('phone', formatPhoneNumber(e.target.value))} placeholder="010-1234-5678" maxLength={13} /></Field></div>
             <div className="form-row phone-date-row">
-              <div className="phone-verify-box">
+              <Field label={'\uC778\uC99D\uBC88\uD638'} className="phone-verify-field"><div className="phone-verify-box">
                 <div className="phone-verify-actions">
                   <button type="button" onClick={requestPhoneCode} disabled={!form.phone || phoneVerification.sending || isPhoneVerified}>
                     {phoneVerification.sending ? '\uBC1C\uC1A1 \uC911..' : isPhoneVerified ? '\uC778\uC99D \uC644\uB8CC' : '\uC778\uC99D\uBC88\uD638 \uBC1B\uAE30'}
@@ -749,7 +749,7 @@ function ApplySection({ onSubmitSuccess }) {
                   </button>
                 </div>
                 {phoneVerification.message && <p className={`phone-verify-message ${phoneVerification.type}`}>{phoneVerification.message}</p>}
-              </div>
+              </div></Field>
               <Field label={'\uCD9C\uC0B0\uC608\uC815\uC77C'} className="due-date-field"><input name="dueDate" type="date" value={form.dueDate} onChange={(e) => setForm((prev) => ({ ...prev, dueDate: e.target.value, weeks: calculateWeeks(e.target.value) }))} />{form.weeks && <div className="week-mini-text">{'\uD604\uC7AC \uC784\uC2E0 \uC8FC\uC218 '}<strong>{form.weeks}</strong></div>}</Field>
             </div>
             <div className="form-row address-detail-row"><div className="field address-field"><span>{'\uC8FC\uC18C \uAC80\uC0C9/\uC9C1\uC811 \uC785\uB825'}</span><div className="address-search-row address-direct-row"><input ref={addressInputRef} name="region" type="search" value={form.region} onChange={(e) => update('region', e.target.value)} placeholder={'\uC8FC\uC18C\uB97C \uAC80\uC0C9\uD558\uAC70\uB098 \uC785\uB825\uD574\uC8FC\uC138\uC694'} autoComplete="address-line1" /><button className="address-search-btn" type="button" onClick={openAddressSearch} aria-label={'\uC8FC\uC18C \uAC80\uC0C9 \uC5F4\uAE30'}><Search size={18} /> {'\uC8FC\uC18C \uAC80\uC0C9'}</button></div><small className="address-help-text">{'\uC608: \uC11C\uC6B8 \uAC15\uB0A8\uAD6C \uD14C\uD5E4\uB780\uB85C 123'}</small></div><Field label={'\uC0C1\uC138\uC8FC\uC18C'} className="detail-address-field"><input ref={detailAddressInputRef} name="detailAddress" value={form.detailAddress} onChange={(e) => update('detailAddress', e.target.value)} placeholder={'\uB3D9\u00B7\uD638\uC218 \uB4F1 \uC0C1\uC138\uC8FC\uC18C \uC785\uB825'} autoComplete="address-line2" /></Field></div>
