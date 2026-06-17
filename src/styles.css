@@ -2315,9 +2315,15 @@ button,input{font-family:inherit}button{cursor:pointer}a{text-decoration:none;co
   align-items:end;
 }
 
+.address-detail-row .address-search-row{
+  align-items:stretch;
+}
+
+.address-detail-row .address-search-row input,
+.address-detail-row .address-search-row button,
 .address-detail-row .field input,
 .detail-address-field input{
-  height:54px !important;
+  height:56px !important;
   margin-top:0 !important;
   border-radius:16px !important;
 }
